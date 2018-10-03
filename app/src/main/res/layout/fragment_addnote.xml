@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/add_note_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f8f8f8">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/add_note_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="-1dp">
+
+        <Button
+            android:id="@+id/button_cancel"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/transparent"
+            android:text="取消"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_select_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="39dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:background="@android:color/transparent"
+            android:text="選擇模板"
+            android:textColor="@android:color/background_light"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="75dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="2dp"
+            android:background="@android:color/transparent"
+            android:text="下一步"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="#2a3a54"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="▾"
+            android:textColor="@android:color/background_light"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_select_mode"
+            app:layout_constraintStart_toEndOf="@+id/button_select_mode"
+            app:layout_constraintTop_toTopOf="@+id/button_select_mode"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/button_mode_conference"
+            android:layout_width="180dp"
+            android:layout_height="280dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/background_mode_conference"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_mode_diary"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+        <ImageButton
+            android:id="@+id/button_mode_list"
+            android:layout_width="180dp"
+            android:layout_height="280dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_mode_todolist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/button_mode_account"
+            app:layout_constraintTop_toBottomOf="@+id/button_mode_conference" />
+
+        <ImageButton
+            android:id="@+id/button_mode_account"
+            android:layout_width="180dp"
+            android:layout_height="280dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_mode_account"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_mode_diary" />
+
+        <ImageButton
+            android:id="@+id/button_mode_diary"
+            android:layout_width="180dp"
+            android:layout_height="280dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/backgroung_mode_diary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="日記"
+            app:layout_constraintEnd_toEndOf="@+id/button_mode_diary"
+            app:layout_constraintStart_toStartOf="@+id/button_mode_diary"
+            app:layout_constraintTop_toTopOf="@+id/button_mode_diary" />
+
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="會議"
+            app:layout_constraintEnd_toEndOf="@+id/button_mode_conference"
+            app:layout_constraintStart_toStartOf="@+id/button_mode_conference"
+            app:layout_constraintTop_toTopOf="@+id/button_mode_conference" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="記帳"
+            app:layout_constraintEnd_toEndOf="@+id/button_mode_account"
+            app:layout_constraintStart_toStartOf="@+id/button_mode_account"
+            app:layout_constraintTop_toTopOf="@+id/button_mode_account" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="清單"
+            app:layout_constraintEnd_toEndOf="@+id/button_mode_list"
+            app:layout_constraintStart_toStartOf="@+id/button_mode_list"
+            app:layout_constraintTop_toTopOf="@+id/button_mode_list" />
+    </android.support.constraint.ConstraintLayout>
+
+    <!--<android.support.design.widget.BottomNavigationView-->
+        <!--android:id="@+id/add_note_bottom_navigation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:background="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:menu="@menu/add_note_bottom_navigation_item" />-->
+
+</android.support.constraint.ConstraintLayout>

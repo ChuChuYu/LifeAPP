@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="主頁"
+        android:icon="@drawable/weather_sun"
+        android:id="@+id/main_main" />
+
+    <item
+        android:title="地圖"
+        android:icon="@drawable/button_map"
+        android:id="@+id/main_map" />
+
+    <item
+        android:title="發文"
+        android:icon="@drawable/bottom_navigation_add_note"
+        android:id="@+id/main_post" />
+
+    <item
+        android:title="日曆"
+        android:icon="@drawable/button_calendar"
+        android:id="@+id/main_calendar" />
+
+    <item
+        android:title="設定"
+        android:icon="@drawable/button_setting"
+        android:id="@+id/main_setting" />
+
+</menu>

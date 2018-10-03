@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="文字"
+        android:icon="@drawable/mind_selected"
+        android:id="@+id/add_note_text" />
+
+    <item
+        android:title="圖庫"
+        android:icon="@drawable/mind_selected"
+        android:id="@+id/add_note_gallery" />
+
+    <item
+        android:title="照相"
+        android:icon="@drawable/mind_selected"
+        android:id="@+id/add_note_shot" />
+
+    <item
+        android:title="錄影"
+        android:icon="@drawable/mind_selected"
+        android:id="@+id/add_note_video" />
+
+    <item
+        android:title="錄音"
+        android:icon="@drawable/mind_selected"
+        android:id="@+id/add_note_audio" />
+
+
+</menu>
