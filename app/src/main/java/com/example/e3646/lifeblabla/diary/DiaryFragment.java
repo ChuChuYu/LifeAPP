@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +39,10 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     private ImageView mPicture;
     private Note mNote;
 
+    private RecyclerView mTagRecyclerView;
+    private DiaryAdapter mDiaryAdapter;
+    private ImageView mTagBackground;
+
     public DiaryFragment(Note note) {
         mNote = note;
 
@@ -51,11 +57,25 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mCreatedTime = (TextView)view.findViewById(R.id.diary_detail_created_time);
         mTitle = (TextView) view.findViewById(R.id.diary_detail_title);
         mText = (TextView)view.findViewById(R.id.diary_detail_text);
+        mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
 
         setNoteData(mNote);
 //        mCreatedTime.setText(mNote.getmCreatedTime());
 //        mTitle.setText(mNote.getmTitle());
 //        mText.setText(mNote.getmText());
+
+        if (mNote.getmTag() != null ) {
+            mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mTagRecyclerView.setLayoutManager(linearLayoutManager);
+            mDiaryAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagRecyclerView.setAdapter(mDiaryAdapter);
+        } else {
+            mTagBackground.setVisibility(View.GONE);
+//            mTagRecyclerView.setVisibility(View.GONE);
+
+        }
 
 
         mPicture = (ImageView)view.findViewById(R.id.diary_picture);

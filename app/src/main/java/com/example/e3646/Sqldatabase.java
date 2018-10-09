@@ -10,6 +10,8 @@ import android.util.Log;
 import com.example.e3646.lifeblabla.object.Note;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Sqldatabase extends SQLiteOpenHelper {
 
@@ -81,7 +83,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_UPDATEDTIME, note.getmUpdatedTime());
         contentValues.put(NOTE_PLACE, note.getmPlace());
         contentValues.put(NOTE_CLASSIFICATION, note.getmClassification());
-//        contentValues.put(NOTE_TAG, note.getmTag());
+        contentValues.put(NOTE_TAG, String.valueOf(note.getmTag()));
         contentValues.put(NOTE_PICTURE, note.getmPicture());
         contentValues.put(NOTE_VIDEO, note.getVideo());
         contentValues.put(NOTE_AUDIO, note.getmAudio());
@@ -121,6 +123,23 @@ public class Sqldatabase extends SQLiteOpenHelper {
                 note.setClassification(cursor.getString(cursor.getColumnIndex(NOTE_CLASSIFICATION)));
 
                 note.setmPicture(cursor.getString(cursor.getColumnIndex(NOTE_PICTURE)));
+
+                if (cursor.getString(cursor.getColumnIndex(NOTE_TAG)) != null) {
+                    ArrayList<String> tagList = new ArrayList<String>(Arrays.asList(cursor.getString(cursor.getColumnIndex(NOTE_TAG)).split(",")));
+                    ArrayList<String> tagListFinal = new ArrayList<String>();
+
+                    for (int tagI = 0; tagI < tagList.size(); tagI ++) {
+                        String tag;
+
+                        if (tagList.get(tagI) != null) {
+                            tag = tagList.get(tagI).replaceAll("\\p{Punct}","").toString();
+                        tagListFinal.add(tag);
+                        }
+
+                    }
+
+                    note.setmTag(tagListFinal);
+                }
 
                 note.setmMind(cursor.getString(cursor.getColumnIndex(NOTE_MIND)));
                 note.setmWeather(cursor.getString(cursor.getColumnIndex(NOTE_WEATHER)));

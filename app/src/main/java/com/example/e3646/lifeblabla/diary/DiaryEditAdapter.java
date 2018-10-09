@@ -165,7 +165,7 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
         return numOfCh;
     }
 
-    private ArrayList<String> TagList() {
+    public ArrayList<String> TagList() {
         return this.mTagList;
     }
 }

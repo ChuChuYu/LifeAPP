@@ -183,6 +183,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                     sql.updateNotes(mNote.getmId(), mNote);
 //                    mPresenter.updateDiaryData(mNote.getmId(), mNote);
                     mPresenter.completeEditDiary();
+
+
                 }
             }
         });
@@ -370,6 +372,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             Log.d("set image path", ": " + mImagePath);
             mNote.setmPicture(mImagePath);
+
+            mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNote.setmMind(mMindNum);
             mNote.setmWeather(mWeatherNum);
