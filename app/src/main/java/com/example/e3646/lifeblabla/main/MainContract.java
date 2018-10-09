@@ -1,5 +1,7 @@
 package com.example.e3646.lifeblabla.main;
 
+import android.content.Context;
+
 import com.example.e3646.BasePresenter;
 import com.example.e3646.BaseView;
 
@@ -24,17 +26,24 @@ public interface MainContract {
 
         void showAccountUI();
 
+        void refreshList();
+
+        void setIsListMode(boolean isListMode);
+
+        void hideUI();
 
     }
 
     interface Presenter extends BasePresenter {
+
+        void setContext(Context context);
 
         void switchToGridLayout();
 
         void switchToListLayout();
 
 
-        void showDiaryFragment();
+        void showDiaryFragment(int i);
 
         void showConferenceFragment();
 
@@ -43,6 +52,12 @@ public interface MainContract {
         void showTodolistFragment();
 
         void showAccountFragment();
+
+        void refreshList();
+
+        void takeNoteList();
+
+        void takeNoteListPosition(int i);
 
 
     }

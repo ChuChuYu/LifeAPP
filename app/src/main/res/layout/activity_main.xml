@@ -5,15 +5,16 @@
     android:id="@+id/whole_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f3f3f3"
+    android:background="@drawable/background_main"
     tools:context=".mainactivity.MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="59dp"
+        android:layout_height="79dp"
         android:layout_marginBottom="8dp"
-        android:background="#2a3a54"
+        android:background="#783b3b3b"
+        android:fitsSystemWindows="false"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,15 +26,33 @@
         app:titleMarginStart="60dp"
         app:titleTextColor="@android:color/background_light" />
 
+    <EditText
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="80dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/background_search"
+        android:hint=""
+        android:inputType="text"
+        android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintEnd_toStartOf="@+id/button_add_notes"
+        app:layout_constraintStart_toStartOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
-        android:layout_height="515dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:layout_marginTop="79dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+        app:layout_constraintTop_toTopOf="@+id/toolbar">
 
     </android.support.constraint.ConstraintLayout>
 
@@ -50,13 +69,12 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/main_bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginTop="617dp"
-        android:background="@android:color/background_light"
+        android:layout_height="50dp"
+        android:background="#3B3B3B"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
         app:menu="@menu/bottom_navigation_item" />
 
     <ToggleButton
@@ -64,8 +82,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
         android:button="@drawable/button_grid_layout"
         android:scaleType="centerCrop"
@@ -77,29 +94,13 @@
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
 
-    <TextView
-        android:id="@+id/textView14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="LifeBlaBla"
-        android:textColor="@android:color/background_light"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageButton
         android:id="@+id/button_add_notes"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
@@ -108,19 +109,87 @@
         app:layout_constraintVertical_bias="0.49"
         app:srcCompat="@drawable/button_plus" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="59dp"
-        android:background="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@android:color/transparent" />
+    <!--<ImageView-->
+        <!--android:id="@+id/imageView3"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="43dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginTop="59dp"-->
+        <!--android:background="#783b3b3b"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"-->
+        <!--app:layout_constraintVertical_bias="0.0"-->
+        <!--app:srcCompat="@android:color/transparent" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView8"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:layout_marginStart="56dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:text="全部"-->
+        <!--android:textColor="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/imageView3"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/imageView3"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/imageView3" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView34"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:text="日記"-->
+        <!--android:textColor="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView8"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textView8"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView8" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView35"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:text="隨手"-->
+        <!--android:textColor="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView34"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textView34"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView34" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView36"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:text="會議"-->
+        <!--android:textColor="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView35"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textView35"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView35" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView37"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:text="記帳"-->
+        <!--android:textColor="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView36"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textView36"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView36" />-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView38"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="24dp"-->
+        <!--android:text="待辦"-->
+        <!--android:textColor="@android:color/background_light"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/textView37"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/textView37"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/textView37" />-->
 
 </android.support.constraint.ConstraintLayout>

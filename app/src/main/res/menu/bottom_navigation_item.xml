@@ -3,7 +3,7 @@
 
     <item
         android:title="主頁"
-        android:icon="@drawable/weather_sun"
+        android:icon="@drawable/button_home"
         android:id="@+id/main_main" />
 
     <item

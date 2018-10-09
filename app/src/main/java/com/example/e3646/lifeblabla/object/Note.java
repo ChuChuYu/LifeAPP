@@ -9,7 +9,7 @@ public class Note {
     private String mText;
     private String mCreatedTime;
     private String mUpdatedTime;
-    private ArrayList<Tag> mTag;
+    private ArrayList<String> mTag;
 
     private String mClassification;
     private String mPlace;
@@ -85,11 +85,11 @@ public class Note {
         this.mUpdatedTime = mUpdatedTime;
     }
 
-    public ArrayList<Tag> getmTag() {
+    public ArrayList<String> getmTag() {
         return mTag;
     }
 
-    public void setmTag(ArrayList<Tag> mTag) {
+    public void setmTag(ArrayList<String> mTag) {
         this.mTag = mTag;
     }
 
@@ -117,7 +117,7 @@ public class Note {
         this.mPicture = mPicture;
     }
 
-    public String getmVideo() {
+    public String getVideo() {
         return mVideo;
     }
 

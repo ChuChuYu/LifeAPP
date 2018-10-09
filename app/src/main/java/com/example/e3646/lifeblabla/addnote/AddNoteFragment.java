@@ -20,6 +20,7 @@ import com.example.e3646.lifeblabla.account.AccountEditFragment;
 import com.example.e3646.lifeblabla.account.AccountEditPresenter;
 import com.example.e3646.lifeblabla.diary.DiaryEditFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditPresenter;
+import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.jot.JotEditFragment;
 import com.example.e3646.lifeblabla.jot.JotEditPresenter;
 import com.example.e3646.lifeblabla.main.MainFragment;
@@ -39,7 +40,6 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
 
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
-    private ModeSelectionFragment mModeSelectionFragment;
 
     private DiaryEditFragment mDiaryEditFragment;
     private DiaryEditPresenter mDiaryEditPresenter;
@@ -68,7 +68,7 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
 
         mAddNoteHeader = (ConstraintLayout)view.findViewById(R.id.add_note_header);
 
-        mModeSelectionFragment = new ModeSelectionFragment(this);
+//        mModeSelectionFragment = new ModeSelectionFragment(this);
 
         mDiaryModeButton = view.findViewById(R.id.button_mode_diary);
         mDiaryModeButton.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +91,7 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
         mAccountModeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goCreateAccount();
+//                mPresenter.goCreateAccount();
 
             }
         });
@@ -141,7 +141,7 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
             public void onClick(View view) {
 
 
-                mModeSelectionFragment.show(getFragmentManager(), null);
+//                mModeSelectionFragment.show(getFragmentManager(), null);
 
             }
         });
@@ -162,16 +162,14 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
 
     @Override
     public void goCreateDiary() {
-
-        mDiaryEditFragment = new DiaryEditFragment();
-        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, null, null, null);
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.replace(R.id.add_note_container, mDiaryEditFragment, "CREATE DIARY")
-//                .hide(this)
-//                .show(mDiaryCreateFragment)
-                .addToBackStack(null)
-                .commit();
+//
+//        mDiaryEditFragment = new DiaryEditFragment(true);
+//        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, null, null, null,mPresenter, true);
+//
+//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+//        transaction.replace(R.id.add_note_container, mDiaryEditFragment, "CREATE DIARY")
+//                .addToBackStack(null)
+//                .commit();
 
     }
 
@@ -220,6 +218,14 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
     @Override
     public void getModeSelection() {
         mModeSelection = mSelectModeButton.getText().toString();
+    }
+
+    @Override
+    public void hideUI() {
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(AddNoteFragment.this)
+                .commit();
     }
 
 
