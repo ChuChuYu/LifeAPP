@@ -23,8 +23,11 @@ public class DiaryAdapter extends RecyclerView.Adapter {
     private ArrayList<String> mTagList;
 
     public DiaryAdapter(ArrayList<String> tagList) {
+
         mTagList = tagList;
+        Log.d("tag list in adapter", ": " + mTagList.size());
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -61,8 +64,6 @@ public class DiaryAdapter extends RecyclerView.Adapter {
         tagItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
 
         tagItemViewHolder.mDeleteButton.setVisibility(View.INVISIBLE);
-
-
 
     }
 

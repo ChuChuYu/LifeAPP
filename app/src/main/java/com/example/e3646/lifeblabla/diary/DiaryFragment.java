@@ -64,14 +64,14 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 //        mTitle.setText(mNote.getmTitle());
 //        mText.setText(mNote.getmText());
 
-        if (mNote.getmTag() != null ) {
+        if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("")) {
             mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
             mDiaryAdapter = new DiaryAdapter(mNote.getmTag());
             mTagRecyclerView.setAdapter(mDiaryAdapter);
-        } else {
+        } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("")) {
             mTagBackground.setVisibility(View.GONE);
 //            mTagRecyclerView.setVisibility(View.GONE);
 

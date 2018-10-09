@@ -166,6 +166,7 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     }
 
     public ArrayList<String> TagList() {
+        Log.d("tag list in edit", ": " + mTagList.size());
         return this.mTagList;
     }
 }

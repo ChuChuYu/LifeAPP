@@ -62,6 +62,8 @@ public class MainAdapter extends RecyclerView.Adapter {
         private TextView mText;
         private ImageView mType;
         private ImageView mImage;
+        private ImageView mTagBackground;
+        private TextView mTagText;
 
         public MainListItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +72,8 @@ public class MainAdapter extends RecyclerView.Adapter {
             mText = (TextView)itemView.findViewById(R.id.list_item_text);
             mType = (ImageView)itemView.findViewById(R.id.list_item_type);
             mImage = (ImageView)itemView.findViewById(R.id.list_item_image);
+            mTagBackground = (ImageView)itemView.findViewById(R.id.tag_backgournd);
+            mTagText = (TextView)itemView.findViewById(R.id.tag_text);
         }
     }
 
@@ -86,6 +90,11 @@ public class MainAdapter extends RecyclerView.Adapter {
                 mListener.onClick(view);
             }
         });
+
+        if (i == 0) {
+            mainListItemViewHolder.mTagText.setText(mNoteList.get(i).getmTag().get(i));
+        }
+
 
         if (mNoteList != null && mNoteList.get(mNoteList.size()-i-1) != null) {
 
