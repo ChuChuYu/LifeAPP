@@ -72,7 +72,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             mText = (TextView)itemView.findViewById(R.id.list_item_text);
             mType = (ImageView)itemView.findViewById(R.id.list_item_type);
             mImage = (ImageView)itemView.findViewById(R.id.list_item_image);
-            mTagBackground = (ImageView)itemView.findViewById(R.id.tag_backgournd);
+            mTagBackground = (ImageView)itemView.findViewById(R.id.main_tag_backgroung);
             mTagText = (TextView)itemView.findViewById(R.id.tag_text);
         }
     }
@@ -91,8 +91,14 @@ public class MainAdapter extends RecyclerView.Adapter {
             }
         });
 
-        if (i == 0) {
-            mainListItemViewHolder.mTagText.setText(mNoteList.get(i).getmTag().get(i));
+        if (mNoteList.get(mNoteList.size()-i-1).getmTag()!= null && !mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).equals("")) {
+            mainListItemViewHolder.mTagText.setText(mNoteList.get(mNoteList.size()-i-1).getmTag().get(0));
+            ViewGroup.LayoutParams backgorundParams = mainListItemViewHolder.mTagBackground.getLayoutParams();
+            backgorundParams.width = mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).length() * 30 + 20;
+            mainListItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
+        } else {
+            mainListItemViewHolder.mTagText.setVisibility(View.INVISIBLE);
+            mainListItemViewHolder.mTagBackground.setVisibility(View.INVISIBLE);
         }
 
 

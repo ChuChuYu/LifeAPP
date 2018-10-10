@@ -1,5 +1,7 @@
 package com.example.e3646.lifeblabla.mainactivity;
 
+import android.content.Context;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -15,6 +17,7 @@ import com.example.e3646.lifeblabla.calendar.CalendarFragment;
 import com.example.e3646.lifeblabla.calendar.CalendarPresenter;
 import com.example.e3646.lifeblabla.conference.ConferenceFragment;
 import com.example.e3646.lifeblabla.conference.ConferencePresenter;
+import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditPresenter;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
@@ -39,6 +42,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainActPresenter implements MainActContract.Presenter {
 
     private MainActContract.View mMainActView;
+    private Context mContext;
 
     private MainFragment mMainFragment;
     private DiaryFragment mDiaryFragment;
@@ -142,20 +146,6 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void setViewandPresenter() {
 
-//        mDiaryFragment = new DiaryFragment();
-//        if (mDiaryPresenter == null) {
-//            mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, this);
-//        }
-
-        mConferenceFragment = new ConferenceFragment();
-        if (mConferencePresenter == null) {
-            mConferencePresenter = new ConferencePresenter();
-        }
-
-//        mJotFragment = new JotFragment();
-//        mAccountFragment = new AccountFragment();
-//        mTodolistFragment = new TodolistFragment();
-//        mDiaryEditFragment = new DiaryEditFragment();
 
     }
 
@@ -366,6 +356,41 @@ public class MainActPresenter implements MainActContract.Presenter {
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
+    }
+
+    @Override
+    public void showBottomSheet() {
+        BottomSheetDialogTemplateFragment bottomSheetDialogFragment = new BottomSheetDialogTemplateFragment(this);
+
+        bottomSheetDialogFragment.show(mFragmentManager, bottomSheetDialogFragment.getTag());
+
+
+    }
+
+    @Override
+    public void hideComponent() {
+        mMainActView.hideToolBar();
+        mMainActView.hideToggleButton();
+        mMainActView.hideBottomNavigationBar();
+        mMainActView.hideBottomNavigationBar();
+
+    }
+
+    @Override
+    public void goDiaryEdit() {
+
+        if(mDiaryEditFragment == null) {
+            mDiaryEditFragment = new DiaryEditFragment(true, null);
+        }
+        if (mDiaryEditPresenter == null) {
+            mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, null, true);
+        }
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.add(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
+                .show(mDiaryEditFragment)
+                .hide(mMainFragment)
+                .commit();
     }
 
     @Override

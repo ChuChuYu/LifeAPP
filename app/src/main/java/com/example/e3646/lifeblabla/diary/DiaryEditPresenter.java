@@ -66,8 +66,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
 
 //        mDiaryEditView.takeDiaryData();
         mDiaryEditView.hideUI();
-
-
     }
 
     @Override
@@ -82,9 +80,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         mNote = note;
         Sqldatabase sql = new Sqldatabase(mContext);
         sql.insert(mNote);
-
-        Log.d("note", "title: " + mNoteList.get(0).getmTitle());
-
     }
 
     @Override
@@ -110,7 +105,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
     public void completeCreating() {
         mDiaryEditView.takeDiaryData();
         mDiaryEditView.hideUI();
-        mAddNotePresenter.hideUI();
         mMainActPresenter.refreshMainFragment();
     }
 
@@ -134,15 +128,11 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
     public void setContext(Context context) {
 
         this.mContext = context;
-
     }
 
     @Override
     public void setNoteList(Note note) {
         this.mNote = note;
-        Log.d("edit diary", "note title: " + mNote.getmTitle());
         mDiaryEditView.setNote(mNote);
-
-
     }
 }

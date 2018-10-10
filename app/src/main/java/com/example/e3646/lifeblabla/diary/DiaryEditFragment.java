@@ -363,7 +363,11 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             mNote = new Note();
             mNote.setmId(id);
-            mNote.setmTitle(mDiaryTitle.getText().toString());
+            if (mDiaryTitle.getText().toString() != null && !mDiaryTitle.getText().toString().equals("")) {
+                mNote.setmTitle(mDiaryTitle.getText().toString());
+            } else {
+                mNote.setmTitle("這是一則日記");
+            }
             mNote.setmText(mDiaryText.getText().toString());
             mNote.setmCreatedTime(currentTime);
             mNote.setmUpdatedTime("");

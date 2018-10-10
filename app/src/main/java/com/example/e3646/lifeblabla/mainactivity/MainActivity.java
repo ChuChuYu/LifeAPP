@@ -10,6 +10,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.BottomSheetDialog;
+import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -32,6 +34,7 @@ import android.widget.Toolbar;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.account.AccountFragment;
 import com.example.e3646.lifeblabla.conference.ConferenceFragment;
+import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.main.MainAdapter;
@@ -143,11 +146,14 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                     case R.id.main_post:
 
 
-                        mPresenter.goAddNotePost();
+//                        mPresenter.goAddNotePost();
+//
+//                        hideBottomNavigationBar();
+//                        hideToggleButton();
 
-                        hideBottomNavigationBar();
-                        hideToggleButton();
 
+
+                        mPresenter.showBottomSheet();
 
                         break;
                     case R.id.main_calendar:

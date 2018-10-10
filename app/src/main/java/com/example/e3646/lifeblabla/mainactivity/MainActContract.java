@@ -89,5 +89,11 @@ public interface MainActContract {
 
         void refreshMainFragment();
 
+        void showBottomSheet();
+
+        void hideComponent();
+
+        void goDiaryEdit();
+
     }
 }

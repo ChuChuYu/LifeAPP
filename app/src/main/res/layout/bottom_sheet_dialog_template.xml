@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_transparent"
+    android:orientation="vertical"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp">
+
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_transparent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="398dp"
+            android:layout_height="242dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/background_bottom_sheet" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="選擇筆記類型"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <ImageButton
+            android:id="@+id/button_type_conference"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_account"
+            app:layout_constraintStart_toEndOf="@+id/button_type_account"
+            app:layout_constraintTop_toTopOf="@+id/button_type_account"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageButton
+            android:id="@+id/button_type_account"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_diary"
+            app:layout_constraintStart_toEndOf="@+id/button_type_diary"
+            app:layout_constraintTop_toTopOf="@+id/button_type_diary"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageButton
+            android:id="@+id/button_type_diary"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="48dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2"
+            app:layout_constraintTop_toTopOf="@+id/imageView2"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageButton
+            android:id="@+id/button_type_list"
+            android:layout_width="80dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_conference"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/button_type_conference"
+            app:layout_constraintTop_toTopOf="@+id/button_type_conference"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageView
+            android:id="@+id/imageView26"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_type_diary"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_diary"
+            app:layout_constraintStart_toStartOf="@+id/button_type_diary"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageView
+            android:id="@+id/imageView27"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_type_account"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_account"
+            app:layout_constraintStart_toStartOf="@+id/button_type_account"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageView
+            android:id="@+id/imageView28"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_type_list"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_list"
+            app:layout_constraintStart_toStartOf="@+id/button_type_list"
+            app:srcCompat="@drawable/background_tag" />
+
+        <ImageView
+            android:id="@+id/imageView29"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/button_type_conference"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_conference"
+            app:layout_constraintStart_toStartOf="@+id/button_type_conference"
+            app:srcCompat="@drawable/background_tag" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="日記"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView26"
+            app:layout_constraintEnd_toEndOf="@+id/imageView26"
+            app:layout_constraintStart_toStartOf="@+id/imageView26"
+            app:layout_constraintTop_toTopOf="@+id/imageView26" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text="記帳"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView27"
+            app:layout_constraintEnd_toEndOf="@+id/imageView27"
+            app:layout_constraintStart_toStartOf="@+id/imageView27"
+            app:layout_constraintTop_toTopOf="@+id/imageView27" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="會議"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView29"
+            app:layout_constraintEnd_toEndOf="@+id/imageView29"
+            app:layout_constraintStart_toStartOf="@+id/imageView29"
+            app:layout_constraintTop_toTopOf="@+id/imageView29" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:text="清單"
+            android:textColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView28"
+            app:layout_constraintEnd_toEndOf="@+id/imageView28"
+            app:layout_constraintStart_toStartOf="@+id/imageView28"
+            app:layout_constraintTop_toTopOf="@+id/imageView28" />
+
+        <ImageView
+            android:id="@+id/imageView32"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_diary"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_diary"
+            app:layout_constraintStart_toStartOf="@+id/button_type_diary"
+            app:layout_constraintTop_toTopOf="@+id/button_type_diary"
+            app:srcCompat="@drawable/tyep_diary" />
+
+        <ImageView
+            android:id="@+id/imageView34"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_account"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_account"
+            app:layout_constraintStart_toStartOf="@+id/button_type_account"
+            app:layout_constraintTop_toTopOf="@+id/button_type_account"
+            app:srcCompat="@drawable/type_account" />
+
+        <ImageView
+            android:id="@+id/imageView35"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_conference"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_conference"
+            app:layout_constraintStart_toStartOf="@+id/button_type_conference"
+            app:layout_constraintTop_toTopOf="@+id/button_type_conference"
+            app:srcCompat="@drawable/type_conference" />
+
+        <ImageView
+            android:id="@+id/imageView36"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_type_list"
+            app:layout_constraintEnd_toEndOf="@+id/button_type_list"
+            app:layout_constraintStart_toStartOf="@+id/button_type_list"
+            app:layout_constraintTop_toTopOf="@+id/button_type_list"
+            app:srcCompat="@drawable/type_list" />
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.design.widget.CoordinatorLayout>
