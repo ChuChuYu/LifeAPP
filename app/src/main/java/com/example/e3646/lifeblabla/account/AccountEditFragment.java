@@ -46,19 +46,19 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 //        mAccountAddAdapter = new AccountAddAdapter(ACCOUNT_SIZE);
 //        mAccountAddRecyclerView.setAdapter(mAccountAddAdapter);
 
-        mAddButton = view.findViewById(R.id.button_add_account_item);
-        mAddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Log.d("add account button", "click1: " + ACCOUNT_SIZE);
-                ACCOUNT_SIZE += 1;
-                mAccountAddAdapter.setACCOUNTNUMBER(ACCOUNT_SIZE);
-                mAccountAddAdapter.notifyDataSetChanged();
-
-                Log.d("add account button", "click2: " + ACCOUNT_SIZE);
-            }
-        });
+//        mAddButton = view.findViewById(R.id.button_add_account_item);
+//        mAddButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                Log.d("add account button", "click1: " + ACCOUNT_SIZE);
+//                ACCOUNT_SIZE += 1;
+//                mAccountAddAdapter.setACCOUNTNUMBER(ACCOUNT_SIZE);
+//                mAccountAddAdapter.notifyDataSetChanged();
+//
+//                Log.d("add account button", "click2: " + ACCOUNT_SIZE);
+//            }
+//        });
 
         return view;
     }

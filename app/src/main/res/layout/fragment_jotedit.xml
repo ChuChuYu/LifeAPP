@@ -81,7 +81,7 @@
         app:srcCompat="@drawable/images" />
 
     <EditText
-        android:id="@+id/diary_text"
+        android:id="@+id/diary_detail_text"
         android:layout_width="351dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"

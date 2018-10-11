@@ -23,27 +23,24 @@ public interface MainActContract {
 
         void hideToolBar();
 
+        void hideAddNoteButton();
+
         void showBottomNaviagtion();
 
         void showToggleButton();
 
+        void showToolBar();
+
+        void showAddNoteButton();
+
         void goDiaryDetail();
-
-        void goConferenceDetail();
-
-        void goJotDetail();
-
-        void goAccountDetail();
-
-        void goTodolistDetail();
-
-        void goEditDiary();
-
 
 
     }
 
     interface Presenter extends BasePresenter {
+
+        void init();
 
         void showMainFragment();
 
@@ -51,30 +48,33 @@ public interface MainActContract {
 
         void switchToListLayout();
 
-        void setViewandPresenter();
-
-        void showBottomNavigation();
-
-        void showToggleButton();
+        void backToMain();
 
         void goDiaryDetail();
 
-        void goConferenceDetail();
+        void goMain();
 
-        void goJotDetail();
+        void goMap();
 
-        void goAccountDetail();
+        void goCalendar();
 
-        void goTodolistDetail();
+        void gosetting();
 
-        void goEditDiary();
-
-        void goAddNotePost();
-
-        void completeEdit(ArrayList<Note> noteList);
+        void completeEdit();
 
         void cancelEdit();
 
+        void hideFragment(Fragment fragment);
+
+        void refreshMainFragment();
+
+        void showBottomSheet();
+
+        void hideComponent();
+
+        void goDiaryEdit();
+
+        void refreshList();
 
     }
 }

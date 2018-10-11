@@ -1,6 +1,9 @@
 package com.example.e3646.lifeblabla.main;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.view.menu.MenuView;
@@ -13,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.object.Note;
 
@@ -31,6 +35,9 @@ public class MainAdapter extends RecyclerView.Adapter {
         this.mContext = context;
         this.mNoteList = noteList;
         getRandomHeight(30);
+
+        Sqldatabase sql = new Sqldatabase(mContext);
+        mNoteList = sql.getNotes();
 
     }
 
@@ -51,19 +58,30 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     public class MainListItemViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mCreatedTime;
         private TextView mTitle;
+        private TextView mText;
+        private ImageView mType;
+        private ImageView mImage;
+        private ImageView mTagBackground;
+        private TextView mTagText;
 
         public MainListItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mCreatedTime = (TextView)itemView.findViewById(R.id.note_created_time);
             mTitle = (TextView)itemView.findViewById(R.id.note_title);
+            mText = (TextView)itemView.findViewById(R.id.list_item_text);
+            mType = (ImageView)itemView.findViewById(R.id.list_item_type);
+            mImage = (ImageView)itemView.findViewById(R.id.list_item_image);
+            mTagBackground = (ImageView)itemView.findViewById(R.id.main_tag_backgroung);
+            mTagText = (TextView)itemView.findViewById(R.id.tag_text);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+
+
+
 
         MainListItemViewHolder mainListItemViewHolder = (MainListItemViewHolder)viewHolder;
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -73,17 +91,47 @@ public class MainAdapter extends RecyclerView.Adapter {
             }
         });
 
-        if (mNoteList != null && mNoteList.get(i) != null) {
+        if (mNoteList.get(mNoteList.size()-i-1).getmTag()!= null && !mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).equals("")) {
+            mainListItemViewHolder.mTagText.setText(mNoteList.get(mNoteList.size()-i-1).getmTag().get(0));
+            ViewGroup.LayoutParams backgorundParams = mainListItemViewHolder.mTagBackground.getLayoutParams();
+            backgorundParams.width = mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).length() * 30 + 20;
+            mainListItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
+        } else {
+            mainListItemViewHolder.mTagText.setVisibility(View.INVISIBLE);
+            mainListItemViewHolder.mTagBackground.setVisibility(View.INVISIBLE);
+        }
 
-            ((MainListItemViewHolder) viewHolder).mCreatedTime.setText(mNoteList.get(i).getmCreatedTime());
-            ((MainListItemViewHolder) viewHolder).mTitle.setText(mNoteList.get(i).getmTitle());
+
+        if (mNoteList != null && mNoteList.get(mNoteList.size()-i-1) != null) {
+
+            viewHolder.itemView.setTag(mNoteList.size()-i-1);
+
+            mainListItemViewHolder.mTitle.setText(mNoteList.get(mNoteList.size()-i-1).getmTitle());
+            mainListItemViewHolder.mText.setText(mNoteList.get(mNoteList.size()-i-1).getmText());
+
+            if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("diary")) {
+                mainListItemViewHolder.mType.setImageResource(R.drawable.note_tag_diary);
+            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("account")) {
+                mainListItemViewHolder.mType.setImageResource(R.drawable.note_tag_account);
+            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("conference")) {
+                mainListItemViewHolder.mType.setImageResource(R.drawable.note_tag_conference);
+            }
+
+            if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null) {
+                Log.d("image path", ": " + mNoteList.get(mNoteList.size()-i-1).getmPicture());
+
+                Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
+                mainListItemViewHolder.mImage.setImageBitmap(bitmap);
+
+            }
 
         }
+
     }
 
     @Override
     public int getItemCount() {
-        return 30;
+        return  mNoteList.size();
     }
 
     @Override

@@ -22,6 +22,8 @@ public interface AddNoteContract {
 
         void getModeSelection();
 
+        void hideUI();
+
 
     }
 
@@ -38,6 +40,8 @@ public interface AddNoteContract {
         void goCreateTodolist();
 
         void backToMain();
+
+        void hideUI();
 
     }
 }

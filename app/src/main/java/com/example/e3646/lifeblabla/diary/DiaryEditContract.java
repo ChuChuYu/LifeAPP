@@ -1,5 +1,7 @@
 package com.example.e3646.lifeblabla.diary;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.widget.ImageView;
 
 import com.example.e3646.BasePresenter;
@@ -18,15 +20,46 @@ public interface DiaryEditContract {
 
         void takeDiaryData();
 
+        void updateNote();
+
+        void hideUI();
+
+        void setMindSelection(String num);
+
+        void setWeatherSelect(String num);
+
+        void setNote(Note note);
+
+        void getPhotoFromGallery();
+
+        void getPhotoFromCamera();
+
     }
 
     interface Presenter extends BasePresenter {
 
-        void completeEditDiary();
+        void cancelEditDiary(Fragment fragment);
 
-        void cancelEditDiary();
+        void saveDiaryData(ArrayList<Note> noteList, Note note);
 
-        void saveDiaryData(ArrayList<Note> noteList);
+        void updateDiaryData(String id, Note note);
+
+        void selectMind();
+
+        void selectWeather();
+
+        void completeCreating();
+
+        void completeEditing(Note note);
+
+        void setMindSelection(String num);
+
+        void setWeatherSelection(String num);
+
+        void setContext(Context context);
+
+        void setNoteList(Note note);
+
 
     }
 }

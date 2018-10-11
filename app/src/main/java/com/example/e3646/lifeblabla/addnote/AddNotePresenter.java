@@ -1,5 +1,6 @@
 package com.example.e3646.lifeblabla.addnote;
 
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.e3646.lifeblabla.R;
@@ -15,14 +16,19 @@ public class AddNotePresenter implements AddNoteContract.Presenter {
 
     private AddNoteContract.View mAddNoteView;
     private MainActPresenter mMainActPresenter;
+    private DiaryEditFragment mDiaryEditFragment;
+    private DiaryEditPresenter mDiaryEditPresenter;
 
     private JotEditFragment mJotEditFragment;
 
-    public AddNotePresenter(AddNoteContract.View addNoteView, MainActPresenter mainActPresenter) {
+    private FragmentManager mFragmentManager;
+
+    public AddNotePresenter(AddNoteContract.View addNoteView, MainActPresenter mainActPresenter, FragmentManager fragmentManager) {
 
         mAddNoteView = checkNotNull(addNoteView);
         mAddNoteView.setPresenter(this);
         mMainActPresenter = mainActPresenter;
+        mFragmentManager = fragmentManager;
 
     }
 
@@ -34,7 +40,13 @@ public class AddNotePresenter implements AddNoteContract.Presenter {
     @Override
     public void goCreateDiary() {
 
-        mAddNoteView.goCreateDiary();
+        mDiaryEditFragment = new DiaryEditFragment(true, null);
+        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, null, this, true);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.add_note_container, mDiaryEditFragment, "CREATE DIARY")
+                .addToBackStack(null)
+                .commit();
 
     }
 
@@ -65,9 +77,12 @@ public class AddNotePresenter implements AddNoteContract.Presenter {
     public void backToMain() {
 
         mAddNoteView.backToMain();
-        mMainActPresenter.showBottomNavigation();
-        mMainActPresenter.showToggleButton();
+        mMainActPresenter.backToMain();
 
+    }
 
+    @Override
+    public void hideUI() {
+        mAddNoteView.hideUI();
     }
 }
