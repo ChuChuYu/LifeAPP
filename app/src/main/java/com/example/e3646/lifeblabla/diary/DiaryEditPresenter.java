@@ -28,6 +28,7 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
     private DiaryEditContract.View mDiaryEditView;
     private FragmentManager mFragmentManager;
     private MainFragment mMainFragment;
+    private DiaryFragment mDiaryFragment;
     private DiaryEditFragment mDiaryEditFragment;
     private MainActPresenter mMainActPresenter;
     private DiaryPresenter mDiaryPresenter;
@@ -49,7 +50,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         mDiaryEditView.setPresenter(this);
         mFragmentManager = fragmentManager;
         mMainActPresenter = mainActPresenter;
-//        mDiaryEditFragment = diaryEditFragment;
         mDiaryPresenter = diaryPresenter;
         isCreating = iscreating;
         mAddNotePresenter = addNotePresenter;
@@ -61,16 +61,11 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
 
     }
 
-    @Override
-    public void completeEditDiary() {
-
-//        mDiaryEditView.takeDiaryData();
-        mDiaryEditView.hideUI();
-    }
 
     @Override
     public void cancelEditDiary(Fragment fragment) {
-        mMainActPresenter.hideFragment(fragment);
+        mDiaryEditView.hideUI();
+        mMainActPresenter.backToMain();
     }
 
     @Override
@@ -106,10 +101,23 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         mDiaryEditView.takeDiaryData();
         mDiaryEditView.hideUI();
         mMainActPresenter.refreshMainFragment();
+
     }
 
     @Override
-    public void completeEditing() {
+    public void completeEditing(Note note) {
+
+        mDiaryEditView.hideUI();
+
+        mDiaryFragment = new DiaryFragment(note);
+        mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, 0, null);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.whole_container, mDiaryFragment)
+                .show(mDiaryFragment)
+                .commit();
+
+//        mDiaryPresenter.refreshDetail(note);
 
     }
 

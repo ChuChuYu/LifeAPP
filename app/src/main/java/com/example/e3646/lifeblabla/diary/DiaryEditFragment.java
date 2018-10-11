@@ -63,7 +63,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class DiaryEditFragment extends Fragment implements DiaryEditContract.View {
 
     private DiaryEditContract.Presenter mPresenter;
-
     private Context mContext;
 
     private EditText mDiaryTitle;
@@ -94,9 +93,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private ArrayList<Note> mNoteList;
 
     private boolean isCreating;
-
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
-
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
     public DiaryEditFragment(boolean iscreating, Note note) {
 
         this.isCreating = iscreating;
@@ -111,10 +108,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         View view = inflater.inflate(R.layout.fragment_diaryedit, container, false);
 
         mContext = getContext();
-
         mDiaryTitle = (EditText)view.findViewById(R.id.diary_title10);
         mDiaryText = (EditText)view.findViewById(R.id.diary_detail_text);
-
 
         mTagRecyclerView = (RecyclerView)view.findViewById(R.id.diary_tag_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
@@ -122,7 +117,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
         mDiaryEditAdapter = new DiaryEditAdapter();
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
-
 
         mDiaryTag = (EditText)view.findViewById(R.id.diary_tag);
         mDiaryTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -134,7 +128,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
         });
 
-
         mPhoto = (ImageView)view.findViewById(R.id.diary_photo);
         mMinusButton = (ImageButton)view.findViewById(R.id.button_minus);
         mMinusButton.setOnClickListener(new View.OnClickListener() {
@@ -142,6 +135,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             public void onClick(View view) {
 
                 deletePhoto();
+
             }
         });
 
@@ -149,17 +143,17 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mPhoto.setVisibility(View.INVISIBLE);
             mMinusButton.setVisibility(View.INVISIBLE);
         } else if (!isCreating) {
-            if (mNote.getmPicture() != null) {
-                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
-                mPhoto.setImageBitmap(bitmap);
-                mMinusButton.setVisibility(View.VISIBLE);
-            }
+//            if (mNote.getmPicture() != null || !mNote.getmPicture().equals("")) {
+//                mMinusButton.setVisibility(View.VISIBLE);
+//                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+//                mPhoto.setImageBitmap(bitmap);
+//
+//            }
         }
 
         mCreatedTime = (TextView)view.findViewById(R.id.diary_createdtime);
 
         if (!isCreating && mNote != null) {
-            Log.d("edit diary in fragment", "note title 2 : " + mNote.getmCreatedTime());
             mDiaryText.setText(mNote.getmText());
             mDiaryTitle.setText(mNote.getmTitle().toString());
             mCreatedTime.setText(mNote.getmCreatedTime());
@@ -182,8 +176,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                     Sqldatabase sql = new Sqldatabase(mContext);
                     sql.updateNotes(mNote.getmId(), mNote);
 //                    mPresenter.updateDiaryData(mNote.getmId(), mNote);
-                    mPresenter.completeEditDiary();
-
+//                    mPresenter.completeEditDiary();
+                    mPresenter.completeEditing(mNote);
 
                 }
             }
@@ -195,29 +189,29 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             public void onClick(View view) {
 
                 if (isCreating) {
-
+                    mPresenter.cancelEditDiary(null);
                 } else {
                     hideUI();
                 }
             }
         });
 
-        mMindButton = (ImageButton)view.findViewById(R.id.button_mind);
-        mMindButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                mPresenter.selectMind();
-            }
-        });
-
-        mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
-        mWeatherButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.selectWeather();
-            }
-        });
+//        mMindButton = (ImageButton)view.findViewById(R.id.button_mind);
+//        mMindButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                mPresenter.selectMind();
+//            }
+//        });
+//
+//        mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
+//        mWeatherButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mPresenter.selectWeather();
+//            }
+//        });
 
 
         mPhotoButton = (ImageButton)view.findViewById(R.id.button_photo);
@@ -254,40 +248,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             }
         });
-
-
-        if (ContextCompat.checkSelfPermission(mContext,
-                Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Permission is not granted
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.READ_CONTACTS)) {
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-                // No explanation needed; request the permission
-                ActivityCompat.requestPermissions(getActivity(),
-                        new String[]{Manifest.permission.READ_CONTACTS},
-                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-
-                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                // app-defined int constant. The callback method gets the
-                // result of the request.
-            }
-        } else {
-            // Permission has already been granted
-        }
-
-
-
-
-
         return view;
-
-
     }
 
     @Override
@@ -317,7 +278,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         switch (requestCode) {
             case 0: //呼叫相簿
-                mMindButton.setVisibility(View.VISIBLE);
+//                mMindButton.setVisibility(View.VISIBLE);
                 handleImage(data);
 
             case 1:
@@ -385,10 +346,12 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);
             mPresenter.saveDiaryData(mNoteList, mNote);
-        } else {
+        } else { //isEditing
 
             mNote.setmTitle(mDiaryTitle.getText().toString());
             mNote.setmText(mDiaryText.getText().toString());
+            mNote.setmPicture(mImagePath);
+
         }
 
 
@@ -458,6 +421,13 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
     @Override
     public void getPhotoFromCamera() {
+
+        Log.d("permission", "granted" + ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE));
+
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            Log.d("permission", "granted");
+        }
+
         String state = Environment.getExternalStorageState();// 獲取記憶體卡可用狀態
         if (state.equals(Environment.MEDIA_MOUNTED)) {
 
@@ -467,32 +437,28 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
                 uri = Uri.fromFile(file);
-            }else{
+            } else {
 
                 uri = FileProvider.getUriForFile(mContext, "com.example.e3646.lifeblabla", file);
                 Log.d("uri", ": "+ uri.getPath());
-                mImagePath = file.getPath();
+
+//                mImagePath = file.getPath();    ///錯誤路徑
+                mImagePath = getRealPathFromURI(uri);
                 Log.d("path", " : " + mImagePath);
             }
-
             intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
             intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
             intent.setFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, 1);
         } else {
 
-
         }
-
-
     }
 
 
     @Override
     public void setPresenter(DiaryEditContract.Presenter presenter) {
-
         mPresenter = checkNotNull(presenter);
-
     }
 
     public void handleImage(Intent data) {
@@ -532,6 +498,27 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         return path;
     }
 
+    public String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getActivity().getContentResolver().query(contentURI, null,
+                null, null, null);
+
+        if (cursor == null) {
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            try {
+                int idx = cursor
+                        .getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+                result = cursor.getString(idx);
+            } catch (Exception e) {
+                result = "";
+            }
+            cursor.close();
+        }
+        return result;
+    }
+
     public void displayPhoto(String imagePath) {
 
         Log.d("imagePath 4 ", ": " + imagePath);
@@ -540,17 +527,18 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             Log.d("imagePath 5 ", ": " + imagePath);
             mPhoto.setVisibility(View.VISIBLE);
-
             Bitmap bitImage = BitmapFactory.decodeFile(imagePath);//格式化圖片
             mPhoto.setImageBitmap(bitImage);//為imageView設定圖片
 
         }
+
+        mMinusButton.setVisibility(View.VISIBLE);
     }
 
     public void deletePhoto() {
         mPhoto.setVisibility(View.INVISIBLE);
         mMinusButton.setVisibility(View.INVISIBLE);
-        mImagePath = "";
+        this.mImagePath = "";
     }
 
 

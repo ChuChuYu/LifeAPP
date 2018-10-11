@@ -83,72 +83,43 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void showDiaryFragment(int i) {
 
-//        mDiaryFragment = new DiaryFragment();
-//
-//        if (mDiaryPresenter == null) {
-//            mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, );
-//        }
-//
-//        mMainView.showDiaryUI();
-
         Sqldatabase sql = new Sqldatabase(mContext);
         mNoteList = sql.getNotes();
         mNoteListPosition = i;
         Note note = mNoteList.get(mNoteListPosition);
         Log.d("item tag", "step3: " + mNoteListPosition);
         mMainView.hideUI();
+
+//        if (mDiaryFragment == null) {
+//            mDiaryFragment = new DiaryFragment(note);
+//            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+//            transaction.add(R.id.whole_container, mDiaryFragment, "DIARY");
+//        }
+
         mDiaryFragment = new DiaryFragment(note);
+
+        mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
+
         if (mDiaryPresenter == null) {
             mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
         }
+
+
+
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.whole_container, mDiaryFragment, "DIARY")
+        transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
                 .show(mDiaryFragment)
                 .addToBackStack(null)
                 .commit();
 
-        mMainActPresenter.goDiaryDetail();
-//        mDiaryPresenter.setDiaryData();
+//        mDiaryFragment.parseNote(mNoteList.get(mNoteListPosition));
+//        mDiaryFragment.setNoteData(mNoteList.get(mNoteListPosition));
+//        mDiaryPresenter.parseNote(mNoteList.get(mNoteListPosition));
+
+        mMainActPresenter.goDiaryDetail(); //just hide component
 
     }
 
-    @Override
-    public void showConferenceFragment() {
-
-        mConferenceFragment = new ConferenceFragment();
-
-        if (mConferencePresenter == null) {
-            mConferencePresenter = new ConferencePresenter();
-        }
-
-    }
-
-    @Override
-    public void showJotFragment() {
-
-//        if (mJotPresenter ==  null) {
-//            mJotPresenter = new JotPresenter();
-//        }
-
-    }
-
-    @Override
-    public void showTodolistFragment() {
-
-        if (mTodolistPresenter == null) {
-            mTodolistPresenter = new TodolistPresenter();
-        }
-
-    }
-
-    @Override
-    public void showAccountFragment() {
-
-        if (mAccountPresenter ==  null) {
-            mAccountPresenter = new AccountPresenter();
-        }
-
-    }
 
     @Override
     public void refreshList() {

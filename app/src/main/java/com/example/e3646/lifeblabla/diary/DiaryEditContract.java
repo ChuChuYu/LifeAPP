@@ -38,8 +38,6 @@ public interface DiaryEditContract {
 
     interface Presenter extends BasePresenter {
 
-        void completeEditDiary();
-
         void cancelEditDiary(Fragment fragment);
 
         void saveDiaryData(ArrayList<Note> noteList, Note note);
@@ -52,7 +50,7 @@ public interface DiaryEditContract {
 
         void completeCreating();
 
-        void completeEditing();
+        void completeEditing(Note note);
 
         void setMindSelection(String num);
 

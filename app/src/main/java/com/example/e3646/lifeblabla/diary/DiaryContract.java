@@ -20,6 +20,8 @@ public interface DiaryContract {
 
         void deleteNoteData(String id);
 
+        void parseNote(Note note);
+
     }
 
     interface Presenter extends BasePresenter {
@@ -30,13 +32,15 @@ public interface DiaryContract {
 
         void setDiaryData();
 
-        void refreshDetail();
+        void refreshDetail(Note note);
 
         void completeDeleting();
 
         void showCheckDeleteDialog();
 
         void deleteNoteData(String id);
+
+        void parseNote(Note note);
 
     }
 }

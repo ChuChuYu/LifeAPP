@@ -60,9 +60,6 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
 
         setNoteData(mNote);
-//        mCreatedTime.setText(mNote.getmCreatedTime());
-//        mTitle.setText(mNote.getmTitle());
-//        mText.setText(mNote.getmText());
 
         if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("")) {
             mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
@@ -97,6 +94,9 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.detach(DiaryFragment.this)
+                            .commit();
                 mPresenter.backToMain();
             }
         });
@@ -140,16 +140,9 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     public void setNoteData(Note note) {
         mNote = note;
 
-        mCreatedTime.setText(mNote.getmCreatedTime());
-        mTitle.setText(mNote.getmTitle());
-        mText.setText(mNote.getmText());
-
-        //dosen't work
-//        if (mNote.getmPicture() != null) {
-//            Log.d("picture", ": " + mNote.getmPicture());
-//            Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
-//            mPicture.setImageBitmap(bitmap);
-//        }
+        mCreatedTime.setText(note.getmCreatedTime());
+        mTitle.setText(note.getmTitle());
+        mText.setText(note.getmText());
 
     }
 
@@ -157,6 +150,11 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     public void deleteNoteData(String id) {
         Sqldatabase sql = new Sqldatabase(getContext());
         sql.deleteNote(id);
+    }
+
+    @Override
+    public void parseNote(Note note) {
+        this.mNote = note;
     }
 
 

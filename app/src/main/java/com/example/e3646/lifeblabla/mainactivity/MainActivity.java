@@ -1,12 +1,14 @@
 package com.example.e3646.lifeblabla.mainactivity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -28,6 +30,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.Toolbar;
 
@@ -37,18 +40,17 @@ import com.example.e3646.lifeblabla.conference.ConferenceFragment;
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.jot.JotFragment;
-import com.example.e3646.lifeblabla.main.MainAdapter;
 import com.example.e3646.lifeblabla.main.MainContract;
 import com.example.e3646.lifeblabla.main.MainFragment;
-import com.example.e3646.lifeblabla.main.MainPresenter;
 import com.example.e3646.lifeblabla.map.MapFragment;
 import com.example.e3646.lifeblabla.map.MapPresenter;
 import com.example.e3646.lifeblabla.object.Note;
 import com.example.e3646.lifeblabla.todolist.TodolistFragment;
-import com.jaeger.library.StatusBarUtil;
 
 import java.util.ArrayList;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainActivity extends AppCompatActivity implements MainActContract.View {
@@ -86,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         View view = getWindow().getDecorView();
         int i = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         view.setSystemUiVisibility(i);
@@ -119,9 +122,9 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         mAddNotesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goAddNotePost();
-                hideBottomNavigationBar();
-                hideToggleButton();
+
+                Toast.makeText(MainActivity.this, "Jot Mode Comimg Soom", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -144,15 +147,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                         break;
 
                     case R.id.main_post:
-
-
-//                        mPresenter.goAddNotePost();
-//
-//                        hideBottomNavigationBar();
-//                        hideToggleButton();
-
-
-
                         mPresenter.showBottomSheet();
 
                         break;
@@ -173,49 +167,31 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         mToolbar = findViewById(R.id.toolbar);
 
-//        mCreateDiaryButton = (ImageButton)findViewById(R.id.create_diary_button);
-//        mCreateDiaryButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mPresenter.goEditDiary();
-//            }
-//        });
+        if (ContextCompat.checkSelfPermission(this, WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(this, READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-        if (ContextCompat.checkSelfPermission(MainActivity.this,
-                Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED ) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this,
-                    Manifest.permission.CAMERA)) {
-                new AlertDialog.Builder(MainActivity.this)
-                        .setMessage("我真的沒有要做壞事, 給我權限吧?")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                ActivityCompat.requestPermissions(MainActivity.this,
-                                        new String[]{Manifest.permission.CAMERA},
-                                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                finish();
-                            }
-                        })
-                        .show();
-            } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, WRITE_EXTERNAL_STORAGE)
+                    && ActivityCompat.shouldShowRequestPermissionRationale(this, READ_EXTERNAL_STORAGE)) {
 
                 ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE},
-                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
-            }
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                        0);
+                }
+
+        } else {
+            ActivityCompat.requestPermissions(MainActivity.this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                        0);
         }
+
     }
 
 
 
 
+
     public void init() {
+
         mMainFragment = new MainFragment(mNoteList, true);
         mFragmentManager = getSupportFragmentManager();
         mPresenter = new MainActPresenter(this, mFragmentManager, mMainFragment);
@@ -231,21 +207,17 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
-                // If request is cancelled, the result arrays are empty.
+            case 0: {
+
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
+
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
+
                 }
                 return;
             }
 
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
@@ -316,33 +288,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         mPresenter.goDiaryDetail();
     }
 
-    @Override
-    public void goConferenceDetail() {
-
-        mPresenter.goConferenceDetail();
-
-    }
-
-    @Override
-    public void goJotDetail() {
-
-        mPresenter.goJotDetail();
-
-    }
-
-    @Override
-    public void goAccountDetail() {
-
-        mPresenter.goAccountDetail();
-
-    }
-
-    @Override
-    public void goTodolistDetail() {
-
-        mPresenter.goTodolistDetail();
-
-    }
 
 
 }

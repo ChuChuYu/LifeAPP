@@ -46,12 +46,7 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     private MainFragment mMainFragment;
     private DiaryFragment mDiaryFragment;
-    private ConferenceFragment mConferenceFragment;
-    private JotFragment mJotFragment;
-    private TodolistFragment mTodolistFragment;
-    private AccountFragment mAccountFragment;
     private DiaryEditFragment mDiaryEditFragment;
-    private AddNoteFragment mAddNoteFragment;
 
     private CalendarFragment mCalendarFragment;
     private MapFragment mMapFragment;
@@ -59,12 +54,7 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     private MainPresenter mMainPresenter;
     private DiaryPresenter mDiaryPresenter;
-    private ConferencePresenter mConferencePresenter;
-    private JotPresenter mJotPresenter;
-    private TodolistPresenter mTodolistPresenter;
-    private AccountPresenter mAccountPresenter;
     private DiaryEditPresenter mDiaryEditPresenter;
-    private AddNotePresenter mAddNotePresenter;
 
     private CalendarPresenter mCalendarPresenter;
     private MapPresenter mMapPresenter;
@@ -89,9 +79,6 @@ public class MainActPresenter implements MainActContract.Presenter {
 
         init();
         showMainFragment();
-        setViewandPresenter();
-
-
     }
 
     @Override
@@ -128,25 +115,14 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .hide(mMapFragment)
                 .hide(mSettingFragment)
                 .commit();
-
-
     }
 
     @Override
     public void showMainFragment() {
-
         mMainActView.showMainUI();
-
         if (mMainPresenter == null) {
             mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
         }
-
-    }
-
-    @Override
-    public void setViewandPresenter() {
-
-
     }
 
     @Override
@@ -166,75 +142,10 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goDiaryDetail() {
 
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction.add(R.id.whole_container, mDiaryFragment, "DIARY")
-//                .hide(mMainFragment)
-//                .show(mDiaryFragment)
-//                .addToBackStack(null)
-//                .commit();
-
         mMainActView.hideToggleButton();
         mMainActView.hideBottomNavigationBar();
         mMainActView.hideToolBar();
 
-    }
-
-    @Override
-    public void goConferenceDetail() {
-
-
-    }
-
-    @Override
-    public void goJotDetail() {
-
-    }
-
-    @Override
-    public void goAccountDetail() {
-
-    }
-
-    @Override
-    public void goTodolistDetail() {
-
-    }
-
-    @Override
-    public void goEditDiary() {
-
-//        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, mDiaryEditFragment);
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction.add(R.id.whole_container, mDiaryEditFragment, "CREATE DIARY")
-//                .hide(mMainFragment)
-//                .show(mDiaryEditFragment)
-//                .commit();
-//
-//        mMainActView.hideToggleButton();
-
-    }
-
-    @Override
-    public void goAddNotePost() {
-
-        if (mAddNoteFragment == null) {
-            mAddNoteFragment = new AddNoteFragment();
-        }
-
-        if (mAddNotePresenter == null) {
-            mAddNotePresenter = new AddNotePresenter(mAddNoteFragment, this, mFragmentManager);
-        }
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.whole_container, mAddNoteFragment, "ADD NOTE")
-                .hide(mMainFragment)
-                .show(mAddNoteFragment)
-                .commit();
-
-        mMainActView.hideToolBar();
-        mMainActView.hideToggleButton();
-        mMainActView.hideBottomNavigationBar();
-        mMainActView.hideAddNoteButton();
     }
 
     @Override
@@ -267,9 +178,7 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .show(mMapFragment)
                 .commit();
 
-        mMainActView.hideToolBar();
-        mMainActView.hideToggleButton();
-        mMainActView.hideBottomNavigationBar();
+        hideComponent();
         mMainActView.showBottomNaviagtion();
     }
 
@@ -284,10 +193,7 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .hide(mSettingFragment)
                 .hide(mMapFragment)
                 .commit();
-
-        mMainActView.hideToolBar();
-        mMainActView.hideToggleButton();
-        mMainActView.hideBottomNavigationBar();
+        hideComponent();
         mMainActView.showBottomNaviagtion();
 
     }
@@ -303,9 +209,7 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .hide(mMapFragment)
                 .commit();
 
-        mMainActView.hideToolBar();
-        mMainActView.hideToggleButton();
-        mMainActView.hideBottomNavigationBar();
+        hideComponent();
         mMainActView.showBottomNaviagtion();
 
     }
@@ -371,9 +275,7 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void hideComponent() {
         mMainActView.hideToolBar();
         mMainActView.hideToggleButton();
-        mMainActView.hideBottomNavigationBar();
-        mMainActView.hideBottomNavigationBar();
-
+        mMainActView.hideAddNoteButton();
     }
 
     @Override
@@ -384,13 +286,25 @@ public class MainActPresenter implements MainActContract.Presenter {
         }
         if (mDiaryEditPresenter == null) {
             mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, null, true);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.add(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
+                    .show(mDiaryEditFragment)
+                    .hide(mMainFragment)
+                    .commit();
+
         }
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
-                .show(mDiaryEditFragment)
+        transaction.show(mDiaryEditFragment)
                 .hide(mMainFragment)
                 .commit();
+
+
+    }
+
+    @Override
+    public void refreshList() {
+        mMainPresenter.refreshList();
     }
 
     @Override

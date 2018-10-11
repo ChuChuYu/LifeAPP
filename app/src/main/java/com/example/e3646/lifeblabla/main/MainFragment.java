@@ -129,33 +129,6 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     }
 
-    @Override
-    public void showConferenceUI() {
-
-        ((MainActivity) getActivity()).goConferenceDetail();
-
-    }
-
-    @Override
-    public void showJotUI() {
-
-        ((MainActivity) getActivity()).goJotDetail();
-
-    }
-
-    @Override
-    public void showTodolistUI() {
-
-        ((MainActivity) getActivity()).goTodolistDetail();
-
-    }
-
-    @Override
-    public void showAccountUI() {
-
-        ((MainActivity) getActivity()).goAccountDetail();
-
-    }
 
     @Override
     public void refreshList() {

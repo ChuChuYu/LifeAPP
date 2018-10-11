@@ -35,13 +35,6 @@ public interface MainActContract {
 
         void goDiaryDetail();
 
-        void goConferenceDetail();
-
-        void goJotDetail();
-
-        void goAccountDetail();
-
-        void goTodolistDetail();
 
     }
 
@@ -55,23 +48,9 @@ public interface MainActContract {
 
         void switchToListLayout();
 
-        void setViewandPresenter();
-
         void backToMain();
 
         void goDiaryDetail();
-
-        void goConferenceDetail();
-
-        void goJotDetail();
-
-        void goAccountDetail();
-
-        void goTodolistDetail();
-
-        void goEditDiary();
-
-        void goAddNotePost();
 
         void goMain();
 
@@ -94,6 +73,8 @@ public interface MainActContract {
         void hideComponent();
 
         void goDiaryEdit();
+
+        void refreshList();
 
     }
 }

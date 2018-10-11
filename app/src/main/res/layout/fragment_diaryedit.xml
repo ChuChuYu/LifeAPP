@@ -285,18 +285,6 @@
         app:srcCompat="@drawable/button_video" />
 
     <ImageButton
-        android:id="@+id/button_minus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/diary_photo"
-        app:layout_constraintEnd_toEndOf="@+id/diary_photo"
-        app:srcCompat="@drawable/button_minus" />
-
-    <ImageButton
         android:id="@+id/button_tag"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -315,7 +303,8 @@
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/tag_bottom"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/diary_tag"
         app:layout_constraintEnd_toEndOf="@+id/imageView19"
         app:srcCompat="@drawable/account_image" />
 
@@ -352,6 +341,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tag_bottom" />
 
+    <ImageButton
+        android:id="@+id/button_minus"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="@+id/diary_photo"
+        app:layout_constraintEnd_toEndOf="@+id/diary_photo"
+        app:srcCompat="@drawable/button_minus" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/diary_tag_recyclerview"
         android:layout_width="match_parent"
@@ -362,6 +363,8 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tag_bottom"
         app:layout_constraintTop_toTopOf="@+id/tag_bottom"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0" >
+
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>

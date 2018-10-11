@@ -18,13 +18,6 @@ public interface MainContract {
 
         void showDiaryUI();
 
-        void showConferenceUI();
-
-        void showJotUI();
-
-        void showTodolistUI();
-
-        void showAccountUI();
 
         void refreshList();
 
@@ -44,14 +37,6 @@ public interface MainContract {
 
 
         void showDiaryFragment(int i);
-
-        void showConferenceFragment();
-
-        void showJotFragment();
-
-        void showTodolistFragment();
-
-        void showAccountFragment();
 
         void refreshList();
 

@@ -23,6 +23,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     private DiaryEditFragment mDiaryEditFragment;
     private DiaryEditPresenter mDiaryEditPresenter;
     private MainActPresenter mMainActPresenter;
+    private Note mNote;
 
     private CheckDeleteFragment mCheckDeleteFragment;
 
@@ -47,11 +48,10 @@ public class DiaryPresenter implements DiaryContract.Presenter {
         Note note = mNoteList.get(mNotePosition);
 
         mDiaryEditFragment = new DiaryEditFragment(isCreating, note);
-
-        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, null, mMainActPresenter, null,null, false);
+        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this,null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.diary_container, mDiaryEditFragment, "EDIT DIARY")
+        transaction.replace(R.id.diary_container, mDiaryEditFragment, "EDIT DIARY")
                 .show(mDiaryEditFragment)
                 .addToBackStack(null)
                 .commit();
@@ -66,7 +66,9 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     @Override
     public void backToMain() {
         mDiaryView.hideUI();
-        mMainActPresenter.backToMain();
+        mMainActPresenter.refreshMainFragment();
+//        mMainActPresenter.backToMain();
+
     }
 
     @Override
@@ -77,8 +79,8 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     }
 
     @Override
-    public void refreshDetail() {
-        mDiaryView.refreshDetail();
+    public void refreshDetail(Note note) {
+        mDiaryView.setNoteData(note);
     }
 
     @Override
@@ -97,5 +99,10 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     public void deleteNoteData(String id) {
         mDiaryView.deleteNoteData(id);
 
+    }
+
+    @Override
+    public void parseNote(Note note) {
+        this.mNote = note;
     }
 }

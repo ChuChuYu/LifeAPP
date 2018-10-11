@@ -35,18 +35,6 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
 
     }
 
-    @SuppressLint("RestrictedApi")
-    @Override
-    public void setupDialog(Dialog dialog, int style) {
-        super.setupDialog(dialog, style);
-        View contentView = View.inflate(getContext(), R.layout.bottom_sheet_dialog_template, null);
-        dialog.setContentView(contentView);
-
-        CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) ((View) contentView.getParent())
-                .getLayoutParams();
-        CoordinatorLayout.Behavior behavior = params.getBehavior();
-        ((View) contentView.getParent()).setBackgroundColor(getResources().getColor(android.R.color.transparent));
-    }
 
     @Nullable
     @Override
@@ -57,8 +45,8 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
 
 
 //        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
-//        Log.d("background color", ": "+ Color.TRANSPARENT);
-//        ((View) view.getParent()).setBackgroundColor(Color.TRANSPARENT);
+        Log.d("background color", ": "+ Color.TRANSPARENT);
+
 
         mDiaryButton = (ImageButton)view.findViewById(R.id.button_type_diary);
         mDiaryButton.setOnClickListener(new View.OnClickListener() {
@@ -99,4 +87,9 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
         return view;
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((View) getView().getParent()).setBackgroundColor(Color.TRANSPARENT);
+    }
 }
