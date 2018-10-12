@@ -26,6 +26,7 @@ public interface DiaryEditContract {
 
         void setMindSelection(String num);
 
+
         void setWeatherSelect(String num);
 
         void setNote(Note note);
@@ -33,6 +34,7 @@ public interface DiaryEditContract {
         void getPhotoFromGallery();
 
         void getPhotoFromCamera();
+
 
     }
 

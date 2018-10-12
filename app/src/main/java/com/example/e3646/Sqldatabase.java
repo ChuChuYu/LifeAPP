@@ -142,6 +142,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
                 }
 
                 note.setmMind(cursor.getString(cursor.getColumnIndex(NOTE_MIND)));
+                Log.d("weather in sql", "num: "+cursor.getString(cursor.getColumnIndex(NOTE_MIND)));
                 note.setmWeather(cursor.getString(cursor.getColumnIndex(NOTE_WEATHER)));
 
                 noteList.add(note);
@@ -160,7 +161,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_UPDATEDTIME, note.getmUpdatedTime());
         contentValues.put(NOTE_PLACE, note.getmPlace());
         contentValues.put(NOTE_CLASSIFICATION, note.getmClassification());
-//        contentValues.put(NOTE_TAG, note.getmTag());
+        contentValues.put(NOTE_TAG, String.valueOf(note.getmTag()));
         contentValues.put(NOTE_PICTURE, note.getmPicture());
         Log.d("image path in sql", " : " + note.getmPicture());
         contentValues.put(NOTE_VIDEO, note.getVideo());

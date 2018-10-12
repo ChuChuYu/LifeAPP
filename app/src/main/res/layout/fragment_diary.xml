@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView31" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/diary_emotion"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
@@ -87,14 +87,14 @@
         app:srcCompat="@drawable/button_emotion" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/diary_weather"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintBottom_toBottomOf="@+id/diary_emotion"
+        app:layout_constraintStart_toEndOf="@+id/diary_emotion"
+        app:layout_constraintTop_toTopOf="@+id/diary_emotion"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/button_weather" />
 
@@ -127,9 +127,9 @@
         android:layout_height="15dp"
         android:layout_marginStart="240dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
+        app:layout_constraintBottom_toBottomOf="@+id/diary_weather"
+        app:layout_constraintStart_toEndOf="@+id/diary_weather"
+        app:layout_constraintTop_toTopOf="@+id/diary_weather"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/tag_blue" />
 

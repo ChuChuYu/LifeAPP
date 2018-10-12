@@ -143,4 +143,5 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         this.mNote = note;
         mDiaryEditView.setNote(mNote);
     }
+
 }

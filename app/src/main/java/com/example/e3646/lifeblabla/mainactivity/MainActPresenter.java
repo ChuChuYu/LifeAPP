@@ -272,6 +272,11 @@ public class MainActPresenter implements MainActContract.Presenter {
     }
 
     @Override
+    public void hideBottomNavigation() {
+        mMainActView.hideBottomNavigationBar();
+    }
+
+    @Override
     public void hideComponent() {
         mMainActView.hideToolBar();
         mMainActView.hideToggleButton();
@@ -281,22 +286,14 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goDiaryEdit() {
 
-        if(mDiaryEditFragment == null) {
-            mDiaryEditFragment = new DiaryEditFragment(true, null);
-        }
-        if (mDiaryEditPresenter == null) {
-            mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, null, true);
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            transaction.add(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
-                    .show(mDiaryEditFragment)
-                    .hide(mMainFragment)
-                    .commit();
-
-        }
+        mDiaryEditFragment = new DiaryEditFragment(true, null);
+        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null,null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.show(mDiaryEditFragment)
+        transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
+                .show(mDiaryEditFragment)
                 .hide(mMainFragment)
+                .addToBackStack(null)
                 .commit();
 
 

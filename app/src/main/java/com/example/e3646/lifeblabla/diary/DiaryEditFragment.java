@@ -47,6 +47,7 @@ import android.widget.TextView;
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.BuildConfig;
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.dialogfragment.WeatherSelectFragment;
 import com.example.e3646.lifeblabla.object.Note;
 
 import java.io.File;
@@ -196,22 +197,23 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
         });
 
-//        mMindButton = (ImageButton)view.findViewById(R.id.button_mind);
-//        mMindButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        mMindButton = (ImageButton)view.findViewById(R.id.button_mind);
+        mMindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.selectMind();
+            }
+        });
 //
-//                mPresenter.selectMind();
-//            }
-//        });
-//
-//        mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
-//        mWeatherButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mPresenter.selectWeather();
-//            }
-//        });
+        mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
+        mWeatherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.selectWeather();
+            }
+        });
 
 
         mPhotoButton = (ImageButton)view.findViewById(R.id.button_photo);
@@ -341,7 +343,10 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNote.setmMind(mMindNum);
+
+            Log.d("weather", "num: "+ mWeatherNum);
             mNote.setmWeather(mWeatherNum);
+
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);
@@ -351,6 +356,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setmTitle(mDiaryTitle.getText().toString());
             mNote.setmText(mDiaryText.getText().toString());
             mNote.setmPicture(mImagePath);
+            mNote.setmMind(mMindNum);
 
         }
 
@@ -376,7 +382,27 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mMindNum = num;
 
         if(num.equals("1")) {
-            mMindButton.setImageResource(R.drawable.main_list_item_mind);
+            mMindButton.setImageResource(R.drawable.button_emotion);
+        }
+        if (num.equals("2")) {
+            mMindButton.setImageResource(R.drawable.emotion_2);
+
+        }
+        if (num.equals("3")) {
+            mMindButton.setImageResource(R.drawable.emotion_3);
+
+        }
+        if (num.equals("4")) {
+            mMindButton.setImageResource(R.drawable.emotion_4);
+
+        }
+        if (num.equals("5")) {
+            mMindButton.setImageResource(R.drawable.emotion_5);
+
+        }
+        if (num.equals("6")) {
+            mMindButton.setImageResource(R.drawable.emotion_6);
+
         }
 
     }

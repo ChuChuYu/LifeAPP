@@ -37,6 +37,8 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     private TextView mTitle;
     private TextView mText;
     private ImageView mPicture;
+    private ImageView mEmotion;
+    private ImageView mWeather;
     private Note mNote;
 
     private RecyclerView mTagRecyclerView;
@@ -58,6 +60,8 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mTitle = (TextView) view.findViewById(R.id.diary_detail_title);
         mText = (TextView)view.findViewById(R.id.diary_detail_text);
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
+        mEmotion = (ImageView)view.findViewById(R.id.diary_emotion);
+        mWeather = (ImageView)view.findViewById(R.id.diary_weather);
 
         setNoteData(mNote);
 
@@ -143,6 +147,59 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mCreatedTime.setText(note.getmCreatedTime());
         mTitle.setText(note.getmTitle());
         mText.setText(note.getmText());
+
+        if (mNote.getmMind() != null) {
+
+            if (mNote.getmMind().equals("1")) {
+
+                mEmotion.setImageResource(R.drawable.button_emotion);
+            }
+            if (mNote.getmMind().equals("2")) {
+
+                mEmotion.setImageResource(R.drawable.emotion_2);
+            }
+
+            if (mNote.getmMind().equals("3")) {
+                mEmotion.setImageResource(R.drawable.emotion_3);
+            }
+
+            if (mNote.getmMind().equals("4")) {
+                mEmotion.setImageResource(R.drawable.emotion_4);
+            }
+
+            if (mNote.getmMind().equals("5")) {
+                mEmotion.setImageResource(R.drawable.emotion_5);
+            }
+
+            if (mNote.getmMind().equals("6")) {
+                mEmotion.setImageResource(R.drawable.emotion_6);
+            }
+        }
+
+        Log.d("weather 2 ", "num: " + mNote.getmWeather());
+
+        if(mNote.getmWeather() != null) {
+
+            if (mNote.getmWeather().equals("1")) {
+                mWeather.setImageResource(R.drawable.weather_1);
+            }
+            if (mNote.getmWeather().equals("2")) {
+                mWeather.setImageResource(R.drawable.weather_sun);
+            }
+            if (mNote.getmWeather().equals("3")) {
+                mWeather.setImageResource(R.drawable.weather_3);
+            }
+            if (mNote.getmWeather().equals("4")) {
+                mWeather.setImageResource(R.drawable.weather_4);
+            }
+            if (mNote.getmWeather().equals("5")) {
+                mWeather.setImageResource(R.drawable.weather_5);
+            }
+            if (mNote.getmWeather().equals("6")) {
+                mWeather.setImageResource(R.drawable.weather_6);
+            }
+        }
+
 
     }
 

@@ -55,6 +55,7 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
 
                 mMainActPresenter.goDiaryEdit();
                 mMainActPresenter.hideComponent();
+                mMainActPresenter.hideBottomNavigation();
                 dismiss();
 
             }
