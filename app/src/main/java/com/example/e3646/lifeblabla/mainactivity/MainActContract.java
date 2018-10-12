@@ -76,7 +76,12 @@ public interface MainActContract {
 
         void goDiaryEdit();
 
+        void goJotEdit();
+
         void refreshList();
+
+        void showJotBottomSheet();
+
 
     }
 }

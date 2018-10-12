@@ -176,13 +176,13 @@ public class AddNoteFragment extends Fragment implements AddNoteContract.View {
     @Override
     public void goCreateJot() {
 
-        mJotEditFragment = new JotEditFragment();
-        mJotEditPresenter = new JotEditPresenter(mJotEditFragment);
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.replace(R.id.whole_container, mJotEditFragment, "CREATE JOT")
-                .addToBackStack(null)
-                .commit();
+//        mJotEditFragment = new JotEditFragment();
+//        mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this);
+//
+//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+//        transaction.replace(R.id.whole_container, mJotEditFragment, "CREATE JOT")
+//                .addToBackStack(null)
+//                .commit();
 
     }
 

@@ -117,8 +117,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
                 .show(mDiaryFragment)
                 .commit();
 
-//        mDiaryPresenter.refreshDetail(note);
-
     }
 
     @Override

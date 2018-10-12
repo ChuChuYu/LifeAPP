@@ -16,16 +16,11 @@ public interface DiaryEditContract {
 
         void setPresenter(Presenter presenter);
 
-        void showMindSelection(ImageView imageView);
-
         void takeDiaryData();
-
-        void updateNote();
 
         void hideUI();
 
         void setMindSelection(String num);
-
 
         void setWeatherSelect(String num);
 

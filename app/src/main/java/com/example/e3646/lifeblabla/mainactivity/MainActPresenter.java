@@ -17,11 +17,14 @@ import com.example.e3646.lifeblabla.calendar.CalendarFragment;
 import com.example.e3646.lifeblabla.calendar.CalendarPresenter;
 import com.example.e3646.lifeblabla.conference.ConferenceFragment;
 import com.example.e3646.lifeblabla.conference.ConferencePresenter;
+import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogJotFragment;
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditPresenter;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.diary.DiaryPresenter;
+import com.example.e3646.lifeblabla.jot.JotEditFragment;
+import com.example.e3646.lifeblabla.jot.JotEditPresenter;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.jot.JotPresenter;
 import com.example.e3646.lifeblabla.main.MainFragment;
@@ -47,14 +50,18 @@ public class MainActPresenter implements MainActContract.Presenter {
     private MainFragment mMainFragment;
     private DiaryFragment mDiaryFragment;
     private DiaryEditFragment mDiaryEditFragment;
+    private JotEditFragment mJotEditFragment;
 
     private CalendarFragment mCalendarFragment;
     private MapFragment mMapFragment;
     private SettingFragment mSettingFragment;
 
     private MainPresenter mMainPresenter;
+
     private DiaryPresenter mDiaryPresenter;
     private DiaryEditPresenter mDiaryEditPresenter;
+    private JotEditPresenter mJotEditPresenter;
+
 
     private CalendarPresenter mCalendarPresenter;
     private MapPresenter mMapPresenter;
@@ -295,6 +302,20 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void goJotEdit() {
+
+        mJotEditFragment = new JotEditFragment(true, null);
+        mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.whole_container, mJotEditFragment, "EDIT JOT")
+                .show(mJotEditFragment)
+                .hide(mMainFragment)
+                .addToBackStack(null)
+                .commit();
 
 
     }
@@ -302,6 +323,12 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void refreshList() {
         mMainPresenter.refreshList();
+    }
+
+    @Override
+    public void showJotBottomSheet() {
+        BottomSheetDialogJotFragment bottomSheetDialogJotFragment = new BottomSheetDialogJotFragment(this);
+        bottomSheetDialogJotFragment.show(mFragmentManager, bottomSheetDialogJotFragment.getTag());
     }
 
     @Override

@@ -43,30 +43,30 @@
             app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
         <ImageButton
-            android:id="@+id/button_type_conference"
+            android:id="@+id/button_form_camera"
             android:layout_width="80dp"
             android:layout_height="120dp"
             android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/button_type_account"
-            app:layout_constraintStart_toEndOf="@+id/button_type_account"
-            app:layout_constraintTop_toTopOf="@+id/button_type_account"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_album"
+            app:layout_constraintStart_toEndOf="@+id/button_form_album"
+            app:layout_constraintTop_toTopOf="@+id/button_form_album"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/background_tag" />
 
         <ImageButton
-            android:id="@+id/button_type_account"
+            android:id="@+id/button_form_album"
             android:layout_width="80dp"
             android:layout_height="120dp"
             android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/button_type_diary"
-            app:layout_constraintStart_toEndOf="@+id/button_type_diary"
-            app:layout_constraintTop_toTopOf="@+id/button_type_diary"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_text"
+            app:layout_constraintStart_toEndOf="@+id/button_form_text"
+            app:layout_constraintTop_toTopOf="@+id/button_form_text"
             app:srcCompat="@drawable/background_tag" />
 
         <ImageButton
-            android:id="@+id/button_type_diary"
+            android:id="@+id/button_form_text"
             android:layout_width="80dp"
             android:layout_height="120dp"
             android:layout_marginBottom="8dp"
@@ -85,10 +85,10 @@
             android:layout_marginEnd="24dp"
             android:layout_marginStart="8dp"
             android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="@+id/button_type_conference"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_camera"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
-            app:layout_constraintStart_toEndOf="@+id/button_type_conference"
-            app:layout_constraintTop_toTopOf="@+id/button_type_conference"
+            app:layout_constraintStart_toEndOf="@+id/button_form_camera"
+            app:layout_constraintTop_toTopOf="@+id/button_form_camera"
             app:srcCompat="@drawable/background_tag" />
 
         <ImageView
@@ -98,9 +98,9 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_type_diary"
-            app:layout_constraintEnd_toEndOf="@+id/button_type_diary"
-            app:layout_constraintStart_toStartOf="@+id/button_type_diary"
+            app:layout_constraintBottom_toTopOf="@+id/button_form_text"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_text"
+            app:layout_constraintStart_toStartOf="@+id/button_form_text"
             app:srcCompat="@drawable/background_tag" />
 
         <ImageView
@@ -108,9 +108,9 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_type_account"
-            app:layout_constraintEnd_toEndOf="@+id/button_type_account"
-            app:layout_constraintStart_toStartOf="@+id/button_type_account"
+            app:layout_constraintBottom_toTopOf="@+id/button_form_album"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_album"
+            app:layout_constraintStart_toStartOf="@+id/button_form_album"
             app:srcCompat="@drawable/background_tag" />
 
         <ImageView
@@ -128,9 +128,9 @@
             android:layout_width="50dp"
             android:layout_height="30dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/button_type_conference"
-            app:layout_constraintEnd_toEndOf="@+id/button_type_conference"
-            app:layout_constraintStart_toStartOf="@+id/button_type_conference"
+            app:layout_constraintBottom_toTopOf="@+id/button_form_camera"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_camera"
+            app:layout_constraintStart_toStartOf="@+id/button_form_camera"
             app:srcCompat="@drawable/background_tag" />
 
         <TextView
@@ -195,10 +195,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_type_diary"
-            app:layout_constraintEnd_toEndOf="@+id/button_type_diary"
-            app:layout_constraintStart_toStartOf="@+id/button_type_diary"
-            app:layout_constraintTop_toTopOf="@+id/button_type_diary"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_text"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_text"
+            app:layout_constraintStart_toStartOf="@+id/button_form_text"
+            app:layout_constraintTop_toTopOf="@+id/button_form_text"
             app:srcCompat="@drawable/type_diary" />
 
         <ImageView
@@ -209,10 +209,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_type_account"
-            app:layout_constraintEnd_toEndOf="@+id/button_type_account"
-            app:layout_constraintStart_toStartOf="@+id/button_type_account"
-            app:layout_constraintTop_toTopOf="@+id/button_type_account"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_album"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_album"
+            app:layout_constraintStart_toStartOf="@+id/button_form_album"
+            app:layout_constraintTop_toTopOf="@+id/button_form_album"
             app:srcCompat="@drawable/type_account" />
 
         <ImageView
@@ -223,10 +223,10 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/button_type_conference"
-            app:layout_constraintEnd_toEndOf="@+id/button_type_conference"
-            app:layout_constraintStart_toStartOf="@+id/button_type_conference"
-            app:layout_constraintTop_toTopOf="@+id/button_type_conference"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_camera"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_camera"
+            app:layout_constraintStart_toStartOf="@+id/button_form_camera"
+            app:layout_constraintTop_toTopOf="@+id/button_form_camera"
             app:srcCompat="@drawable/type_conference" />
 
         <ImageView

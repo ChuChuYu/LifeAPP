@@ -3,7 +3,6 @@ package com.example.e3646.lifeblabla.diary;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -58,7 +57,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
         mCreatedTime = (TextView)view.findViewById(R.id.diary_detail_created_time);
         mTitle = (TextView) view.findViewById(R.id.diary_detail_title);
-        mText = (TextView)view.findViewById(R.id.diary_detail_text);
+        mText = (TextView)view.findViewById(R.id.jot_text);
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mEmotion = (ImageView)view.findViewById(R.id.diary_emotion);
         mWeather = (ImageView)view.findViewById(R.id.diary_weather);
@@ -199,7 +198,6 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
                 mWeather.setImageResource(R.drawable.weather_6);
             }
         }
-
 
     }
 

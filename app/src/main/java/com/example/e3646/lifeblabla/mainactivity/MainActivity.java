@@ -123,7 +123,10 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(MainActivity.this, "Jot Mode Comimg Soom", Toast.LENGTH_SHORT).show();
+
+                mPresenter.showJotBottomSheet();
+
+//                Toast.makeText(MainActivity.this, "Jot Mode Comimg Soom", Toast.LENGTH_SHORT).show();
 
             }
         });
