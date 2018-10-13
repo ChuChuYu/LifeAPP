@@ -15,8 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.example.e3646.lifeblabla.R;
-import com.example.e3646.lifeblabla.account.AccountEditContract;
-import com.example.e3646.lifeblabla.addnote.AddNoteFragment;
+
 import com.example.e3646.lifeblabla.diary.DiaryPresenter;
 
 @SuppressLint("ValidFragment")

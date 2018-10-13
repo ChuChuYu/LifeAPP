@@ -1,6 +1,7 @@
 package com.example.e3646.lifeblabla.jot;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,7 +9,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +23,10 @@ import android.widget.TextView;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.adapter.TitleAdapter;
+import com.example.e3646.lifeblabla.conference.ConferenceFragment;
+import com.example.e3646.lifeblabla.diary.DiaryEditAdapter;
+import com.example.e3646.lifeblabla.diary.DiaryEditPresenter;
 import com.example.e3646.lifeblabla.object.Note;
 
 import org.w3c.dom.Text;
@@ -33,6 +41,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class JotEditFragment extends Fragment implements JotEditContrat.View {
 
     private JotEditContrat.Presenter mPresenter;
+    private Context mContext;
     private boolean isCreating;
     private Note mNote;
     private ArrayList<Note> mNoteList;
@@ -42,6 +51,13 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
     private TextView mCreatedTime;
     private EditText mTitle;
     private EditText mText;
+    private RecyclerView mTagRecyclerView;
+    private DiaryEditAdapter mDiaryEditAdapter;
+    private EditText mJotTag;
+    private RecyclerView mTitleRecycelrView;
+    private TitleAdapter mTitleAdapter;
+    private ImageButton mExpandButton;
+
 
     public JotEditFragment(boolean isCreating, Note note) {
         this.isCreating = isCreating;
@@ -57,6 +73,31 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
         mTitle = (EditText)view.findViewById(R.id.jot_title);
         mText = (EditText)view.findViewById(R.id.jot_text);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
+
+        mTagRecyclerView = (RecyclerView)view.findViewById(R.id.jot_tag_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mTagRecyclerView.setLayoutManager(linearLayoutManager);
+        mDiaryEditAdapter = new DiaryEditAdapter();
+        mTagRecyclerView.setAdapter(mDiaryEditAdapter);
+
+//        mTitleRecycelrView = (RecyclerView)view.findViewById(R.id.title_recyclerview);
+//        mTitleRecycelrView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mTitleAdapter = new TitleAdapter();
+//        mTitleRecycelrView.setAdapter(mTitleAdapter);
+//        mTitleRecycelrView.getItemAnimator().setChangeDuration(300);
+//        mTitleRecycelrView.getItemAnimator().setMoveDuration(300);
+
+
+        mJotTag = (EditText)view.findViewById(R.id.jot_tag);
+        mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+
+                Log.d("done button", "click 2");
+                return false;
+            }
+        });
 
         if (isCreating && mNote != null) {
             mTitle.setText(mNote.getmTitle());
@@ -89,12 +130,14 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
                     mPresenter.completeCreating();
                 } else {
 
-                    mPresenter.completeEditing();
+                    mPresenter.completeEditing(mNote);
 
 
                 }
             }
         });
+
+        mExpandButton = (ImageButton)view.findViewById(R.id.button_expand);
 
         return view;
     }
@@ -149,9 +192,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
 //            Log.d("set image path", ": " + mImagePath);
 //            mNote.setmPicture(mImagePath);
 
-//            mNote.setmTag(mDiaryEditAdapter.TagList());
-
-
+            mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);

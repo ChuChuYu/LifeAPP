@@ -21,8 +21,6 @@ public interface MainContract {
 
         void refreshList();
 
-        void setIsListMode(boolean isListMode);
-
         void hideUI();
 
     }

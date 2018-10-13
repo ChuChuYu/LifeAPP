@@ -15,11 +15,16 @@ public interface JotContract {
 
         void setPresenter(Presenter presenter);
 
+        void hideUI();
+
+
 
 
     }
 
     interface Presenter extends BasePresenter {
+
+        void backToMain();
 
 
 

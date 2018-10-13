@@ -48,7 +48,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
         Note note = mNoteList.get(mNotePosition);
 
         mDiaryEditFragment = new DiaryEditFragment(isCreating, note);
-        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this,null, false);
+        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.diary_container, mDiaryEditFragment, "EDIT DIARY")
@@ -67,7 +67,8 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     public void backToMain() {
         mDiaryView.hideUI();
         mMainActPresenter.refreshMainFragment();
-//        mMainActPresenter.backToMain();
+        mMainActPresenter.backToMain();
+
 
     }
 

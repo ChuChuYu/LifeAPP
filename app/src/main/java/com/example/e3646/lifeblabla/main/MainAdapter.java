@@ -91,7 +91,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             }
         });
 
-        if (mNoteList.get(mNoteList.size()-i-1).getmTag()!= null && !mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).equals("")) {
+        if (mNoteList.get(mNoteList.size()-i-1).getmTag()!= null && !mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).equals("") && !mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).equals("null")) {
             mainListItemViewHolder.mTagText.setText(mNoteList.get(mNoteList.size()-i-1).getmTag().get(0));
             ViewGroup.LayoutParams backgorundParams = mainListItemViewHolder.mTagBackground.getLayoutParams();
             backgorundParams.width = mNoteList.get(mNoteList.size()-i-1).getmTag().get(0).length() * 30 + 20;
@@ -115,13 +115,19 @@ public class MainAdapter extends RecyclerView.Adapter {
                 mainListItemViewHolder.mType.setImageResource(R.drawable.note_tag_account);
             } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("conference")) {
                 mainListItemViewHolder.mType.setImageResource(R.drawable.note_tag_conference);
+            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("jot")) {
+                mainListItemViewHolder.mType.setImageResource(R.drawable.note_tag_jot);
             }
 
-            if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null) {
-                Log.d("image path", ": " + mNoteList.get(mNoteList.size()-i-1).getmPicture());
-
+            if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
                 Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
                 mainListItemViewHolder.mImage.setImageBitmap(bitmap);
+            } else {
+                if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("diary")) {
+                    mainListItemViewHolder.mImage.setImageResource(R.drawable.image_diary);
+                } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("jot")) {
+                    mainListItemViewHolder.mImage.setImageResource(R.drawable.image_jot);
+                }
 
             }
 

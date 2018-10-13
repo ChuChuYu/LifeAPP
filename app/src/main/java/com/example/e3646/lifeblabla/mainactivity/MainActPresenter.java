@@ -10,9 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.account.AccountFragment;
 import com.example.e3646.lifeblabla.account.AccountPresenter;
-import com.example.e3646.lifeblabla.addnote.AddNoteContract;
-import com.example.e3646.lifeblabla.addnote.AddNoteFragment;
-import com.example.e3646.lifeblabla.addnote.AddNotePresenter;
+
 import com.example.e3646.lifeblabla.calendar.CalendarFragment;
 import com.example.e3646.lifeblabla.calendar.CalendarPresenter;
 import com.example.e3646.lifeblabla.conference.ConferenceFragment;
@@ -294,7 +292,7 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void goDiaryEdit() {
 
         mDiaryEditFragment = new DiaryEditFragment(true, null);
-        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null,null, false);
+        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")

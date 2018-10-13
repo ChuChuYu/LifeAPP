@@ -239,6 +239,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mTagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 mTagBottom.setVisibility(View.VISIBLE);
                 mTagBottom.startAnimation(animation);
 
@@ -274,19 +275,26 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         switch (requestCode) {
             case 0: //呼叫相簿
-//                mMindButton.setVisibility(View.VISIBLE);
-                handleImage(data);
+                Uri uri = data.getData();
+                mPhoto.setVisibility(View.VISIBLE);
+                mPhoto.setImageURI(uri);
+                mMinusButton.setVisibility(View.VISIBLE);
+//                handleImage(data);
+
+
                 break;
 
-            case 9453:
+            case 1:
 
                 if (resultCode == RESULT_OK) {
                     Log.d("take photo", "RESULT_OK");
 
 
 //                    mImagePath = getRealPathFromURI(data.getData());
+//                    Uri uriFor = data.getData();
                     mPhoto.setVisibility(View.VISIBLE);
                     mPhoto.setImageURI(mUri);
+
                     Log.d("path", " : " + mImagePath);
 
 //                    Bundle extras = data.getExtras();
@@ -425,7 +433,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         if (num.equals("1")) {
             mWeatherButton.setImageResource(R.drawable.weather_1);
         } else if (num.equals("2")) {
-            mWeatherButton.setImageResource(R.drawable.weather_sun);
+            mWeatherButton.setImageResource(R.drawable.button_weather);
         } else if (num.equals("3")) {
             mWeatherButton.setImageResource(R.drawable.weather_3);
         } else if (num.equals("4")) {
@@ -490,7 +498,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             intent.putExtra("ImageUri", mUri);
             intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
             intent.setFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
-            startActivityForResult(intent, 9453);
+            startActivityForResult(intent, 1);
         } else {
 
         }
@@ -509,11 +517,13 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             String docId = DocumentsContract.getDocumentId(uri);
 
             if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                Log.d("path", "selection : ");
                 String id = docId.split(":")[1];//解析出數字格式的id
                 String selection = MediaStore.Images.Media._ID + "=" + id;
                 mImagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
 
             } else if ("com.android,providers.downloads.documents".equals(uri.getAuthority())) {
+                Log.d("path", "content uri: ");
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
                 mImagePath = getImagePath(contentUri, null);
 

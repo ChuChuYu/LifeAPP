@@ -25,7 +25,7 @@ public interface JotEditContrat {
 
         void completeCreating();
 
-        void completeEditing();
+        void completeEditing(Note note);
 
         void insertJotData(Context context, Note note);
 

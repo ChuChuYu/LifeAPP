@@ -87,7 +87,7 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/list_item_image"
         app:layout_constraintTop_toTopOf="@+id/note_title"
-        app:srcCompat="@drawable/mind_selected" />
+        app:srcCompat="@drawable/note_tag_diary" />
 
     <ImageView
         android:id="@+id/main_tag_backgroung"

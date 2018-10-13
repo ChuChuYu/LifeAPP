@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.object.Note;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -56,7 +57,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
         mCreatedTime = (TextView)view.findViewById(R.id.diary_detail_created_time);
-        mTitle = (TextView) view.findViewById(R.id.diary_detail_title);
+        mTitle = (TextView) view.findViewById(R.id.jot_title);
         mText = (TextView)view.findViewById(R.id.jot_text);
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mEmotion = (ImageView)view.findViewById(R.id.diary_emotion);
@@ -78,7 +79,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         }
 
 
-        mPicture = (ImageView)view.findViewById(R.id.diary_picture);
+        mPicture = (ImageView)view.findViewById(R.id.jot_picture);
 
         if (mNote.getmPicture() != null && !mNote.getmPicture().equals("")) {
             Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
@@ -97,9 +98,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.detach(DiaryFragment.this)
-                            .commit();
+
                 mPresenter.backToMain();
             }
         });
@@ -127,15 +126,10 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     }
 
     @Override
-    public void refreshDetail() {
-
-    }
-
-    @Override
     public void hideUI() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.hide(DiaryFragment.this)
+        transaction.detach(DiaryFragment.this)
                 .commit();
     }
 
@@ -183,7 +177,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
                 mWeather.setImageResource(R.drawable.weather_1);
             }
             if (mNote.getmWeather().equals("2")) {
-                mWeather.setImageResource(R.drawable.weather_sun);
+                mWeather.setImageResource(R.drawable.button_weather);
             }
             if (mNote.getmWeather().equals("3")) {
                 mWeather.setImageResource(R.drawable.weather_3);

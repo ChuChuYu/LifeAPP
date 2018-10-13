@@ -71,7 +71,6 @@ public class MainFragment extends Fragment implements MainContract.View {
         mMainAdapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("item tag", "step1: " + (int)view.getTag());
 //                mPresenter.takeNoteListPosition((int)view.getTag());
                 mPresenter.showDiaryFragment((int)view.getTag());
 //                showDiaryUI();
@@ -136,13 +135,6 @@ public class MainFragment extends Fragment implements MainContract.View {
         mMainAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void setIsListMode(boolean isListMode) {
-//
-//        this.isListMode = isListMode;
-//        Log.d("isListMode", ":" + this.isListMode + " set to be: " + isListMode);
-
-    }
 
     @Override
     public void hideUI() {

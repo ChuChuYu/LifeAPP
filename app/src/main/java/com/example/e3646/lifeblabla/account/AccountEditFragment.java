@@ -31,21 +31,21 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private int ACCOUNT_SIZE = 1;
 
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_accountedit, container, false);
-
-        mRecyclerView = view.findViewById(R.id.account_edit_recyclerview);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mAccountAdapter = new AccountAdapter();
-        mRecyclerView.setAdapter(mAccountAdapter);
-
+//    @Nullable
+//    @Override
+//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_accountedit, container, false);
+//
+//        mRecyclerView = view.findViewById(R.id.account_edit_recyclerview);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mAccountAdapter = new AccountAdapter();
+//        mRecyclerView.setAdapter(mAccountAdapter);
+//
 //        mAccountAddRecyclerView = view.findViewById(R.id.account_add_recyclerview);
 //        mAccountAddRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        mAccountAddAdapter = new AccountAddAdapter(ACCOUNT_SIZE);
 //        mAccountAddRecyclerView.setAdapter(mAccountAddAdapter);
-
+//
 //        mAddButton = view.findViewById(R.id.button_add_account_item);
 //        mAddButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -59,9 +59,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 //                Log.d("add account button", "click2: " + ACCOUNT_SIZE);
 //            }
 //        });
-
-        return view;
-    }
+//
+//        return view;
+//    }
 
     @Override
     public void setPresenter(AccountEditContract.Presenter presenter) {

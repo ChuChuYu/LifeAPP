@@ -87,34 +87,28 @@ public class MainPresenter implements MainContract.Presenter {
         mNoteList = sql.getNotes();
         mNoteListPosition = i;
         Note note = mNoteList.get(mNoteListPosition);
-        Log.d("item tag", "step3: " + mNoteListPosition);
         mMainView.hideUI();
 
-//        if (mDiaryFragment == null) {
-//            mDiaryFragment = new DiaryFragment(note);
-//            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//            transaction.add(R.id.whole_container, mDiaryFragment, "DIARY");
-//        }
+        if (mNoteList.get(mNoteListPosition).getmClassification().equals("diary")) {
 
-        mDiaryFragment = new DiaryFragment(note);
-
-        mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
-
-        if (mDiaryPresenter == null) {
+            mDiaryFragment = new DiaryFragment(note);
             mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
+                    .show(mDiaryFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else if (mNoteList.get(mNoteListPosition).getmClassification().equals("jot")) {
+
+            mJotFragment = new JotFragment(note);
+            mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.replace(R.id.whole_container, mJotFragment, "JOT")
+                    .show(mJotFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
 
-
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
-                .show(mDiaryFragment)
-                .addToBackStack(null)
-                .commit();
-
-//        mDiaryFragment.parseNote(mNoteList.get(mNoteListPosition));
-//        mDiaryFragment.setNoteData(mNoteList.get(mNoteListPosition));
-//        mDiaryPresenter.parseNote(mNoteList.get(mNoteListPosition));
 
         mMainActPresenter.goDiaryDetail(); //just hide component
 
