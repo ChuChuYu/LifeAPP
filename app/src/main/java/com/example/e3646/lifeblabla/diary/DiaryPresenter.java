@@ -92,7 +92,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
 
     @Override
     public void showCheckDeleteDialog() {
-        mCheckDeleteFragment = new CheckDeleteFragment(this, mNoteList.get(mNotePosition).getmId());
+        mCheckDeleteFragment = new CheckDeleteFragment(this, null,  mNoteList.get(mNotePosition).getmId(), 1);
         mCheckDeleteFragment.show(mFragmentManager, null);
     }
 

@@ -5,6 +5,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 import com.example.e3646.lifeblabla.R;
 
 import com.example.e3646.lifeblabla.diary.DiaryPresenter;
+import com.example.e3646.lifeblabla.jot.JotPresenter;
 
 @SuppressLint("ValidFragment")
 public class CheckDeleteFragment extends DialogFragment {
@@ -25,11 +27,16 @@ public class CheckDeleteFragment extends DialogFragment {
     private ImageButton mConfirmButton;
 
     private DiaryPresenter mDiaryPresenter;
+    private JotPresenter mJotPresenter;
     private String mId;
 
-    public CheckDeleteFragment(DiaryPresenter diaryPresenter, String id) {
+    private int NOTE_TYPE;
+
+    public CheckDeleteFragment(DiaryPresenter diaryPresenter, JotPresenter jotPresenter, String id, int noteType) {
         this.mDiaryPresenter = diaryPresenter;
+        this.mJotPresenter = jotPresenter;
         this.mId = id;
+        this.NOTE_TYPE = noteType;
     }
 
 
@@ -51,9 +58,15 @@ public class CheckDeleteFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                mDiaryPresenter.deleteNoteData(mId);
-                mDiaryPresenter.completeDeleting();
-                getDialog().dismiss();
+                if (NOTE_TYPE == 1) {
+                    mDiaryPresenter.deleteNoteData(mId);
+                    mDiaryPresenter.completeDeleting();
+                    getDialog().dismiss();
+                } else if (NOTE_TYPE == 2) {
+                    mJotPresenter.deleteNoteData(mId);
+                    mJotPresenter.completeDeleting();
+                    getDialog().dismiss();
+                }
             }
         });
 

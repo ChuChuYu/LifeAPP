@@ -64,12 +64,12 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
         mJotEditView.hideUI();
 
         mJotFragment = new JotFragment(note);
-        mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter);
+        mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, 0, null);
 
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction.replace(R.id.whole_container, mJotFragment)
-//                .show(mJotFragment)
-//                .commit();
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.whole_container, mJotFragment)
+                .show(mJotFragment)
+                .commit();
     }
 
     @Override

@@ -9,12 +9,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.diary.DiaryAdapter;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
@@ -34,12 +37,17 @@ public class JotFragment extends Fragment implements JotContract.View {
     private JotAdapter mJotAdapter;
     private ImageView mTagBackground;
 
+    private TextView mCreatedTime;
+    private TextView mTitle;
+    private TextView mText;
+
 
 
     private Note mNote;
 
     public JotFragment(Note note) {
         mNote = note;
+        Log.d("note title", ": " + mNote.getmTitle());
 
     }
 
@@ -49,7 +57,13 @@ public class JotFragment extends Fragment implements JotContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jot, container, false);
 
+
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
+        mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
+        mTitle = (TextView)view.findViewById(R.id.jot_title);
+        mText = (TextView)view.findViewById(R.id.jot_text);
+
+        setNoteData(mNote);
 
         if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("") && ! mNote.getmTag().get(0).equals("null")) {
             mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
@@ -77,6 +91,7 @@ public class JotFragment extends Fragment implements JotContract.View {
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mPresenter.goEditJot(false);
 
             }
         });
@@ -85,6 +100,7 @@ public class JotFragment extends Fragment implements JotContract.View {
         mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mPresenter.showCheckDeleteDialog();
 
             }
         });
@@ -101,10 +117,24 @@ public class JotFragment extends Fragment implements JotContract.View {
     }
 
     @Override
+    public void setNoteData(Note note) {
+        mNote = note;
+        mCreatedTime.setText(note.getmCreatedTime());
+        mTitle.setText(note.getmTitle());
+        mText.setText(note.getmText());
+    }
+
+    @Override
     public void hideUI() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.detach(JotFragment.this)
                 .commit();
+    }
+
+    @Override
+    public void deleteNoteData(String id) {
+        Sqldatabase sql = new Sqldatabase(getContext());
+        sql.deleteNote(id);
     }
 }

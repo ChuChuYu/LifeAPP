@@ -101,7 +101,7 @@ public class MainPresenter implements MainContract.Presenter {
         } else if (mNoteList.get(mNoteListPosition).getmClassification().equals("jot")) {
 
             mJotFragment = new JotFragment(note);
-            mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter);
+            mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mJotFragment, "JOT")
                     .show(mJotFragment)

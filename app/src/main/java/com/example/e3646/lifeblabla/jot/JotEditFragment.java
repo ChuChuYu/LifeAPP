@@ -6,6 +6,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -38,11 +39,12 @@ import java.util.Date;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @SuppressLint("ValidFragment")
-public class JotEditFragment extends Fragment implements JotEditContrat.View {
+public class JotEditFragment extends Fragment implements JotEditContrat.View, View.OnClickListener {
 
     private JotEditContrat.Presenter mPresenter;
     private Context mContext;
     private boolean isCreating;
+    private boolean isExpanded = false;
     private Note mNote;
     private ArrayList<Note> mNoteList;
 
@@ -57,6 +59,12 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
     private RecyclerView mTitleRecycelrView;
     private TitleAdapter mTitleAdapter;
     private ImageButton mExpandButton;
+
+    private BottomSheetBehavior mBottomSheetBehavior;
+
+    private Button mTitleOne;
+    private Button mTitleTwo;
+    private Button mTitleThree;
 
 
     public JotEditFragment(boolean isCreating, Note note) {
@@ -99,7 +107,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
             }
         });
 
-        if (isCreating && mNote != null) {
+        if (!isCreating && mNote != null) {
             mTitle.setText(mNote.getmTitle());
             mText.setText(mNote.getmText());
             mCreatedTime.setText(mNote.getmCreatedTime());
@@ -137,7 +145,52 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
             }
         });
 
+        mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mExpandButton = (ImageButton)view.findViewById(R.id.button_expand);
+        mExpandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isExpanded == false) {
+                    mExpandButton.setImageResource(R.drawable.button_expand_less);
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    isExpanded = true;
+                } else {
+                    mExpandButton.setImageResource(R.drawable.button_expand);
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    isExpanded = false;
+                }
+
+            }
+        });
+
+        mTitleOne = (Button)view.findViewById(R.id.button_title_1);
+        mTitleOne.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("title", "select");
+                mTitle.setText("用行動找回旅行「最初的感動」");
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        mTitleTwo = (Button)view.findViewById(R.id.button_title_2);
+        mTitleTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTitle.setText("浪漫遊四國寫下少爺與公主的物語");
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+        mTitleThree = (Button)view.findViewById(R.id.button_title_3);
+        mTitleThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTitle.setText("溫暖您疲憊的心 道後靈湯");
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
 
         return view;
     }
@@ -202,11 +255,14 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View {
             mNote.setmTitle(mTitle.getText().toString());
             mNote.setmText(mText.getText().toString());
 //            mNote.setmPicture(mImagePath);
-
-
             mPresenter.updateJotData(getContext(), mNote);
 
         }
+
+    }
+
+    @Override
+    public void onClick(View view) {
 
     }
 }
