@@ -29,7 +29,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/background_bottom_sheet" />
+            app:srcCompat="@drawable/background_list_item" />
 
         <TextView
             android:id="@+id/textView2"

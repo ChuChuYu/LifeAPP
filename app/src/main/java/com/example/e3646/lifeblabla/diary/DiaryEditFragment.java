@@ -276,6 +276,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         switch (requestCode) {
             case 0: //呼叫相簿
                 Uri uri = data.getData();
+                handleImage(data);
                 mPhoto.setVisibility(View.VISIBLE);
                 mPhoto.setImageURI(uri);
                 mMinusButton.setVisibility(View.VISIBLE);

@@ -205,6 +205,9 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     @Override
     public void gosetting() {
+//
+//        mSettingFragment = new SettingFragment();
+//        mSettingPresenter = new SettingPresenter(mSettingFragment);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction

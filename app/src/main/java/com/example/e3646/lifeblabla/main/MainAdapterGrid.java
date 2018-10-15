@@ -1,6 +1,8 @@
 package com.example.e3646.lifeblabla.main;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -94,6 +96,18 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
         mainGridItemViewHolder.mTitle.setText(mNoteList.get(mNoteList.size()-i-1).getmTitle());
         mainGridItemViewHolder.mText.setText(mNoteList.get(mNoteList.size()-i-1).getmText());
+
+        if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
+            Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
+            mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+        } else {
+            if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("diary")) {
+                mainGridItemViewHolder.mImage.setImageResource(R.drawable.image_diary);
+            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("jot")) {
+                mainGridItemViewHolder.mImage.setImageResource(R.drawable.image_jot);
+            }
+
+        }
 
     }
 
