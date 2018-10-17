@@ -301,7 +301,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/jot_tag"
+        app:layout_constraintBottom_toTopOf="@+id/sample_title"
         app:layout_constraintEnd_toEndOf="@+id/imageView19"
         app:srcCompat="@drawable/account_image" />
 
@@ -325,7 +325,7 @@
     <!--app:menu="@menu/bottom_navigation_edit"/>-->
 
     <EditText
-        android:id="@+id/jot_tag"
+        android:id="@+id/sample_title"
         android:layout_width="364dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

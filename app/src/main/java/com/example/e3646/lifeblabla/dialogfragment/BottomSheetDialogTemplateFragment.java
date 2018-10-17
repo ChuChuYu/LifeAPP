@@ -46,12 +46,10 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
         mDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 mMainActPresenter.goDiaryEdit();
                 mMainActPresenter.hideComponent();
                 mMainActPresenter.hideBottomNavigation();
                 dismiss();
-
             }
         });
 
@@ -59,7 +57,10 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
         mAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mMainActPresenter.goAccountEdit();
+                mMainActPresenter.hideComponent();
+                mMainActPresenter.hideBottomNavigation();
+                dismiss();
             }
         });
 

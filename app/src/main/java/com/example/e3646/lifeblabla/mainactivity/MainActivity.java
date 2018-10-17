@@ -105,15 +105,11 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                     mToggleButton.setButtonDrawable(R.drawable.button_layout_list);
                     mPresenter.switchToGridLayout();
 //                    mMainFragment.setIsListMode(b);
-
-
                 } else {
 
                     mToggleButton.setButtonDrawable(R.drawable.button_grid_layout);
                     mPresenter.switchToListLayout();
 //                    mMainFragment.setIsListMode(b);
-
-
                 }
             }
         });

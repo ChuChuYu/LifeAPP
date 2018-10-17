@@ -114,7 +114,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mDiaryEditAdapter = new DiaryEditAdapter();
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
-        mDiaryTag = (EditText)view.findViewById(R.id.jot_tag);
+        mDiaryTag = (EditText)view.findViewById(R.id.sample_title);
         mDiaryTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {

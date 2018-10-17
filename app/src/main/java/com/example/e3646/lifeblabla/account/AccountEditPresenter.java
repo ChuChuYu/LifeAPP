@@ -11,7 +11,6 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
 
         mAccountEditView = checkNotNull(accountEditView);
         mAccountEditView.setPresenter(this);
-
         mAccountAdapter = new AccountAdapter();
 
     }

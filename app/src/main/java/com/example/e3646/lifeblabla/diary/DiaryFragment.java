@@ -21,7 +21,6 @@ import android.widget.TextView;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
-import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.object.Note;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -60,8 +59,8 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mTitle = (TextView) view.findViewById(R.id.jot_title);
         mText = (TextView)view.findViewById(R.id.jot_text);
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
-        mEmotion = (ImageView)view.findViewById(R.id.diary_emotion);
-        mWeather = (ImageView)view.findViewById(R.id.diary_weather);
+        mEmotion = (ImageView)view.findViewById(R.id.note_diary_emotion);
+        mWeather = (ImageView)view.findViewById(R.id.note_diary_weather);
 
         setNoteData(mNote);
 

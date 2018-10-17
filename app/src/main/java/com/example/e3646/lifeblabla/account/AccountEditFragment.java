@@ -4,6 +4,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,48 +21,43 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AccountEditFragment extends Fragment implements AccountEditContract.View {
 
     private AccountEditContract.Presenter mPresenter;
+    private BottomSheetBehavior mBottomSheetBehavior;
 
-    private RecyclerView mRecyclerView;
-    private AccountAdapter mAccountAdapter;
-
-    private RecyclerView mAccountAddRecyclerView;
-    private AccountAddAdapter mAccountAddAdapter;
-
-    private ImageButton mAddButton;
-    private int ACCOUNT_SIZE = 1;
+    private ImageButton mAddItemButton;
+    private ImageButton mHideButton;
 
 
-//    @Nullable
-//    @Override
-//    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_accountedit, container, false);
-//
-//        mRecyclerView = view.findViewById(R.id.account_edit_recyclerview);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mAccountAdapter = new AccountAdapter();
-//        mRecyclerView.setAdapter(mAccountAdapter);
-//
-//        mAccountAddRecyclerView = view.findViewById(R.id.account_add_recyclerview);
-//        mAccountAddRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mAccountAddAdapter = new AccountAddAdapter(ACCOUNT_SIZE);
-//        mAccountAddRecyclerView.setAdapter(mAccountAddAdapter);
-//
-//        mAddButton = view.findViewById(R.id.button_add_account_item);
-//        mAddButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Log.d("add account button", "click1: " + ACCOUNT_SIZE);
-//                ACCOUNT_SIZE += 1;
-//                mAccountAddAdapter.setACCOUNTNUMBER(ACCOUNT_SIZE);
-//                mAccountAddAdapter.notifyDataSetChanged();
-//
-//                Log.d("add account button", "click2: " + ACCOUNT_SIZE);
-//            }
-//        });
-//
-//        return view;
-//    }
+
+
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_account_edit, container, false);
+
+        mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
+        mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+        mAddItemButton = view.findViewById(R.id.button_add_item);
+        mAddItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            }
+        });
+
+        mHideButton = (ImageButton)view.findViewById(R.id.button_hide);
+        mHideButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+            }
+        });
+
+
+        return view;
+    }
+
 
     @Override
     public void setPresenter(AccountEditContract.Presenter presenter) {

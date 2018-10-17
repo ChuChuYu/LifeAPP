@@ -2,7 +2,6 @@ package com.example.e3646.lifeblabla.jot;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,15 +21,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.adapter.TitleAdapter;
-import com.example.e3646.lifeblabla.conference.ConferenceFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditAdapter;
-import com.example.e3646.lifeblabla.diary.DiaryEditPresenter;
 import com.example.e3646.lifeblabla.object.Note;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -97,7 +91,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 //        mTitleRecycelrView.getItemAnimator().setMoveDuration(300);
 
 
-        mJotTag = (EditText)view.findViewById(R.id.jot_tag);
+        mJotTag = (EditText)view.findViewById(R.id.sample_title);
         mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -147,22 +141,22 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
         mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-        mExpandButton = (ImageButton)view.findViewById(R.id.button_expand);
-        mExpandButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (isExpanded == false) {
-                    mExpandButton.setImageResource(R.drawable.button_expand_less);
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                    isExpanded = true;
-                } else {
-                    mExpandButton.setImageResource(R.drawable.button_expand);
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                    isExpanded = false;
-                }
-
-            }
-        });
+//        mExpandButton = (ImageButton)view.findViewById(R.id.button_expand);
+//        mExpandButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (isExpanded == false) {
+//                    mExpandButton.setImageResource(R.drawable.button_expand_less);
+//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+//                    isExpanded = true;
+//                } else {
+//                    mExpandButton.setImageResource(R.drawable.button_expand);
+//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+//                    isExpanded = false;
+//                }
+//
+//            }
+//        });
 
         mTitleOne = (Button)view.findViewById(R.id.button_title_1);
         mTitleOne.setOnClickListener(new View.OnClickListener() {

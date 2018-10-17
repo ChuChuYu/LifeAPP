@@ -17,6 +17,7 @@ import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.object.Note;
 import com.example.e3646.lifeblabla.object.Tag;
+import com.google.android.gms.maps.GoogleMap;
 
 import org.w3c.dom.Text;
 
@@ -26,6 +27,8 @@ import java.util.List;
 public class MainAdapterGrid extends RecyclerView.Adapter {
 
     private Context mContext;
+    private int TYPE_DIARY = 1;
+    private int TYPE_ACCOUNT = 2;
 
     private View.OnClickListener mListener;
     private boolean isListLayout = false;
@@ -52,25 +55,61 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        return new MainAdapterGrid.MainGridItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_grid, null));
-    }
 
+        if (getItemViewType(i) == TYPE_DIARY) {
+            return new MainAdapterGrid.MainGridItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_grid_diary, null));
+
+        } else if (getItemViewType(i) == TYPE_ACCOUNT) {
+            return new MainAdapterGrid.MainGridItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_grid_account, null));
+        } else {
+            return null;
+        }
+    }
 
     public class MainGridItemViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mBackground;
+//        private ImageView mBackground;
+//        private ImageView mImage;
+//        private TextView mTitle;
+//        private TextView mText;
+
         private ImageView mImage;
-        private TextView mTitle;
+        private ImageView mImageBack;
+
+        private ImageView mDiaryEmotion;
+        private ImageView mDiaryWeather;
+        private ImageView mTagBackground;
+        private ImageView mTypeBackground;
+
+        private TextView mTag;
+        private TextView mType;
         private TextView mText;
+        private TextView mDate;
+        private TextView mDayTime;
+        private TextView mTime;
+
 
 
         public MainGridItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            mBackground = (ImageView)itemView.findViewById(R.id.grid_item_background);
-            mImage = (ImageView)itemView.findViewById(R.id.grid_item_image);
-            mTitle = (TextView)itemView.findViewById(R.id.grid_item_title);
-            mText = (TextView)itemView.findViewById(R.id.note_text);
+//            mBackground = (ImageView)itemView.findViewById(R.id.grid_item_background);
+//            mImage = (ImageView)itemView.findViewById(R.id.grid_item_image);
+//            mTitle = (TextView)itemView.findViewById(R.id.grid_item_title);
+//            mText = (TextView)itemView.findViewById(R.id.note_text);
+
+            mImage = itemView.findViewById(R.id.note_image);
+            mImageBack = itemView.findViewById(R.id.note_image_back);
+            mDiaryEmotion = itemView.findViewById(R.id.note_diary_emotion);
+            mDiaryWeather = itemView.findViewById(R.id.note_diary_weather);
+            mTagBackground = itemView.findViewById(R.id.note_tag_background);
+            mTypeBackground = itemView.findViewById(R.id.note_type_background);
+            mTag = itemView.findViewById(R.id.note_tag);
+            mType = itemView.findViewById(R.id.note_type);
+            mText = itemView.findViewById(R.id.note_text);
+            mDate = itemView.findViewById(R.id.note_date);
+            mDayTime = itemView.findViewById(R.id.note_daytime);
+            mTime = itemView.findViewById(R.id.note_time);
 
         }
     }
@@ -79,13 +118,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
         MainGridItemViewHolder mainGridItemViewHolder = (MainGridItemViewHolder)viewHolder;
-        ViewGroup.LayoutParams layoutParams = mainGridItemViewHolder.mImage.getLayoutParams();
-        layoutParams.height = heights.get(i);
-        mainGridItemViewHolder.mImage.setLayoutParams(layoutParams);
-
-        ViewGroup.LayoutParams backgroundParams = mainGridItemViewHolder.mBackground.getLayoutParams();
-        backgroundParams.height = heights.get(i) + 240;
-        mainGridItemViewHolder.mBackground.setLayoutParams(backgroundParams);
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,17 +126,65 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             }
         });
 
-        mainGridItemViewHolder.mTitle.setText(mNoteList.get(mNoteList.size()-i-1).getmTitle());
-        mainGridItemViewHolder.mText.setText(mNoteList.get(mNoteList.size()-i-1).getmText());
-
-        if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
-            Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
-            mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
-        } else {
+        if (mNoteList != null && mNoteList.get(mNoteList.size()-i-1) != null) {
             if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("diary")) {
-                mainGridItemViewHolder.mImage.setImageResource(R.drawable.image_diary);
+
+                if (mNoteList.get(mNoteList.size() - i - 1).getmMind() != null) {
+                    if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("1")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.button_emotion);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("2")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_2);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("3")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_3);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("4")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_4);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("5")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_5);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("6")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_6);
+                    }
+                }
+
+                if (mNoteList.get(mNoteList.size()-i-1).getmWeather() != null) {
+                    if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("1")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_1);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("2")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.button_weather);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("3")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_3);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("4")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_4);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("5")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_5);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("6")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_6);
+                    }
+
+                }
+
             } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("jot")) {
-                mainGridItemViewHolder.mImage.setImageResource(R.drawable.image_jot);
+
+                mainGridItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
+                mainGridItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
+                mainGridItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_jot);
+                mainGridItemViewHolder.mType.setText("隨筆");
+
+            }
+
+
+            if (!mNoteList.get(mNoteList.size()-i-1).getmText().equals("")) {
+                mainGridItemViewHolder.mText.setText(mNoteList.get(mNoteList.size() - i - 1).getmText());
+            } else {
+                mainGridItemViewHolder.mText.setText("還沒想到要寫些什麼...");
+            }
+            if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
+                Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
+                mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+
+            } else {
+
+                mainGridItemViewHolder.mImage.setVisibility(View.GONE);
+                mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
             }
 
         }
@@ -114,11 +194,23 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mNoteList.size();
+//        return mNoteList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
+
+        super.getItemViewType(position);
+
+        if (mNoteList.get(mNoteList.size()-position-1).getmClassification().equals("diary") || mNoteList.get(mNoteList.size()-position-1).getmClassification().equals("jot")) {
+            return TYPE_DIARY;
+        } else if (mNoteList.get(mNoteList.size()-position-1).getmClassification().equals("account")) {
+            return TYPE_ACCOUNT;
+        } else {
+            return 100;
+        }
+
+
     }
 
     public void setOnItemListener(View.OnClickListener listener) {

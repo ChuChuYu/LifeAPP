@@ -76,6 +76,8 @@ public interface MainActContract {
 
         void goDiaryEdit();
 
+        void goAccountEdit();
+
         void goJotEdit();
 
         void refreshList();
