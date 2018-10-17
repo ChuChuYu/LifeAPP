@@ -225,11 +225,11 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
             mNote = new Note();
             mNote.setmId(id);
-            if (mTitle.getText().toString() != null && !mTitle.getText().toString().equals("")) {
-                mNote.setmTitle(mTitle.getText().toString());
-            } else {
-                mNote.setmTitle("這是一則筆記");
-            }
+//            if (mTitle.getText().toString() != null && !mTitle.getText().toString().equals("")) {
+//                mNote.setmTitle(mTitle.getText().toString());
+//            } else {
+//                mNote.setmTitle("這是一則筆記");
+//            }
             mNote.setmText(mText.getText().toString());
             mNote.setmCreatedTime(currentTime);
             mNote.setmUpdatedTime("");

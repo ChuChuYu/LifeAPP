@@ -121,18 +121,6 @@
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="@+id/imageView9" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/note_diary_weather"
-        app:layout_constraintStart_toEndOf="@+id/note_diary_weather"
-        app:layout_constraintTop_toTopOf="@+id/note_diary_weather"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/tag_blue" />
-
     <ImageButton
         android:id="@+id/button_delete"
         android:layout_width="25dp"

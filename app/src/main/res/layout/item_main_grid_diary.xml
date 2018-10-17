@@ -13,7 +13,6 @@
         android:layout_marginBottom="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
         android:paddingTop="-10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,34 +26,23 @@
         android:id="@+id/note_image_back"
         android:layout_width="200dp"
         android:layout_height="150dp"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/note_image"
-        app:layout_constraintStart_toStartOf="@+id/note_image"
-        app:layout_constraintTop_toTopOf="@+id/note_image"
-        app:srcCompat="@drawable/background_transparent" />
-
-    <ImageView
-        android:id="@+id/note_image"
-        android:layout_width="200dp"
-        android:layout_height="160dp"
-
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/shape_main_grid_image"
-        android:scaleType="centerCrop"
         android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="@+id/card"
-        app:layout_constraintStart_toStartOf="@+id/card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/image_sample" />
+        app:srcCompat="@drawable/background_transparent" />
 
     <ImageView
         android:id="@+id/note_diary_emotion"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="96dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/card"
         app:layout_constraintStart_toStartOf="@+id/card"
-        app:layout_constraintTop_toTopOf="@+id/card"
         app:srcCompat="@drawable/button_emotion" />
 
     <ImageView
@@ -84,19 +72,45 @@
         app:layout_constraintTop_toTopOf="@+id/note_diary_emotion"
         app:srcCompat="@drawable/background_tag_diary" />
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="200dp"
+        android:layout_height="171dp"
+        android:layout_marginTop="4dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/card"
+        app:layout_constraintStart_toStartOf="@+id/card"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/note_image"
+            android:layout_width="200dp"
+            android:layout_height="160dp"
+
+            android:background="@drawable/shape_main_grid_image"
+            android:scaleType="centerCrop"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="@+id/card"
+            app:layout_constraintStart_toStartOf="@+id/card"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/image_sample" />
+    </android.support.v7.widget.CardView>
+
     <TextView
         android:id="@+id/note_text"
         android:layout_width="184dp"
         android:layout_height="38dp"
+        android:layout_marginBottom="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="52dp"
         android:ellipsize="end"
         android:text="食安問題頻傳，現代人重視食品安全，許多民眾擔心市面上的蔬菜有農藥殘留問題，因此開始吃有機食品，甚至有民眾乾脆在自家空地便開闢有機蔬果園。"
         android:textColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="@+id/card"
         app:layout_constraintEnd_toEndOf="@+id/card"
-        app:layout_constraintStart_toStartOf="@+id/card"
-        app:layout_constraintTop_toTopOf="@+id/card" />
+        app:layout_constraintStart_toStartOf="@+id/card" />
 
     <TextView
         android:id="@+id/note_date"

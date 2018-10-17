@@ -21,6 +21,13 @@ public class Note {
     private String mMind;
     private String mWeather;
 
+    private String mAccountRevenue;
+
+
+
+    private String mAccountExpense;
+    private String mAccountBalance;
+
     private ArrayList mAccountItem;
     private ArrayList mConferenceItem;
 
@@ -38,6 +45,10 @@ public class Note {
         mPicture = "";
         mVideo = "";
         mAudio = "";
+
+        mAccountRevenue = "$ 0";
+        mAccountExpense = "$ 0";
+        mAccountBalance = "$ 0";
 
         mMind = "";
         mWeather = "";
@@ -165,6 +176,29 @@ public class Note {
         this.mConferenceItem = mConferenceItem;
     }
 
+    public String getAccountRevenue() {
+        return mAccountRevenue;
+    }
+
+    public void setAccountRevenue(String accountRevenue) {
+        mAccountRevenue = accountRevenue;
+    }
+
+    public String getAccountExpense() {
+        return mAccountExpense;
+    }
+
+    public void setAccountExpense(String accountExpense) {
+        mAccountExpense = accountExpense;
+    }
+
+    public String getAccountBalance() {
+        return mAccountBalance;
+    }
+
+    public void setAccountBalance(String accountBalance) {
+        mAccountBalance = accountBalance;
+    }
 
 
 

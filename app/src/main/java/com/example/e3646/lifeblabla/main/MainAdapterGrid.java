@@ -1,10 +1,12 @@
 package com.example.e3646.lifeblabla.main;
 
 import android.content.Context;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
+
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,6 +44,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
         Sqldatabase sql = new Sqldatabase(mContext);
         mNoteList = sql.getNotes();
+        Log.d("note", "size" + mNoteList.size());
 
     }
 
@@ -88,6 +91,8 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         private TextView mDayTime;
         private TextView mTime;
 
+        private CardView mCardView;
+
 
 
         public MainGridItemViewHolder(@NonNull View itemView) {
@@ -110,6 +115,8 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             mDate = itemView.findViewById(R.id.note_date);
             mDayTime = itemView.findViewById(R.id.note_daytime);
             mTime = itemView.findViewById(R.id.note_time);
+
+            mCardView = itemView.findViewById(R.id.cardView);
 
         }
     }
@@ -181,10 +188,13 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
                 mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
 
+                Log.d("bitmap", "path: " + mNoteList.get(mNoteList.size()-i-1).getmPicture());
+
             } else {
 
                 mainGridItemViewHolder.mImage.setVisibility(View.GONE);
                 mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
+                mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
             }
 
         }
@@ -211,9 +221,12 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         }
 
 
+
     }
 
     public void setOnItemListener(View.OnClickListener listener) {
         this.mListener = listener;
     }
+
+
 }

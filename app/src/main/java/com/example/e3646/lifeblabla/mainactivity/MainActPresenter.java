@@ -328,7 +328,7 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void goAccountEdit() {
 
         mAccountEditFragment = new AccountEditFragment();
-        mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment);
+        mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mAccountEditFragment, "EDIT ACCOUNT")
