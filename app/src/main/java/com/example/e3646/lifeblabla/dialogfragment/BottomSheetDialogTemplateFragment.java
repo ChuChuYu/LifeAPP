@@ -1,21 +1,15 @@
 package com.example.e3646.lifeblabla.dialogfragment;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ImageButton;
 
 import com.example.e3646.lifeblabla.R;
@@ -48,27 +42,29 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
         Log.d("background color", ": "+ Color.TRANSPARENT);
 
 
-        mDiaryButton = (ImageButton)view.findViewById(R.id.button_type_diary);
+        mDiaryButton = (ImageButton)view.findViewById(R.id.button_form_text);
         mDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 mMainActPresenter.goDiaryEdit();
                 mMainActPresenter.hideComponent();
+                mMainActPresenter.hideBottomNavigation();
                 dismiss();
-
             }
         });
 
-        mAccountButton = (ImageButton)view.findViewById(R.id.button_type_account);
+        mAccountButton = (ImageButton)view.findViewById(R.id.button_form_album);
         mAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mMainActPresenter.goAccountEdit();
+                mMainActPresenter.hideComponent();
+                mMainActPresenter.hideBottomNavigation();
+                dismiss();
             }
         });
 
-        mConferenceButton = (ImageButton)view.findViewById(R.id.button_type_conference);
+        mConferenceButton = (ImageButton)view.findViewById(R.id.button_form_camera);
         mConferenceButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

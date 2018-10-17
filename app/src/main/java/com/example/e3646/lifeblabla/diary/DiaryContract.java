@@ -12,8 +12,6 @@ public interface DiaryContract {
 
         void setPresenter(Presenter presenter);
 
-        void refreshDetail();
-
         void hideUI();
 
         void setNoteData(Note note);

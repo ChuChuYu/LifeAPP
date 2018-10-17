@@ -75,7 +75,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView31" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/note_diary_emotion"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
@@ -87,14 +87,14 @@
         app:srcCompat="@drawable/button_emotion" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/note_diary_weather"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView7"
-        app:layout_constraintStart_toEndOf="@+id/imageView7"
-        app:layout_constraintTop_toTopOf="@+id/imageView7"
+        app:layout_constraintBottom_toBottomOf="@+id/note_diary_emotion"
+        app:layout_constraintStart_toEndOf="@+id/note_diary_emotion"
+        app:layout_constraintTop_toTopOf="@+id/note_diary_emotion"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/button_weather" />
 
@@ -120,18 +120,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView9"
         app:layout_constraintStart_toEndOf="@+id/imageView9"
         app:layout_constraintTop_toTopOf="@+id/imageView9" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
-        app:layout_constraintTop_toTopOf="@+id/imageView8"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/tag_blue" />
 
     <ImageButton
         android:id="@+id/button_delete"
@@ -184,7 +172,7 @@
         android:background="#50ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diary_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/jot_picture" />
 
     <ImageView
         android:id="@+id/tag_view_background"
@@ -197,7 +185,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView31" />
 
     <TextView
-        android:id="@+id/diary_detail_text"
+        android:id="@+id/jot_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -208,10 +196,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.488"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diary_detail_title" />
+        app:layout_constraintTop_toBottomOf="@+id/jot_title" />
 
     <TextView
-        android:id="@+id/diary_detail_title"
+        android:id="@+id/jot_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -223,10 +211,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diary_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/jot_picture" />
 
     <ImageView
-        android:id="@+id/diary_picture"
+        android:id="@+id/jot_picture"
         android:layout_width="match_parent"
         android:layout_height="266dp"
         android:scaleType="centerCrop"
@@ -242,7 +230,7 @@
         android:layout_height="38dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/diary_picture"
+        app:layout_constraintBottom_toTopOf="@+id/jot_picture"
         app:layout_constraintEnd_toEndOf="@+id/tag_view_background"
         app:layout_constraintStart_toStartOf="@+id/tag_view_background"
         app:layout_constraintTop_toTopOf="@+id/tag_view_background" />

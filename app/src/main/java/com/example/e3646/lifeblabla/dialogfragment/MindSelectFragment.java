@@ -1,6 +1,8 @@
 package com.example.e3646.lifeblabla.dialogfragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,6 +46,8 @@ public class MindSelectFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mindselect, container, false);
 
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
         mSelectOne = view.findViewById(R.id.select_one);
         mSelectTwo = view.findViewById(R.id.select_two);
         mSelectThree = view.findViewById(R.id.select_three);
@@ -76,6 +80,7 @@ public class MindSelectFragment extends DialogFragment {
                 mSelectSix.setVisibility(View.INVISIBLE);
 
                 mDiaryEditPresenter.setMindSelection("1");
+                dismiss();
             }
         });
 
@@ -90,7 +95,7 @@ public class MindSelectFragment extends DialogFragment {
                 mSelectSix.setVisibility(View.INVISIBLE);
 
                 mDiaryEditPresenter.setMindSelection("2");
-
+                dismiss();
             }
         });
 
@@ -105,6 +110,7 @@ public class MindSelectFragment extends DialogFragment {
                 mSelectSix.setVisibility(View.INVISIBLE);
 
                 mDiaryEditPresenter.setMindSelection("3");
+                dismiss();
             }
         });
 
@@ -119,6 +125,7 @@ public class MindSelectFragment extends DialogFragment {
                 mSelectSix.setVisibility(View.INVISIBLE);
 
                 mDiaryEditPresenter.setMindSelection("4");
+                dismiss();
             }
         });
 
@@ -133,6 +140,7 @@ public class MindSelectFragment extends DialogFragment {
                 mSelectSix.setVisibility(View.INVISIBLE);
 
                 mDiaryEditPresenter.setMindSelection("5");
+                dismiss();
             }
         });
 
@@ -147,14 +155,13 @@ public class MindSelectFragment extends DialogFragment {
                 mSelectSix.setVisibility(View.VISIBLE);
 
                 mDiaryEditPresenter.setMindSelection("6");
+                dismiss();
             }
         });
 
 
-
-
-
         return view;
     }
+
 
 }

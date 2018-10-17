@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="#eeeeee">
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imageView44"
@@ -14,7 +13,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="#eeeeee"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,72 +20,74 @@
 
     <ImageView
         android:id="@+id/select_one"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="8dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/imageView44"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView44"
-        app:srcCompat="@drawable/custom_button" />
+        app:srcCompat="@drawable/background_list_item" />
 
     <ImageView
         android:id="@+id/select_two"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/select_one"
         app:layout_constraintStart_toEndOf="@+id/select_one"
         app:layout_constraintTop_toTopOf="@+id/select_one"
-        app:srcCompat="@drawable/custom_button" />
+        app:srcCompat="@drawable/background_list_item" />
 
     <ImageView
         android:id="@+id/select_three"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="38dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/select_two"
         app:layout_constraintStart_toEndOf="@+id/select_two"
         app:layout_constraintTop_toTopOf="@+id/select_two"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/custom_button" />
+        app:srcCompat="@drawable/background_list_item" />
 
     <ImageView
         android:id="@+id/select_four"
-        android:layout_width="50dp"
-        android:layout_height="48dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/select_three"
         app:layout_constraintStart_toEndOf="@+id/select_three"
         app:layout_constraintTop_toTopOf="@+id/select_three"
         app:layout_constraintVertical_bias="0.52"
-        app:srcCompat="@drawable/custom_button" />
+        app:srcCompat="@drawable/background_list_item" />
 
     <ImageView
         android:id="@+id/select_five"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/select_four"
         app:layout_constraintStart_toEndOf="@+id/select_four"
         app:layout_constraintTop_toTopOf="@+id/select_four"
-        app:srcCompat="@drawable/custom_button" />
+        app:srcCompat="@drawable/background_list_item" />
 
     <ImageView
         android:id="@+id/select_six"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="40dp"
         app:layout_constraintBottom_toBottomOf="@+id/select_five"
+        app:layout_constraintEnd_toEndOf="@+id/imageView44"
         app:layout_constraintStart_toEndOf="@+id/select_five"
         app:layout_constraintTop_toTopOf="@+id/select_five"
-        app:srcCompat="@drawable/custom_button" />
+        app:srcCompat="@drawable/background_list_item" />
 
     <ImageButton
         android:id="@+id/button_mind_one"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -98,12 +98,12 @@
         app:layout_constraintEnd_toEndOf="@+id/select_one"
         app:layout_constraintStart_toStartOf="@+id/select_one"
         app:layout_constraintTop_toTopOf="@+id/select_one"
-        app:srcCompat="@drawable/main_list_item_mind" />
+        app:srcCompat="@drawable/button_emotion" />
 
     <ImageButton
         android:id="@+id/button_mind_two"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -114,25 +114,24 @@
         app:layout_constraintEnd_toEndOf="@+id/select_two"
         app:layout_constraintStart_toStartOf="@+id/select_two"
         app:layout_constraintTop_toTopOf="@+id/select_two"
-        app:srcCompat="@drawable/main_list_item_mind" />
+        app:srcCompat="@drawable/emotion_2" />
 
     <ImageButton
         android:id="@+id/button_mind_three"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/select_3"
+        app:layout_constraintBottom_toBottomOf="@+id/select_three"
         app:layout_constraintEnd_toEndOf="@+id/select_three"
         app:layout_constraintStart_toStartOf="@+id/select_three"
         app:layout_constraintTop_toTopOf="@+id/select_three"
-        app:srcCompat="@drawable/main_list_item_mind" />
+        app:srcCompat="@drawable/emotion_3" />
 
     <ImageButton
         android:id="@+id/button_mind_four"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -143,12 +142,12 @@
         app:layout_constraintEnd_toEndOf="@+id/select_four"
         app:layout_constraintStart_toStartOf="@+id/select_four"
         app:layout_constraintTop_toTopOf="@+id/select_four"
-        app:srcCompat="@drawable/main_list_item_mind" />
+        app:srcCompat="@drawable/emotion_4" />
 
     <ImageButton
         android:id="@+id/button_mind_five"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -159,12 +158,12 @@
         app:layout_constraintEnd_toEndOf="@+id/select_five"
         app:layout_constraintStart_toStartOf="@+id/select_five"
         app:layout_constraintTop_toTopOf="@+id/select_five"
-        app:srcCompat="@drawable/main_list_item_mind" />
+        app:srcCompat="@drawable/emotion_5" />
 
     <ImageButton
         android:id="@+id/button_mind_six"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -175,5 +174,5 @@
         app:layout_constraintEnd_toEndOf="@+id/select_six"
         app:layout_constraintStart_toStartOf="@+id/select_six"
         app:layout_constraintTop_toTopOf="@+id/select_six"
-        app:srcCompat="@drawable/main_list_item_mind" />
+        app:srcCompat="@drawable/emotion_6" />
 </android.support.constraint.ConstraintLayout>

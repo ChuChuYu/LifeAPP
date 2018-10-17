@@ -15,11 +15,30 @@ public interface JotContract {
 
         void setPresenter(Presenter presenter);
 
+        void setNoteData(Note note);
+
+        void hideUI();
+
+        void deleteNoteData(String id);
+
+
+
 
 
     }
 
     interface Presenter extends BasePresenter {
+
+        void backToMain();
+
+        void deleteNoteData(String id);
+
+        void completeDeleting();
+
+        void showCheckDeleteDialog();
+
+        void goEditJot(boolean isCreating);
+
 
 
 

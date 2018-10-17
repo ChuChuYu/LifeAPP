@@ -37,6 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
+        android:singleLine="true"
         android:text="TextView"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="@+id/grid_item_image"

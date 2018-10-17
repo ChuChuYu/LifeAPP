@@ -2,16 +2,13 @@ package com.example.e3646.lifeblabla.diary;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.ClipData;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,7 +17,6 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -35,26 +31,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.e3646.Sqldatabase;
-import com.example.e3646.lifeblabla.BuildConfig;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.object.Note;
 
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
 import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -92,6 +86,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private Note mNote;
     private ArrayList<Note> mNoteList;
 
+    private Uri mUri;
+
     private boolean isCreating;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
     public DiaryEditFragment(boolean iscreating, Note note) {
@@ -109,7 +105,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         mContext = getContext();
         mDiaryTitle = (EditText)view.findViewById(R.id.diary_title10);
-        mDiaryText = (EditText)view.findViewById(R.id.diary_detail_text);
+        mDiaryText = (EditText)view.findViewById(R.id.jot_text);
 
         mTagRecyclerView = (RecyclerView)view.findViewById(R.id.diary_tag_recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
@@ -118,7 +114,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mDiaryEditAdapter = new DiaryEditAdapter();
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
-        mDiaryTag = (EditText)view.findViewById(R.id.diary_tag);
+        mDiaryTag = (EditText)view.findViewById(R.id.sample_title);
         mDiaryTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -128,7 +124,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
         });
 
-        mPhoto = (ImageView)view.findViewById(R.id.diary_photo);
+        mPhoto = (ImageView)view.findViewById(R.id.Jot_photo);
         mMinusButton = (ImageButton)view.findViewById(R.id.button_minus);
         mMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,8 +169,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
                     takeDiaryData();
 
-                    Sqldatabase sql = new Sqldatabase(mContext);
-                    sql.updateNotes(mNote.getmId(), mNote);
+
 //                    mPresenter.updateDiaryData(mNote.getmId(), mNote);
 //                    mPresenter.completeEditDiary();
                     mPresenter.completeEditing(mNote);
@@ -196,22 +191,23 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
         });
 
-//        mMindButton = (ImageButton)view.findViewById(R.id.button_mind);
-//        mMindButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
+        mMindButton = (ImageButton)view.findViewById(R.id.button_mind);
+        mMindButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.selectMind();
+            }
+        });
 //
-//                mPresenter.selectMind();
-//            }
-//        });
-//
-//        mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
-//        mWeatherButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                mPresenter.selectWeather();
-//            }
-//        });
+        mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
+        mWeatherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.selectWeather();
+            }
+        });
 
 
         mPhotoButton = (ImageButton)view.findViewById(R.id.button_photo);
@@ -243,6 +239,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mTagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 mTagBottom.setVisibility(View.VISIBLE);
                 mTagBottom.startAnimation(animation);
 
@@ -278,13 +275,44 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         switch (requestCode) {
             case 0: //呼叫相簿
-//                mMindButton.setVisibility(View.VISIBLE);
+                Uri uri = data.getData();
                 handleImage(data);
+                mPhoto.setVisibility(View.VISIBLE);
+                mPhoto.setImageURI(uri);
+                mMinusButton.setVisibility(View.VISIBLE);
+//                handleImage(data);
+
+
+                break;
 
             case 1:
-                Uri uri = data.getData();
-                Log.d("camera", "on: " + uri);
-                displayPhoto(mImagePath);
+
+                if (resultCode == RESULT_OK) {
+                    Log.d("take photo", "RESULT_OK");
+
+
+//                    mImagePath = getRealPathFromURI(data.getData());
+//                    Uri uriFor = data.getData();
+                    mPhoto.setVisibility(View.VISIBLE);
+                    mPhoto.setImageURI(mUri);
+
+                    Log.d("path", " : " + mImagePath);
+
+//                    Bundle extras = data.getExtras();
+//                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+//                    mPhoto.setVisibility(View.VISIBLE);
+//                    mPhoto.setImageBitmap(imageBitmap);
+
+                } else if (requestCode == RESULT_CANCELED) {
+                    Log.d("take photo", "RESULT_CANCELED");
+
+                }
+
+                break;
+
+//                Uri uri = data.getData();
+//                Log.d("camera", "on: " + uri);
+//                displayPhoto(mImagePath);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -306,10 +334,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public void showMindSelection(ImageView imageView) {
-
-    }
 
     @Override
     public void takeDiaryData() {
@@ -341,7 +365,10 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNote.setmMind(mMindNum);
+
+            Log.d("weather", "num: "+ mWeatherNum);
             mNote.setmWeather(mWeatherNum);
+
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);
@@ -351,17 +378,15 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setmTitle(mDiaryTitle.getText().toString());
             mNote.setmText(mDiaryText.getText().toString());
             mNote.setmPicture(mImagePath);
+            mNote.setmMind(mMindNum);
+
+            Sqldatabase sql = new Sqldatabase(mContext);
+            sql.updateNotes(mNote.getmId(), mNote);
 
         }
 
 
     }
-
-    @Override
-    public void updateNote() {
-
-    }
-
     @Override
     public void hideUI() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -376,7 +401,27 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mMindNum = num;
 
         if(num.equals("1")) {
-            mMindButton.setImageResource(R.drawable.main_list_item_mind);
+            mMindButton.setImageResource(R.drawable.button_emotion);
+        }
+        if (num.equals("2")) {
+            mMindButton.setImageResource(R.drawable.emotion_2);
+
+        }
+        if (num.equals("3")) {
+            mMindButton.setImageResource(R.drawable.emotion_3);
+
+        }
+        if (num.equals("4")) {
+            mMindButton.setImageResource(R.drawable.emotion_4);
+
+        }
+        if (num.equals("5")) {
+            mMindButton.setImageResource(R.drawable.emotion_5);
+
+        }
+        if (num.equals("6")) {
+            mMindButton.setImageResource(R.drawable.emotion_6);
+
         }
 
     }
@@ -387,17 +432,17 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mWeatherNum = num;
 
         if (num.equals("1")) {
-            mWeatherButton.setImageResource(R.drawable.weather_sun);
+            mWeatherButton.setImageResource(R.drawable.weather_1);
         } else if (num.equals("2")) {
-            mWeatherButton.setImageResource(R.drawable.weather_cloud_sun);
+            mWeatherButton.setImageResource(R.drawable.button_weather);
         } else if (num.equals("3")) {
-            mWeatherButton.setImageResource(R.drawable.weather_cloud);
+            mWeatherButton.setImageResource(R.drawable.weather_3);
         } else if (num.equals("4")) {
-            mWeatherButton.setImageResource(R.drawable.weather_rain);
+            mWeatherButton.setImageResource(R.drawable.weather_4);
         } else if (num.equals("5")) {
-            mWeatherButton.setImageResource(R.drawable.weather_bolt_rain);
+            mWeatherButton.setImageResource(R.drawable.weather_5);
         } else if (num.equals("6")) {
-            mWeatherButton.setImageResource(R.drawable.weather_bolt);
+            mWeatherButton.setImageResource(R.drawable.weather_6);
         }
     }
 
@@ -431,22 +476,27 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         String state = Environment.getExternalStorageState();// 獲取記憶體卡可用狀態
         if (state.equals(Environment.MEDIA_MOUNTED)) {
 
-            Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             Uri uri;
-            File file = new File(Environment.getExternalStorageDirectory() + "/images/"+System.currentTimeMillis()+".jpg");
+//            File file = new File(Environment.getExternalStorageDirectory() + "/images/"+System.currentTimeMillis()+".jpg");
 
+            File file = null;
+            try {
+                file = File.createTempFile(String.valueOf(System.currentTimeMillis()), ".jpg", getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
                 uri = Uri.fromFile(file);
             } else {
 
-                uri = FileProvider.getUriForFile(mContext, "com.example.e3646.lifeblabla", file);
-                Log.d("uri", ": "+ uri.getPath());
+                mUri = FileProvider.getUriForFile(mContext, "com.example.e3646.lifeblabla", file);
+                Log.d("uri", ": "+ mUri);
+                Log.d("file", ": "+ file.getAbsolutePath());
 
-//                mImagePath = file.getPath();    ///錯誤路徑
-                mImagePath = getRealPathFromURI(uri);
-                Log.d("path", " : " + mImagePath);
             }
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+            intent.putExtra("ImageUri", mUri);
             intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
             intent.setFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, 1);
@@ -468,11 +518,13 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             String docId = DocumentsContract.getDocumentId(uri);
 
             if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
+                Log.d("path", "selection : ");
                 String id = docId.split(":")[1];//解析出數字格式的id
                 String selection = MediaStore.Images.Media._ID + "=" + id;
                 mImagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
 
             } else if ("com.android,providers.downloads.documents".equals(uri.getAuthority())) {
+                Log.d("path", "content uri: ");
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
                 mImagePath = getImagePath(contentUri, null);
 
@@ -498,27 +550,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         return path;
     }
 
-    public String getRealPathFromURI(Uri contentURI) {
-        String result;
-        Cursor cursor = getActivity().getContentResolver().query(contentURI, null,
-                null, null, null);
-
-        if (cursor == null) {
-            result = contentURI.getPath();
-        } else {
-            cursor.moveToFirst();
-            try {
-                int idx = cursor
-                        .getColumnIndex(MediaStore.Images.ImageColumns.DATA);
-                result = cursor.getString(idx);
-            } catch (Exception e) {
-                result = "";
-            }
-            cursor.close();
-        }
-        return result;
-    }
-
     public void displayPhoto(String imagePath) {
 
         Log.d("imagePath 4 ", ": " + imagePath);
@@ -540,6 +571,5 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mMinusButton.setVisibility(View.INVISIBLE);
         this.mImagePath = "";
     }
-
 
 }

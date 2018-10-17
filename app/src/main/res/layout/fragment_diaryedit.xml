@@ -98,7 +98,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView18" />
 
     <EditText
-        android:id="@+id/diary_detail_text"
+        android:id="@+id/jot_text"
         android:layout_width="364dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -237,74 +237,71 @@
         android:layout_width="match_parent"
         android:layout_height="43dp"
         android:background="#783b3b3b"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
     <ImageButton
         android:id="@+id/button_photo"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="240dp"
-        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/imageView20"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/imageView20"
-        app:layout_constraintTop_toTopOf="@+id/imageView20"
+        app:layout_constraintEnd_toStartOf="@+id/button_camera"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imageView19"
+        app:layout_constraintTop_toBottomOf="@+id/diary_tag_recyclerview"
         app:srcCompat="@drawable/button_photo" />
 
     <ImageButton
         android:id="@+id/button_camera"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="56dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+        app:layout_constraintEnd_toStartOf="@+id/button_vedio"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_photo"
-        app:layout_constraintTop_toTopOf="@+id/imageView20"
+        app:layout_constraintTop_toBottomOf="@+id/diary_tag_recyclerview"
         app:srcCompat="@drawable/button_camera" />
 
     <ImageButton
         android:id="@+id/button_vedio"
         android:layout_width="20dp"
-        android:layout_height="25dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginStart="48dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="56dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/button_camera"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
         app:layout_constraintEnd_toStartOf="@+id/button_tag"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/button_camera"
-        app:layout_constraintTop_toTopOf="@+id/button_camera"
+        app:layout_constraintTop_toBottomOf="@+id/diary_tag_recyclerview"
         app:srcCompat="@drawable/button_video" />
 
     <ImageButton
         android:id="@+id/button_tag"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginStart="240dp"
+        android:layout_marginStart="56dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/button_vedio"
-        app:layout_constraintEnd_toEndOf="@+id/imageView20"
-        app:layout_constraintStart_toStartOf="@+id/imageView20"
-        app:layout_constraintTop_toTopOf="@+id/button_vedio"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView20"
+        app:layout_constraintEnd_toStartOf="@+id/imageView19"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button_vedio"
+        app:layout_constraintTop_toBottomOf="@+id/diary_tag_recyclerview"
         app:srcCompat="@drawable/button_tag" />
 
     <ImageView
-        android:id="@+id/diary_photo"
+        android:id="@+id/Jot_photo"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/diary_tag"
+        app:layout_constraintBottom_toTopOf="@+id/sample_title"
         app:layout_constraintEnd_toEndOf="@+id/imageView19"
         app:srcCompat="@drawable/account_image" />
 
@@ -318,17 +315,17 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <!--<android.support.design.widget.BottomNavigationView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="43dp"-->
-        <!--android:background="#3B3B3B"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:menu="@menu/bottom_navigation_edit"/>-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="43dp"-->
+    <!--android:background="#3B3B3B"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:menu="@menu/bottom_navigation_edit"/>-->
 
     <EditText
-        android:id="@+id/diary_tag"
+        android:id="@+id/sample_title"
         android:layout_width="364dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -349,8 +346,8 @@
         android:layout_marginEnd="4dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/diary_photo"
-        app:layout_constraintEnd_toEndOf="@+id/diary_photo"
+        app:layout_constraintBottom_toBottomOf="@+id/Jot_photo"
+        app:layout_constraintEnd_toEndOf="@+id/Jot_photo"
         app:srcCompat="@drawable/button_minus" />
 
     <android.support.v7.widget.RecyclerView
@@ -363,7 +360,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tag_bottom"
         app:layout_constraintTop_toTopOf="@+id/tag_bottom"
-        app:layout_constraintVertical_bias="1.0" >
+        app:layout_constraintVertical_bias="1.0">
 
     </android.support.v7.widget.RecyclerView>
 

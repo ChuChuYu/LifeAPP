@@ -8,20 +8,23 @@ import android.support.v4.app.FragmentTransaction;
 
 
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.account.AccountEditFragment;
+import com.example.e3646.lifeblabla.account.AccountEditPresenter;
 import com.example.e3646.lifeblabla.account.AccountFragment;
 import com.example.e3646.lifeblabla.account.AccountPresenter;
-import com.example.e3646.lifeblabla.addnote.AddNoteContract;
-import com.example.e3646.lifeblabla.addnote.AddNoteFragment;
-import com.example.e3646.lifeblabla.addnote.AddNotePresenter;
+
 import com.example.e3646.lifeblabla.calendar.CalendarFragment;
 import com.example.e3646.lifeblabla.calendar.CalendarPresenter;
 import com.example.e3646.lifeblabla.conference.ConferenceFragment;
 import com.example.e3646.lifeblabla.conference.ConferencePresenter;
+import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogJotFragment;
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditPresenter;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.diary.DiaryPresenter;
+import com.example.e3646.lifeblabla.jot.JotEditFragment;
+import com.example.e3646.lifeblabla.jot.JotEditPresenter;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.jot.JotPresenter;
 import com.example.e3646.lifeblabla.main.MainFragment;
@@ -47,14 +50,20 @@ public class MainActPresenter implements MainActContract.Presenter {
     private MainFragment mMainFragment;
     private DiaryFragment mDiaryFragment;
     private DiaryEditFragment mDiaryEditFragment;
+    private JotEditFragment mJotEditFragment;
+    private AccountEditFragment mAccountEditFragment;
 
     private CalendarFragment mCalendarFragment;
     private MapFragment mMapFragment;
     private SettingFragment mSettingFragment;
 
     private MainPresenter mMainPresenter;
+
     private DiaryPresenter mDiaryPresenter;
     private DiaryEditPresenter mDiaryEditPresenter;
+    private JotEditPresenter mJotEditPresenter;
+    private AccountEditPresenter mAccountEditPresenter;
+
 
     private CalendarPresenter mCalendarPresenter;
     private MapPresenter mMapPresenter;
@@ -151,6 +160,8 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goMain() {
 
+
+
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction
                 .show(mMainFragment)
@@ -170,11 +181,17 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goMap() {
 
+        if (mMapFragment == null) {
+            mMapFragment = new MapFragment();
+        }
+
+        if (mMapPresenter == null) {
+            mMapPresenter = new MapPresenter(mMapFragment);
+        }
+
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction
-                .hide(mMainFragment)
-                .hide(mCalendarFragment)
-                .hide(mSettingFragment)
+                .replace(R.id.whole_container, mMapFragment)
                 .show(mMapFragment)
                 .commit();
 
@@ -184,15 +201,20 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     @Override
     public void goCalendar() {
+        if (mCalendarFragment == null) {
+            mCalendarFragment = new CalendarFragment();
+        }
 
+        if (mCalendarPresenter == null) {
+            mCalendarPresenter = new CalendarPresenter(mCalendarFragment);
+        }
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction
-                .hide(mMainFragment)
+                .replace(R.id.whole_container, mCalendarFragment)
                 .show(mCalendarFragment)
-                .hide(mSettingFragment)
-                .hide(mMapFragment)
                 .commit();
+
         hideComponent();
         mMainActView.showBottomNaviagtion();
 
@@ -200,13 +222,18 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     @Override
     public void gosetting() {
+        if (mSettingFragment == null) {
+            mSettingFragment = new SettingFragment();
+        }
+
+        if (mSettingPresenter == null) {
+            mSettingPresenter = new SettingPresenter(mSettingFragment);
+        }
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction
-                .hide(mMainFragment)
-                .hide(mCalendarFragment)
+                .replace(R.id.whole_container, mSettingFragment)
                 .show(mSettingFragment)
-                .hide(mMapFragment)
                 .commit();
 
         hideComponent();
@@ -272,6 +299,11 @@ public class MainActPresenter implements MainActContract.Presenter {
     }
 
     @Override
+    public void hideBottomNavigation() {
+        mMainActView.hideBottomNavigationBar();
+    }
+
+    @Override
     public void hideComponent() {
         mMainActView.hideToolBar();
         mMainActView.hideToggleButton();
@@ -281,22 +313,42 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goDiaryEdit() {
 
-        if(mDiaryEditFragment == null) {
-            mDiaryEditFragment = new DiaryEditFragment(true, null);
-        }
-        if (mDiaryEditPresenter == null) {
-            mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, null, true);
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            transaction.add(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
-                    .show(mDiaryEditFragment)
-                    .hide(mMainFragment)
-                    .commit();
-
-        }
+        mDiaryEditFragment = new DiaryEditFragment(true, null);
+        mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.show(mDiaryEditFragment)
+        transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
+                .show(mDiaryEditFragment)
                 .hide(mMainFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goAccountEdit() {
+
+        mAccountEditFragment = new AccountEditFragment();
+        mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.whole_container, mAccountEditFragment, "EDIT ACCOUNT")
+                .show(mAccountEditFragment)
+                .hide(mMainFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goJotEdit() {
+
+        mJotEditFragment = new JotEditFragment(true, null);
+        mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.whole_container, mJotEditFragment, "EDIT JOT")
+                .show(mJotEditFragment)
+                .hide(mMainFragment)
+                .addToBackStack(null)
                 .commit();
 
 
@@ -305,6 +357,12 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void refreshList() {
         mMainPresenter.refreshList();
+    }
+
+    @Override
+    public void showJotBottomSheet() {
+        BottomSheetDialogJotFragment bottomSheetDialogJotFragment = new BottomSheetDialogJotFragment(this);
+        bottomSheetDialogJotFragment.show(mFragmentManager, bottomSheetDialogJotFragment.getTag());
     }
 
     @Override

@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
-import com.example.e3646.lifeblabla.addnote.AddNotePresenter;
+
 import com.example.e3646.lifeblabla.dialogfragment.MindSelectFragment;
 import com.example.e3646.lifeblabla.dialogfragment.WeatherSelectFragment;
 import com.example.e3646.lifeblabla.main.MainFragment;
@@ -32,7 +32,7 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
     private DiaryEditFragment mDiaryEditFragment;
     private MainActPresenter mMainActPresenter;
     private DiaryPresenter mDiaryPresenter;
-    private AddNotePresenter mAddNotePresenter;
+
 
     private MindSelectFragment mMindSelectFragment;
     private WeatherSelectFragment mWeatherSelectFragment;
@@ -43,8 +43,7 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
     private boolean isCreating = false;
 
     public DiaryEditPresenter(DiaryEditContract.View diaryEditView, FragmentManager fragmentManager,
-                              MainActPresenter mainActPresenter, DiaryPresenter diaryPresenter,
-                              AddNotePresenter addNotePresenter, boolean iscreating) {
+                              MainActPresenter mainActPresenter, DiaryPresenter diaryPresenter, boolean iscreating) {
 
         mDiaryEditView = checkNotNull(diaryEditView);
         mDiaryEditView.setPresenter(this);
@@ -52,7 +51,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         mMainActPresenter = mainActPresenter;
         mDiaryPresenter = diaryPresenter;
         isCreating = iscreating;
-        mAddNotePresenter = addNotePresenter;
     }
 
 
@@ -117,8 +115,6 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
                 .show(mDiaryFragment)
                 .commit();
 
-//        mDiaryPresenter.refreshDetail(note);
-
     }
 
     @Override
@@ -143,4 +139,5 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         this.mNote = note;
         mDiaryEditView.setNote(mNote);
     }
+
 }

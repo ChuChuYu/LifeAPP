@@ -70,11 +70,20 @@ public interface MainActContract {
 
         void showBottomSheet();
 
+        void hideBottomNavigation();
+
         void hideComponent();
 
         void goDiaryEdit();
 
+        void goAccountEdit();
+
+        void goJotEdit();
+
         void refreshList();
+
+        void showJotBottomSheet();
+
 
     }
 }
