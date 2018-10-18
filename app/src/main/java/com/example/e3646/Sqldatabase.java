@@ -277,4 +277,9 @@ public class Sqldatabase extends SQLiteOpenHelper {
         db.delete("ACCOUNT_TABLE", ACCOUNT_ID + "=\"" + accountId + "\"", null);
     }
 
+    public void deleteAllAccount(String noteId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("ACCOUNT_TABLE", NOTE_ID + "=\"" + noteId + "\"", null);
+    }
+
 }

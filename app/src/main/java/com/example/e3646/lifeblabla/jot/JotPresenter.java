@@ -65,7 +65,7 @@ public class JotPresenter implements JotContract.Presenter {
 
     @Override
     public void showCheckDeleteDialog() {
-        mCheckDeleteFragment = new CheckDeleteFragment(null, this,  mNoteList.get(mNotePosition).getmId(), 2);
+        mCheckDeleteFragment = new CheckDeleteFragment(null, this, null,  mNoteList.get(mNotePosition).getmId(), 2);
         mCheckDeleteFragment.show(mFragmentManager, null);
     }
 

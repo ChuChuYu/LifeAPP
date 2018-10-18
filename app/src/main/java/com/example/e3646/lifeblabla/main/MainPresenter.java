@@ -112,7 +112,7 @@ public class MainPresenter implements MainContract.Presenter {
 
 
             mAccountFragment = new AccountFragment(note);
-            mAccountPresenter = new AccountPresenter(mAccountFragment);
+            mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mAccountFragment, "ACCOUNT")
                     .show(mAccountFragment)

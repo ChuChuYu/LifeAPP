@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 
 import com.example.e3646.lifeblabla.R;
 
+import com.example.e3646.lifeblabla.account.AccountPresenter;
 import com.example.e3646.lifeblabla.diary.DiaryPresenter;
 import com.example.e3646.lifeblabla.jot.JotPresenter;
 
@@ -28,13 +29,15 @@ public class CheckDeleteFragment extends DialogFragment {
 
     private DiaryPresenter mDiaryPresenter;
     private JotPresenter mJotPresenter;
+    private AccountPresenter mAccountPresenter;
     private String mId;
 
     private int NOTE_TYPE;
 
-    public CheckDeleteFragment(DiaryPresenter diaryPresenter, JotPresenter jotPresenter, String id, int noteType) {
+    public CheckDeleteFragment(DiaryPresenter diaryPresenter, JotPresenter jotPresenter, AccountPresenter accountPresenter,  String id, int noteType) {
         this.mDiaryPresenter = diaryPresenter;
         this.mJotPresenter = jotPresenter;
+        this.mAccountPresenter = accountPresenter;
         this.mId = id;
         this.NOTE_TYPE = noteType;
     }
@@ -65,6 +68,10 @@ public class CheckDeleteFragment extends DialogFragment {
                 } else if (NOTE_TYPE == 2) {
                     mJotPresenter.deleteNoteData(mId);
                     mJotPresenter.completeDeleting();
+                    getDialog().dismiss();
+                } else if (NOTE_TYPE == 3) {
+                    mAccountPresenter.deleteNoteData(mId);
+                    mAccountPresenter.completeDeleting();
                     getDialog().dismiss();
                 }
             }

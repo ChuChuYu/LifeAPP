@@ -11,9 +11,21 @@ public interface AccountContract {
         void setPresenter(Presenter presenter);
 
         void setNoteData();
+
+        void hideUI();
+
+        void deleteNoteData(String id);
     }
 
     interface Presenter extends BasePresenter {
+
+        void backToMain();
+
+        void showCheckDeleteDialog();
+
+        void deleteNoteData(String id);
+
+        void completeDeleting();
 
 
     }
