@@ -304,6 +304,20 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         });
 
 
+        mDeleteItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Sqldatabase sql = new Sqldatabase(getContext());
+                sql.deleteAccount(mAccount.getAccountId());
+
+                mAccoountList = sql.getAccounts(mNoteId);
+                mAccountAdapter.setAccountList(mAccoountList);
+                mAccountAdapter.notifyDataSetChanged();
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+
+            }
+        });
+
         return view;
     }
 
@@ -334,7 +348,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
     private void init(View view) {
 
-
         mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 
@@ -352,6 +365,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         mDeleteNumberButton = view.findViewById(R.id.button_delete_number);
         mClearButton = view.findViewById(R.id.button_clear);
+        mDeleteItemButton = view.findViewById(R.id.button_delete_item);
 
         mAmount = view.findViewById(R.id.amount);
         mHideButton = (ImageButton)view.findViewById(R.id.button_hide);

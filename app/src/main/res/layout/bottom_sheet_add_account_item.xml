@@ -427,7 +427,7 @@
             app:srcCompat="@drawable/button_complete" />
 
         <ImageButton
-            android:id="@+id/imageView38"
+            android:id="@+id/button_delete_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
