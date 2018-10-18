@@ -226,7 +226,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
     public ArrayList<Account> getAccounts(String id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.query("ACCOUNT_TABLE", new String [] {ACCOUNT_ID, ACCOUNT_CREATEDTIME, ACCOUNT_NUMBER, ACCOUNT_DESPCIPTION, ACCOUNT_CATEGORY, ACCOUNT_REVENUE, ACCOUNT_EXPENSE}, NOTE_ID + "=\"" + id + "\"", null, null, null,null);
+        Cursor cursor = db.query("ACCOUNT_TABLE", new String [] {NOTE_ID, ACCOUNT_ID, ACCOUNT_CREATEDTIME, ACCOUNT_NUMBER, ACCOUNT_DESPCIPTION, ACCOUNT_CATEGORY, ACCOUNT_REVENUE, ACCOUNT_EXPENSE}, NOTE_ID + "=\"" + id + "\"", null, null, null,null);
 
 
         ArrayList<Account> accountList = new ArrayList<Account>();
@@ -236,7 +236,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
 
             for (int i = 0; i < cursor.getCount(); i ++) {
                 Account account = new Account();
-//                account.setId(cursor.getString(cursor.getColumnIndex(NOTE_ID)));
+                account.setId(cursor.getString(cursor.getColumnIndex(NOTE_ID)));
                 account.setAccountId(cursor.getString(cursor.getColumnIndex(ACCOUNT_ID)));
                 account.setCreatedTime(cursor.getString(cursor.getColumnIndex(ACCOUNT_CREATEDTIME)));
                 account.setNumber(cursor.getString(cursor.getColumnIndex(ACCOUNT_NUMBER)));
@@ -268,6 +268,8 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(ACCOUNT_EXPENSE, account.getExpense());
 
         db.update("ACCOUNT_TABLE", contentValues, ACCOUNT_ID + "=\"" + accountId + "\"", null);
+
+        Log.d("account data", "update");
 
     }
 

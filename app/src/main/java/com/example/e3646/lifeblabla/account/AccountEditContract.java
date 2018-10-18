@@ -5,6 +5,7 @@ import android.widget.ImageButton;
 
 import com.example.e3646.BasePresenter;
 import com.example.e3646.BaseView;
+import com.example.e3646.lifeblabla.object.Account;
 import com.example.e3646.lifeblabla.object.Note;
 
 public interface AccountEditContract {
@@ -25,6 +26,7 @@ public interface AccountEditContract {
 
         void hideUI();
 
+        void setAccountDatainDialog(Account account);
 
     }
 

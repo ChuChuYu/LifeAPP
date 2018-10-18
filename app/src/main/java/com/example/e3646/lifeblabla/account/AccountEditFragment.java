@@ -72,7 +72,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private AccountAdapter mAccountAdapter;
 
     private TextView mAmount;
-
     private String mMoneyAmount = "";
 
     private String mNoteId;
@@ -90,6 +89,12 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
         mNote = note;
+
+        if (!isCreating) {
+        }
+
+
+
     }
 
     @Nullable
@@ -243,7 +248,12 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mCompleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                takeAccountData();
+                if (isCreatingItem) {
+                    takeAccountData();
+                } else {
+                    takeAccountDataWhenEditing();
+
+                }
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 clearAddItemButtonsheet();
 
@@ -278,8 +288,48 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             }
         });
 
+        mAccountAdapter.setOnItemListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isCreatingItem = false;
+
+                Sqldatabase sql = new Sqldatabase(getContext());
+                mAccoountList = sql.getAccounts(mNote.getmId());
+
+                setAccountDatainDialog(mAccoountList.get((int)view.getTag()));
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
+
+            }
+        });
+
 
         return view;
+    }
+
+    private void takeAccountDataWhenEditing() {
+
+        Log.d("expense 0", ": " + mAccoountList.get(0).getExpense());
+        Log.d("expense 1", ": " + mAccoountList.get(1).getExpense());
+        Log.d("note id 0", ": " + mAccount.getId());
+        Log.d("account id 0", ": " + mAccount.getAccountId());
+        mAccount.setCategory(mCategory);
+        if (isRevenue == true) {
+            mAccount.setRevenue(mMoneyAmount);
+            mAccount.setExpense("");
+        }
+        if(isRevenue == false) {
+            mAccount.setRevenue("");
+            mAccount.setExpense(mMoneyAmount);
+        }
+
+        Sqldatabase sql = new Sqldatabase(getContext());
+        sql.updateAccount(mNoteId, mAccount.getAccountId(), mAccount);
+
+        mAccoountList = sql.getAccounts(mNoteId);
+        mAccountAdapter.setAccountList(mAccoountList);
+        mAccountAdapter.notifyDataSetChanged();
+
     }
 
     private void init(View view) {
@@ -326,9 +376,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         if (isCreating == false) {
             Sqldatabase sql = new Sqldatabase(getContext());
             mAccoountList = sql.getAccounts(mNote.getmId());
-            Log.d("account list", "size: " + mAccoountList.size());
         }
-        mAccountAdapter = new AccountAdapter(mAccoountList, false);
+        mAccountAdapter = new AccountAdapter(mAccoountList, true);
         mRecyclerView.setAdapter(mAccountAdapter);
 
         mCompleteAccountButton = view.findViewById(R.id.button_complete_account);
@@ -336,8 +385,13 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mCancelButton = view.findViewById(R.id.button_cancel);
         mCompleteButton = view.findViewById(R.id.button_complete);
 
-        mAccoountList = new ArrayList<Account>();
-        mNoteId = currentTimeForID();
+
+        if (isCreating) {
+            mAccoountList = new ArrayList<Account>();
+            mNoteId = currentTimeForID();
+        } else {
+            mNoteId = mNote.getmId();
+        }
 
     }
 
@@ -355,8 +409,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         return str;
     }
-
-
     @Override
     public void setPresenter(AccountEditContract.Presenter presenter) {
 
@@ -386,11 +438,15 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
     @Override
     public void takeAccountData() {
+
         if (isCreatingItem) {
 
             mAccount = new Account();
             mAccount.setId(mNoteId);
             mAccount.setAccountId(currentTimeForID());
+
+
+
             mAccount.setNumber("1");
             mAccount.setCreatedTime(currentTime());
             mAccount.setDescription("");
@@ -413,9 +469,40 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             Sqldatabase sql = new Sqldatabase(getContext());
             sql.insertAccount(mAccount);
 
+
+
         } else { //isEditing
 
 
+
+//            mAccount.setId(mNoteId);
+
+//            mAccount.setNumber("1");
+//            mAccount.setCreatedTime(currentTime());
+            mAccount.setDescription("");
+            if (isRevenue == true) {
+                mAccount.setRevenue(mMoneyAmount);
+                mAccount.setExpense("");
+
+            }
+
+            if(isRevenue == false) {
+                mAccount.setRevenue("");
+                mAccount.setExpense(mMoneyAmount);
+            }
+
+            mAccount.setCategory(mCategory);
+//            mAccoountList.add(mAccount);
+//            mAccountAdapter.setAccountList(mAccoountList);
+
+
+            Sqldatabase sql = new Sqldatabase(getContext());
+            sql.updateAccount(mAccount.getId(), mAccount.getAccountId(), mAccount);
+//
+            mAccoountList = sql.getAccounts(mNote.getmId());
+
+            mAccountAdapter.setAccountList(mAccoountList);
+            mAccountAdapter.notifyDataSetChanged();
 
         }
     }
@@ -453,6 +540,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             Sqldatabase sql = new Sqldatabase(getContext());
             sql.updateNotes(mNote.getmId(), mNote);
 
+
+
+
         }
 
 
@@ -478,5 +568,45 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.hide(AccountEditFragment.this)
                 .commit();
+    }
+
+    @Override
+    public void setAccountDatainDialog(Account account) {
+
+        mAccount = account;
+
+        Log.d("note id inaccount", "save : " + mAccount.getId());
+        Log.d("account id ", "save" + mAccount.getAccountId());
+
+        if (account.getExpense() != null) {
+            mExpense.setImageResource(R.drawable.button_account_is_select);
+            mRevenue.setImageResource(R.drawable.button_account_not_select);
+            mAmount.setText(account.getExpense());
+            mMoneyAmount = account.getExpense();
+        } else {
+            mExpense.setImageResource(R.drawable.button_account_not_select);
+            mRevenue.setImageResource(R.drawable.button_account_is_select);
+            mAmount.setText(account.getRevenue());
+            mMoneyAmount = account.getRevenue();
+        }
+
+        if (account.getCategory().equals("1")) {
+            setCategoryBack(mCategoryOne, "1");
+            mCategory = "1";
+        } else if (account.getCategory().equals("2")) {
+            setCategoryBack(mCategoryTwo, "2");
+            mCategory = "2";
+        } else if (account.getCategory().equals("3")) {
+            setCategoryBack(mCategoryThree, "3");
+            mCategory = "3";
+        } else if (account.getCategory().equals("4")) {
+            setCategoryBack(mCategoryFour, "4");
+            mCategory = "4";
+        }else if (account.getCategory().equals("5")) {
+            setCategoryBack(mCategoryFour, "5");
+            mCategory = "5";
+        }
+
+
     }
 }

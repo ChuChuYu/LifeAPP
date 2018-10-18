@@ -21,12 +21,13 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Account> mAccountList;
 
+    private View.OnClickListener mListener;
+
     private boolean isEditing;
 
     public AccountAdapter(ArrayList<Account> accountList, boolean isedting) {
         mAccountList = accountList;
         if (accountList != null) {
-            Log.d("account list", "size" + accountList.size());
         }
         isEditing = isedting;
     }
@@ -91,6 +92,22 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
         }
 
+        viewHolder.itemView.setTag(i);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (isEditing) {
+
+                    mListener.onClick(view);
+                }
+
+
+            }
+        });
+
+
 
     }
 
@@ -105,6 +122,10 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
     public void setAccountList(ArrayList<Account> accountList) {
         mAccountList = accountList;
+    }
+
+    public void setOnItemListener(View.OnClickListener listener) {
+        this.mListener = listener;
     }
 
 }
