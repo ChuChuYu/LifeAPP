@@ -34,7 +34,7 @@ public interface MainContract {
         void switchToListLayout();
 
 
-        void showDiaryFragment(int i);
+        void showFragment(int i);
 
         void refreshList();
 

@@ -50,14 +50,6 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     public class MainListItemViewHolder extends RecyclerView.ViewHolder {
 
-//        private TextView mTitle;
-//        private TextView mText;
-//        private ImageView mType;
-//        private ImageView mImage;
-//        private ImageView mTagBackground;
-//        private TextView mTagText;
-
-
         private TextView mMonth;
         private TextView mWeek;
         private TextView mDate;
@@ -76,12 +68,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         public MainListItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-//            mTitle = (TextView)itemView.findViewById(R.id.note_title);
-//            mText = (TextView)itemView.findViewById(R.id.list_item_text);
-//            mType = (ImageView)itemView.findViewById(R.id.list_item_type);
-//            mImage = (ImageView)itemView.findViewById(R.id.list_item_image);
-//            mTagBackground = (ImageView)itemView.findViewById(R.id.main_tag_backgroung);
-//            mTagText = (TextView)itemView.findViewById(R.id.tag_text);
 
             mMonth = itemView.findViewById(R.id.note_month);
             mWeek = itemView.findViewById(R.id.note_day);

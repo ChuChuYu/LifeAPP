@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,10 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.e3646.lifeblabla.R;
-import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActivity;
 import com.example.e3646.lifeblabla.object.Note;
-import com.example.e3646.lifeblabla.object.SpacesItemDecoration;
 
 import java.util.ArrayList;
 
@@ -72,7 +69,7 @@ public class MainFragment extends Fragment implements MainContract.View {
             @Override
             public void onClick(View view) {
 //                mPresenter.takeNoteListPosition((int)view.getTag());
-                mPresenter.showDiaryFragment((int)view.getTag());
+                mPresenter.showFragment((int)view.getTag());
 //                showDiaryUI();
             }
         });

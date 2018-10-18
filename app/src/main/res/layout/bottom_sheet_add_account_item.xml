@@ -312,12 +312,12 @@
             android:textColor="@android:color/background_light"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/button_c"
-            app:layout_constraintStart_toEndOf="@+id/button_c"
-            app:layout_constraintTop_toTopOf="@+id/button_c" />
+            app:layout_constraintBottom_toBottomOf="@+id/button_clear"
+            app:layout_constraintStart_toEndOf="@+id/button_clear"
+            app:layout_constraintTop_toTopOf="@+id/button_clear" />
 
         <Button
-            android:id="@+id/button_c"
+            android:id="@+id/button_clear"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="8dp"

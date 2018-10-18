@@ -5,9 +5,12 @@ import com.example.e3646.BaseView;
 
 public interface AccountContract {
 
-    interface View extends BaseView {
+    interface View extends BaseView<Presenter> {
 
 
+        void setPresenter(Presenter presenter);
+
+        void setNoteData();
     }
 
     interface Presenter extends BasePresenter {

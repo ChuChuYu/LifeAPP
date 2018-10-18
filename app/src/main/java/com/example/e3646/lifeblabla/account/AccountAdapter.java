@@ -21,11 +21,14 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Account> mAccountList;
 
-    public AccountAdapter(ArrayList<Account> accountList) {
+    private boolean isEditing;
+
+    public AccountAdapter(ArrayList<Account> accountList, boolean isedting) {
         mAccountList = accountList;
         if (accountList != null) {
             Log.d("account list", "size" + accountList.size());
         }
+        isEditing = isedting;
     }
 
     @NonNull
@@ -79,14 +82,11 @@ public class AccountAdapter extends RecyclerView.Adapter {
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#166C2D"));
 
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#166C2D"));
-                Log.d("revenue", "amount: " + mAccountList.get(i).getRevenue());
             } else {
                 itemViewHolder.mRevenueOrExpense.setText("支出");
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#892222"));
                 itemViewHolder.mAmount.setText(mAccountList.get(i).getExpense());
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#892222"));
-
-                Log.d("expense", "amount: " + mAccountList.get(i).getExpense());
             }
 
         }
