@@ -70,6 +70,14 @@ public class AccountFragment extends Fragment implements AccountContract.View {
             }
         });
 
+        mEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.goEditAccount(false);
+            }
+        });
+
         return view;
     }
 

@@ -27,6 +27,8 @@ public interface AccountContract {
 
         void completeDeleting();
 
+        void goEditAccount(boolean isCreating);
+
 
     }
 }

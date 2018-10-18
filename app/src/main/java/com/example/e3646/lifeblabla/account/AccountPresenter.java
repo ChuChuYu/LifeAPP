@@ -1,7 +1,9 @@
 package com.example.e3646.lifeblabla.account;
 
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
+import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.dialogfragment.CheckDeleteFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActPresenter;
 import com.example.e3646.lifeblabla.object.Note;
@@ -16,6 +18,9 @@ public class AccountPresenter implements AccountContract.Presenter {
 
     private FragmentManager mFragmentManager;
     private MainActPresenter mMainActPresenter;
+
+    private AccountEditFragment mAccountEditFragment;
+    protected AccountEditPresenter mAccountEditPresenter;
 
     private CheckDeleteFragment mCheckDeleteFragment;
 
@@ -64,5 +69,20 @@ public class AccountPresenter implements AccountContract.Presenter {
 
         mAccountView.hideUI();
         mMainActPresenter.refreshMainFragment();
+    }
+
+    @Override
+    public void goEditAccount(boolean isCreating) {
+        Note note = mNoteList.get(mNotePosition);
+
+        mAccountEditFragment = new AccountEditFragment(false, note);
+        mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, mMainActPresenter, false);
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.account_container, mAccountEditFragment, "EDIT ACCOUNT")
+                .show(mAccountEditFragment)
+                .addToBackStack(null)
+                .commit();
+
+
     }
 }

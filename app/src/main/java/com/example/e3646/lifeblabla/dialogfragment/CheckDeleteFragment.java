@@ -78,8 +78,6 @@ public class CheckDeleteFragment extends DialogFragment {
         });
 
 
-
-
         return view;
     }
 

@@ -327,7 +327,7 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goAccountEdit() {
 
-        mAccountEditFragment = new AccountEditFragment(true);
+        mAccountEditFragment = new AccountEditFragment(true, null);
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

@@ -87,8 +87,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private boolean isRevenue;
     private String mCategory = "0";
 
-    public AccountEditFragment(boolean iscreating) {
+    public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
+        mNote = note;
     }
 
     @Nullable
@@ -321,6 +322,12 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         mRecyclerView = view.findViewById(R.id.account_item_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if (isCreating == false) {
+            Sqldatabase sql = new Sqldatabase(getContext());
+            mAccoountList = sql.getAccounts(mNote.getmId());
+            Log.d("account list", "size: " + mAccoountList.size());
+        }
         mAccountAdapter = new AccountAdapter(mAccoountList, false);
         mRecyclerView.setAdapter(mAccountAdapter);
 
@@ -429,7 +436,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
             mNote.setmCreatedTime(currentTime());
             mNote.setmUpdatedTime("");
-//            mNote.setmPlace("市政府");
             mNote.setClassification("account");
 
 //            mNote.setmPicture(mImagePath);
@@ -442,12 +448,10 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mPresenter.saveNoteData(getContext(), mNote);
         } else { //isEditing
 
-//            mNote.setmTitle(mDiaryTitle.getText().toString());
-//            mNote.setmText(mDiaryText.getText().toString());
-//            mNote.setmPicture(mImagePath);
-//
-//            Sqldatabase sql = new Sqldatabase(mContext);
-//            sql.updateNotes(mNote.getmId(), mNote);
+            mNote.setmTitle(mTitle.getText().toString());
+
+            Sqldatabase sql = new Sqldatabase(getContext());
+            sql.updateNotes(mNote.getmId(), mNote);
 
         }
 
