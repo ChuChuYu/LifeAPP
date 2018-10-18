@@ -28,6 +28,8 @@ public interface AccountEditContract {
 
         void setAccountDatainDialog(Account account);
 
+        void countTotalAmount();
+
     }
 
     interface Presenter extends BasePresenter {

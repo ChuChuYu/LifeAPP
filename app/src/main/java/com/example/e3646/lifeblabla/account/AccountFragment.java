@@ -21,6 +21,7 @@ import com.example.e3646.lifeblabla.object.Account;
 import com.example.e3646.lifeblabla.object.Note;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeoutException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -33,6 +34,11 @@ public class AccountFragment extends Fragment implements AccountContract.View {
     private AccountAdapter mAccountAdapter;
 
     private TextView mTitle;
+
+    private TextView mRevenueText;
+    private TextView mExpenseText;
+    private TextView mBalanceText;
+
 
     private ImageButton mBackButton;
     private ImageButton mEditButton;
@@ -98,6 +104,9 @@ public class AccountFragment extends Fragment implements AccountContract.View {
         mEditButton = view.findViewById(R.id.button_edit);
         mDeleteButton = view.findViewById(R.id.button_delete);
 
+        mRevenueText = view.findViewById(R.id.account_revenue);
+        mExpenseText = view.findViewById(R.id.account_expense);
+        mBalanceText = view.findViewById(R.id.account_balance);
 
         setNoteData();
     }
@@ -113,6 +122,9 @@ public class AccountFragment extends Fragment implements AccountContract.View {
     @Override
     public void setNoteData() {
         mTitle.setText(mNote.getmTitle());
+        mRevenueText.setText(mNote.getAccountRevenue());
+        mExpenseText.setText(mNote.getAccountExpense());
+        mBalanceText.setText(mNote.getAccountBalance());
     }
 
     @Override

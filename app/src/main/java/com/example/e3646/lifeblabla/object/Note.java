@@ -22,9 +22,6 @@ public class Note {
     private String mWeather;
 
     private String mAccountRevenue;
-
-
-
     private String mAccountExpense;
     private String mAccountBalance;
 
@@ -46,9 +43,9 @@ public class Note {
         mVideo = "";
         mAudio = "";
 
-        mAccountRevenue = "$ 0";
-        mAccountExpense = "$ 0";
-        mAccountBalance = "$ 0";
+        mAccountRevenue = "";
+        mAccountExpense = "";
+        mAccountBalance = "";
 
         mMind = "";
         mWeather = "";

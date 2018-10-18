@@ -1,6 +1,7 @@
 package com.example.e3646.lifeblabla.account;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -85,12 +86,25 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private boolean isCreatingItem;
     private boolean isRevenue;
     private String mCategory = "0";
+    private int mTotalRevenue = 0;
+    private int mTotalExpense = 0;
+    private int mTotalBalance = 0;
+
+    private TextView mRevenueText;
+    private TextView mExpenseText;
+    private TextView mBalanceText;
 
     public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
         mNote = note;
 
         if (!isCreating) {
+
+            Log.d("revenue", ": " + mNote.getAccountBalance());
+            mTotalRevenue = Integer.parseInt(mNote.getAccountRevenue());
+            mTotalExpense = Integer.parseInt(mNote.getAccountExpense());
+            mTotalBalance = Integer.parseInt(mNote.getAccountBalance());
+
         }
 
 
@@ -295,10 +309,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
                 Sqldatabase sql = new Sqldatabase(getContext());
                 mAccoountList = sql.getAccounts(mNote.getmId());
-
                 setAccountDatainDialog(mAccoountList.get((int)view.getTag()));
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-
 
             }
         });
@@ -399,12 +411,21 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mCancelButton = view.findViewById(R.id.button_cancel);
         mCompleteButton = view.findViewById(R.id.button_complete);
 
+        mRevenueText = view.findViewById(R.id.account_revenue);
+        mExpenseText = view.findViewById(R.id.account_expense);
+        mBalanceText = view.findViewById(R.id.account_balance);
+
 
         if (isCreating) {
             mAccoountList = new ArrayList<Account>();
             mNoteId = currentTimeForID();
         } else {
             mNoteId = mNote.getmId();
+            mTitle.setText(mNote.getmTitle());
+            mRevenueText.setText(mNote.getAccountRevenue());
+            mExpenseText.setText(mNote.getAccountExpense());
+            mBalanceText.setText(mNote.getAccountBalance());
+
         }
 
     }
@@ -459,8 +480,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mAccount.setId(mNoteId);
             mAccount.setAccountId(currentTimeForID());
 
-
-
             mAccount.setNumber("1");
             mAccount.setCreatedTime(currentTime());
             mAccount.setDescription("");
@@ -483,42 +502,11 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             Sqldatabase sql = new Sqldatabase(getContext());
             sql.insertAccount(mAccount);
 
-
-
-        } else { //isEditing
-
-
-
-//            mAccount.setId(mNoteId);
-
-//            mAccount.setNumber("1");
-//            mAccount.setCreatedTime(currentTime());
-            mAccount.setDescription("");
-            if (isRevenue == true) {
-                mAccount.setRevenue(mMoneyAmount);
-                mAccount.setExpense("");
-
-            }
-
-            if(isRevenue == false) {
-                mAccount.setRevenue("");
-                mAccount.setExpense(mMoneyAmount);
-            }
-
-            mAccount.setCategory(mCategory);
-//            mAccoountList.add(mAccount);
-//            mAccountAdapter.setAccountList(mAccoountList);
-
-
-            Sqldatabase sql = new Sqldatabase(getContext());
-            sql.updateAccount(mAccount.getId(), mAccount.getAccountId(), mAccount);
-//
-            mAccoountList = sql.getAccounts(mNote.getmId());
-
-            mAccountAdapter.setAccountList(mAccoountList);
-            mAccountAdapter.notifyDataSetChanged();
+        } else {
 
         }
+        countTotalAmount();
+
     }
 
     @Override
@@ -538,6 +526,10 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mNote.setmCreatedTime(currentTime());
             mNote.setmUpdatedTime("");
             mNote.setClassification("account");
+            mNote.setAccountRevenue(String.valueOf(mTotalRevenue));
+            Log.d("revenue", "2: " + mNote.getAccountRevenue()+  " : " +mTotalRevenue);
+            mNote.setAccountExpense(String.valueOf(mTotalExpense));
+            mNote.setAccountBalance(String.valueOf(mTotalBalance));
 
 //            mNote.setmPicture(mImagePath);
 
@@ -621,6 +613,26 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mCategory = "5";
         }
 
+
+    }
+
+    @Override
+    public void countTotalAmount() {
+        if (isRevenue) {
+            mTotalRevenue = mTotalRevenue + Integer.parseInt(mMoneyAmount);
+        } else {
+            mTotalExpense = mTotalExpense + Integer.parseInt(mMoneyAmount);
+        }
+
+        mTotalBalance = mTotalRevenue - mTotalExpense;
+
+        Log.d("total revenue", ": " + mTotalRevenue);
+        Log.d("total expends", ": " + mTotalExpense);
+        Log.d("total balance", ": " + mTotalBalance);
+
+        mRevenueText.setText(String.valueOf(mTotalRevenue));
+        mExpenseText.setText(String.valueOf(mTotalExpense));
+        mBalanceText.setText(String.valueOf(mTotalBalance));
 
     }
 }

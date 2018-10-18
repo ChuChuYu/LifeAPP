@@ -191,9 +191,9 @@
         android:layout_marginStart="50dp"
         android:text="支出："
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/textView43"
-        app:layout_constraintStart_toEndOf="@+id/textView43"
-        app:layout_constraintTop_toTopOf="@+id/textView43" />
+        app:layout_constraintBottom_toBottomOf="@+id/account_revenue"
+        app:layout_constraintStart_toEndOf="@+id/account_revenue"
+        app:layout_constraintTop_toTopOf="@+id/account_revenue" />
 
     <TextView
         android:id="@+id/textView46"
@@ -203,40 +203,40 @@
         android:layout_marginTop="8dp"
         android:text="小計："
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/textView47"
-        app:layout_constraintEnd_toStartOf="@+id/textView47"
-        app:layout_constraintTop_toTopOf="@+id/textView47"
+        app:layout_constraintBottom_toBottomOf="@+id/account_balance"
+        app:layout_constraintEnd_toStartOf="@+id/account_balance"
+        app:layout_constraintTop_toTopOf="@+id/account_balance"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/textView43"
+        android:id="@+id/account_revenue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="$ 0"
+        android:text="0"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="@+id/textView42"
         app:layout_constraintStart_toEndOf="@+id/textView42"
         app:layout_constraintTop_toTopOf="@+id/textView42" />
 
     <TextView
-        android:id="@+id/textView45"
+        android:id="@+id/account_expense"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:text="$ 0"
+        android:text="0"
         android:textColor="@android:color/background_light"
         app:layout_constraintBottom_toBottomOf="@+id/textView44"
         app:layout_constraintStart_toEndOf="@+id/textView44"
         app:layout_constraintTop_toTopOf="@+id/textView44" />
 
     <TextView
-        android:id="@+id/textView47"
+        android:id="@+id/account_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginTop="8dp"
-        android:text="$ 0"
+        android:text="0"
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_item_recyclerview" />

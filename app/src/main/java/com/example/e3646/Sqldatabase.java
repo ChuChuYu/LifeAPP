@@ -121,6 +121,9 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_PICTURE, note.getmPicture());
         contentValues.put(NOTE_VIDEO, note.getVideo());
         contentValues.put(NOTE_AUDIO, note.getmAudio());
+        contentValues.put(NOTE_ACCOUNT_REVENUE, note.getAccountRevenue());
+        contentValues.put(NOTE_ACCOUNT_EXPENSE, note.getAccountExpense());
+        contentValues.put(NOTE_ACCOUNT_BALANCE, note.getAccountBalance());
         contentValues.put(NOTE_MIND, note.getmMind());
         contentValues.put(NOTE_WEATHER, note.getmWeather());
 
@@ -135,7 +138,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
 
         Cursor cursor = db.query("NOTE_TABLE", new String[] {NOTE_ID, NOTE_TITLE, NOTE_TEXT,
                 NOTE_CREATEDTIME, NOTE_UPDATEDTIME, NOTE_PLACE, NOTE_CLASSIFICATION, NOTE_TAG,
-                NOTE_PICTURE, NOTE_VIDEO, NOTE_AUDIO, NOTE_MIND, NOTE_WEATHER}, null,
+                NOTE_PICTURE, NOTE_VIDEO, NOTE_AUDIO,NOTE_ACCOUNT_REVENUE, NOTE_ACCOUNT_EXPENSE, NOTE_ACCOUNT_BALANCE, NOTE_MIND, NOTE_WEATHER}, null,
                 null, null, null, null);
 
         ArrayList<Note> noteList = new ArrayList<>();
@@ -170,6 +173,11 @@ public class Sqldatabase extends SQLiteOpenHelper {
                     }
                     note.setmTag(tagListFinal);
                 }
+
+                note.setAccountRevenue(cursor.getString(cursor.getColumnIndex(NOTE_ACCOUNT_REVENUE)));
+                note.setAccountExpense(cursor.getString(cursor.getColumnIndex(NOTE_ACCOUNT_EXPENSE)));
+                note.setAccountBalance(cursor.getString(cursor.getColumnIndex(NOTE_ACCOUNT_BALANCE)));
+
                 note.setmMind(cursor.getString(cursor.getColumnIndex(NOTE_MIND)));
                 note.setmWeather(cursor.getString(cursor.getColumnIndex(NOTE_WEATHER)));
                 noteList.add(note);
