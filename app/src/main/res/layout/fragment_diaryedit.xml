@@ -271,11 +271,10 @@
         android:id="@+id/Jot_photo"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/sample_title"
         app:srcCompat="@drawable/account_image"
-        tools:layout_editor_absoluteX="335dp" />
+        tools:layout_editor_absoluteX="335dp"
+        tools:layout_editor_absoluteY="506dp" />
 
     <ImageView
         android:id="@+id/tag_bottom"
@@ -295,20 +294,6 @@
     <!--app:layout_constraintHorizontal_bias="0.0"-->
     <!--app:layout_constraintStart_toStartOf="parent"-->
     <!--app:menu="@menu/bottom_navigation_edit"/>-->
-
-    <EditText
-        android:id="@+id/sample_title"
-        android:layout_width="364dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:background="@android:color/transparent"
-        android:inputType="text"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/tag_bottom"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tag_bottom" />
 
     <ImageButton
         android:id="@+id/button_minus"

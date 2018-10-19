@@ -61,7 +61,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
     private EditText mDiaryTitle;
     private EditText mDiaryText;
-    private EditText mDiaryTag;
     private TextView mCreatedTime;
 
     private String mMindNum;
@@ -114,15 +113,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mDiaryEditAdapter = new DiaryEditAdapter();
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
-        mDiaryTag = (EditText)view.findViewById(R.id.sample_title);
-        mDiaryTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
-                Log.d("done button", "click 2");
-                return false;
-            }
-        });
 
         mPhoto = (ImageView)view.findViewById(R.id.Jot_photo);
         mMinusButton = (ImageButton)view.findViewById(R.id.button_minus);
@@ -234,6 +225,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         final Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.tag_animation);
         mTagBottom.setVisibility(View.INVISIBLE);
+        mTagRecyclerView.setVisibility(View.INVISIBLE);
 
         mTagButton = (ImageButton)view.findViewById(R.id.button_tag);
         mTagButton.setOnClickListener(new View.OnClickListener() {
@@ -241,7 +233,10 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             public void onClick(View view) {
 
                 mTagBottom.setVisibility(View.VISIBLE);
+                mTagRecyclerView.setVisibility(View.VISIBLE);
+                mTagRecyclerView.startAnimation(animation);
                 mTagBottom.startAnimation(animation);
+
 
             }
         });

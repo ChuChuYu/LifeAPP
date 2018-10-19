@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.mainactivity.MainActivity;
 import com.example.e3646.lifeblabla.object.Note;
+import com.example.e3646.lifeblabla.object.SpacesItemDecoration;
 
 import java.util.ArrayList;
 
