@@ -106,11 +106,12 @@
         android:id="@+id/account_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="@android:color/background_light"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView22" />
@@ -126,30 +127,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_title" />
-
-    <ImageButton
-        android:id="@+id/button_add_item"
-        android:layout_width="150dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="32dp"
-        android:background="@android:color/transparent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView44"
-        app:srcCompat="@drawable/background_button_grey" />
-
-    <ImageView
-        android:id="@+id/imageView24"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/button_add_item"
-        app:layout_constraintStart_toStartOf="@+id/button_add_item"
-        app:layout_constraintTop_toTopOf="@+id/button_add_item"
-        app:srcCompat="@drawable/button_add_insetting" />
 
     <TextView
         android:id="@+id/textView42"
@@ -218,17 +195,6 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_item_recyclerview" />
-
-    <TextView
-        android:id="@+id/textView29"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="36dp"
-        android:text="新增項目"
-        android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/button_add_item"
-        app:layout_constraintEnd_toEndOf="@+id/button_add_item"
-        app:layout_constraintTop_toTopOf="@+id/button_add_item" />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

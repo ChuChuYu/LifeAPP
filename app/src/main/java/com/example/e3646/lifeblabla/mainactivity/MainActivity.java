@@ -140,19 +140,17 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                         mPresenter.goMain();
 
                         break;
-                    case R.id.main_map:
-                        mPresenter.goMap();
-
-                        break;
+//                    case R.id.main_map:
+//                        mPresenter.goMap();
+//                        break;
 
                     case R.id.main_post:
                         mPresenter.showBottomSheet();
 
                         break;
-                    case R.id.main_calendar:
-
-                        mPresenter.goCalendar();
-                        break;
+//                    case R.id.main_calendar:
+//                        mPresenter.goCalendar();
+//                        break;
 
                     case R.id.main_setting:
                         mPresenter.gosetting();
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
                     default:
                 }
-               return false;
+               return true;
             }
         });
 

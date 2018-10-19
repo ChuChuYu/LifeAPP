@@ -192,9 +192,9 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
             } else {
 
-                mainGridItemViewHolder.mImage.setVisibility(View.GONE);
-                mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
-                mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
+//                mainGridItemViewHolder.mImage.setVisibility(View.GONE);
+//                mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
+//                mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
             }
 
         }
