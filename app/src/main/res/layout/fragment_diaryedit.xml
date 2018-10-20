@@ -267,14 +267,39 @@
         app:layout_constraintTop_toBottomOf="@+id/diary_tag_recyclerview"
         app:srcCompat="@drawable/button_tag" />
 
-    <ImageView
-        android:id="@+id/Jot_photo"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/account_image"
-        tools:layout_editor_absoluteX="335dp"
-        tools:layout_editor_absoluteY="506dp" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_search"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/diary_tag_recyclerview"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout5">
+
+        <ImageView
+            android:id="@+id/Jot_photo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/constraintLayout5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/account_image" />
+
+        <ImageButton
+            android:id="@+id/button_minus"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@android:color/transparent"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="@+id/Jot_photo"
+            app:layout_constraintEnd_toEndOf="@+id/Jot_photo"
+            app:srcCompat="@drawable/button_minus" />
+    </android.support.constraint.ConstraintLayout>
 
     <ImageView
         android:id="@+id/tag_bottom"
@@ -294,18 +319,6 @@
     <!--app:layout_constraintHorizontal_bias="0.0"-->
     <!--app:layout_constraintStart_toStartOf="parent"-->
     <!--app:menu="@menu/bottom_navigation_edit"/>-->
-
-    <ImageButton
-        android:id="@+id/button_minus"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="@+id/Jot_photo"
-        app:layout_constraintEnd_toEndOf="@+id/Jot_photo"
-        app:srcCompat="@drawable/button_minus" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/diary_tag_recyclerview"

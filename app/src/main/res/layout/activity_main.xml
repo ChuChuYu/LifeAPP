@@ -11,7 +11,7 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="79dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="8dp"
         android:background="#783b3b3b"
         android:fitsSystemWindows="false"
@@ -30,7 +30,7 @@
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="33dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="80dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/background_list_item"
@@ -51,6 +51,7 @@
             android:inputType="text"
             android:textColor="@android:color/background_light"
             android:textColorHint="#96ffffff"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button_add_notes"
             app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
@@ -98,7 +99,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
         android:button="@drawable/button_grid_layout"
         android:scaleType="centerCrop"
@@ -108,7 +108,7 @@
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
 
     <ImageButton
         android:id="@+id/button_add_notes"
@@ -116,12 +116,11 @@
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.49"
         app:srcCompat="@drawable/button_plus" />
 

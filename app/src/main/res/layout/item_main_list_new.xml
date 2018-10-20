@@ -45,20 +45,21 @@
             app:layout_constraintTop_toTopOf="@+id/note_month" />
 
         <TextView
-            android:id="@+id/note_day"
+            android:id="@+id/note_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TUE"
             android:textColor="@android:color/background_light"
             app:layout_constraintEnd_toEndOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="@+id/note_month"
             app:layout_constraintTop_toBottomOf="@+id/note_month" />
 
         <TextView
-            android:id="@+id/note_date"
+            android:id="@+id/note_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:text="15"
             android:textColor="@android:color/background_light"
             android:textSize="45sp"
@@ -66,33 +67,34 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/note_period"
+            android:id="@+id/note_daytime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
             android:text="上午"
             android:textColor="@android:color/background_light"
-            app:layout_constraintEnd_toEndOf="@+id/note_day"
-            app:layout_constraintTop_toBottomOf="@+id/note_day" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/note_week"
+            app:layout_constraintStart_toStartOf="@+id/note_week" />
 
         <TextView
             android:id="@+id/note_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
             android:text="12:58"
             android:textColor="@android:color/background_light"
-            app:layout_constraintEnd_toEndOf="@+id/note_date"
-            app:layout_constraintStart_toStartOf="@+id/note_date"
-            app:layout_constraintTop_toTopOf="@+id/note_period" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/note_day"
+            app:layout_constraintStart_toStartOf="@+id/note_day" />
 
         <TextView
             android:id="@+id/note_text"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="120dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginStart="110dp"
+            android:layout_marginTop="40dp"
             android:ellipsize="end"
             android:text="今年25個颱風無一襲台解今年25 個颱風無一襲台..."
             android:textColor="@android:color/background_light"
@@ -106,7 +108,7 @@
             android:id="@+id/note_diary_emotion"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="12dp"
             android:layout_marginTop="24dp"
             app:layout_constraintBottom_toTopOf="@+id/note_text"
             app:layout_constraintStart_toStartOf="@+id/note_text"
@@ -191,6 +193,40 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/note_text"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:text="共"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintBottom_toTopOf="@+id/note_text"
+            app:layout_constraintStart_toStartOf="@+id/note_text"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/account_item_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintBottom_toBottomOf="@+id/text_one"
+            app:layout_constraintStart_toEndOf="@+id/text_one"
+            app:layout_constraintTop_toTopOf="@+id/text_one"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/text_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="個項目"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintBottom_toBottomOf="@+id/account_item_number"
+            app:layout_constraintStart_toEndOf="@+id/account_item_number"
+            app:layout_constraintTop_toTopOf="@+id/account_item_number" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

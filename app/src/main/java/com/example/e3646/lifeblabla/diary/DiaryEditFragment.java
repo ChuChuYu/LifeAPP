@@ -336,9 +336,17 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         if (isCreating) {
             mPresenter.setContext(mContext);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
+            SimpleDateFormat formatterForDay = new SimpleDateFormat("dd");
+            SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
             SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
             Date curDate = new Date(System.currentTimeMillis());
             String currentTime = formatter.format(curDate);
+            String month = formatterForMonth.format(curDate);
+            String day = formatterForDay.format(curDate);
+            String time = formatterForTime.format(curDate);
+            String week = formatterForWeek.format(curDate);
             String id = formateForID.format(curDate);
 
             mNote = new Note();
@@ -350,6 +358,27 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
             mNote.setmText(mDiaryText.getText().toString());
             mNote.setmCreatedTime(currentTime);
+
+            mNote.setMonth(month);
+            mNote.setDay(day);
+            mNote.setTime(time);
+            if (week.equals("Monday")) {
+                mNote.setWeek("MON");
+            } else if (week.equals("Tuesday")) {
+                mNote.setWeek("TUE");
+            } else if (week.equals("Wednesday")) {
+                mNote.setWeek("WED");
+            } else if (week.equals("Thursday")) {
+                mNote.setWeek("THUR");
+            } else if (week.equals("Friday")) {
+                mNote.setWeek("FRI");
+            } else if (week.equals("Saturday")) {
+                mNote.setWeek("SAT");
+            } else if (week.equals("Sunday")) {
+                mNote.setWeek("SUN");
+            }
+
+
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("diary");

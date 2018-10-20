@@ -22,6 +22,13 @@ public class Sqldatabase extends SQLiteOpenHelper {
     private static final String NOTE_TITLE = "NOTE_TITLE";
     private static final String NOTE_TEXT = "NOTE_TEXT";
     private static final String NOTE_CREATEDTIME = "NOTE_CREATEDTIME";
+
+    private static final String NOTE_MONTH = "NOTE_MONTH";
+    private static final String NOTE_DAY = "NOTE_DAY";
+    private static final String NOTE_TIME = "NOTE_TIME";
+    private static final String NOTE_WEEK = "NOTE_WEEK";
+    private static final String NOTE_DAYTIME = "NOTE_DAYTIME";
+
     private static final String NOTE_UPDATEDTIME = "NOTE_UPDATEDTIME";
     private static final String NOTE_PLACE = "NOTE_PLACE";
     private static final String NOTE_CLASSIFICATION = "NOTE_CLASSIFICATION";
@@ -65,6 +72,11 @@ public class Sqldatabase extends SQLiteOpenHelper {
                         + NOTE_TITLE + " TEXT, "
                         + NOTE_TEXT + " TEXT, "
                         + NOTE_CREATEDTIME + " TEXT, "
+                        + NOTE_MONTH + " TEXT, "
+                        + NOTE_DAY + " TEXT, "
+                        + NOTE_TIME + " TEXT, "
+                        + NOTE_WEEK + " TEXT, "
+                        + NOTE_DAYTIME + " TEXT, "
                         + NOTE_UPDATEDTIME + " TEXT, "
                         + NOTE_PLACE + " TEXT, "
                         + NOTE_CLASSIFICATION + " TEXT, "
@@ -114,6 +126,11 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_TITLE, note.getmTitle());
         contentValues.put(NOTE_TEXT, note.getmText());
         contentValues.put(NOTE_CREATEDTIME, note.getmCreatedTime());
+        contentValues.put(NOTE_MONTH, note.getMonth());
+        contentValues.put(NOTE_DAY, note.getDay());
+        contentValues.put(NOTE_TIME, note.getTime());
+        contentValues.put(NOTE_DAYTIME, note.getDayTime());
+        contentValues.put(NOTE_WEEK, note.getWeek());
         contentValues.put(NOTE_UPDATEDTIME, note.getmUpdatedTime());
         contentValues.put(NOTE_PLACE, note.getmPlace());
         contentValues.put(NOTE_CLASSIFICATION, note.getmClassification());
@@ -137,7 +154,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.query("NOTE_TABLE", new String[] {NOTE_ID, NOTE_TITLE, NOTE_TEXT,
-                NOTE_CREATEDTIME, NOTE_UPDATEDTIME, NOTE_PLACE, NOTE_CLASSIFICATION, NOTE_TAG,
+                NOTE_CREATEDTIME,NOTE_MONTH, NOTE_DAY, NOTE_TIME,NOTE_WEEK, NOTE_DAYTIME, NOTE_UPDATEDTIME, NOTE_PLACE, NOTE_CLASSIFICATION, NOTE_TAG,
                 NOTE_PICTURE, NOTE_VIDEO, NOTE_AUDIO,NOTE_ACCOUNT_REVENUE, NOTE_ACCOUNT_EXPENSE, NOTE_ACCOUNT_BALANCE, NOTE_MIND, NOTE_WEATHER}, null,
                 null, null, null, null);
 
@@ -153,6 +170,11 @@ public class Sqldatabase extends SQLiteOpenHelper {
                 note.setmTitle(cursor.getString(cursor.getColumnIndex(NOTE_TITLE)));
                 note.setmText(cursor.getString(cursor.getColumnIndex(NOTE_TEXT)));
                 note.setmCreatedTime(cursor.getString(cursor.getColumnIndex(NOTE_CREATEDTIME)));
+                note.setMonth(cursor.getString(cursor.getColumnIndex(NOTE_MONTH)));
+                note.setDay(cursor.getString(cursor.getColumnIndex(NOTE_DAY)));
+                note.setTime(cursor.getString(cursor.getColumnIndex(NOTE_TIME)));
+                note.setDayTime(cursor.getString(cursor.getColumnIndex(NOTE_DAYTIME)));
+                note.setWeek(cursor.getString(cursor.getColumnIndex(NOTE_WEEK)));
                 note.setmUpdatedTime(cursor.getString(cursor.getColumnIndex(NOTE_UPDATEDTIME)));
                 note.setmPlace(cursor.getString(cursor.getColumnIndex(NOTE_PLACE)));
                 note.setClassification(cursor.getString(cursor.getColumnIndex(NOTE_CLASSIFICATION)));
@@ -193,6 +215,11 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_TITLE, note.getmTitle());
         contentValues.put(NOTE_TEXT, note.getmText());
         contentValues.put(NOTE_CREATEDTIME, note.getmCreatedTime());
+        contentValues.put(NOTE_MONTH, note.getMonth());
+        contentValues.put(NOTE_DAY, note.getDay());
+        contentValues.put(NOTE_TIME, note.getTime());
+        contentValues.put(NOTE_DAYTIME, note.getDayTime());
+        contentValues.put(NOTE_WEEK, note.getWeek());
         contentValues.put(NOTE_UPDATEDTIME, note.getmUpdatedTime());
         contentValues.put(NOTE_PLACE, note.getmPlace());
         contentValues.put(NOTE_CLASSIFICATION, note.getmClassification());

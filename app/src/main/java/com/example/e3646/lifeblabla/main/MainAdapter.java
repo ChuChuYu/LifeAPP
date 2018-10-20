@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.object.Account;
 import com.example.e3646.lifeblabla.object.Note;
 
 import java.util.ArrayList;
@@ -52,12 +53,15 @@ public class MainAdapter extends RecyclerView.Adapter {
 
         private TextView mMonth;
         private TextView mWeek;
-        private TextView mDate;
-        private TextView mSlot;
+        private TextView mDay;
+        private TextView mDayTime;
         private TextView mTime;
         private TextView mTag;
         private TextView mType;
         private TextView mText;
+        private TextView mTextOne;
+        private TextView mTextTwo;
+        private TextView mAccountItemNumber;
 
         private ImageView mDiaryEmotion;
         private ImageView mDiaryWeather;
@@ -70,13 +74,16 @@ public class MainAdapter extends RecyclerView.Adapter {
 
 
             mMonth = itemView.findViewById(R.id.note_month);
-            mWeek = itemView.findViewById(R.id.note_day);
-            mDate = itemView.findViewById(R.id.note_date);
-            mSlot = itemView.findViewById(R.id.note_period);
+            mWeek = itemView.findViewById(R.id.note_week);
+            mDay = itemView.findViewById(R.id.note_day);
+            mDayTime = itemView.findViewById(R.id.note_daytime);
             mTime = itemView.findViewById(R.id.note_time);
             mTag = itemView.findViewById(R.id.note_tag);
             mType = itemView.findViewById(R.id.note_type);
             mText = itemView.findViewById(R.id.note_text);
+            mTextOne = itemView.findViewById(R.id.text_one);
+            mTextTwo = itemView.findViewById(R.id.text_two);
+            mAccountItemNumber = itemView.findViewById(R.id.account_item_number);
 
             mDiaryEmotion = itemView.findViewById(R.id.note_diary_emotion);
             mDiaryWeather = itemView.findViewById(R.id.note_diary_weather);
@@ -117,12 +124,25 @@ public class MainAdapter extends RecyclerView.Adapter {
             if (mNoteList.get(mNoteList.size() - i - 1).getmClassification().equals("diary")) {
                 mainListItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_diary);
                 mainListItemViewHolder.mType.setText("日記");
+                mainListItemViewHolder.mTextOne.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mTextTwo.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mAccountItemNumber.setVisibility(View.INVISIBLE);
             } else if (mNoteList.get(mNoteList.size() - i - 1).getmClassification().equals("account")) {
                 mainListItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_account);
                 mainListItemViewHolder.mType.setText("記帳");
+                mainListItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
+                Sqldatabase sql = new Sqldatabase(mContext);
+                ArrayList<Account> accountList = sql.getAccounts(mNoteList.get(mNoteList.size()-i-1).getmId());
+                mainListItemViewHolder.mAccountItemNumber.setText(String.valueOf(accountList.size()));
             } else if (mNoteList.get(mNoteList.size() - i - 1).getmClassification().equals("jot")) {
                 mainListItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_jot);
                 mainListItemViewHolder.mType.setText("隨筆");
+                mainListItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mTextOne.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mTextTwo.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mAccountItemNumber.setVisibility(View.INVISIBLE);
             }
 
 
@@ -157,6 +177,13 @@ public class MainAdapter extends RecyclerView.Adapter {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_6);
                 }
 
+            }
+
+            if (mNoteList.get(mNoteList.size()-i-1).getMonth() != null) {
+                mainListItemViewHolder.mMonth.setText(mNoteList.get(mNoteList.size()-i-1).getMonth());
+                mainListItemViewHolder.mDay.setText(mNoteList.get(mNoteList.size()-i-1).getDay());
+                mainListItemViewHolder.mTime.setText(mNoteList.get(mNoteList.size()-i-1).getTime());
+                mainListItemViewHolder.mWeek.setText(mNoteList.get(mNoteList.size()-i-1).getWeek());
             }
 
         }

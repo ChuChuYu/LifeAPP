@@ -113,7 +113,7 @@
         app:layout_constraintStart_toStartOf="@+id/card" />
 
     <TextView
-        android:id="@+id/note_date"
+        android:id="@+id/note_week"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -130,7 +130,7 @@
         android:layout_marginEnd="8dp"
         android:text="下午"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/note_date"
+        app:layout_constraintBottom_toBottomOf="@+id/note_week"
         app:layout_constraintEnd_toStartOf="@+id/note_time" />
 
     <TextView
@@ -140,7 +140,7 @@
         android:layout_marginEnd="8dp"
         android:text="05:55"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/note_date"
+        app:layout_constraintBottom_toBottomOf="@+id/note_week"
         app:layout_constraintEnd_toEndOf="@+id/card" />
 
     <TextView

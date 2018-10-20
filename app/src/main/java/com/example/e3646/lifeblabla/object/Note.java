@@ -9,6 +9,11 @@ public class Note {
     private String mText;
     private String mCreatedTime;
     private String mUpdatedTime;
+    private String mMonth;
+    private String mDay;
+    private String mDayTime;
+    private String mWeek;
+    private String mTime;
     private ArrayList<String> mTag;
 
     private String mClassification;
@@ -197,8 +202,43 @@ public class Note {
         mAccountBalance = accountBalance;
     }
 
+    public String getMonth() {
+        return mMonth;
+    }
 
+    public void setMonth(String month) {
+        mMonth = month;
+    }
 
+    public String getDay() {
+        return mDay;
+    }
 
+    public void setDay(String day) {
+        mDay = day;
+    }
 
+    public String getDayTime() {
+        return mDayTime;
+    }
+
+    public void setDayTime(String dayTime) {
+        mDayTime = dayTime;
+    }
+
+    public String getTime() {
+        return mTime;
+    }
+
+    public void setTime(String time) {
+        mTime = time;
+    }
+
+    public String getWeek() {
+        return mWeek;
+    }
+
+    public void setWeek(String week) {
+        mWeek = week;
+    }
 }

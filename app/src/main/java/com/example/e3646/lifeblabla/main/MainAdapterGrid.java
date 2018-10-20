@@ -18,10 +18,6 @@ import android.widget.TextView;
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.object.Note;
-import com.example.e3646.lifeblabla.object.Tag;
-import com.google.android.gms.maps.GoogleMap;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +108,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             mTag = itemView.findViewById(R.id.note_tag);
             mType = itemView.findViewById(R.id.note_type);
             mText = itemView.findViewById(R.id.note_text);
-            mDate = itemView.findViewById(R.id.note_date);
+            mDate = itemView.findViewById(R.id.note_week);
             mDayTime = itemView.findViewById(R.id.note_daytime);
             mTime = itemView.findViewById(R.id.note_time);
 
