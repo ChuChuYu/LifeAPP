@@ -191,7 +191,11 @@ public class MainAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return  mNoteList.size();
+        if (mNoteList != null) {
+            return mNoteList.size();
+        } else {
+            return 0;
+        }
     }
 
     @Override

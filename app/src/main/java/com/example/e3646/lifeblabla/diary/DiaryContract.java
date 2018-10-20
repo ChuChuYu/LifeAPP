@@ -40,5 +40,7 @@ public interface DiaryContract {
 
         void parseNote(Note note);
 
+        void goSearch(String tag);
+
     }
 }

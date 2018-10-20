@@ -77,6 +77,15 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
         }
 
+        mDiaryAdapter.setOnItemListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+
+            }
+        });
+
 
         mPicture = (ImageView)view.findViewById(R.id.jot_picture);
 

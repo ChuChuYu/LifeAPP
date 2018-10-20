@@ -22,6 +22,8 @@ public class DiaryAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mTagList;
 
+    private View.OnClickListener mListener;
+
     public DiaryAdapter(ArrayList<String> tagList) {
 
         mTagList = tagList;
@@ -58,6 +60,14 @@ public class DiaryAdapter extends RecyclerView.Adapter {
 
         TagItemViewHolder tagItemViewHolder = (TagItemViewHolder)viewHolder;
         tagItemViewHolder.mTagText.setText(mTagList.get(i));
+        viewHolder.itemView.setTag(i);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClick(view);
+
+            }
+        });
 
         ViewGroup.LayoutParams backgorundParams = tagItemViewHolder.mTagBackground.getLayoutParams();
         backgorundParams.width = mTagList.get(i).length() * 60 + 20;
@@ -73,4 +83,10 @@ public class DiaryAdapter extends RecyclerView.Adapter {
 
         return mTagList.size();
     }
+
+
+    public void setOnItemListener(View.OnClickListener listener) {
+        this.mListener = listener;
+    }
+
 }
