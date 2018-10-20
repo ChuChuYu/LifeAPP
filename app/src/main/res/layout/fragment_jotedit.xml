@@ -263,17 +263,27 @@
             app:srcCompat="@drawable/button_minus" />
 
         <ImageView
+            android:id="@+id/jot_image"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView17"
+            app:srcCompat="@drawable/image_sample_3" />
+
+        <ImageView
             android:id="@+id/imageView19"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="43dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="350dp"
             android:background="#50FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/imageView20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView17" />
+            app:layout_constraintTop_toBottomOf="@+id/jot_image" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/jot_tag_recyclerview"

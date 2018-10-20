@@ -339,9 +339,9 @@ public class MainActPresenter implements MainActContract.Presenter {
     }
 
     @Override
-    public void goJotEdit() {
+    public void goJotEdit(String imagePath) {
 
-        mJotEditFragment = new JotEditFragment(true, null);
+        mJotEditFragment = new JotEditFragment(true, null, imagePath);
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

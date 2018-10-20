@@ -117,7 +117,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView13" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/account_item_recyclerview"
@@ -198,6 +198,24 @@
         android:textColor="@android:color/background_light"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/account_item_recyclerview" />
+
+    <ImageView
+        android:id="@+id/imageView13"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:background="#50FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView22" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/tag_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView13"
+        app:layout_constraintEnd_toEndOf="@+id/imageView13"
+        app:layout_constraintStart_toStartOf="@+id/imageView13"
+        app:layout_constraintTop_toTopOf="@+id/imageView13" />
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"

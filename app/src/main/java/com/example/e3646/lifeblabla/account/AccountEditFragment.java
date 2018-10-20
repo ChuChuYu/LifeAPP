@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.diary.DiaryEditAdapter;
 import com.example.e3646.lifeblabla.diary.DiaryEditFragment;
 import com.example.e3646.lifeblabla.object.Account;
 import com.example.e3646.lifeblabla.object.Note;
@@ -93,6 +94,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private TextView mRevenueText;
     private TextView mExpenseText;
     private TextView mBalanceText;
+
+    private RecyclerView mTagRecyclerview;
+    private DiaryEditAdapter mTagAdapter;
 
     public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
@@ -428,10 +432,17 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         }
 
+
+        mTagRecyclerview = (RecyclerView)view.findViewById(R.id.tag_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mTagRecyclerview.setLayoutManager(linearLayoutManager);
+        mTagAdapter = new DiaryEditAdapter();
+        mTagRecyclerview.setAdapter(mTagAdapter);
     }
 
     private String currentTime() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:ss:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
         String str = formatter.format(curDate);
 
@@ -531,9 +542,41 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mNote.setAccountExpense(String.valueOf(mTotalExpense));
             mNote.setAccountBalance(String.valueOf(mTotalBalance));
 
-//            mNote.setmPicture(mImagePath);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
+            SimpleDateFormat formatterForDay = new SimpleDateFormat("dd");
+            SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
+            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+            Date curDate = new Date(System.currentTimeMillis());
+            String currentTime = formatter.format(curDate);
+            String month = formatterForMonth.format(curDate);
+            String day = formatterForDay.format(curDate);
+            String time = formatterForTime.format(curDate);
+            String week = formatterForWeek.format(curDate);
+            String id = formateForID.format(curDate);
+            mNote.setmCreatedTime(currentTime);
 
-//            mNote.setmTag(mDiaryEditAdapter.TagList());
+            mNote.setMonth(month);
+            mNote.setDay(day);
+            mNote.setTime(time);
+            if (week.equals("Monday")) {
+                mNote.setWeek("MON");
+            } else if (week.equals("Tuesday")) {
+                mNote.setWeek("TUE");
+            } else if (week.equals("Wednesday")) {
+                mNote.setWeek("WED");
+            } else if (week.equals("Thursday")) {
+                mNote.setWeek("THUR");
+            } else if (week.equals("Friday")) {
+                mNote.setWeek("FRI");
+            } else if (week.equals("Saturday")) {
+                mNote.setWeek("SAT");
+            } else if (week.equals("Sunday")) {
+                mNote.setWeek("SUN");
+            }
+
+            mNote.setmTag(mTagAdapter.TagList());
 
 
             mNoteList = new ArrayList<Note>();

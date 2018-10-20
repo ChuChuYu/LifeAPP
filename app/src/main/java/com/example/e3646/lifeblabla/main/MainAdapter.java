@@ -27,16 +27,19 @@ public class MainAdapter extends RecyclerView.Adapter {
     public MainAdapter(Context context, ArrayList<Note> noteList) {
         this.mContext = context;
         this.mNoteList = noteList;
-        getRandomHeight(30);
+
+
+//        getRandomHeight(30);
+
 
     }
 
-    private void getRandomHeight(int n){
-        heights = new ArrayList<>();
-        for (int i = 0; i < n; i++) {
-            heights.add((int)( 400 + Math.random() * 400));
-        }
-    }
+//    private void getRandomHeight(int n){
+//        heights = new ArrayList<>();
+//        for (int i = 0; i < n; i++) {
+//            heights.add((int)( 400 + Math.random() * 400));
+//        }
+//    }
 
     @NonNull
     @Override
@@ -71,7 +74,7 @@ public class MainAdapter extends RecyclerView.Adapter {
 
 
             mMonth = itemView.findViewById(R.id.note_month);
-            mWeek = itemView.findViewById(R.id.note_week);
+            mWeek = itemView.findViewById(R.id.note_date);
             mDay = itemView.findViewById(R.id.note_day);
             mDayTime = itemView.findViewById(R.id.note_daytime);
             mTime = itemView.findViewById(R.id.note_time);

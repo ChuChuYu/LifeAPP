@@ -120,7 +120,6 @@ public class MainPresenter implements MainContract.Presenter {
                     .commit();
         }
 
-
         mMainActPresenter.goDiaryDetail(); //just hide component
 
     }

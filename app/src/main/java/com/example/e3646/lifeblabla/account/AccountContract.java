@@ -29,6 +29,8 @@ public interface AccountContract {
 
         void goEditAccount(boolean isCreating);
 
+        void goSearch(String tag);
+
 
     }
 }

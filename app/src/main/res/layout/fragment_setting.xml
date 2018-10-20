@@ -100,7 +100,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:text="立即新增常用範例，記事更快速"
+                android:text="升級VIP會員，獲得更多功能"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"

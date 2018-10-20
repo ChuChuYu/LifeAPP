@@ -78,7 +78,7 @@ public interface MainActContract {
 
         void goAccountEdit();
 
-        void goJotEdit();
+        void goJotEdit(String imagePath);
 
         void refreshList();
 

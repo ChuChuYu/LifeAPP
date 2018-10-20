@@ -335,6 +335,18 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         if (isCreating) {
             mPresenter.setContext(mContext);
+
+
+            mNote = new Note();
+
+            if (mDiaryTitle.getText().toString() != null && !mDiaryTitle.getText().toString().equals("")) {
+                mNote.setmTitle(mDiaryTitle.getText().toString());
+            } else {
+                mNote.setmTitle("這是一則日記");
+            }
+            mNote.setmText(mDiaryText.getText().toString());
+
+
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
             SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
             SimpleDateFormat formatterForDay = new SimpleDateFormat("dd");
@@ -348,15 +360,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             String time = formatterForTime.format(curDate);
             String week = formatterForWeek.format(curDate);
             String id = formateForID.format(curDate);
-
-            mNote = new Note();
-            mNote.setmId(id);
-            if (mDiaryTitle.getText().toString() != null && !mDiaryTitle.getText().toString().equals("")) {
-                mNote.setmTitle(mDiaryTitle.getText().toString());
-            } else {
-                mNote.setmTitle("這是一則日記");
-            }
-            mNote.setmText(mDiaryText.getText().toString());
             mNote.setmCreatedTime(currentTime);
 
             mNote.setMonth(month);
@@ -378,6 +381,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 mNote.setWeek("SUN");
             }
 
+
+            mNote.setmId(id);
 
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");

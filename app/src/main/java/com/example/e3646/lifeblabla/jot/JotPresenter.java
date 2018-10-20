@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.Search.SearchFragment;
+import com.example.e3646.lifeblabla.Search.SearchPresenter;
 import com.example.e3646.lifeblabla.dialogfragment.CheckDeleteFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActPresenter;
 import com.example.e3646.lifeblabla.object.Note;
@@ -18,6 +20,9 @@ public class JotPresenter implements JotContract.Presenter {
 
     private JotEditFragment mJotEditFragment;
     private JotEditPresenter mJotEditPresenter;
+
+    private SearchFragment mSearchFragment;
+    private SearchPresenter mSearchPresenter;
 
 
     private FragmentManager mFragmentManager;
@@ -73,12 +78,25 @@ public class JotPresenter implements JotContract.Presenter {
     public void goEditJot(boolean isCreating) {
         Note note = mNoteList.get(mNotePosition);
 
-        mJotEditFragment = new JotEditFragment(isCreating, note);
+        mJotEditFragment = new JotEditFragment(isCreating, note, note.getmPicture());
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.diary_container, mJotEditFragment, "EDIT DIARY")
                 .show(mJotEditFragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void goSearch(String tag) {
+        mSearchFragment = new SearchFragment(tag);
+        mSearchPresenter = new SearchPresenter(mSearchFragment);
+
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.add(R.id.jot_container, mSearchFragment, "SEARCH")
+                .show(mSearchFragment)
                 .addToBackStack(null)
                 .commit();
     }

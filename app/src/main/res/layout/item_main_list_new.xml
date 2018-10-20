@@ -45,7 +45,7 @@
             app:layout_constraintTop_toTopOf="@+id/note_month" />
 
         <TextView
-            android:id="@+id/note_week"
+            android:id="@+id/note_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TUE"
@@ -74,8 +74,8 @@
             android:text="上午"
             android:textColor="@android:color/background_light"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/note_week"
-            app:layout_constraintStart_toStartOf="@+id/note_week" />
+            app:layout_constraintEnd_toEndOf="@+id/note_date"
+            app:layout_constraintStart_toStartOf="@+id/note_date" />
 
         <TextView
             android:id="@+id/note_time"

@@ -2,6 +2,8 @@ package com.example.e3646.lifeblabla.jot;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.e3646.lifeblabla.R;
@@ -53,6 +56,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private RecyclerView mTitleRecycelrView;
     private TitleAdapter mTitleAdapter;
     private ImageButton mExpandButton;
+    private ImageView mImage;
 
     private BottomSheetBehavior mBottomSheetBehavior;
 
@@ -60,10 +64,14 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private Button mTitleTwo;
     private Button mTitleThree;
 
+    private String mImagePath;
 
-    public JotEditFragment(boolean isCreating, Note note) {
+
+    public JotEditFragment(boolean isCreating, Note note, String imagePath) {
         this.isCreating = isCreating;
         mNote = note;
+        mImagePath = imagePath;
+        Log.d("image path", "in jot: " + imagePath);
     }
 
 
@@ -185,6 +193,16 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         });
+
+        mImage = view.findViewById(R.id.jot_image);
+
+
+        if (mImagePath == null || mImagePath.equals("")) {
+            mImage.setVisibility(View.GONE);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+            mImage.setImageBitmap(bitmap);
+        }
 
         return view;
     }

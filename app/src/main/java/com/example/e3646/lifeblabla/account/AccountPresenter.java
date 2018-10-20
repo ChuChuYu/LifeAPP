@@ -4,6 +4,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.Search.SearchFragment;
+import com.example.e3646.lifeblabla.Search.SearchPresenter;
 import com.example.e3646.lifeblabla.dialogfragment.CheckDeleteFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActPresenter;
 import com.example.e3646.lifeblabla.object.Note;
@@ -23,6 +25,9 @@ public class AccountPresenter implements AccountContract.Presenter {
     protected AccountEditPresenter mAccountEditPresenter;
 
     private CheckDeleteFragment mCheckDeleteFragment;
+
+    private SearchFragment mSearchFragment;
+    private SearchPresenter mSearchPresenter;
 
     private ArrayList<Note> mNoteList;
     private int mNotePosition;
@@ -84,5 +89,19 @@ public class AccountPresenter implements AccountContract.Presenter {
                 .commit();
 
 
+    }
+
+    @Override
+    public void goSearch(String tag) {
+
+        mSearchFragment = new SearchFragment(tag);
+        mSearchPresenter = new SearchPresenter(mSearchFragment);
+
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.add(R.id.account_container, mSearchFragment, "SEARCH")
+                .show(mSearchFragment)
+                .addToBackStack(null)
+                .commit();
     }
 }

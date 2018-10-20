@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.diary.DiaryAdapter;
 import com.example.e3646.lifeblabla.object.Account;
 import com.example.e3646.lifeblabla.object.Note;
 
@@ -47,6 +48,9 @@ public class AccountFragment extends Fragment implements AccountContract.View {
     private ArrayList<Account> mAccountList;
 
     private Note mNote;
+
+    private RecyclerView mTagRecycelrview;
+    private DiaryAdapter mTagAdapter;
 
     public AccountFragment(Note note) {
 
@@ -107,6 +111,22 @@ public class AccountFragment extends Fragment implements AccountContract.View {
         mRevenueText = view.findViewById(R.id.account_revenue);
         mExpenseText = view.findViewById(R.id.account_expense);
         mBalanceText = view.findViewById(R.id.account_balance);
+
+        mTagRecycelrview = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mTagRecycelrview.setLayoutManager(linearLayoutManager);
+        mTagAdapter = new DiaryAdapter(mNote.getmTag());
+        mTagRecycelrview.setAdapter(mTagAdapter);
+
+        mTagAdapter.setOnItemListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+
+            }
+        });
 
         setNoteData();
     }

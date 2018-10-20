@@ -47,7 +47,6 @@ public class MainFragment extends Fragment implements MainContract.View {
             mMainAdapter.notifyDataSetChanged();
             Log.d("NoteList", "title" + mNoteList.get(0).getmTitle());
         }
-//        isListMode = islistMode;
     }
 
     @Nullable

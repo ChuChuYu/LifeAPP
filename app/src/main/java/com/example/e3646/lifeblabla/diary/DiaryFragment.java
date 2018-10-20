@@ -71,20 +71,22 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
             mDiaryAdapter = new DiaryAdapter(mNote.getmTag());
             mTagRecyclerView.setAdapter(mDiaryAdapter);
+
+            mDiaryAdapter.setOnItemListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+
+                }
+            });
         } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("")) {
             mTagBackground.setVisibility(View.GONE);
 //            mTagRecyclerView.setVisibility(View.GONE);
 
         }
 
-        mDiaryAdapter.setOnItemListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
-
-            }
-        });
 
 
         mPicture = (ImageView)view.findViewById(R.id.jot_picture);

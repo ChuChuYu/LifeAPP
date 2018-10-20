@@ -35,6 +35,8 @@ public class JotFragment extends Fragment implements JotContract.View {
 
     private RecyclerView mTagRecyclerView;
     private JotAdapter mJotAdapter;
+
+    private DiaryAdapter mTagAdapter;
     private ImageView mTagBackground;
 
     private TextView mCreatedTime;
@@ -70,8 +72,15 @@ public class JotFragment extends Fragment implements JotContract.View {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
-            mJotAdapter = new JotAdapter(mNote.getmTag());
-            mTagRecyclerView.setAdapter(mJotAdapter);
+            mTagAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagRecyclerView.setAdapter(mTagAdapter);
+            mTagAdapter.setOnItemListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+                }
+            });
+
         } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("") || mNote.getmTag().get(0).equals("null")) {
             mTagBackground.setVisibility(View.GONE);
 //            mTagRecyclerView.setVisibility(View.GONE);
