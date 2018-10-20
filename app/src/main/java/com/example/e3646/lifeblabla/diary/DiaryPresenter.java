@@ -104,7 +104,6 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     @Override
     public void deleteNoteData(String id) {
         mDiaryView.deleteNoteData(id);
-
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.mainactivity.MainActivity;
 import com.example.e3646.lifeblabla.object.Note;
@@ -57,6 +58,11 @@ public class MainFragment extends Fragment implements MainContract.View {
 
         mContext = getContext();
         mPresenter.setContext(mContext);
+
+
+        Sqldatabase sql = new Sqldatabase(mContext);
+        mNoteList = sql.getNotes();
+
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.main_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

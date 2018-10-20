@@ -29,9 +29,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         this.mNoteList = noteList;
         getRandomHeight(30);
 
-        Sqldatabase sql = new Sqldatabase(mContext);
-        mNoteList = sql.getNotes();
-
     }
 
     private void getRandomHeight(int n){
