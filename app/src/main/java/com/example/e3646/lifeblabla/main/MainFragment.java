@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
@@ -37,6 +38,9 @@ public class MainFragment extends Fragment implements MainContract.View {
     private MainAdapter mMainAdapter;
     private MainAdapterGrid mMainAdapterGrid;
     private ArrayList<Note> mNoteList;
+
+
+
 //    private boolean isListMode = false;
 
     public MainFragment(ArrayList<Note> noteList, boolean islistMode) {
@@ -70,15 +74,19 @@ public class MainFragment extends Fragment implements MainContract.View {
         mMainAdapterGrid = new MainAdapterGrid(getContext());
         mRecyclerView.setAdapter(mMainAdapter);
 
+        mRecyclerView.getItemAnimator().setChangeDuration(300);
+        mRecyclerView.getItemAnimator().setMoveDuration(300);
+
 
         mMainAdapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mPresenter.takeNoteListPosition((int)view.getTag());
+
                 mPresenter.showFragment((int)view.getTag());
-//                showDiaryUI();
+
             }
         });
+
 
 //        if (!isListMode) {
 //            mMainAdapter.setOnItemListener(new View.OnClickListener() {

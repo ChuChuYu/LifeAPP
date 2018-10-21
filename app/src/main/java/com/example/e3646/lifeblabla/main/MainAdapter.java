@@ -3,11 +3,15 @@ package com.example.e3646.lifeblabla.main;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
@@ -24,33 +28,27 @@ public class MainAdapter extends RecyclerView.Adapter {
     private List<Integer> heights = new ArrayList<>();
     private ArrayList<Note> mNoteList;
 
+    private int opened = -1;
+
     public MainAdapter(Context context, ArrayList<Note> noteList) {
         this.mContext = context;
         this.mNoteList = noteList;
 
 
-//        getRandomHeight(30);
-
-
     }
 
-//    private void getRandomHeight(int n){
-//        heights = new ArrayList<>();
-//        for (int i = 0; i < n; i++) {
-//            heights.add((int)( 400 + Math.random() * 400));
-//        }
-//    }
+
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        return new MainListItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_list_new, null));
+        return new MainListItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_list_new_new, null));
 
     }
 
-    public class MainListItemViewHolder extends RecyclerView.ViewHolder {
-
+    public class MainListItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
+//
         private TextView mMonth;
         private TextView mWeek;
         private TextView mDay;
@@ -67,6 +65,9 @@ public class MainAdapter extends RecyclerView.Adapter {
         private ImageView mDiaryWeather;
         private ImageView mTagBackground;
         private ImageView mTypeBackground;
+
+        private LinearLayout mLinearLayout;
+        private RelativeLayout mRelativeLayout;
 
 
         public MainListItemViewHolder(@NonNull View itemView) {
@@ -90,18 +91,57 @@ public class MainAdapter extends RecyclerView.Adapter {
             mTagBackground = itemView.findViewById(R.id.note_background);
             mTypeBackground = itemView.findViewById(R.id.note_type_background);
 
+            mLinearLayout = (LinearLayout) itemView.findViewById(R.id.msg_ll);
+            mRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.relative_layout);
+
+            mRelativeLayout.setOnLongClickListener(this);
+
         }
+
+
+
+
+
+
+
+        @Override
+        public boolean onLongClick(View view) {
+
+            Toast.makeText(mContext, "Long click", Toast.LENGTH_SHORT).show();
+
+            if (opened == getAdapterPosition()) {
+                opened = -1;
+                notifyItemChanged(getAdapterPosition());
+            } else {
+                int oldOpened = opened;
+                opened = getAdapterPosition();
+                notifyItemChanged(oldOpened);
+                notifyItemChanged(opened);
+            }
+
+            return true;
+        }
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
         MainListItemViewHolder mainListItemViewHolder = (MainListItemViewHolder) viewHolder;
-        viewHolder.itemView.setTag(mNoteList.size() - i - 1);
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+
+
+        if (i == opened){
+            mainListItemViewHolder.mLinearLayout.setVisibility(View.VISIBLE);
+        } else{
+            mainListItemViewHolder.mLinearLayout.setVisibility(View.GONE);
+        }
+
+        mainListItemViewHolder.mRelativeLayout.setTag(mNoteList.size() - i - 1);
+        mainListItemViewHolder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onClick(view);
+                Log.d("short click", "go");
             }
         });
 
@@ -133,7 +173,7 @@ public class MainAdapter extends RecyclerView.Adapter {
                 mainListItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
                 mainListItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
                 Sqldatabase sql = new Sqldatabase(mContext);
-                ArrayList<Account> accountList = sql.getAccounts(mNoteList.get(mNoteList.size()-i-1).getmId());
+                ArrayList<Account> accountList = sql.getAccounts(mNoteList.get(mNoteList.size() - i - 1).getmId());
                 mainListItemViewHolder.mAccountItemNumber.setText(String.valueOf(accountList.size()));
             } else if (mNoteList.get(mNoteList.size() - i - 1).getmClassification().equals("jot")) {
                 mainListItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_jot);
@@ -162,39 +202,49 @@ public class MainAdapter extends RecyclerView.Adapter {
                 }
             }
 
-            if (mNoteList.get(mNoteList.size()-i-1).getmWeather() != null) {
-                if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("1")) {
+            if (mNoteList.get(mNoteList.size() - i - 1).getmWeather() != null) {
+                if (mNoteList.get(mNoteList.size() - i - 1).getmWeather().equals("1")) {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_1);
-                } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("2")) {
+                } else if (mNoteList.get(mNoteList.size() - i - 1).getmWeather().equals("2")) {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.button_weather);
-                } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("3")) {
+                } else if (mNoteList.get(mNoteList.size() - i - 1).getmWeather().equals("3")) {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_3);
-                } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("4")) {
+                } else if (mNoteList.get(mNoteList.size() - i - 1).getmWeather().equals("4")) {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_4);
-                } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("5")) {
+                } else if (mNoteList.get(mNoteList.size() - i - 1).getmWeather().equals("5")) {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_5);
-                } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("6")) {
+                } else if (mNoteList.get(mNoteList.size() - i - 1).getmWeather().equals("6")) {
                     mainListItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_6);
                 }
 
             }
 
-            if (mNoteList.get(mNoteList.size()-i-1).getMonth() != null) {
-                mainListItemViewHolder.mMonth.setText(mNoteList.get(mNoteList.size()-i-1).getMonth());
-                mainListItemViewHolder.mDay.setText(mNoteList.get(mNoteList.size()-i-1).getDay());
-                mainListItemViewHolder.mTime.setText(mNoteList.get(mNoteList.size()-i-1).getTime());
-                mainListItemViewHolder.mWeek.setText(mNoteList.get(mNoteList.size()-i-1).getWeek());
+            if (mNoteList.get(mNoteList.size() - i - 1).getMonth() != null) {
+                mainListItemViewHolder.mMonth.setText(mNoteList.get(mNoteList.size() - i - 1).getMonth());
+                mainListItemViewHolder.mDay.setText(mNoteList.get(mNoteList.size() - i - 1).getDay());
+                mainListItemViewHolder.mTime.setText(mNoteList.get(mNoteList.size() - i - 1).getTime());
+                mainListItemViewHolder.mWeek.setText(mNoteList.get(mNoteList.size() - i - 1).getWeek());
             }
-
         }
     }
+
+
+
+//
+
+//
+//
+
+//
+//        }
+
 
     @Override
     public int getItemCount() {
         if (mNoteList != null) {
             return mNoteList.size();
         } else {
-            return 0;
+            return 10;
         }
     }
 
