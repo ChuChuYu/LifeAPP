@@ -285,6 +285,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
             }
 
         }
+        Log.d("account", "size: " + accountList.size());
         return accountList;
 
     }

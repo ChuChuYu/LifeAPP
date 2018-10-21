@@ -194,7 +194,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             }
         });
 
-        mImage = view.findViewById(R.id.jot_image);
+        mImage = view.findViewById(R.id.diary_image);
 
 
         if (mImagePath == null || mImagePath.equals("")) {
@@ -235,21 +235,73 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     public void takeJotData() {
 
         if (isCreating) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
-            Date curDate = new Date(System.currentTimeMillis());
-            String currentTime = formatter.format(curDate);
-            String id = formateForID.format(curDate);
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+//            Date curDate = new Date(System.currentTimeMillis());
+//            String currentTime = formatter.format(curDate);
+//            String id = formateForID.format(curDate);
 
             mNote = new Note();
-            mNote.setmId(id);
+
 //            if (mTitle.getText().toString() != null && !mTitle.getText().toString().equals("")) {
 //                mNote.setmTitle(mTitle.getText().toString());
 //            } else {
 //                mNote.setmTitle("這是一則筆記");
 //            }
             mNote.setmText(mText.getText().toString());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
+            SimpleDateFormat formatterForDay = new SimpleDateFormat("dd");
+            SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
+            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat formateForDaytime = new SimpleDateFormat("HH");
+            Date curDate = new Date(System.currentTimeMillis());
+            String currentTime = formatter.format(curDate);
+            String month = formatterForMonth.format(curDate);
+            String day = formatterForDay.format(curDate);
+            String time = formatterForTime.format(curDate);
+            String week = formatterForWeek.format(curDate);
+            String id = formateForID.format(curDate);
+            String daytime = formateForDaytime.format(curDate);
+
+            if (Integer.parseInt(daytime) > 12 ) {
+                mNote.setDayTime("下午");
+            } else {
+                mNote.setDayTime("上午");
+            }
+
             mNote.setmCreatedTime(currentTime);
+
+            mNote.setmId(id);
+
+            mNote.setMonth(month);
+            mNote.setDay(day);
+            mNote.setTime(time);
+            if (week.equals("Monday")) {
+                mNote.setWeek("MON");
+            } else if (week.equals("Tuesday")) {
+                mNote.setWeek("TUE");
+            } else if (week.equals("Wednesday")) {
+                mNote.setWeek("WED");
+            } else if (week.equals("Thursday")) {
+                mNote.setWeek("THUR");
+            } else if (week.equals("Friday")) {
+                mNote.setWeek("FRI");
+            } else if (week.equals("Saturday")) {
+                mNote.setWeek("SAT");
+            } else if (week.equals("Sunday")) {
+                mNote.setWeek("SUN");
+            }
+
+
+            mNote.setmId(id);
+
+            if (mImagePath != null) {
+                mNote.setmPicture(mImagePath);
+            }
+
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("jot");

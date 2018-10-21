@@ -17,6 +17,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -87,6 +88,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
     private Uri mUri;
 
+    private ConstraintLayout mConstraintLayout;
+
     private boolean isCreating;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
     public DiaryEditFragment(boolean iscreating, Note note) {
@@ -114,6 +117,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
 
+        mConstraintLayout = view.findViewById(R.id.constraintlayout);
 
         mPhoto = (ImageView)view.findViewById(R.id.Jot_photo);
         mMinusButton = (ImageButton)view.findViewById(R.id.button_minus);
@@ -353,6 +357,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
             SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
             SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat formateForDaytime = new SimpleDateFormat("HH");
             Date curDate = new Date(System.currentTimeMillis());
             String currentTime = formatter.format(curDate);
             String month = formatterForMonth.format(curDate);
@@ -360,7 +365,17 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             String time = formatterForTime.format(curDate);
             String week = formatterForWeek.format(curDate);
             String id = formateForID.format(curDate);
+            String daytime = formateForDaytime.format(curDate);
+
+            if (Integer.parseInt(daytime) > 12 ) {
+                mNote.setDayTime("下午");
+            } else {
+                mNote.setDayTime("上午");
+            }
+
+
             mNote.setmCreatedTime(currentTime);
+
 
             mNote.setMonth(month);
             mNote.setDay(day);
@@ -388,14 +403,11 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setmPlace("市政府");
             mNote.setClassification("diary");
 
-            Log.d("set image path", ": " + mImagePath);
             mNote.setmPicture(mImagePath);
 
             mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNote.setmMind(mMindNum);
-
-            Log.d("weather", "num: "+ mWeatherNum);
             mNote.setmWeather(mWeatherNum);
 
 
@@ -580,6 +592,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     }
 
     public void displayPhoto(String imagePath) {
+
+        mConstraintLayout.setVisibility(View.VISIBLE);
 
         Log.d("imagePath 4 ", ": " + imagePath);
 

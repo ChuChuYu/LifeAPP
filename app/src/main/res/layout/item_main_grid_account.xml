@@ -10,10 +10,10 @@
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="195dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="2dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
         android:elevation="20dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/note_type_background"
         app:layout_constraintEnd_toStartOf="@+id/note_type_background"
         app:layout_constraintTop_toTopOf="@+id/note_type_background"
-        app:srcCompat="@drawable/background_tag" />
+        app:srcCompat="@drawable/background_tag_normal" />
 
     <ImageView
         android:id="@+id/note_type_background"
@@ -47,7 +47,7 @@
         app:srcCompat="@drawable/background_tag_account" />
 
     <TextView
-        android:id="@+id/note_text"
+        android:id="@+id/note_title"
         android:layout_width="match_parent"
         android:layout_height="18dp"
         android:layout_marginEnd="10dp"
@@ -148,7 +148,7 @@
         android:textColor="@android:color/background_light"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/card"
-        app:layout_constraintTop_toBottomOf="@+id/note_text" />
+        app:layout_constraintTop_toBottomOf="@+id/note_title" />
 
     <TextView
         android:id="@+id/textView24"

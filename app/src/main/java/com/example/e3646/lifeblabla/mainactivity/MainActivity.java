@@ -11,9 +11,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -26,9 +28,12 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -40,7 +45,7 @@ import android.widget.Toolbar;
 
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.account.AccountFragment;
-import com.example.e3646.lifeblabla.conference.ConferenceFragment;
+
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.jot.JotFragment;
@@ -49,10 +54,9 @@ import com.example.e3646.lifeblabla.main.MainContract;
 import com.example.e3646.lifeblabla.main.MainDiaryFragment;
 import com.example.e3646.lifeblabla.main.MainFragment;
 import com.example.e3646.lifeblabla.main.MainJotFragment;
-import com.example.e3646.lifeblabla.map.MapFragment;
-import com.example.e3646.lifeblabla.map.MapPresenter;
+
 import com.example.e3646.lifeblabla.object.Note;
-import com.example.e3646.lifeblabla.todolist.TodolistFragment;
+
 
 import java.util.ArrayList;
 
@@ -69,12 +73,11 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
     private MainFragment mMainFragment;
     private DiaryFragment mDiaryFragment;
-    private ConferenceFragment mConferenceFragment;
+
     private JotFragment mJotFragment;
-    private TodolistFragment mTodolistFragment;
+
     private AccountFragment mAccountFragment;
-    private MapFragment mMapFragment;
-    private MapPresenter mMapPresenter;
+
 
     private MainContract.Presenter mMainPresenter;
 
@@ -94,6 +97,8 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
     private boolean isListLayout;
 
+    private NavigationView mBottomNavigation;
+
 
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
@@ -111,6 +116,8 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         init();
 
 
+
+//        mBottomNavigation = findViewById(R.id.main_bottom_navigation);
 
 
 
@@ -175,6 +182,16 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                return true;
             }
         });
+
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) mBottomNav.getChildAt(0);
+        for (int a = 0; a < menuView.getChildCount(); a++) {
+            final View iconView = menuView.getChildAt(a).findViewById(android.support.design.R.id.icon);
+            final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
+            final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, displayMetrics);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, displayMetrics);
+            iconView.setLayoutParams(layoutParams);
+        }
 
         mToolbar = findViewById(R.id.toolbar);
 

@@ -21,6 +21,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.diary.DiaryEditAdapter;
@@ -74,6 +76,13 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private AccountAdapter mAccountAdapter;
 
     private TextView mAmount;
+
+    private TextView mRevenueText;
+    private TextView mExpenseText;
+    private TextView mBalanceText;
+
+    private TextView mCreatedTime;
+
     private String mMoneyAmount = "";
 
     private String mNoteId;
@@ -85,15 +94,15 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private boolean isCreating;
 
     private boolean isCreatingItem;
-    private boolean isRevenue;
+    private int isRevenue = 3;
     private String mCategory = "0";
-    private int mTotalRevenue = 0;
-    private int mTotalExpense = 0;
-    private int mTotalBalance = 0;
+    private Integer mTotalRevenue = 0;
+    private Integer mTotalExpense = 0;
+    private Integer mTotalBalance = 0;
 
-    private TextView mRevenueText;
-    private TextView mExpenseText;
-    private TextView mBalanceText;
+
+
+
 
     private RecyclerView mTagRecyclerview;
     private DiaryEditAdapter mTagAdapter;
@@ -103,12 +112,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mNote = note;
 
         if (!isCreating) {
-
-            Log.d("revenue", ": " + mNote.getAccountBalance());
             mTotalRevenue = Integer.parseInt(mNote.getAccountRevenue());
             mTotalExpense = Integer.parseInt(mNote.getAccountExpense());
             mTotalBalance = Integer.parseInt(mNote.getAccountBalance());
-
         }
 
 
@@ -124,7 +130,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isRevenue = true;
+                isRevenue = 1;
                 mRevenue.setImageResource(R.drawable.button_account_is_select);
                 mExpense.setImageResource(R.drawable.button_account_not_select);
             }
@@ -133,7 +139,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isRevenue = false;
+                isRevenue = 0;
                 mRevenue.setImageResource(R.drawable.button_account_not_select);
                 mExpense.setImageResource(R.drawable.button_account_is_select);
             }
@@ -260,20 +266,31 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             @Override
             public void onClick(View view) {
                 mAmount.setText("0");
+                mMoneyAmount = "";
+
             }
         });
 
         mCompleteAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (isCreatingItem) {
-                    takeAccountData();
-                } else {
-                    takeAccountDataWhenEditing();
 
+                if (isRevenue == 3 || mCategory.equals("0")) {
+                    Toast.makeText(getContext(), "Please set content.", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (isCreatingItem) {
+                        takeAccountData();
+                    } else {
+                        takeAccountDataWhenEditing();
+                        countTotalAmountWhenEditingItem();
+
+                    }
+                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                    clearAddItemButtonsheet();
                 }
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                clearAddItemButtonsheet();
+
+                mMoneyAmount = "";
+
 
             }
         });
@@ -297,6 +314,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
                 if (isCreating) {
                     mPresenter.completeCreating();
+
                 } else {
 
                     takeNoteData();
@@ -312,13 +330,12 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 isCreatingItem = false;
 
                 Sqldatabase sql = new Sqldatabase(getContext());
-                mAccoountList = sql.getAccounts(mNote.getmId());
+                mAccoountList = sql.getAccounts(mNoteId);
                 setAccountDatainDialog(mAccoountList.get((int)view.getTag()));
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             }
         });
-
 
         mDeleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,28 +347,37 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 mAccountAdapter.setAccountList(mAccoountList);
                 mAccountAdapter.notifyDataSetChanged();
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                countTotalAmount();
 
             }
         });
+
+        mCreatedTime = view.findViewById(R.id.created_time);
+
+        if (!isCreating && mNote != null) {
+
+            mCreatedTime.setText(mNote.getmCreatedTime());
+        } else {
+
+            mCreatedTime.setText(currentTime());
+        }
 
         return view;
     }
 
     private void takeAccountDataWhenEditing() {
 
-        Log.d("expense 0", ": " + mAccoountList.get(0).getExpense());
-        Log.d("expense 1", ": " + mAccoountList.get(1).getExpense());
-        Log.d("note id 0", ": " + mAccount.getId());
-        Log.d("account id 0", ": " + mAccount.getAccountId());
         mAccount.setCategory(mCategory);
-        if (isRevenue == true) {
+        if (isRevenue == 1) {
             mAccount.setRevenue(mMoneyAmount);
             mAccount.setExpense("");
+
         }
-        if(isRevenue == false) {
+        if (isRevenue == 0) {
             mAccount.setRevenue("");
             mAccount.setExpense(mMoneyAmount);
         }
+
 
         Sqldatabase sql = new Sqldatabase(getContext());
         sql.updateAccount(mNoteId, mAccount.getAccountId(), mAccount);
@@ -423,6 +449,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         if (isCreating) {
             mAccoountList = new ArrayList<Account>();
             mNoteId = currentTimeForID();
+            Log.d("note id", "1 : " + mNoteId);
+
         } else {
             mNoteId = mNote.getmId();
             mTitle.setText(mNote.getmTitle());
@@ -489,18 +517,21 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
             mAccount = new Account();
             mAccount.setId(mNoteId);
+
+            Log.d("note id", "2 : " + mNoteId);
+
             mAccount.setAccountId(currentTimeForID());
 
             mAccount.setNumber("1");
             mAccount.setCreatedTime(currentTime());
             mAccount.setDescription("");
-            if (isRevenue == true) {
+            if (isRevenue == 1) {
                 mAccount.setRevenue(mMoneyAmount);
                 mAccount.setExpense("");
 
             }
 
-            if(isRevenue == false) {
+            if(isRevenue == 0) {
                 mAccount.setRevenue("");
                 mAccount.setExpense(mMoneyAmount);
             }
@@ -525,22 +556,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         if (isCreating) {
 //            mPresenter.setContext(mContext);
-
             mNote = new Note();
-            mNote.setmId(mNoteId);
-            if (mTitle.getText().toString() != null && !mTitle.getText().toString().equals("")) {
-                mNote.setmTitle(mTitle.getText().toString());
-            } else {
-                mNote.setmTitle("今日收支紀錄");
-            }
-
-            mNote.setmCreatedTime(currentTime());
-            mNote.setmUpdatedTime("");
-            mNote.setClassification("account");
-            mNote.setAccountRevenue(String.valueOf(mTotalRevenue));
-            Log.d("revenue", "2: " + mNote.getAccountRevenue()+  " : " +mTotalRevenue);
-            mNote.setAccountExpense(String.valueOf(mTotalExpense));
-            mNote.setAccountBalance(String.valueOf(mTotalBalance));
 
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
             SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
@@ -548,6 +564,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
             SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
             SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat formateForDaytime = new SimpleDateFormat("HH");
             Date curDate = new Date(System.currentTimeMillis());
             String currentTime = formatter.format(curDate);
             String month = formatterForMonth.format(curDate);
@@ -555,7 +572,18 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             String time = formatterForTime.format(curDate);
             String week = formatterForWeek.format(curDate);
             String id = formateForID.format(curDate);
+            String daytime = formateForDaytime.format(curDate);
+
+            if (Integer.parseInt(daytime) > 12 ) {
+                mNote.setDayTime("下午");
+            } else {
+                mNote.setDayTime("上午");
+            }
+
             mNote.setmCreatedTime(currentTime);
+
+            mNote.setmId(mNoteId);
+            Log.d("note id", "3 : " + mNoteId);
 
             mNote.setMonth(month);
             mNote.setDay(day);
@@ -576,11 +604,25 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 mNote.setWeek("SUN");
             }
 
-            mNote.setmTag(mTagAdapter.TagList());
 
+            mNote.setmId(id);
+
+
+
+
+            mNote.setmUpdatedTime("");
+            mNote.setmPlace("市政府");
+            mNote.setClassification("account");
+
+            mNote.setAccountRevenue(String.valueOf(mTotalRevenue));
+            mNote.setAccountExpense(String.valueOf(mTotalExpense));
+            mNote.setAccountBalance(String.valueOf(mTotalBalance));
+
+            mNote.setmTag(mTagAdapter.TagList());
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);
+
             mPresenter.saveNoteData(getContext(), mNote);
         } else { //isEditing
 
@@ -588,13 +630,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
             Sqldatabase sql = new Sqldatabase(getContext());
             sql.updateNotes(mNote.getmId(), mNote);
-
-
-
-
         }
-
-
     }
 
     @Override
@@ -661,21 +697,48 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
     @Override
     public void countTotalAmount() {
-        if (isRevenue) {
-            mTotalRevenue = mTotalRevenue + Integer.parseInt(mMoneyAmount);
+
+        if (isCreatingItem) {
+
+            if (isRevenue == 1) {
+                mTotalRevenue = mTotalRevenue + Integer.parseInt(mMoneyAmount);
+            } else if (isRevenue == 0) {
+                mTotalExpense = mTotalExpense + Integer.parseInt(mMoneyAmount);
+            }
+
+            mTotalBalance = mTotalRevenue - mTotalExpense;
+
         } else {
-            mTotalExpense = mTotalExpense + Integer.parseInt(mMoneyAmount);
+
+            if (isRevenue == 1) {
+                mTotalRevenue = mTotalRevenue - Integer.parseInt(mMoneyAmount);
+            } else if (isRevenue == 0) {
+                mTotalExpense = mTotalExpense - Integer.parseInt(mMoneyAmount);
+            }
+
+            mTotalBalance = mTotalRevenue - mTotalExpense;
+
         }
-
-        mTotalBalance = mTotalRevenue - mTotalExpense;
-
-        Log.d("total revenue", ": " + mTotalRevenue);
-        Log.d("total expends", ": " + mTotalExpense);
-        Log.d("total balance", ": " + mTotalBalance);
 
         mRevenueText.setText(String.valueOf(mTotalRevenue));
         mExpenseText.setText(String.valueOf(mTotalExpense));
         mBalanceText.setText(String.valueOf(mTotalBalance));
 
+    }
+
+    public void countTotalAmountWhenEditingItem() {
+
+        if (isRevenue == 1) {
+            mTotalRevenue = mTotalRevenue - Integer.parseInt(mAccount.getRevenue()) + Integer.parseInt(mMoneyAmount);
+
+        }
+        if (isRevenue == 0) {
+            mTotalRevenue = mTotalExpense - Integer.parseInt(mAccount.getExpense()) + Integer.parseInt(mMoneyAmount);
+        }
+
+        mTotalBalance = mTotalRevenue - mTotalExpense;
+        mRevenueText.setText(String.valueOf(mTotalRevenue));
+        mExpenseText.setText(String.valueOf(mTotalExpense));
+        mBalanceText.setText(String.valueOf(mTotalBalance));
     }
 }

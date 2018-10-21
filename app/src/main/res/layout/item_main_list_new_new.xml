@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="TUE"
                 android:textColor="@android:color/background_light"
-                android:textSize="12sp"
+                android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/textView5"
                 app:layout_constraintTop_toBottomOf="@+id/note_month" />
 
@@ -74,7 +74,7 @@
                 android:id="@+id/note_diary_emotion"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="70dp"
+                android:layout_marginStart="75dp"
                 android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -97,7 +97,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/note_type_background"
                 app:layout_constraintEnd_toStartOf="@+id/note_type_background"
                 app:layout_constraintTop_toTopOf="@+id/note_type_background"
-                app:srcCompat="@drawable/background_tag" />
+                app:srcCompat="@drawable/background_tag_normal" />
 
             <ImageView
                 android:id="@+id/note_type_background"
@@ -121,7 +121,7 @@
                 app:layout_constraintTop_toTopOf="@+id/note_diary_emotion" />
 
             <TextView
-                android:id="@+id/textView47"
+                android:id="@+id/note_daytime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -141,7 +141,7 @@
                 android:textSize="10sp"
                 app:layout_constraintEnd_toEndOf="@+id/note_day"
                 app:layout_constraintStart_toStartOf="@+id/note_day"
-                app:layout_constraintTop_toTopOf="@+id/textView47" />
+                app:layout_constraintTop_toTopOf="@+id/note_daytime" />
 
             <TextView
                 android:id="@+id/note_type"
@@ -168,12 +168,12 @@
                 app:layout_constraintTop_toTopOf="@+id/note_background" />
 
             <TextView
-                android:id="@+id/textView51"
+                android:id="@+id/note_title"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginTop="6dp"
                 android:text="TextView"
                 android:textColor="@android:color/background_light"
                 android:textSize="16sp"
@@ -221,12 +221,14 @@
 
             <TextView
                 android:id="@+id/note_text"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginTop="4dp"
+                android:ellipsize="end"
+                android:maxLines="5"
                 android:text=""
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@android:color/white" />

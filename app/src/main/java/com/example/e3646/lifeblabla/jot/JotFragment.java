@@ -1,6 +1,8 @@
 package com.example.e3646.lifeblabla.jot;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +22,6 @@ import android.widget.TextView;
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.diary.DiaryAdapter;
-import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.object.Note;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -32,6 +33,8 @@ public class JotFragment extends Fragment implements JotContract.View {
     private ImageButton mBackButton;
     private ImageButton mEditButton;
     private ImageButton mDeleteButton;
+
+    private ImageView mImage;
 
     private RecyclerView mTagRecyclerView;
     private JotAdapter mJotAdapter;
@@ -64,6 +67,7 @@ public class JotFragment extends Fragment implements JotContract.View {
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
         mTitle = (TextView)view.findViewById(R.id.jot_title);
         mText = (TextView)view.findViewById(R.id.jot_text);
+        mImage = view.findViewById(R.id.diary_image);
 
         setNoteData(mNote);
 
@@ -131,6 +135,13 @@ public class JotFragment extends Fragment implements JotContract.View {
         mCreatedTime.setText(note.getmCreatedTime());
         mTitle.setText(note.getmTitle());
         mText.setText(note.getmText());
+
+        if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+            mImage.setVisibility(View.GONE);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+            mImage.setImageBitmap(bitmap);
+        }
     }
 
     @Override

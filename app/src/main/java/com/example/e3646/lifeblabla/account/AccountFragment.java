@@ -40,6 +40,8 @@ public class AccountFragment extends Fragment implements AccountContract.View {
     private TextView mExpenseText;
     private TextView mBalanceText;
 
+    private TextView mCreatedTime;
+
 
     private ImageButton mBackButton;
     private ImageButton mEditButton;
@@ -129,6 +131,12 @@ public class AccountFragment extends Fragment implements AccountContract.View {
         });
 
         setNoteData();
+
+
+        mCreatedTime = (TextView)view.findViewById(R.id.created_time);
+
+        mCreatedTime.setText(mNote.getmCreatedTime());
+
     }
 
 

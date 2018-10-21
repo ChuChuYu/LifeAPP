@@ -116,17 +116,15 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
         tagItemViewHolder.mTagText.setText(mTagList.get(i));
 
-        Log.d("text width", ": " + mTagList.get(i).length());
-        Log.d("ch num", " : " + numOfChinese(mTagList.get(i)));
         tagItemViewHolder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("tag size", "before" + mTagList.size());
+
                 if (mTagList.size() >= 1) {
                     mTagList.remove(i);
                     notifyDataSetChanged();
                 }
-                Log.d("tag size", "after" + mTagList.size());
+
             }
         });
 

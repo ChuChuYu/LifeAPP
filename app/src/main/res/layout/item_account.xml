@@ -9,10 +9,10 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="340dp"
         android:layout_height="35dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:background="@drawable/background_list_item"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -55,6 +55,7 @@
             android:layout_marginTop="8dp"
             android:text="午餐"
             android:textColor="@android:color/background_light"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/item_category"
             app:layout_constraintTop_toTopOf="parent" />

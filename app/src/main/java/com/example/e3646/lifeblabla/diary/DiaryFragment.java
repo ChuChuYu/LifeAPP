@@ -61,6 +61,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mEmotion = (ImageView)view.findViewById(R.id.note_diary_emotion);
         mWeather = (ImageView)view.findViewById(R.id.note_diary_weather);
+        mPicture = (ImageView)view.findViewById(R.id.diary_image);
 
         setNoteData(mNote);
 
@@ -89,7 +90,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
 
 
-        mPicture = (ImageView)view.findViewById(R.id.jot_picture);
+
 
         if (mNote.getmPicture() != null && !mNote.getmPicture().equals("")) {
             Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
@@ -201,6 +202,15 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
             if (mNote.getmWeather().equals("6")) {
                 mWeather.setImageResource(R.drawable.weather_6);
             }
+        }
+
+        if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+
+
+            mPicture.setVisibility(View.GONE);
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+            mPicture.setImageBitmap(bitmap);
         }
 
     }

@@ -21,6 +21,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="#50FFFFFF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/diary_image" />
+
+        <ImageView
             android:id="@+id/imageView17"
             android:layout_width="match_parent"
             android:layout_height="38dp"
@@ -115,13 +125,12 @@
             android:id="@+id/jot_createdtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="2018/10/01"
             android:textColor="@android:color/background_light"
-            app:layout_constraintBottom_toTopOf="@+id/imageView19"
+            app:layout_constraintBottom_toTopOf="@+id/diary_image"
             app:layout_constraintEnd_toEndOf="@+id/imageView17"
             app:layout_constraintStart_toStartOf="@+id/imageView17"
             app:layout_constraintTop_toBottomOf="@+id/imageView6" />
@@ -142,7 +151,7 @@
             android:id="@+id/imageView20"
             android:layout_width="match_parent"
             android:layout_height="43dp"
-            android:background="#783b3b3b"
+            android:background="#903b3b3b"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -263,7 +272,7 @@
             app:srcCompat="@drawable/button_minus" />
 
         <ImageView
-            android:id="@+id/jot_image"
+            android:id="@+id/diary_image"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:scaleType="centerCrop"
@@ -271,19 +280,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView17"
             app:srcCompat="@drawable/image_sample_3" />
-
-        <ImageView
-            android:id="@+id/imageView19"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="43dp"
-            android:layout_marginTop="350dp"
-            android:background="#50FFFFFF"
-            app:layout_constraintBottom_toTopOf="@+id/imageView20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/jot_image" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/jot_tag_recyclerview"

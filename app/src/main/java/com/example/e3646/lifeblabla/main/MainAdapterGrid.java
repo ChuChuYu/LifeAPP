@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import android.sax.TextElementListener;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -20,8 +19,6 @@ import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.object.Account;
 import com.example.e3646.lifeblabla.object.Note;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,7 +78,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
         private TextView mTag;
         private TextView mType;
-        private TextView mText;
+        private TextView mTitle;
         private TextView mDate;
         private TextView mDayTime;
         private TextView mTime;
@@ -112,7 +109,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             mTypeBackground = itemView.findViewById(R.id.note_type_background);
             mTag = itemView.findViewById(R.id.note_tag);
             mType = itemView.findViewById(R.id.note_type);
-            mText = itemView.findViewById(R.id.note_text);
+            mTitle = itemView.findViewById(R.id.note_title);
             mDate = itemView.findViewById(R.id.note_date);
             mDayTime = itemView.findViewById(R.id.note_daytime);
             mTime = itemView.findViewById(R.id.note_time);
@@ -138,7 +135,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         private TextView mAccountExpense;
         private TextView mAccountBalance;
 
-        private TextView mText;
+        private TextView mTitle;
         private TextView mDate;
         private TextView mTime;
 
@@ -150,7 +147,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             mAccountRevenue = itemView.findViewById(R.id.account_revenue);
             mAccountExpense = itemView.findViewById(R.id.account_expense);
             mAccountBalance = itemView.findViewById(R.id.account_balance);
-            mText = itemView.findViewById(R.id.note_text);
+            mTitle = itemView.findViewById(R.id.note_title);
             mDate = itemView.findViewById(R.id.note_date);
             mTime = itemView.findViewById(R.id.note_time);
 
@@ -160,15 +157,11 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
-
         if (viewHolder instanceof MainGridItemViewHolder) {
             initLayoutDiary((MainGridItemViewHolder) viewHolder, i);
         } else if (viewHolder instanceof MainAccountItemViewHolder) {
             initLayoutAccount((MainAccountItemViewHolder)viewHolder, i);
         }
-
-
-
 
     }
 
@@ -230,6 +223,12 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 mainGridItemViewHolder.mType.setText("隨筆");
                 mainGridItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
                 mainGridItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
+
+                if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).getmTitle().equals("")) {
+                    mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
+                } else {
+                    mainGridItemViewHolder.mTitle.setText("隨手記一筆");
+                }
             }
 
         mainGridItemViewHolder.mDate.setText(mNoteList.get(no).getmCreatedTime());
@@ -242,6 +241,12 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 Sqldatabase sql = new Sqldatabase(mContext);
                 ArrayList<Account> accountList = sql.getAccounts(mNoteList.get(mNoteList.size()-i-1).getmId());
                 mainGridItemViewHolder.mAccountNumber.setText(String.valueOf(accountList.size()));
+
+                if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).getmTitle().equals("")) {
+                    mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
+                } else {
+                    mainGridItemViewHolder.mTitle.setText("今日收支紀錄");
+                }
             }
 
 
@@ -260,6 +265,8 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             mainGridItemViewHolder.mTag.setVisibility(View.INVISIBLE);
             mainGridItemViewHolder.mTagBackground.setVisibility(View.INVISIBLE);
         }
+
+
 
 //
 

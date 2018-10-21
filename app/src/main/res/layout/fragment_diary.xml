@@ -146,7 +146,7 @@
         android:background="#50ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jot_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/diary_image" />
 
     <ImageView
         android:id="@+id/tag_view_background"
@@ -178,17 +178,17 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="24dp"
         android:text="丹麥動物園同志企鵝求子心切，「綁架」鄰家寶寶"
         android:textColor="@android:color/background_light"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jot_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/diary_image" />
 
     <ImageView
-        android:id="@+id/jot_picture"
+        android:id="@+id/diary_image"
         android:layout_width="match_parent"
         android:layout_height="266dp"
         android:scaleType="centerCrop"
@@ -196,15 +196,14 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tag_view_background"
-        app:srcCompat="@drawable/image_sample" />
+        app:srcCompat="@drawable/image_sample_3" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tag_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/jot_picture"
+        android:background="#50FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/diary_image"
         app:layout_constraintEnd_toEndOf="@+id/tag_view_background"
         app:layout_constraintStart_toStartOf="@+id/tag_view_background"
         app:layout_constraintTop_toTopOf="@+id/tag_view_background" />

@@ -9,16 +9,14 @@ import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.account.AccountFragment;
 import com.example.e3646.lifeblabla.account.AccountPresenter;
-import com.example.e3646.lifeblabla.conference.ConferenceFragment;
-import com.example.e3646.lifeblabla.conference.ConferencePresenter;
+
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.diary.DiaryPresenter;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.jot.JotPresenter;
 import com.example.e3646.lifeblabla.mainactivity.MainActPresenter;
 import com.example.e3646.lifeblabla.object.Note;
-import com.example.e3646.lifeblabla.todolist.TodolistFragment;
-import com.example.e3646.lifeblabla.todolist.TodolistPresenter;
+
 
 import java.util.ArrayList;
 
@@ -32,15 +30,15 @@ public class MainPresenter implements MainContract.Presenter {
     private int mNoteListPosition;
 
     private DiaryFragment mDiaryFragment;
-    private ConferenceFragment mConferenceFragment;
+
     private JotFragment mJotFragment;
-    private TodolistFragment mTodolistFragment;
+
     private AccountFragment mAccountFragment;
 
     private DiaryPresenter mDiaryPresenter;
-    private ConferencePresenter mConferencePresenter;
+
     private JotPresenter mJotPresenter;
-    private TodolistPresenter mTodolistPresenter;
+
     private AccountPresenter mAccountPresenter;
     private MainActPresenter mMainActPresenter;
 

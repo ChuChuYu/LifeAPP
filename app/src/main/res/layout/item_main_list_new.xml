@@ -89,7 +89,7 @@
             app:layout_constraintStart_toStartOf="@+id/note_day" />
 
         <TextView
-            android:id="@+id/note_text"
+            android:id="@+id/note_title"
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginEnd="16dp"
@@ -110,8 +110,8 @@
             android:layout_height="20dp"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="24dp"
-            app:layout_constraintBottom_toTopOf="@+id/note_text"
-            app:layout_constraintStart_toStartOf="@+id/note_text"
+            app:layout_constraintBottom_toTopOf="@+id/note_title"
+            app:layout_constraintStart_toStartOf="@+id/note_title"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/button_emotion" />
 
@@ -121,7 +121,7 @@
             android:layout_height="20dp"
             android:layout_marginStart="32dp"
             app:layout_constraintBottom_toBottomOf="@+id/note_diary_emotion"
-            app:layout_constraintStart_toStartOf="@+id/note_text"
+            app:layout_constraintStart_toStartOf="@+id/note_title"
             app:layout_constraintTop_toTopOf="@+id/note_diary_emotion"
             app:srcCompat="@drawable/button_weather" />
 
@@ -133,7 +133,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/note_diary_weather"
             app:layout_constraintEnd_toStartOf="@+id/note_type_background"
             app:layout_constraintTop_toTopOf="@+id/note_diary_weather"
-            app:srcCompat="@drawable/background_tag" />
+            app:srcCompat="@drawable/background_tag_normal" />
 
         <TextView
             android:id="@+id/note_tag"
@@ -163,7 +163,7 @@
             android:layout_height="20dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBottom_toBottomOf="@+id/note_diary_weather"
-            app:layout_constraintEnd_toEndOf="@+id/note_text"
+            app:layout_constraintEnd_toEndOf="@+id/note_title"
             app:layout_constraintTop_toTopOf="@+id/note_diary_weather"
             app:srcCompat="@drawable/background_tag_diary" />
 
@@ -191,7 +191,7 @@
             android:text="共10個項目"
             android:textColor="@android:color/background_light"
             android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/note_text"
+            app:layout_constraintStart_toStartOf="@+id/note_title"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -202,8 +202,8 @@
             android:layout_marginTop="16dp"
             android:text="共"
             android:textColor="@android:color/background_light"
-            app:layout_constraintBottom_toTopOf="@+id/note_text"
-            app:layout_constraintStart_toStartOf="@+id/note_text"
+            app:layout_constraintBottom_toTopOf="@+id/note_title"
+            app:layout_constraintStart_toStartOf="@+id/note_title"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
