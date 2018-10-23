@@ -1,6 +1,7 @@
 package com.example.e3646.lifeblabla.mainactivity;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -244,14 +245,18 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void refreshMainFragment() {
 
-        mMainFragment = new MainFragment(mNoteList, true);
-        mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
+//        mMainFragment = new MainFragment(mNoteList, true);
+//        mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
+//
+//        FragmentTransaction transaction =  mFragmentManager.beginTransaction();
+//        transaction.add(R.id.main_activity_container, mMainFragment)
+//                .show(mMainFragment)
+//                .commit();
 
-        FragmentTransaction transaction =  mFragmentManager.beginTransaction();
-        transaction.add(R.id.main_activity_container, mMainFragment)
-                .show(mMainFragment)
-                .commit();
 
+
+        mMainActView.showMainUI();
+        mMainActView.refreshMainPage("");
         mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
@@ -307,10 +312,11 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .commit();
     }
 
-    @Override
-    public void goJotEdit(String imagePath) {
 
-        mJotEditFragment = new JotEditFragment(true, null, imagePath);
+    @Override
+    public void goJotEdit(String imagePath, Uri uri) {
+
+        mJotEditFragment = new JotEditFragment(true, null, imagePath, uri);
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

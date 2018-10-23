@@ -181,6 +181,8 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
                 Log.d("bitmap", "path: " + mNoteList.get(no).getmPicture());
 
+
+
             }
 
             if (mNoteList.get(no).getmClassification().equals("diary")) {
@@ -215,6 +217,12 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                         mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_6);
                     }
 
+                }
+
+                if (mNoteList.get(no).getmTitle() != null) {
+                    mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
+                } else {
+                    mainGridItemViewHolder.mTitle.setText("一則日記");
                 }
             }
 

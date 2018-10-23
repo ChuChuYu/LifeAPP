@@ -24,7 +24,7 @@ public interface DiaryContract {
 
     interface Presenter extends BasePresenter {
 
-        void goEditDiary(boolean isCreating);
+        void goEditDiary(boolean isCreating, Note note);
 
         void backToMain();
 

@@ -3,6 +3,7 @@ package com.example.e3646.lifeblabla.diary;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -42,11 +43,9 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
     private RecyclerView mTagRecyclerView;
     private DiaryAdapter mDiaryAdapter;
-    private ImageView mTagBackground;
 
     public DiaryFragment(Note note) {
         mNote = note;
-
     }
 
     @Nullable
@@ -58,50 +57,16 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mCreatedTime = (TextView)view.findViewById(R.id.diary_detail_created_time);
         mTitle = (TextView) view.findViewById(R.id.jot_title);
         mText = (TextView)view.findViewById(R.id.jot_text);
-        mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mEmotion = (ImageView)view.findViewById(R.id.note_diary_emotion);
         mWeather = (ImageView)view.findViewById(R.id.note_diary_weather);
         mPicture = (ImageView)view.findViewById(R.id.diary_image);
-
-        setNoteData(mNote);
-
-        if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("")) {
-            mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-            mTagRecyclerView.setLayoutManager(linearLayoutManager);
-            mDiaryAdapter = new DiaryAdapter(mNote.getmTag());
-            mTagRecyclerView.setAdapter(mDiaryAdapter);
-
-            mDiaryAdapter.setOnItemListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
-
-                }
-            });
-        } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("")) {
-            mTagBackground.setVisibility(View.GONE);
-//            mTagRecyclerView.setVisibility(View.GONE);
-
-        }
-
-
-
-
-
-
-        if (mNote.getmPicture() != null && !mNote.getmPicture().equals("")) {
-            Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
-            mPicture.setImageBitmap(bitmap);
-        }
+        mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
 
         mEditButton = (ImageButton) view.findViewById(R.id.button_edit);
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goEditDiary(false);
+                mPresenter.goEditDiary(false, mNote);
             }
         });
 
@@ -122,6 +87,8 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
             }
         });
+
+        setNoteData(mNote);
 
         return view;
     }
@@ -152,66 +119,75 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mTitle.setText(note.getmTitle());
         mText.setText(note.getmText());
 
+        if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("")) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mTagRecyclerView.setLayoutManager(linearLayoutManager);
+            mDiaryAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagRecyclerView.setAdapter(mDiaryAdapter);
+
+            mDiaryAdapter.setOnItemListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+
+                }
+            });
+        } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("")) {
+            mTagRecyclerView.setVisibility(View.GONE);
+
+        }
+
         if (mNote.getmMind() != null) {
 
             if (mNote.getmMind().equals("1")) {
-
                 mEmotion.setImageResource(R.drawable.button_emotion);
-            }
-            if (mNote.getmMind().equals("2")) {
-
+            } else if (mNote.getmMind().equals("2")) {
                 mEmotion.setImageResource(R.drawable.emotion_2);
-            }
-
-            if (mNote.getmMind().equals("3")) {
+            } else if (mNote.getmMind().equals("3")) {
                 mEmotion.setImageResource(R.drawable.emotion_3);
-            }
-
-            if (mNote.getmMind().equals("4")) {
+            } else if (mNote.getmMind().equals("4")) {
                 mEmotion.setImageResource(R.drawable.emotion_4);
-            }
-
-            if (mNote.getmMind().equals("5")) {
+            } else if (mNote.getmMind().equals("5")) {
                 mEmotion.setImageResource(R.drawable.emotion_5);
-            }
-
-            if (mNote.getmMind().equals("6")) {
+            } else if (mNote.getmMind().equals("6")) {
                 mEmotion.setImageResource(R.drawable.emotion_6);
             }
         }
 
-        Log.d("weather 2 ", "num: " + mNote.getmWeather());
-
         if(mNote.getmWeather() != null) {
-
             if (mNote.getmWeather().equals("1")) {
                 mWeather.setImageResource(R.drawable.weather_1);
-            }
-            if (mNote.getmWeather().equals("2")) {
+            } else if (mNote.getmWeather().equals("2")) {
                 mWeather.setImageResource(R.drawable.button_weather);
-            }
-            if (mNote.getmWeather().equals("3")) {
+            } else if (mNote.getmWeather().equals("3")) {
                 mWeather.setImageResource(R.drawable.weather_3);
-            }
-            if (mNote.getmWeather().equals("4")) {
+            } else if (mNote.getmWeather().equals("4")) {
                 mWeather.setImageResource(R.drawable.weather_4);
-            }
-            if (mNote.getmWeather().equals("5")) {
+            } else if (mNote.getmWeather().equals("5")) {
                 mWeather.setImageResource(R.drawable.weather_5);
-            }
-            if (mNote.getmWeather().equals("6")) {
+            } else if (mNote.getmWeather().equals("6")) {
                 mWeather.setImageResource(R.drawable.weather_6);
             }
         }
 
-        if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+        if (mNote.getPhotoFromCamera() == null || mNote.getPhotoFromCamera().equals("")) {
 
+            if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+                mPicture.setVisibility(View.GONE);
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+                mPicture.setImageBitmap(bitmap);
+            }
 
-            mPicture.setVisibility(View.GONE);
         } else {
-            Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
-            mPicture.setImageBitmap(bitmap);
+
+            mPicture.setImageURI(Uri.parse(mNote.getPhotoFromCamera()));
+
         }
+
+
 
     }
 
@@ -225,6 +201,5 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     public void parseNote(Note note) {
         this.mNote = note;
     }
-
 
 }

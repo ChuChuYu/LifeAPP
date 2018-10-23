@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,7 +87,7 @@ public class AccountFragment extends Fragment implements AccountContract.View {
             @Override
             public void onClick(View view) {
 
-                mPresenter.goEditAccount(false);
+                mPresenter.goEditAccount(false, mNote);
             }
         });
 
@@ -115,23 +116,29 @@ public class AccountFragment extends Fragment implements AccountContract.View {
         mBalanceText = view.findViewById(R.id.account_balance);
 
         mTagRecycelrview = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        mTagRecycelrview.setLayoutManager(linearLayoutManager);
-        mTagAdapter = new DiaryAdapter(mNote.getmTag());
-        mTagRecycelrview.setAdapter(mTagAdapter);
 
-        mTagAdapter.setOnItemListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
 
-            }
-        });
+        if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("")) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mTagRecycelrview.setLayoutManager(linearLayoutManager);
+            mTagAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagRecycelrview.setAdapter(mTagAdapter);
+            mTagAdapter.setOnItemListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+                }
+            });
+
+        } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("")) {
+            mTagRecycelrview.setVisibility(View.GONE);
+        }
+
+
 
         setNoteData();
-
 
         mCreatedTime = (TextView)view.findViewById(R.id.created_time);
 

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -65,12 +66,14 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private Button mTitleThree;
 
     private String mImagePath;
+    private Uri mUri;
 
 
-    public JotEditFragment(boolean isCreating, Note note, String imagePath) {
+    public JotEditFragment(boolean isCreating, Note note, String imagePath, Uri uri) {
         this.isCreating = isCreating;
         mNote = note;
         mImagePath = imagePath;
+        mUri = uri;
         Log.d("image path", "in jot: " + imagePath);
     }
 
@@ -196,13 +199,18 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
         mImage = view.findViewById(R.id.diary_image);
 
-
-        if (mImagePath == null || mImagePath.equals("")) {
-            mImage.setVisibility(View.GONE);
+        if (mUri == null) {
+            if (mImagePath == null || mImagePath.equals("")) {
+                mImage.setVisibility(View.GONE);
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+                mImage.setImageBitmap(bitmap);
+            }
         } else {
-            Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
-            mImage.setImageBitmap(bitmap);
+            mImage.setImageURI(mUri);
         }
+
+
 
         return view;
     }
@@ -300,6 +308,10 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
             if (mImagePath != null) {
                 mNote.setmPicture(mImagePath);
+            }
+
+            if (mUri != null) {
+                mNote.setPhotoFromCamera(mUri.toString());
             }
 
             mNote.setmUpdatedTime("");

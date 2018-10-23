@@ -20,6 +20,7 @@ public class Note {
     private String mPlace;
 
     private String mPicture;
+    private String mPhotoFromCamera;
     private String mVideo;
     private String mAudio;
 
@@ -45,6 +46,7 @@ public class Note {
         mPlace = "";
 
         mPicture = "";
+        mPhotoFromCamera = "";
         mVideo = "";
         mAudio = "";
 
@@ -128,6 +130,14 @@ public class Note {
 
     public void setmPicture(String mPicture) {
         this.mPicture = mPicture;
+    }
+
+    public String getPhotoFromCamera() {
+        return mPhotoFromCamera;
+    }
+
+    public void setPhotoFromCamera(String photoFromCamera) {
+        mPhotoFromCamera = photoFromCamera;
     }
 
     public String getVideo() {

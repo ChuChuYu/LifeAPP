@@ -1,5 +1,6 @@
 package com.example.e3646.lifeblabla.mainactivity;
 
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 
 import com.example.e3646.BasePresenter;
@@ -34,6 +35,8 @@ public interface MainActContract {
         void showAddNoteButton();
 
         void goDiaryDetail();
+
+        void refreshMainPage(String id);
 
 
     }
@@ -78,7 +81,7 @@ public interface MainActContract {
 
         void goAccountEdit();
 
-        void goJotEdit(String imagePath);
+        void goJotEdit(String imagePath, Uri uri);
 
         void refreshList();
 

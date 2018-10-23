@@ -3,6 +3,7 @@ package com.example.e3646.lifeblabla.jot;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -136,12 +137,20 @@ public class JotFragment extends Fragment implements JotContract.View {
         mTitle.setText(note.getmTitle());
         mText.setText(note.getmText());
 
-        if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
-            mImage.setVisibility(View.GONE);
+        if (mNote.getPhotoFromCamera() == null || mNote.getPhotoFromCamera().equals("")) {
+            if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+                mImage.setVisibility(View.GONE);
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+                mImage.setImageBitmap(bitmap);
+            }
         } else {
-            Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
-            mImage.setImageBitmap(bitmap);
+            mImage.setImageURI(Uri.parse(mNote.getPhotoFromCamera()));
         }
+
+
+
+
     }
 
     @Override

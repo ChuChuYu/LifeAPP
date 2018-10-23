@@ -48,9 +48,13 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     }
 
     @Override
-    public void goEditDiary(boolean isCreating) {
+    public void goEditDiary(boolean isCreating, Note note) {
 
-        Note note = mNoteList.get(mNotePosition);
+        if (mNoteList != null) {
+            mNote = mNoteList.get(mNotePosition);
+        } else {
+            mNote = note;
+        }
 
         mDiaryEditFragment = new DiaryEditFragment(isCreating, note);
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this, false);

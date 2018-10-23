@@ -1,14 +1,18 @@
 package com.example.e3646.lifeblabla.dialogfragment;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.media.Image;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
@@ -16,6 +20,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +32,13 @@ import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActPresenter;
 
+import java.io.File;
+import java.io.IOException;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION;
+import static android.content.Intent.FLAG_GRANT_WRITE_URI_PERMISSION;
 
 @SuppressLint("ValidFragment")
 public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
@@ -39,6 +50,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
 
     private Context mContext;
     private String mImagePath;
+    private Uri mUri;
 
     public BottomSheetDialogJotFragment(MainActPresenter mainActPresenter) {
         mMainActPresenter = mainActPresenter;
@@ -58,7 +70,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
 
-                mMainActPresenter.goJotEdit(null);
+                mMainActPresenter.goJotEdit(null, null);
                 mMainActPresenter.hideBottomNavigation();
                 mMainActPresenter.hideComponent();
                 dismiss();
@@ -83,6 +95,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
 
+                getPhotoFromCamera();
             }
         });
 
@@ -103,7 +116,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
 //                    mMinusButton.setVisibility(View.VISIBLE);
 //                handleImage(data);
 
-                mMainActPresenter.goJotEdit(mImagePath);
+                mMainActPresenter.goJotEdit(mImagePath, null);
                 mMainActPresenter.hideBottomNavigation();
                 mMainActPresenter.hideComponent();
                 dismiss();
@@ -113,32 +126,21 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
 
             case 1:
 
-//                    if (resultCode == RESULT_OK) {
-//                        Log.d("take photo", "RESULT_OK");
+                    if (resultCode == RESULT_OK) {
+
+                        mMainActPresenter.goJotEdit(null, mUri);
+                        mMainActPresenter.hideBottomNavigation();
+                        mMainActPresenter.hideComponent();
+                        dismiss();
 
 
-//                    mImagePath = getRealPathFromURI(data.getData());
-//                    Uri uriFor = data.getData();
-//                        mPhoto.setVisibility(View.VISIBLE);
-//                        mPhoto.setImageURI(mUri);
-//
-//                        Log.d("path", " : " + mImagePath);
+                    } else if (requestCode == RESULT_CANCELED) {
 
-//                    Bundle extras = data.getExtras();
-//                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-//                    mPhoto.setVisibility(View.VISIBLE);
-//                    mPhoto.setImageBitmap(imageBitmap);
 
-//                    } else if (requestCode == RESULT_CANCELED) {
-//                        Log.d("take photo", "RESULT_CANCELED");
-//
-//                    }
+                    }
 
                 break;
 
-//                Uri uri = data.getData();
-//                Log.d("camera", "on: " + uri);
-//                displayPhoto(mImagePath);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -154,6 +156,35 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 0);
+    }
+
+    public void getPhotoFromCamera() {
+
+        if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        }
+        String state = Environment.getExternalStorageState();// 獲取記憶體卡可用狀態
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            File file = new File(Environment.getExternalStorageDirectory() + "/images/"+System.currentTimeMillis()+".jpg");
+
+            try {
+                file = File.createTempFile(String.valueOf(System.currentTimeMillis()), ".jpg", getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
+                mUri = Uri.fromFile(file);
+            } else {
+                mUri = FileProvider.getUriForFile(mContext, "com.example.e3646.lifeblabla", file);
+            }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
+            intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
+            intent.setFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
+            startActivityForResult(intent, 1);
+        } else {
+
+        }
     }
 
 

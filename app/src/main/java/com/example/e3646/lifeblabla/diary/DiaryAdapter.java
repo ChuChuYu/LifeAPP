@@ -27,7 +27,7 @@ public class DiaryAdapter extends RecyclerView.Adapter {
     public DiaryAdapter(ArrayList<String> tagList) {
 
         mTagList = tagList;
-        Log.d("tag list in adapter", ": " + mTagList.size());
+        Log.d("tag list", "size: " + tagList.size());
     }
 
 

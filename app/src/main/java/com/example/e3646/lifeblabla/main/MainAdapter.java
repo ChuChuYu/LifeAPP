@@ -30,6 +30,7 @@ public class MainAdapter extends RecyclerView.Adapter {
     public MainAdapter(Context context, ArrayList<Note> noteList) {
         this.mContext = context;
         this.mNoteList = noteList;
+
     }
 
     @NonNull
@@ -145,16 +146,7 @@ public class MainAdapter extends RecyclerView.Adapter {
 
             if (mNoteList.get(no).getmClassification().equals("diary")) {
 
-                if (mNoteList.get(no).getmTitle() != null) {
-                    mainListItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
 
-                }
-                mainListItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_diary);
-                mainListItemViewHolder.mType.setText("日記");
-                mainListItemViewHolder.mTextOne.setVisibility(View.INVISIBLE);
-                mainListItemViewHolder.mTextTwo.setVisibility(View.INVISIBLE);
-                mainListItemViewHolder.mAccountItemNumber.setVisibility(View.INVISIBLE);
-                mainListItemViewHolder.mText.setText(mNoteList.get(no).getmText());
 
             } else if (mNoteList.get(no).getmClassification().equals("account")) {
 
@@ -173,8 +165,7 @@ public class MainAdapter extends RecyclerView.Adapter {
                 Sqldatabase sql = new Sqldatabase(mContext);
                 ArrayList<Account> accountList = sql.getAccounts(mNoteList.get(no).getmId());
                 mainListItemViewHolder.mAccountItemNumber.setText(String.valueOf(accountList.size()));
-                Log.d("account list", "size: " + accountList.size() );
-//                Log.d("note id", "4 : " + accountList.get(no).getId());
+
 
                 if (mNoteList.get(no).getAccountRevenue() != null) {
 
@@ -266,7 +257,31 @@ public class MainAdapter extends RecyclerView.Adapter {
                 mainListItemViewHolder.mDayTime.setText(mNoteList.get(no).getDayTime());
             }
 
+
+        if (mNoteList.get(no).getmClassification().equals("diary")) {
+
+            if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).equals("")) {
+                mainListItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
+
+                mainListItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_diary);
+                mainListItemViewHolder.mType.setText("日記");
+                mainListItemViewHolder.mTextOne.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mTextTwo.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mAccountItemNumber.setVisibility(View.INVISIBLE);
+                mainListItemViewHolder.mText.setText(mNoteList.get(no).getmText());
+            }
+        } else if (mNoteList.get(no).getmClassification().equals("account")) {
+
+            if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).getmTitle().equals("")) {
+                mainListItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
+            } else {
+                mainListItemViewHolder.mTitle.setText("今日收支紀錄");
+            }
+
         }
+
+
+    }
 
 
     @Override

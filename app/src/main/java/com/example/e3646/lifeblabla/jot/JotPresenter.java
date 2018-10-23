@@ -1,5 +1,6 @@
 package com.example.e3646.lifeblabla.jot;
 
+import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -78,7 +79,7 @@ public class JotPresenter implements JotContract.Presenter {
     public void goEditJot(boolean isCreating) {
         Note note = mNoteList.get(mNotePosition);
 
-        mJotEditFragment = new JotEditFragment(isCreating, note, note.getmPicture());
+        mJotEditFragment = new JotEditFragment(isCreating, note, note.getmPicture(), Uri.parse(note.getPhotoFromCamera()));
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

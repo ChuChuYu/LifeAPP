@@ -203,7 +203,6 @@
         android:id="@+id/imageView13"
         android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:background="#50FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView22" />
@@ -212,6 +211,7 @@
         android:id="@+id/tag_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="38dp"
+        android:background="#50FFFFFF"
         app:layout_constraintBottom_toBottomOf="@+id/imageView13"
         app:layout_constraintEnd_toEndOf="@+id/imageView13"
         app:layout_constraintStart_toStartOf="@+id/imageView13"

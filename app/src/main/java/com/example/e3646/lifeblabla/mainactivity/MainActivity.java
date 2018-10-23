@@ -188,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
             final View iconView = menuView.getChildAt(a).findViewById(android.support.design.R.id.icon);
             final ViewGroup.LayoutParams layoutParams = iconView.getLayoutParams();
             final DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, displayMetrics);
-            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 22, displayMetrics);
+            layoutParams.height = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
+            layoutParams.width = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, displayMetrics);
             iconView.setLayoutParams(layoutParams);
         }
 
@@ -270,11 +270,10 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
 
         mTabLayout = findViewById(R.id.tab_layout);
-        mViewPager = findViewById(R.id.viewpager);
-
-        mViewPager.addOnPageChangeListener(this);
         mTabLayout.addOnTabSelectedListener(this);
 
+        mViewPager = findViewById(R.id.viewpager);
+        mViewPager.addOnPageChangeListener(this);
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -348,10 +347,10 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         mPresenter.goDiaryDetail();
     }
 
-
-
-
-
+    @Override
+    public void refreshMainPage(String id) {
+        mMainFragment.refreshList();
+    }
 
 
     @Override

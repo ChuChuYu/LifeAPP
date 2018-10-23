@@ -12,7 +12,7 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="45dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginTop="105dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,7 +108,7 @@
         android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="105dp"
@@ -129,25 +129,13 @@
     <!--app:layout_constraintTop_toBottomOf="@+id/main_activity_container"-->
     <!--app:srcCompat="@drawable/edit" />-->
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/main_bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="#783b3b3b"
-        app:itemIconTint="#BBFFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_item" />
-
 
     <ToggleButton
         android:id="@+id/button_switch_layout"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:background="@android:color/transparent"
+        android:background="#00ffffff"
         android:button="@drawable/button_grid_layout"
         android:scaleType="centerCrop"
         android:textOff=""
@@ -157,6 +145,22 @@
         app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/main_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#783B3B3B"
+        android:paddingBottom="-10dp"
+        app:itemIconTint="#BBFFFFFF"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_item">
+
+    </android.support.design.widget.BottomNavigationView>
 
     <ImageButton
         android:id="@+id/button_add_notes"

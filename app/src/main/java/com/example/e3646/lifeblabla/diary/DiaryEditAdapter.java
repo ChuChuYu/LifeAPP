@@ -101,16 +101,10 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     private void initLayoutTag(TagItemViewHolder holder, final int i) {
         final TagItemViewHolder tagItemViewHolder = (TagItemViewHolder)holder;
 
-
-
         ViewGroup.LayoutParams textParams = tagItemViewHolder.mTagText.getLayoutParams();
         ViewGroup.LayoutParams backgroundParams = tagItemViewHolder.mTagBackground.getLayoutParams();
 
-
         backgroundParams.width = mTagList.get(i).length()*60 + 20;
-
-
-
         tagItemViewHolder.mTagBackground.setLayoutParams(backgroundParams);
 
 
@@ -153,7 +147,7 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
     private int numOfChinese(String tagText) {
         int numOfCh = 0;
-//        Log.d("text length", ":" + tagText.)
+
         for (int i = 0; i<tagText.length(); i++) {
             String text = String.valueOf(tagText.charAt(i));
             if (text.matches("[\\u4E00-\\u9FA5]+")) {
@@ -164,7 +158,6 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     }
 
     public ArrayList<String> TagList() {
-        Log.d("tag list in edit", ": " + mTagList.size());
         return this.mTagList;
     }
 }

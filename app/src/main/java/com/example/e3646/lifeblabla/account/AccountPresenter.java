@@ -31,6 +31,7 @@ public class AccountPresenter implements AccountContract.Presenter {
 
     private ArrayList<Note> mNoteList;
     private int mNotePosition;
+    private Note mNote;
 
 
     public AccountPresenter(AccountContract.View accountView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, ArrayList<Note> noteList, int i) {
@@ -77,8 +78,13 @@ public class AccountPresenter implements AccountContract.Presenter {
     }
 
     @Override
-    public void goEditAccount(boolean isCreating) {
-        Note note = mNoteList.get(mNotePosition);
+    public void goEditAccount(boolean isCreating, Note note) {
+
+        if (mNoteList != null) {
+            mNote = mNoteList.get(mNotePosition);
+        } else {
+            mNote = note;
+        }
 
         mAccountEditFragment = new AccountEditFragment(false, note);
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, mMainActPresenter, false);

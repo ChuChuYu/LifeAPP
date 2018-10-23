@@ -27,8 +27,6 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
     public AccountAdapter(ArrayList<Account> accountList, boolean isedting) {
         mAccountList = accountList;
-        if (accountList != null) {
-        }
         isEditing = isedting;
     }
 
@@ -36,7 +34,6 @@ public class AccountAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new AccountAdapter.ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_account, null));
-
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -45,8 +42,6 @@ public class AccountAdapter extends RecyclerView.Adapter {
         private TextView mDescription;
         private TextView mRevenueOrExpense;
         private TextView mAmount;
-
-
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,7 +76,6 @@ public class AccountAdapter extends RecyclerView.Adapter {
                 itemViewHolder.mRevenueOrExpense.setText("收入");
                 itemViewHolder.mAmount.setText(mAccountList.get(i).getRevenue());
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#166C2D"));
-
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#166C2D"));
             } else {
                 itemViewHolder.mRevenueOrExpense.setText("支出");
@@ -96,19 +90,11 @@ public class AccountAdapter extends RecyclerView.Adapter {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if (isEditing) {
-
                     mListener.onClick(view);
                 }
-
-
             }
         });
-
-
-
     }
 
     @Override
@@ -120,6 +106,9 @@ public class AccountAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public ArrayList<Account> getAccountList() {
+        return mAccountList;
+    }
     public void setAccountList(ArrayList<Account> accountList) {
         mAccountList = accountList;
     }

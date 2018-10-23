@@ -36,6 +36,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
     private static final String NOTE_TAG = "NOTE_TAG";
 
     private static final String NOTE_PICTURE = "NOTE_PICTURE";
+    private static final String NOTE_PHOTOFROMCAMERA = "NOTE_PHOTOFROM_CAMERA";
     private static final String NOTE_VIDEO = "NOTE_VIDEO";
     private static final String NOTE_AUDIO = "NOTE_AUDIO";
 
@@ -82,6 +83,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
                         + NOTE_CLASSIFICATION + " TEXT, "
                         + NOTE_TAG + " TEXT, "
                         + NOTE_PICTURE + " TEXT, "
+                        + NOTE_PHOTOFROMCAMERA + " TEXT, "
                         + NOTE_VIDEO + " TEXT, "
                         + NOTE_AUDIO + " TEXT, "
                         + NOTE_ACCOUNT_REVENUE + " TEXT, "
@@ -136,6 +138,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_CLASSIFICATION, note.getmClassification());
         contentValues.put(NOTE_TAG, String.valueOf(note.getmTag()));
         contentValues.put(NOTE_PICTURE, note.getmPicture());
+        contentValues.put(NOTE_PHOTOFROMCAMERA, note.getPhotoFromCamera());
         contentValues.put(NOTE_VIDEO, note.getVideo());
         contentValues.put(NOTE_AUDIO, note.getmAudio());
         contentValues.put(NOTE_ACCOUNT_REVENUE, note.getAccountRevenue());
@@ -155,7 +158,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
 
         Cursor cursor = db.query("NOTE_TABLE", new String[] {NOTE_ID, NOTE_TITLE, NOTE_TEXT,
                 NOTE_CREATEDTIME,NOTE_MONTH, NOTE_DAY, NOTE_TIME,NOTE_WEEK, NOTE_DAYTIME, NOTE_UPDATEDTIME, NOTE_PLACE, NOTE_CLASSIFICATION, NOTE_TAG,
-                NOTE_PICTURE, NOTE_VIDEO, NOTE_AUDIO,NOTE_ACCOUNT_REVENUE, NOTE_ACCOUNT_EXPENSE, NOTE_ACCOUNT_BALANCE, NOTE_MIND, NOTE_WEATHER}, null,
+                NOTE_PICTURE, NOTE_PHOTOFROMCAMERA, NOTE_VIDEO, NOTE_AUDIO,NOTE_ACCOUNT_REVENUE, NOTE_ACCOUNT_EXPENSE, NOTE_ACCOUNT_BALANCE, NOTE_MIND, NOTE_WEATHER}, null,
                 null, null, null, null);
 
         ArrayList<Note> noteList = new ArrayList<>();
@@ -180,6 +183,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
                 note.setClassification(cursor.getString(cursor.getColumnIndex(NOTE_CLASSIFICATION)));
 
                 note.setmPicture(cursor.getString(cursor.getColumnIndex(NOTE_PICTURE)));
+                note.setPhotoFromCamera(cursor.getString(cursor.getColumnIndex(NOTE_PHOTOFROMCAMERA)));
 
                 if (cursor.getString(cursor.getColumnIndex(NOTE_TAG)) != null) {
                     ArrayList<String> tagList = new ArrayList<String>(Arrays.asList(cursor.getString(cursor.getColumnIndex(NOTE_TAG)).split(",")));
@@ -225,6 +229,7 @@ public class Sqldatabase extends SQLiteOpenHelper {
         contentValues.put(NOTE_CLASSIFICATION, note.getmClassification());
         contentValues.put(NOTE_TAG, String.valueOf(note.getmTag()));
         contentValues.put(NOTE_PICTURE, note.getmPicture());
+        contentValues.put(NOTE_PHOTOFROMCAMERA, note.getPhotoFromCamera());
         contentValues.put(NOTE_VIDEO, note.getVideo());
         contentValues.put(NOTE_AUDIO, note.getmAudio());
         contentValues.put(NOTE_MIND, note.getmMind());

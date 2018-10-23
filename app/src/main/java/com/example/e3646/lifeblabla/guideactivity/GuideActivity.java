@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -27,11 +29,10 @@ import java.util.List;
 public class GuideActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     private ViewPager mViewPager;
-    private List<ImageView> mImageList = new ArrayList<ImageView>();
     private Button mSkipButton;
-    private int[] mPics = new int[] {R.drawable.introduce_1, R.drawable.introduce_2, R.drawable.introduce_3};
-    private int mNum;
-
+    private GuideFirstFragment mGuideFirstFragment;
+    private GuideSecondFragment mGuideSecondFragment;
+    private GuideThirdFragment mGuideThirdFragment;
     private LinearLayout mLinearLayout;
 
     @Override
@@ -44,11 +45,32 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        setImage();
-        mViewPager = (ViewPager)findViewById(R.id.guide_viewpager);
-        FirstTimeExpAdapter firstTimeExpAdapter = new FirstTimeExpAdapter();
-        mViewPager.setAdapter(firstTimeExpAdapter);
+        mGuideFirstFragment = new GuideFirstFragment();
+        mGuideSecondFragment = new GuideSecondFragment();
+        mGuideThirdFragment = new GuideThirdFragment();
 
+        mViewPager = (ViewPager)findViewById(R.id.guide_viewpager);
+        mViewPager.addOnPageChangeListener(this);
+        mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                switch (i) {
+                    case 0:
+                        return mGuideFirstFragment;
+                    case 1:
+                        return mGuideSecondFragment;
+                    case 2:
+                        return mGuideThirdFragment;
+                }
+
+                return null;
+            }
+
+            @Override
+            public int getCount() {
+                return 3;
+            }
+        });
 
         mSkipButton = (Button)findViewById(R.id.button_skip);
         mSkipButton.setOnClickListener(new View.OnClickListener() {
@@ -62,93 +84,19 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     }
 
-    public void setImage() {
-        ImageView imageView;
-        View view;
-        for (int pic: mPics) {
-            imageView = new ImageView(GuideActivity.this);
-            imageView.setBackgroundResource(pic);
-            this.mImageList.add(imageView);
-            Log.d("image",  mImageList.get(0).toString());
-        }
-    }
-
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+    public void onPageScrolled(int i, float v, int i1) {
 
     }
 
     @Override
-    public void onPageSelected(int position) {
-        mLinearLayout.getChildAt(mNum).setEnabled(false);
-        mLinearLayout.getChildAt(position).setEnabled(true);
-        mNum = position;
+    public void onPageSelected(int i) {
 
     }
 
     @Override
-    public void onPageScrollStateChanged(int state) {
+    public void onPageScrollStateChanged(int i) {
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        mHandler.sendEmptyMessageDelayed(1,4000);
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-//        mHandler.removeMessages(1);
-    }
-
-//    private Handler mHandler = new Handler() {
-//        public void handleMessage(android.os.Message msg) {
-//            switch(msg.what) {
-//                case 1:
-//                    int totalcount = mImageList.size();//autoChangeViewPager.getChildCount();
-//                    int currentItem = mViewPager.getCurrentItem();
-//
-//                    int toItem = currentItem + 1 == totalcount ? 0 : currentItem + 1;
-//
-//                    Log.d("aaa", "totalcount: " + totalcount + "   currentItem: " + currentItem + "   toItem: " + toItem);
-//
-//                    mViewPager.setCurrentItem(toItem, true);
-//
-//                    this.sendEmptyMessageDelayed(1, 4000);
-//            }
-//        }
-//    };
-
-    public class FirstTimeExpAdapter extends PagerAdapter {
-
-
-
-        @Override
-        public int getCount() {
-            return mImageList.size();
-
-        }
-
-        @Override
-        public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-            return view == object;
-        }
-
-        @NonNull
-        @Override
-        public Object instantiateItem(@NonNull ViewGroup container, int position) {
-
-            ImageView imageView = mImageList.get(position);
-            container.addView(imageView);
-
-            return imageView;
-        }
-
-        @Override
-        public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            container.removeView(mImageList.get(position));
-        }
-    }
 }

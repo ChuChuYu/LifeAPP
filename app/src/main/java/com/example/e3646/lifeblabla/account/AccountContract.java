@@ -2,6 +2,7 @@ package com.example.e3646.lifeblabla.account;
 
 import com.example.e3646.BasePresenter;
 import com.example.e3646.BaseView;
+import com.example.e3646.lifeblabla.object.Note;
 
 public interface AccountContract {
 
@@ -27,7 +28,7 @@ public interface AccountContract {
 
         void completeDeleting();
 
-        void goEditAccount(boolean isCreating);
+        void goEditAccount(boolean isCreating, Note note);
 
         void goSearch(String tag);
 

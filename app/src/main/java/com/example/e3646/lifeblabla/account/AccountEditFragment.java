@@ -40,13 +40,20 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AccountEditFragment extends Fragment implements AccountEditContract.View {
 
     private AccountEditContract.Presenter mPresenter;
-    private BottomSheetBehavior mBottomSheetBehavior;
 
+    private BottomSheetBehavior mBottomSheetBehavior;
     private ImageButton mAddItemButton;
     private ImageButton mHideButton;
     private ImageButton mDeleteNumberButton;
     private ImageButton mDeleteItemButton;
     private ImageButton mCompleteAccountButton;
+    private ImageButton mCategoryOne;
+    private ImageButton mCategoryTwo;
+    private ImageButton mCategoryThree;
+    private ImageButton mCategoryFour;
+    private ImageButton mCategoryFive;
+    private ImageButton mRevenue;
+    private ImageButton mExpense;
     private Button mClearButton;
     private Button mOneButton;
     private Button mTwoButton;
@@ -58,41 +65,28 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private Button mEightButton;
     private Button mNineButton;
     private Button mZeroButton;
-
-    private ImageButton mCategoryOne;
-    private ImageButton mCategoryTwo;
-    private ImageButton mCategoryThree;
-    private ImageButton mCategoryFour;
-    private ImageButton mCategoryFive;
-    private ImageButton mRevenue;
-    private ImageButton mExpense;
-
-    private EditText mTitle;
-
     private Button mCancelButton;
     private Button mCompleteButton;
-
-    private RecyclerView mRecyclerView;
-    private AccountAdapter mAccountAdapter;
-
     private TextView mAmount;
-
     private TextView mRevenueText;
     private TextView mExpenseText;
     private TextView mBalanceText;
-
     private TextView mCreatedTime;
+    private EditText mTitle;
 
-    private String mMoneyAmount = "";
-
-    private String mNoteId;
+    private RecyclerView mRecyclerView;
+    private AccountAdapter mAccountAdapter;
+    private RecyclerView mTagRecyclerview;
+    private DiaryEditAdapter mTagAdapter;
 
     private ArrayList<Account> mAccoountList;
     private ArrayList<Note> mNoteList;
     private Account mAccount;
     private Note mNote;
-    private boolean isCreating;
 
+    private String mMoneyAmount = "";
+    private String mNoteId;
+    private boolean isCreating;
     private boolean isCreatingItem;
     private int isRevenue = 3;
     private String mCategory = "0";
@@ -100,12 +94,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private Integer mTotalExpense = 0;
     private Integer mTotalBalance = 0;
 
-
-
-
-
-    private RecyclerView mTagRecyclerview;
-    private DiaryEditAdapter mTagAdapter;
 
     public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
@@ -116,9 +104,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mTotalExpense = Integer.parseInt(mNote.getAccountExpense());
             mTotalBalance = Integer.parseInt(mNote.getAccountBalance());
         }
-
-
-
     }
 
     @Nullable
@@ -180,7 +165,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             @Override
             public void onClick(View view) {
                 isCreatingItem = true;
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //                    mDeleteItemButton.setVisibility(View.INVISIBLE);
             }
         });
@@ -283,15 +268,11 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                     } else {
                         takeAccountDataWhenEditing();
                         countTotalAmountWhenEditingItem();
-
                     }
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     clearAddItemButtonsheet();
                 }
-
                 mMoneyAmount = "";
-
-
             }
         });
 
@@ -392,19 +373,15 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-
         mDeleteItemButton = view.findViewById(R.id.button_delete);
         mCategoryOne = view.findViewById(R.id.button_category_1);
         mCategoryTwo = view.findViewById(R.id.button_category_2);
-
         mRevenue = view.findViewById(R.id.button_revenue);
         mExpense = view.findViewById(R.id.button_expense);
-
         mCategoryTwo = view.findViewById(R.id.button_category_2);
         mCategoryThree = view.findViewById(R.id.button_category_3);
         mCategoryFour = view.findViewById(R.id.button_category_4);
         mCategoryFive = view.findViewById(R.id.button_category_5);
-
         mDeleteNumberButton = view.findViewById(R.id.button_delete_number);
         mClearButton = view.findViewById(R.id.button_clear);
         mDeleteItemButton = view.findViewById(R.id.button_delete_item);
@@ -423,9 +400,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mEightButton = view.findViewById(R.id.button_8);
         mNineButton = view.findViewById(R.id.button_9);
         mZeroButton = view.findViewById(R.id.button_0);
-
         mTitle = view.findViewById(R.id.account_title);
-
         mRecyclerView = view.findViewById(R.id.account_item_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -449,7 +424,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         if (isCreating) {
             mAccoountList = new ArrayList<Account>();
             mNoteId = currentTimeForID();
-            Log.d("note id", "1 : " + mNoteId);
 
         } else {
             mNoteId = mNote.getmId();
@@ -518,8 +492,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mAccount = new Account();
             mAccount.setId(mNoteId);
 
-            Log.d("note id", "2 : " + mNoteId);
-
             mAccount.setAccountId(currentTimeForID());
 
             mAccount.setNumber("1");
@@ -540,6 +512,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mAccoountList.add(mAccount);
             mAccountAdapter.setAccountList(mAccoountList);
             mAccountAdapter.notifyDataSetChanged();
+
+
+            //沒有存進去
 
             Sqldatabase sql = new Sqldatabase(getContext());
             sql.insertAccount(mAccount);
@@ -583,7 +558,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mNote.setmCreatedTime(currentTime);
 
             mNote.setmId(mNoteId);
-            Log.d("note id", "3 : " + mNoteId);
 
             mNote.setMonth(month);
             mNote.setDay(day);
@@ -604,12 +578,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 mNote.setWeek("SUN");
             }
 
-
-            mNote.setmId(id);
-
-
-
-
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("account");
@@ -619,6 +587,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mNote.setAccountBalance(String.valueOf(mTotalBalance));
 
             mNote.setmTag(mTagAdapter.TagList());
+            Log.d("tag", "list size: " + mTagAdapter.TagList().size() );
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);
@@ -659,10 +628,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     public void setAccountDatainDialog(Account account) {
 
         mAccount = account;
-
-        Log.d("note id inaccount", "save : " + mAccount.getId());
-        Log.d("account id ", "save" + mAccount.getAccountId());
-
         if (account.getExpense() != null) {
             mExpense.setImageResource(R.drawable.button_account_is_select);
             mRevenue.setImageResource(R.drawable.button_account_not_select);
@@ -691,7 +656,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             setCategoryBack(mCategoryFour, "5");
             mCategory = "5";
         }
-
 
     }
 
@@ -740,5 +704,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mRevenueText.setText(String.valueOf(mTotalRevenue));
         mExpenseText.setText(String.valueOf(mTotalExpense));
         mBalanceText.setText(String.valueOf(mTotalBalance));
+    }
+
+    public void countTotalAmountWhenDeletingItem() {
+
     }
 }
