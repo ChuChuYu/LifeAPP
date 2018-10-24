@@ -225,8 +225,8 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         mPresenter.start();
 
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
 
     }
 
@@ -349,6 +349,18 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     @Override
     public void refreshMainPage(String id) {
         mMainFragment.refreshList();
+    }
+
+    @Override
+    public void hideMainPage() {
+        mViewPager.setVisibility(View.INVISIBLE);
+        mTabLayout.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showMainPage() {
+        mViewPager.setVisibility(View.VISIBLE);
+        mTabLayout.setVisibility(View.VISIBLE);
     }
 
 

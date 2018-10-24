@@ -78,7 +78,7 @@ public class MainFragment extends Fragment implements MainContract.View {
             @Override
             public void onClick(View view) {
 
-                mPresenter.showFragment((int)view.getTag());
+                mPresenter.showdiary(mNoteList.get((int)view.getTag()));
 
             }
         });
@@ -97,7 +97,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void showGridLayout() {
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(-20));
         mRecyclerView.setAdapter(mMainAdapterGrid);
 
     }
@@ -106,7 +105,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void showListLayout() {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(20));
         mRecyclerView.setAdapter(mMainAdapter);
 
     }

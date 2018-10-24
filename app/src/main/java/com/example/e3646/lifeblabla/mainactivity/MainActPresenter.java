@@ -116,6 +116,9 @@ public class MainActPresenter implements MainActContract.Presenter {
         }
     }
 
+
+    ////////
+
     @Override
     public void backToMain() {
 
@@ -129,6 +132,8 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .commit();
 
     }
+
+    //////
 
     @Override
     public void goDiaryDetail() {
@@ -161,42 +166,11 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void goMap() {
 
-//        if (mMapFragment == null) {
-//            mMapFragment = new MapFragment();
-//        }
-//
-//        if (mMapPresenter == null) {
-//            mMapPresenter = new MapPresenter(mMapFragment);
-//        }
-//
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction
-//                .replace(R.id.whole_container, mMapFragment)
-//                .show(mMapFragment)
-//                .commit();
-//
-//        hideComponent();
-//        mMainActView.showBottomNaviagtion();
     }
 
     @Override
     public void goCalendar() {
-//        if (mCalendarFragment == null) {
-//            mCalendarFragment = new CalendarFragment();
-//        }
-//
-//        if (mCalendarPresenter == null) {
-//            mCalendarPresenter = new CalendarPresenter(mCalendarFragment);
-//        }
-//
-//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-//        transaction
-//                .replace(R.id.whole_container, mCalendarFragment)
-//                .show(mCalendarFragment)
-//                .commit();
-//
-//        hideComponent();
-//        mMainActView.showBottomNaviagtion();
+
 
     }
 
@@ -252,6 +226,8 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .commit();
     }
 
+    ////////
+
     @Override
     public void refreshMainFragment() {
 
@@ -266,12 +242,15 @@ public class MainActPresenter implements MainActContract.Presenter {
 
 
         mMainActView.showMainUI();
+        mMainActView.showMainPage();
         mMainActView.refreshMainPage("");
         mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
     }
+
+    ////////
 
     @Override
     public void showBottomSheet() {
@@ -292,6 +271,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mMainActView.hideToolBar();
         mMainActView.hideToggleButton();
         mMainActView.hideAddNoteButton();
+        mMainActView.hideMainPage();
     }
 
     @Override
@@ -303,9 +283,10 @@ public class MainActPresenter implements MainActContract.Presenter {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
                 .show(mDiaryEditFragment)
-                .hide(mMainFragment)
+//                .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 
     @Override
@@ -317,7 +298,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mAccountEditFragment, "EDIT ACCOUNT")
                 .show(mAccountEditFragment)
-                .hide(mMainFragment)
+//                .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
     }
@@ -332,7 +313,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mJotEditFragment, "EDIT JOT")
                 .show(mJotEditFragment)
-                .hide(mMainFragment)
+//                .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
 

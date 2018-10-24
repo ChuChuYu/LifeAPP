@@ -43,9 +43,6 @@ public class MainJotFragment extends Fragment implements MainContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_jot, container, false);
 
-        Log.d("create", "jot fragment");
-
-
         Sqldatabase sql = new Sqldatabase(getContext());
         ArrayList<Note> noteList = sql.getNotes();
         final ArrayList<Note> jotList = new ArrayList<Note>();
@@ -83,7 +80,6 @@ public class MainJotFragment extends Fragment implements MainContract.View {
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mMainAdapterGrid);
-        Log.d("grid adapger", "set in jot");
 
     }
 

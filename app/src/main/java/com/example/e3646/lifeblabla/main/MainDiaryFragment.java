@@ -53,8 +53,6 @@ public class MainDiaryFragment extends Fragment implements MainContract.View{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_diary, container, false);
 
-        Log.d("create", "diary fragment");
-
         Sqldatabase sql = new Sqldatabase(getContext());
         ArrayList<Note> noteList = sql.getNotes();
         final ArrayList<Note> diaryList = new ArrayList<Note>();

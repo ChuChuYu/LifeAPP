@@ -21,7 +21,6 @@ public class JotAdapter extends RecyclerView.Adapter {
     public JotAdapter(ArrayList<String> tagList) {
 
         mTagList = tagList;
-        Log.d("tag list in adapter", ": " + mTagList.size());
     }
 
 

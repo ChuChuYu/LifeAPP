@@ -38,8 +38,6 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_account, container, false);
 
-        Log.d("create", "account fragment");
-
         Sqldatabase sql = new Sqldatabase(getContext());
         ArrayList<Note> noteList = sql.getNotes();
         final ArrayList<Note> accountList = new ArrayList<Note>();

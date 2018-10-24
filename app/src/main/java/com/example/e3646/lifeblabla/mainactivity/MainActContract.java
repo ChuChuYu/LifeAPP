@@ -38,6 +38,10 @@ public interface MainActContract {
 
         void refreshMainPage(String id);
 
+        void hideMainPage();
+
+        void showMainPage();
+
 
     }
 

@@ -60,9 +60,7 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void start() {
-
-    }
+    public void start() { }
 
     @Override
     public void setContext(Context context) {
@@ -76,7 +74,6 @@ public class MainPresenter implements MainContract.Presenter {
         mMainDiaryView.showGridLayout();
         mMainJotView.showGridLayout();
         mMainAccountView.showGridLayout();
-        Log.d("grid ", "set in presenter");
 
     }
 
@@ -89,6 +86,7 @@ public class MainPresenter implements MainContract.Presenter {
         mMainAccountView.showListLayout();
     }
 
+    //  沒有用到的
     @Override
     public void showFragment(int i) {
 
@@ -118,7 +116,6 @@ public class MainPresenter implements MainContract.Presenter {
 
 
         } else if (mNoteList.get(mNoteListPosition).getmClassification().equals("account")) {
-
 
             mAccountFragment = new AccountFragment(note);
             mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition);
@@ -186,7 +183,6 @@ public class MainPresenter implements MainContract.Presenter {
         }
 
         mMainActPresenter.goDiaryDetail();
-
 
     }
 }
