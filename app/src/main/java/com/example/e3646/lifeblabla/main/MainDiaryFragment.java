@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,14 +41,19 @@ public class MainDiaryFragment extends Fragment implements MainContract.View{
     private FragmentManager mFragmentManager;
     private MainActPresenter mMainActPresenter;
 
-    public MainDiaryFragment(FragmentManager fragmentManager) {
+    private boolean isListMode = true;
+
+    public MainDiaryFragment(FragmentManager fragmentManager, boolean islistmode) {
         mFragmentManager = fragmentManager;
+        isListMode = islistmode;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_diary, container, false);
+
+        Log.d("create", "diary fragment");
 
         Sqldatabase sql = new Sqldatabase(getContext());
         ArrayList<Note> noteList = sql.getNotes();

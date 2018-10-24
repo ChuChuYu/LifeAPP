@@ -1,5 +1,6 @@
 package com.example.e3646.lifeblabla.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +22,28 @@ import java.util.ArrayList;
 import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@SuppressLint("ValidFragment")
 public class MainJotFragment extends Fragment implements MainContract.View {
 
+    private MainContract.Presenter mPresenter;
     private RecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
     private MainAdapterGrid mMainAdapterGrid;
-    private MainContract.Presenter mPresenter;
 
+    private ArrayList<Note> mJotList;
+    private boolean isListMode = true;
+
+    public MainJotFragment(boolean islistmode) {
+        isListMode = islistmode;
+    }
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_jot, container, false);
+
+        Log.d("create", "jot fragment");
 
 
         Sqldatabase sql = new Sqldatabase(getContext());
@@ -44,6 +55,7 @@ public class MainJotFragment extends Fragment implements MainContract.View {
                 jotList.add(noteList.get(i));
             }
         }
+        mJotList = jotList;
 
         mRecyclerView = view.findViewById(R.id.main_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -68,9 +80,10 @@ public class MainJotFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showGridLayout() {
+
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(-20));
         mRecyclerView.setAdapter(mMainAdapterGrid);
+        Log.d("grid adapger", "set in jot");
 
     }
 
@@ -78,7 +91,6 @@ public class MainJotFragment extends Fragment implements MainContract.View {
     public void showListLayout() {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(20));
         mRecyclerView.setAdapter(mMainAdapter);
     }
 

@@ -1,5 +1,6 @@
 package com.example.e3646.lifeblabla.main;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +20,25 @@ import com.example.e3646.lifeblabla.object.Note;
 import java.util.ArrayList;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+@SuppressLint("ValidFragment")
 public class MainAccountFragment extends Fragment implements MainContract.View {
 
     private RecyclerView mRecyclerView;
     private MainAdapter mMainAdapter;
     private MainAdapterGrid mMainAdapterGrid;
     private MainContract.Presenter mPresenter;
+    private boolean isListMode = true;
+
+    public MainAccountFragment(boolean islistmode) {
+        isListMode = islistmode;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_account, container, false);
+
+        Log.d("create", "account fragment");
 
         Sqldatabase sql = new Sqldatabase(getContext());
         ArrayList<Note> noteList = sql.getNotes();
@@ -56,6 +66,8 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
         return view;
     }
 
+
+
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
@@ -64,9 +76,9 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showGridLayout() {
-//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(-20));
-//        mRecyclerView.setAdapter(mMainAdapterGrid);
+
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(mMainAdapterGrid);
 
     }
 

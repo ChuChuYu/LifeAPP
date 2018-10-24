@@ -182,8 +182,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
                 mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
 
-                Log.d("bitmap", "path: " + mNoteList.get(no).getmPicture());
-
 
 
             }
@@ -244,8 +242,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
         mainGridItemViewHolder.mDate.setText(mNoteList.get(no).getmCreatedTime());
         mainGridItemViewHolder.mTime.setText(mNoteList.get(no).getTime());
-        Log.d("time", ": " + mNoteList.get(no).getTime());
-
 
             if (mNoteList.get(no).getmClassification().equals("account")) {
                 mainGridItemViewHolder.mTime.setText(mNoteList.get(no).getTime());
@@ -363,8 +359,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         mainAccountItemViewHolder.mAccountRevenue.setText(mNoteList.get(no).getAccountRevenue());
         mainAccountItemViewHolder.mAccountExpense.setText(mNoteList.get(no).getAccountExpense());
         mainAccountItemViewHolder.mAccountBalance.setText(mNoteList.get(no).getAccountBalance());
-
-        Log.d("revenue", ": " + mNoteList.get(no).getAccountRevenue());
 
     }
 

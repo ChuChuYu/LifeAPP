@@ -161,22 +161,14 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                 switch (menuItem.getItemId()) {
 
                     case R.id.main_main:
-
                         mPresenter.goMain();
-
                         break;
-
-
                     case R.id.main_post:
                         mPresenter.showBottomSheet();
-
                         break;
-
-
                     case R.id.main_setting:
                         mPresenter.gosetting();
                         break;
-
                     default:
                 }
                return true;
@@ -222,9 +214,9 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
 
         mMainFragment = new MainFragment(mNoteList, true);
-        mMainDiaryFragment = new MainDiaryFragment(mFragmentManager);
-        mMainJotFragment = new MainJotFragment();
-        mMainAccountFragment = new MainAccountFragment();
+        mMainDiaryFragment = new MainDiaryFragment(mFragmentManager, true);
+        mMainJotFragment = new MainJotFragment(true);
+        mMainAccountFragment = new MainAccountFragment(true);
 
 
 
@@ -280,6 +272,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.addOnPageChangeListener(this);
+        mViewPager.setOffscreenPageLimit(4);
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
@@ -294,9 +287,9 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                         return mMainAccountFragment;
                 }
 
-
                 return null;
             }
+
 
             @Override
             public int getCount() {

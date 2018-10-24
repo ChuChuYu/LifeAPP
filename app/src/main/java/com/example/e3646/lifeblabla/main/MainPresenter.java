@@ -34,20 +34,14 @@ public class MainPresenter implements MainContract.Presenter {
     private int mNoteListPosition;
 
     private DiaryFragment mDiaryFragment;
-
     private JotFragment mJotFragment;
-
     private AccountFragment mAccountFragment;
-
     private DiaryPresenter mDiaryPresenter;
-
     private JotPresenter mJotPresenter;
-
     private AccountPresenter mAccountPresenter;
     private MainActPresenter mMainActPresenter;
 
     private ArrayList<Note> mNoteList;
-
 
     public MainPresenter (MainContract.View mainView, MainContract.View mainDiaryView, MainContract.View mainJotView, MainContract.View mainAccountView, FragmentManager fragmentManager, MainActPresenter mainActPresenter) {
 
@@ -58,11 +52,10 @@ public class MainPresenter implements MainContract.Presenter {
         mMainJotView = checkNotNull(mainJotView);
         mMainJotView.setPresenter(this);
         mMainAccountView = mainAccountView;
-        mainAccountView.setPresenter(this);
+        mMainAccountView.setPresenter(this);
 
         mFragmentManager = fragmentManager;
         mMainActPresenter = mainActPresenter;
-
 
     }
 
@@ -82,7 +75,8 @@ public class MainPresenter implements MainContract.Presenter {
         mMainView.showGridLayout();
         mMainDiaryView.showGridLayout();
         mMainJotView.showGridLayout();
-//        mMainAccountView.showGridLayout();
+        mMainAccountView.showGridLayout();
+        Log.d("grid ", "set in presenter");
 
     }
 
