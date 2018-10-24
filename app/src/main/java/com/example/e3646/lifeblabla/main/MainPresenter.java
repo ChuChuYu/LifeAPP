@@ -25,6 +25,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class MainPresenter implements MainContract.Presenter {
 
     private MainContract.View mMainView;
+    private MainContract.View mMainDiaryView;
+    private MainContract.View mMainJotView;
+    private MainContract.View mMainAccountView;
+
     private FragmentManager mFragmentManager;
     private Context mContext;
     private int mNoteListPosition;
@@ -45,13 +49,20 @@ public class MainPresenter implements MainContract.Presenter {
     private ArrayList<Note> mNoteList;
 
 
-    public MainPresenter (MainContract.View mainView, FragmentManager fragmentManager, MainActPresenter mainActPresenter) {
+    public MainPresenter (MainContract.View mainView, MainContract.View mainDiaryView, MainContract.View mainJotView, MainContract.View mainAccountView, FragmentManager fragmentManager, MainActPresenter mainActPresenter) {
 
         mMainView = checkNotNull(mainView);
         mMainView.setPresenter(this);
-        mFragmentManager = fragmentManager;
+        mMainDiaryView = checkNotNull(mainDiaryView);
+        mMainDiaryView.setPresenter(this);
+        mMainJotView = checkNotNull(mainJotView);
+        mMainJotView.setPresenter(this);
+        mMainAccountView = mainAccountView;
+        mainAccountView.setPresenter(this);
 
+        mFragmentManager = fragmentManager;
         mMainActPresenter = mainActPresenter;
+
 
     }
 
@@ -69,6 +80,9 @@ public class MainPresenter implements MainContract.Presenter {
     public void switchToGridLayout() {
 
         mMainView.showGridLayout();
+        mMainDiaryView.showGridLayout();
+        mMainJotView.showGridLayout();
+//        mMainAccountView.showGridLayout();
 
     }
 
@@ -76,6 +90,9 @@ public class MainPresenter implements MainContract.Presenter {
     public void switchToListLayout() {
 
         mMainView.showListLayout();
+        mMainDiaryView.showListLayout();
+        mMainJotView.showListLayout();
+        mMainAccountView.showListLayout();
     }
 
     @Override
@@ -137,6 +154,45 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public void takeNoteListPosition(int i) {
         mNoteListPosition = i;
-        Log.d("item tag", "step2: " + mNoteListPosition);
+    }
+
+    @Override
+    public void showdiary(Note note) {
+
+
+        if (note.getmClassification().equals("diary")) {
+
+            mDiaryFragment = new DiaryFragment(note);
+            mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
+                    .show(mDiaryFragment)
+                    .addToBackStack(null)
+                    .commit();
+        } else if (note.getmClassification().equals("jot")) {
+            mJotFragment = new JotFragment(note);
+            mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.replace(R.id.whole_container, mJotFragment, "JOT")
+                    .show(mJotFragment)
+                    .addToBackStack(null)
+                    .commit();
+
+
+        } else if (note.getmClassification().equals("account")) {
+
+
+            mAccountFragment = new AccountFragment(note);
+            mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition);
+            FragmentTransaction transaction = mFragmentManager.beginTransaction();
+            transaction.replace(R.id.whole_container, mAccountFragment, "ACCOUNT")
+                    .show(mAccountFragment)
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+        mMainActPresenter.goDiaryDetail();
+
+
     }
 }

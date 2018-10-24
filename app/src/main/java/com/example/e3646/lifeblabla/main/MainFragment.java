@@ -40,9 +40,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     private ArrayList<Note> mNoteList;
 
 
-
-//    private boolean isListMode = false;
-
     public MainFragment(ArrayList<Note> noteList, boolean islistMode) {
 
         mNoteList = noteList;
@@ -69,9 +66,8 @@ public class MainFragment extends Fragment implements MainContract.View {
 
         mRecyclerView = (RecyclerView)view.findViewById(R.id.main_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(20));
         mMainAdapter = new MainAdapter(getContext(), mNoteList);
-        mMainAdapterGrid = new MainAdapterGrid(getContext());
+        mMainAdapterGrid = new MainAdapterGrid(getContext(), mNoteList);
         mRecyclerView.setAdapter(mMainAdapter);
 
         mRecyclerView.getItemAnimator().setChangeDuration(300);
@@ -87,23 +83,6 @@ public class MainFragment extends Fragment implements MainContract.View {
             }
         });
 
-
-//        if (!isListMode) {
-//            mMainAdapter.setOnItemListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    showDiaryUI();
-//                }
-//            });
-//        } else {
-//            mMainAdapterGrid.setOnItemListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    showDiaryUI();
-//                }
-//            });
-//
-//        }
 
         return view;
     }

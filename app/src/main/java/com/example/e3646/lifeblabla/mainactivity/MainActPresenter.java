@@ -24,7 +24,10 @@ import com.example.e3646.lifeblabla.jot.JotEditFragment;
 import com.example.e3646.lifeblabla.jot.JotEditPresenter;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.jot.JotPresenter;
+import com.example.e3646.lifeblabla.main.MainAccountFragment;
+import com.example.e3646.lifeblabla.main.MainDiaryFragment;
 import com.example.e3646.lifeblabla.main.MainFragment;
+import com.example.e3646.lifeblabla.main.MainJotFragment;
 import com.example.e3646.lifeblabla.main.MainPresenter;
 
 import com.example.e3646.lifeblabla.object.Note;
@@ -43,6 +46,10 @@ public class MainActPresenter implements MainActContract.Presenter {
     private Context mContext;
 
     private MainFragment mMainFragment;
+    private MainDiaryFragment mMainDiaryFragment;
+    private MainJotFragment mMainJotFragment;
+    private MainAccountFragment mMainAccountFragment;
+
     private DiaryFragment mDiaryFragment;
     private DiaryEditFragment mDiaryEditFragment;
     private JotEditFragment mJotEditFragment;
@@ -64,12 +71,15 @@ public class MainActPresenter implements MainActContract.Presenter {
     private ArrayList<Note> mNoteList;
     private Note mNote;
 
-    public MainActPresenter(MainActContract.View mainActView, FragmentManager fragmentManager, MainFragment mainFragment) {
+    public MainActPresenter(MainActContract.View mainActView, FragmentManager fragmentManager, MainFragment mainFragment, MainDiaryFragment mainDiaryFragment, MainJotFragment mainJotFragment, MainAccountFragment mainAccountFragment) {
 
         mMainActView = checkNotNull(mainActView);
         mMainActView.setPresenter(this);
         mFragmentManager = fragmentManager;
         mMainFragment = mainFragment;
+        mMainDiaryFragment = mainDiaryFragment;
+        mMainJotFragment = mainJotFragment;
+        mMainAccountFragment = mainAccountFragment;
 
     }
 
@@ -102,7 +112,7 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void showMainFragment() {
         mMainActView.showMainUI();
         if (mMainPresenter == null) {
-            mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
+            mMainPresenter = new MainPresenter(mMainFragment, mMainDiaryFragment, mMainAccountFragment, mMainJotFragment, mFragmentManager, this);
         }
     }
 

@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     private FragmentManager mFragmentManager;
 
     private MainFragment mMainFragment;
+    private MainDiaryFragment mMainDiaryFragment;
+    private MainJotFragment mMainJotFragment;
+    private MainAccountFragment mMainAccountFragment;
+
     private DiaryFragment mDiaryFragment;
-
     private JotFragment mJotFragment;
-
     private AccountFragment mAccountFragment;
 
 
@@ -89,9 +91,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
-    private MainDiaryFragment mMainDiaryFragment = new MainDiaryFragment();
-    private MainJotFragment mMainJotFragment = new MainJotFragment();
-    private MainAccountFragment mMainAccountFragment = new MainAccountFragment();
+
 
     private ArrayList<Note> mNoteList;
 
@@ -222,8 +222,14 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
 
         mMainFragment = new MainFragment(mNoteList, true);
+        mMainDiaryFragment = new MainDiaryFragment(mFragmentManager);
+        mMainJotFragment = new MainJotFragment();
+        mMainAccountFragment = new MainAccountFragment();
+
+
+
         mFragmentManager = getSupportFragmentManager();
-        mPresenter = new MainActPresenter(this, mFragmentManager, mMainFragment);
+        mPresenter = new MainActPresenter(this, mFragmentManager, mMainFragment, mMainDiaryFragment, mMainJotFragment, mMainAccountFragment);
 
         mPresenter.start();
 

@@ -33,16 +33,19 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     private boolean isListLayout = false;
     private ArrayList<Note> mNoteList;
 
+
     private List<Integer> heights = new ArrayList<>();
 
-    public MainAdapterGrid (Context context) {
+    public MainAdapterGrid (Context context, ArrayList<Note> noteList) {
         this.mContext = context;
+
+        if (noteList != null) {
+            mNoteList = noteList;
+        } else {
+            Sqldatabase sql = new Sqldatabase(mContext);
+            mNoteList = sql.getNotes();
+        }
         getRandomHeight(30);
-
-        Sqldatabase sql = new Sqldatabase(mContext);
-        mNoteList = sql.getNotes();
-        Log.d("note", "size" + mNoteList.size());
-
     }
 
     private void getRandomHeight(int n){
