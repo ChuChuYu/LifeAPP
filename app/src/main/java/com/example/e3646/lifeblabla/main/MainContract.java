@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.example.e3646.BasePresenter;
 import com.example.e3646.BaseView;
+import com.example.e3646.lifeblabla.object.Note;
 
 public interface MainContract {
 
@@ -34,13 +35,15 @@ public interface MainContract {
         void switchToListLayout();
 
 
-        void showDiaryFragment(int i);
+        void showFragment(int i);
 
         void refreshList();
 
         void takeNoteList();
 
         void takeNoteListPosition(int i);
+
+        void showdiary(Note note);
 
 
     }

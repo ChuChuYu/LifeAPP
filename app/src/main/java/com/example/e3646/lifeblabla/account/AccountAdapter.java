@@ -21,18 +21,19 @@ public class AccountAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Account> mAccountList;
 
-    public AccountAdapter(ArrayList<Account> accountList) {
+    private View.OnClickListener mListener;
+
+    private boolean isEditing;
+
+    public AccountAdapter(ArrayList<Account> accountList, boolean isedting) {
         mAccountList = accountList;
-        if (accountList != null) {
-            Log.d("account list", "size" + accountList.size());
-        }
+        isEditing = isedting;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return new AccountAdapter.ItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_account, null));
-
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
@@ -41,8 +42,6 @@ public class AccountAdapter extends RecyclerView.Adapter {
         private TextView mDescription;
         private TextView mRevenueOrExpense;
         private TextView mAmount;
-
-
 
         public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,21 +76,25 @@ public class AccountAdapter extends RecyclerView.Adapter {
                 itemViewHolder.mRevenueOrExpense.setText("收入");
                 itemViewHolder.mAmount.setText(mAccountList.get(i).getRevenue());
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#166C2D"));
-
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#166C2D"));
-                Log.d("revenue", "amount: " + mAccountList.get(i).getRevenue());
             } else {
                 itemViewHolder.mRevenueOrExpense.setText("支出");
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#892222"));
                 itemViewHolder.mAmount.setText(mAccountList.get(i).getExpense());
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#892222"));
-
-                Log.d("expense", "amount: " + mAccountList.get(i).getExpense());
             }
 
         }
 
-
+        viewHolder.itemView.setTag(i);
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isEditing) {
+                    mListener.onClick(view);
+                }
+            }
+        });
     }
 
     @Override
@@ -103,8 +106,15 @@ public class AccountAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public ArrayList<Account> getAccountList() {
+        return mAccountList;
+    }
     public void setAccountList(ArrayList<Account> accountList) {
         mAccountList = accountList;
+    }
+
+    public void setOnItemListener(View.OnClickListener listener) {
+        this.mListener = listener;
     }
 
 }

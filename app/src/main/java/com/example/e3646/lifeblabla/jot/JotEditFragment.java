@@ -2,6 +2,9 @@ package com.example.e3646.lifeblabla.jot;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.e3646.lifeblabla.R;
@@ -53,6 +57,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private RecyclerView mTitleRecycelrView;
     private TitleAdapter mTitleAdapter;
     private ImageButton mExpandButton;
+    private ImageView mImage;
 
     private BottomSheetBehavior mBottomSheetBehavior;
 
@@ -60,10 +65,16 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private Button mTitleTwo;
     private Button mTitleThree;
 
+    private String mImagePath;
+    private Uri mUri;
 
-    public JotEditFragment(boolean isCreating, Note note) {
+
+    public JotEditFragment(boolean isCreating, Note note, String imagePath, Uri uri) {
         this.isCreating = isCreating;
         mNote = note;
+        mImagePath = imagePath;
+        mUri = uri;
+        Log.d("image path", "in jot: " + imagePath);
     }
 
 
@@ -186,6 +197,21 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             }
         });
 
+        mImage = view.findViewById(R.id.diary_image);
+
+        if (mUri == null) {
+            if (mImagePath == null || mImagePath.equals("")) {
+                mImage.setVisibility(View.GONE);
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+                mImage.setImageBitmap(bitmap);
+            }
+        } else {
+            mImage.setImageURI(mUri);
+        }
+
+
+
         return view;
     }
 
@@ -217,28 +243,80 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     public void takeJotData() {
 
         if (isCreating) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
-            Date curDate = new Date(System.currentTimeMillis());
-            String currentTime = formatter.format(curDate);
-            String id = formateForID.format(curDate);
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+//            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+//            Date curDate = new Date(System.currentTimeMillis());
+//            String currentTime = formatter.format(curDate);
+//            String id = formateForID.format(curDate);
 
             mNote = new Note();
-            mNote.setmId(id);
+
 //            if (mTitle.getText().toString() != null && !mTitle.getText().toString().equals("")) {
 //                mNote.setmTitle(mTitle.getText().toString());
 //            } else {
 //                mNote.setmTitle("這是一則筆記");
 //            }
             mNote.setmText(mText.getText().toString());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
+            SimpleDateFormat formatterForDay = new SimpleDateFormat("dd");
+            SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
+            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat formateForDaytime = new SimpleDateFormat("HH");
+            Date curDate = new Date(System.currentTimeMillis());
+            String currentTime = formatter.format(curDate);
+            String month = formatterForMonth.format(curDate);
+            String day = formatterForDay.format(curDate);
+            String time = formatterForTime.format(curDate);
+            String week = formatterForWeek.format(curDate);
+            String id = formateForID.format(curDate);
+            String daytime = formateForDaytime.format(curDate);
+
+            if (Integer.parseInt(daytime) > 12 ) {
+                mNote.setDayTime("下午");
+            } else {
+                mNote.setDayTime("上午");
+            }
+
             mNote.setmCreatedTime(currentTime);
+
+            mNote.setmId(id);
+
+            mNote.setMonth(month);
+            mNote.setDay(day);
+            mNote.setTime(time);
+            if (week.equals("Monday")) {
+                mNote.setWeek("MON");
+            } else if (week.equals("Tuesday")) {
+                mNote.setWeek("TUE");
+            } else if (week.equals("Wednesday")) {
+                mNote.setWeek("WED");
+            } else if (week.equals("Thursday")) {
+                mNote.setWeek("THUR");
+            } else if (week.equals("Friday")) {
+                mNote.setWeek("FRI");
+            } else if (week.equals("Saturday")) {
+                mNote.setWeek("SAT");
+            } else if (week.equals("Sunday")) {
+                mNote.setWeek("SUN");
+            }
+
+
+            mNote.setmId(id);
+
+            if (mImagePath != null) {
+                mNote.setmPicture(mImagePath);
+            }
+
+            if (mUri != null) {
+                mNote.setPhotoFromCamera(mUri.toString());
+            }
+
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("jot");
-//
-//            Log.d("set image path", ": " + mImagePath);
-//            mNote.setmPicture(mImagePath);
-
             mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNoteList = new ArrayList<Note>();

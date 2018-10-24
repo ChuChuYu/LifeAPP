@@ -1,6 +1,9 @@
 package com.example.e3646.lifeblabla.jot;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,7 +23,6 @@ import android.widget.TextView;
 import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
 import com.example.e3646.lifeblabla.diary.DiaryAdapter;
-import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.object.Note;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -33,8 +35,12 @@ public class JotFragment extends Fragment implements JotContract.View {
     private ImageButton mEditButton;
     private ImageButton mDeleteButton;
 
+    private ImageView mImage;
+
     private RecyclerView mTagRecyclerView;
     private JotAdapter mJotAdapter;
+
+    private DiaryAdapter mTagAdapter;
     private ImageView mTagBackground;
 
     private TextView mCreatedTime;
@@ -47,7 +53,6 @@ public class JotFragment extends Fragment implements JotContract.View {
 
     public JotFragment(Note note) {
         mNote = note;
-        Log.d("note title", ": " + mNote.getmTitle());
 
     }
 
@@ -57,11 +62,11 @@ public class JotFragment extends Fragment implements JotContract.View {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jot, container, false);
 
-
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
         mTitle = (TextView)view.findViewById(R.id.jot_title);
         mText = (TextView)view.findViewById(R.id.jot_text);
+        mImage = view.findViewById(R.id.diary_image);
 
         setNoteData(mNote);
 
@@ -70,12 +75,17 @@ public class JotFragment extends Fragment implements JotContract.View {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
-            mJotAdapter = new JotAdapter(mNote.getmTag());
-            mTagRecyclerView.setAdapter(mJotAdapter);
+            mTagAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagRecyclerView.setAdapter(mTagAdapter);
+            mTagAdapter.setOnItemListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
+                }
+            });
+
         } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("") || mNote.getmTag().get(0).equals("null")) {
             mTagBackground.setVisibility(View.GONE);
-//            mTagRecyclerView.setVisibility(View.GONE);
-
         }
 
         mBackButton = (ImageButton)view.findViewById(R.id.button_back);
@@ -122,6 +132,18 @@ public class JotFragment extends Fragment implements JotContract.View {
         mCreatedTime.setText(note.getmCreatedTime());
         mTitle.setText(note.getmTitle());
         mText.setText(note.getmText());
+
+        if (mNote.getPhotoFromCamera() == null || mNote.getPhotoFromCamera().equals("")) {
+            if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+                mImage.setVisibility(View.GONE);
+            } else {
+                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+                mImage.setImageBitmap(bitmap);
+            }
+        } else {
+            mImage.setImageURI(Uri.parse(mNote.getPhotoFromCamera()));
+        }
+
     }
 
     @Override

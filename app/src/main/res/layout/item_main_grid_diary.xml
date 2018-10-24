@@ -2,17 +2,18 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="180dp"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent">
 
     <ImageView
         android:id="@+id/card"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="132dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
         android:paddingTop="-10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,7 +30,7 @@
         android:layout_marginEnd="4dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +40,7 @@
         android:id="@+id/note_diary_emotion"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="96dp"
+        android:layout_marginBottom="78dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/card"
         app:layout_constraintStart_toStartOf="@+id/card"
@@ -58,25 +59,29 @@
         android:id="@+id/note_tag_background"
         android:layout_width="40dp"
         android:layout_height="20dp"
+        android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/note_diary_emotion"
         app:layout_constraintEnd_toStartOf="@+id/note_type_background"
-        app:layout_constraintTop_toTopOf="@+id/note_diary_emotion"
-        app:srcCompat="@drawable/background_tag" />
+        app:srcCompat="@drawable/background_tag_normal" />
 
     <ImageView
         android:id="@+id/note_type_background"
         android:layout_width="40dp"
         android:layout_height="20dp"
         android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/note_tag_background"
         app:layout_constraintEnd_toEndOf="@+id/card"
-        app:layout_constraintTop_toTopOf="@+id/note_diary_emotion"
         app:srcCompat="@drawable/background_tag_diary" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="171dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:visibility="gone"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
@@ -86,25 +91,25 @@
 
         <ImageView
             android:id="@+id/note_image"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="160dp"
 
             android:background="@drawable/shape_main_grid_image"
             android:scaleType="centerCrop"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/card"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/image_sample" />
+            app:srcCompat="@drawable/image_sample_3" />
     </android.support.v7.widget.CardView>
 
     <TextView
-        android:id="@+id/note_text"
-        android:layout_width="184dp"
+        android:id="@+id/note_title"
+        android:layout_width="match_parent"
         android:layout_height="38dp"
-        android:layout_marginBottom="50dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
         android:ellipsize="end"
         android:text="食安問題頻傳，現代人重視食品安全，許多民眾擔心市面上的蔬菜有農藥殘留問題，因此開始吃有機食品，甚至有民眾乾脆在自家空地便開闢有機蔬果園。"
         android:textColor="@android:color/background_light"
@@ -170,5 +175,44 @@
         app:layout_constraintEnd_toEndOf="@+id/note_type_background"
         app:layout_constraintStart_toStartOf="@+id/note_type_background"
         app:layout_constraintTop_toTopOf="@+id/note_type_background" />
+
+    <TextView
+        android:id="@+id/account_revenue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="71dp"
+        tools:layout_editor_absoluteY="64dp" />
+
+    <TextView
+        android:id="@+id/account_expense"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="84dp" />
+
+    <TextView
+        android:id="@+id/account_balance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/account_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="40dp"
+        tools:layout_editor_absoluteY="36dp" />
 
 </android.support.constraint.ConstraintLayout>

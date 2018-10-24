@@ -29,7 +29,7 @@
         app:layout_constraintEnd_toEndOf="@+id/grid_item_background"
         app:layout_constraintStart_toStartOf="@+id/grid_item_background"
         app:layout_constraintTop_toTopOf="@+id/grid_item_background"
-        app:srcCompat="@drawable/image_sample" />
+        app:srcCompat="@drawable/image_sample_3" />
 
     <TextView
         android:id="@+id/grid_item_title"
@@ -45,7 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/grid_item_image" />
 
     <TextView
-        android:id="@+id/note_text"
+        android:id="@+id/note_title"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

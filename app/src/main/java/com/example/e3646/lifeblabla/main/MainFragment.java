@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,9 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.e3646.Sqldatabase;
 import com.example.e3646.lifeblabla.R;
-import com.example.e3646.lifeblabla.diary.DiaryFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActivity;
 import com.example.e3646.lifeblabla.object.Note;
 import com.example.e3646.lifeblabla.object.SpacesItemDecoration;
@@ -38,7 +38,7 @@ public class MainFragment extends Fragment implements MainContract.View {
     private MainAdapter mMainAdapter;
     private MainAdapterGrid mMainAdapterGrid;
     private ArrayList<Note> mNoteList;
-//    private boolean isListMode = false;
+
 
     public MainFragment(ArrayList<Note> noteList, boolean islistMode) {
 
@@ -48,7 +48,6 @@ public class MainFragment extends Fragment implements MainContract.View {
             mMainAdapter.notifyDataSetChanged();
             Log.d("NoteList", "title" + mNoteList.get(0).getmTitle());
         }
-//        isListMode = islistMode;
     }
 
     @Nullable
@@ -60,39 +59,30 @@ public class MainFragment extends Fragment implements MainContract.View {
         mContext = getContext();
         mPresenter.setContext(mContext);
 
+
+        Sqldatabase sql = new Sqldatabase(mContext);
+        mNoteList = sql.getNotes();
+
+
         mRecyclerView = (RecyclerView)view.findViewById(R.id.main_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(20));
         mMainAdapter = new MainAdapter(getContext(), mNoteList);
-        mMainAdapterGrid = new MainAdapterGrid(getContext());
+        mMainAdapterGrid = new MainAdapterGrid(getContext(), mNoteList);
         mRecyclerView.setAdapter(mMainAdapter);
+
+        mRecyclerView.getItemAnimator().setChangeDuration(300);
+        mRecyclerView.getItemAnimator().setMoveDuration(300);
 
 
         mMainAdapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mPresenter.takeNoteListPosition((int)view.getTag());
-                mPresenter.showDiaryFragment((int)view.getTag());
-//                showDiaryUI();
+
+                mPresenter.showdiary(mNoteList.get((int)view.getTag()));
+
             }
         });
 
-//        if (!isListMode) {
-//            mMainAdapter.setOnItemListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    showDiaryUI();
-//                }
-//            });
-//        } else {
-//            mMainAdapterGrid.setOnItemListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    showDiaryUI();
-//                }
-//            });
-//
-//        }
 
         return view;
     }
@@ -107,7 +97,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void showGridLayout() {
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(-20));
         mRecyclerView.setAdapter(mMainAdapterGrid);
 
     }
@@ -116,7 +105,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void showListLayout() {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.addItemDecoration(new SpacesItemDecoration(20));
         mRecyclerView.setAdapter(mMainAdapter);
 
     }

@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
 import com.example.e3646.lifeblabla.R;
+import com.example.e3646.lifeblabla.Search.SearchFragment;
+import com.example.e3646.lifeblabla.Search.SearchPresenter;
 import com.example.e3646.lifeblabla.dialogfragment.CheckDeleteFragment;
 import com.example.e3646.lifeblabla.mainactivity.MainActPresenter;
 import com.example.e3646.lifeblabla.object.Note;
@@ -23,6 +25,9 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     private DiaryEditFragment mDiaryEditFragment;
     private DiaryEditPresenter mDiaryEditPresenter;
     private MainActPresenter mMainActPresenter;
+    private SearchFragment mSearchFragment;
+    private SearchPresenter mSearchPresenter;
+
     private Note mNote;
 
     private CheckDeleteFragment mCheckDeleteFragment;
@@ -43,9 +48,13 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     }
 
     @Override
-    public void goEditDiary(boolean isCreating) {
+    public void goEditDiary(boolean isCreating, Note note) {
 
-        Note note = mNoteList.get(mNotePosition);
+        if (mNoteList != null) {
+            mNote = mNoteList.get(mNotePosition);
+        } else {
+            mNote = note;
+        }
 
         mDiaryEditFragment = new DiaryEditFragment(isCreating, note);
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this, false);
@@ -92,18 +101,32 @@ public class DiaryPresenter implements DiaryContract.Presenter {
 
     @Override
     public void showCheckDeleteDialog() {
-        mCheckDeleteFragment = new CheckDeleteFragment(this, null,  mNoteList.get(mNotePosition).getmId(), 1);
+        mCheckDeleteFragment = new CheckDeleteFragment(this, null, null, mNoteList.get(mNotePosition).getmId(), 1);
         mCheckDeleteFragment.show(mFragmentManager, null);
     }
 
     @Override
     public void deleteNoteData(String id) {
         mDiaryView.deleteNoteData(id);
-
     }
 
     @Override
     public void parseNote(Note note) {
         this.mNote = note;
+    }
+
+    @Override
+    public void goSearch(String tag) {
+
+        mSearchFragment = new SearchFragment(tag);
+        mSearchPresenter = new SearchPresenter(mSearchFragment);
+
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.add(R.id.diary_container, mSearchFragment, "SEARCH")
+                .show(mSearchFragment)
+                .addToBackStack(null)
+                .commit();
+
     }
 }

@@ -17,6 +17,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -25,7 +26,6 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,7 +61,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
     private EditText mDiaryTitle;
     private EditText mDiaryText;
-    private EditText mDiaryTag;
     private TextView mCreatedTime;
 
     private String mMindNum;
@@ -78,6 +77,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private ImageButton mTagButton;
     private ImageButton mMinusButton;
     private ImageView mPhoto;
+
     private ImageView mTagBottom;
 
     private RecyclerView mTagRecyclerView;
@@ -87,6 +87,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private ArrayList<Note> mNoteList;
 
     private Uri mUri;
+
+    private ConstraintLayout mConstraintLayout;
 
     private boolean isCreating;
     private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
@@ -114,15 +116,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mDiaryEditAdapter = new DiaryEditAdapter();
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
-        mDiaryTag = (EditText)view.findViewById(R.id.sample_title);
-        mDiaryTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
-                Log.d("done button", "click 2");
-                return false;
-            }
-        });
+        mConstraintLayout = view.findViewById(R.id.constraintlayout);
 
         mPhoto = (ImageView)view.findViewById(R.id.Jot_photo);
         mMinusButton = (ImageButton)view.findViewById(R.id.button_minus);
@@ -155,7 +150,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mCreatedTime.setText(mNote.getmCreatedTime());
         } else {
 
-            mCreatedTime.setText(currentTime());
+            mCreatedTime.setText(getCurrentTime());
         }
 
         mCompleteButton = (Button)view.findViewById(R.id.button_complete);
@@ -199,7 +194,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 mPresenter.selectMind();
             }
         });
-//
+
         mWeatherButton = (ImageButton)view.findViewById(R.id.button_weather);
         mWeatherButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,15 +228,16 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mTagBottom = (ImageView)view.findViewById(R.id.tag_bottom);
 
         final Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.tag_animation);
-        mTagBottom.setVisibility(View.INVISIBLE);
+        mTagRecyclerView.setVisibility(View.INVISIBLE);
 
         mTagButton = (ImageButton)view.findViewById(R.id.button_tag);
         mTagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                mTagBottom.setVisibility(View.VISIBLE);
-                mTagBottom.startAnimation(animation);
+                mTagRecyclerView.setVisibility(View.VISIBLE);
+                mTagRecyclerView.startAnimation(animation);
+
 
             }
         });
@@ -280,23 +276,19 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 mPhoto.setVisibility(View.VISIBLE);
                 mPhoto.setImageURI(uri);
                 mMinusButton.setVisibility(View.VISIBLE);
-//                handleImage(data);
-
 
                 break;
 
-            case 1:
+            case 1: //呼叫相機
 
                 if (resultCode == RESULT_OK) {
-                    Log.d("take photo", "RESULT_OK");
 
+                    //用getdata的方式沒有東西
 
-//                    mImagePath = getRealPathFromURI(data.getData());
-//                    Uri uriFor = data.getData();
+                    mConstraintLayout.setVisibility(View.VISIBLE);
                     mPhoto.setVisibility(View.VISIBLE);
                     mPhoto.setImageURI(mUri);
 
-                    Log.d("path", " : " + mImagePath);
 
 //                    Bundle extras = data.getExtras();
 //                    Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -317,58 +309,85 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-
-
-    private String currentTime() {
+    private String getCurrentTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
-
         String str = formatter.format(curDate);
-
         return str;
     }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
 
     @Override
     public void takeDiaryData() {
 
         if (isCreating) {
             mPresenter.setContext(mContext);
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
-            Date curDate = new Date(System.currentTimeMillis());
-            String currentTime = formatter.format(curDate);
-            String id = formateForID.format(curDate);
 
             mNote = new Note();
-            mNote.setmId(id);
+
             if (mDiaryTitle.getText().toString() != null && !mDiaryTitle.getText().toString().equals("")) {
                 mNote.setmTitle(mDiaryTitle.getText().toString());
             } else {
                 mNote.setmTitle("這是一則日記");
             }
             mNote.setmText(mDiaryText.getText().toString());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+            SimpleDateFormat formatterForMonth = new SimpleDateFormat("MM");
+            SimpleDateFormat formatterForDay = new SimpleDateFormat("dd");
+            SimpleDateFormat formatterForTime = new SimpleDateFormat("HH:mm");
+            SimpleDateFormat formatterForWeek = new SimpleDateFormat("EEEE");
+            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
+            SimpleDateFormat formateForDaytime = new SimpleDateFormat("HH");
+            Date curDate = new Date(System.currentTimeMillis());
+            String currentTime = formatter.format(curDate);
+            String month = formatterForMonth.format(curDate);
+            String day = formatterForDay.format(curDate);
+            String time = formatterForTime.format(curDate);
+            String week = formatterForWeek.format(curDate);
+            String id = formateForID.format(curDate);
+            String daytime = formateForDaytime.format(curDate);
+
+            if (Integer.parseInt(daytime) > 12 ) {
+                mNote.setDayTime("下午");
+            } else {
+                mNote.setDayTime("上午");
+            }
+
             mNote.setmCreatedTime(currentTime);
+            mNote.setMonth(month);
+            mNote.setDay(day);
+            mNote.setTime(time);
+            if (week.equals("Monday")) {
+                mNote.setWeek("MON");
+            } else if (week.equals("Tuesday")) {
+                mNote.setWeek("TUE");
+            } else if (week.equals("Wednesday")) {
+                mNote.setWeek("WED");
+            } else if (week.equals("Thursday")) {
+                mNote.setWeek("THUR");
+            } else if (week.equals("Friday")) {
+                mNote.setWeek("FRI");
+            } else if (week.equals("Saturday")) {
+                mNote.setWeek("SAT");
+            } else if (week.equals("Sunday")) {
+                mNote.setWeek("SUN");
+            }
+
+            mNote.setmId(id);
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("diary");
 
-            Log.d("set image path", ": " + mImagePath);
+            if (mUri != null) {
+                mNote.setPhotoFromCamera(mUri.toString());
+            } else if ( mImagePath != null) {
+                mNote.setmPicture(mImagePath);
+            }
+
             mNote.setmPicture(mImagePath);
-
             mNote.setmTag(mDiaryEditAdapter.TagList());
-
             mNote.setmMind(mMindNum);
-
-            Log.d("weather", "num: "+ mWeatherNum);
             mNote.setmWeather(mWeatherNum);
-
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);
@@ -397,40 +416,26 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
     @Override
     public void setMindSelection(String num) {
-
         mMindNum = num;
-
         if(num.equals("1")) {
             mMindButton.setImageResource(R.drawable.button_emotion);
-        }
-        if (num.equals("2")) {
+        } else if (num.equals("2")) {
             mMindButton.setImageResource(R.drawable.emotion_2);
-
-        }
-        if (num.equals("3")) {
+        } else if (num.equals("3")) {
             mMindButton.setImageResource(R.drawable.emotion_3);
-
-        }
-        if (num.equals("4")) {
+        } else if (num.equals("4")) {
             mMindButton.setImageResource(R.drawable.emotion_4);
-
-        }
-        if (num.equals("5")) {
+        } else if (num.equals("5")) {
             mMindButton.setImageResource(R.drawable.emotion_5);
-
-        }
-        if (num.equals("6")) {
+        } else if (num.equals("6")) {
             mMindButton.setImageResource(R.drawable.emotion_6);
-
         }
 
     }
 
     @Override
     public void setWeatherSelect(String num) {
-
         mWeatherNum = num;
-
         if (num.equals("1")) {
             mWeatherButton.setImageResource(R.drawable.weather_1);
         } else if (num.equals("2")) {
@@ -449,8 +454,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     @Override
     public void setNote(Note note) {
         this.mNote = note;
-
-        Log.d("edit diary in fragment", "note title: " + mNote.getmCreatedTime());
         mDiaryText.setText(mNote.getmText());
         mDiaryTitle.setText(mNote.getmTitle().toString());
         mCreatedTime.setText(mNote.getmCreatedTime());
@@ -467,36 +470,25 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     @Override
     public void getPhotoFromCamera() {
 
-        Log.d("permission", "granted" + ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE));
-
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            Log.d("permission", "granted");
         }
-
         String state = Environment.getExternalStorageState();// 獲取記憶體卡可用狀態
         if (state.equals(Environment.MEDIA_MOUNTED)) {
 
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            Uri uri;
-//            File file = new File(Environment.getExternalStorageDirectory() + "/images/"+System.currentTimeMillis()+".jpg");
+            File file = new File(Environment.getExternalStorageDirectory() + "/images/"+System.currentTimeMillis()+".jpg");
 
-            File file = null;
             try {
                 file = File.createTempFile(String.valueOf(System.currentTimeMillis()), ".jpg", getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
             } catch (IOException e) {
                 e.printStackTrace();
             }
             if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
-                uri = Uri.fromFile(file);
+                mUri = Uri.fromFile(file);
             } else {
-
                 mUri = FileProvider.getUriForFile(mContext, "com.example.e3646.lifeblabla", file);
-                Log.d("uri", ": "+ mUri);
-                Log.d("file", ": "+ file.getAbsolutePath());
-
             }
             intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-            intent.putExtra("ImageUri", mUri);
             intent.setFlags(FLAG_GRANT_READ_URI_PERMISSION);
             intent.setFlags(FLAG_GRANT_WRITE_URI_PERMISSION);
             startActivityForResult(intent, 1);
@@ -552,11 +544,10 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
     public void displayPhoto(String imagePath) {
 
-        Log.d("imagePath 4 ", ": " + imagePath);
+        mConstraintLayout.setVisibility(View.VISIBLE);
 
         if (imagePath != null) {
 
-            Log.d("imagePath 5 ", ": " + imagePath);
             mPhoto.setVisibility(View.VISIBLE);
             Bitmap bitImage = BitmapFactory.decodeFile(imagePath);//格式化圖片
             mPhoto.setImageBitmap(bitImage);//為imageView設定圖片

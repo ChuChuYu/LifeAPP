@@ -1,9 +1,12 @@
 package com.example.e3646.lifeblabla.account;
 
+import android.content.Context;
 import android.widget.ImageButton;
 
 import com.example.e3646.BasePresenter;
 import com.example.e3646.BaseView;
+import com.example.e3646.lifeblabla.object.Account;
+import com.example.e3646.lifeblabla.object.Note;
 
 public interface AccountEditContract {
 
@@ -19,6 +22,13 @@ public interface AccountEditContract {
 
         void takeNoteData();
 
+        void clearAddItemButtonsheet();
+
+        void hideUI();
+
+        void setAccountDatainDialog(Account account);
+
+        void countTotalAmount();
 
     }
 
@@ -30,8 +40,9 @@ public interface AccountEditContract {
 
         void completeCreating();
 
-        void completeEditing();
+        void completeEditing(Note note);
 
+        void saveNoteData(Context context, Note note);
 
 
     }

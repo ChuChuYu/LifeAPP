@@ -24,7 +24,7 @@ public interface DiaryContract {
 
     interface Presenter extends BasePresenter {
 
-        void goEditDiary(boolean isCreating);
+        void goEditDiary(boolean isCreating, Note note);
 
         void backToMain();
 
@@ -39,6 +39,8 @@ public interface DiaryContract {
         void deleteNoteData(String id);
 
         void parseNote(Note note);
+
+        void goSearch(String tag);
 
     }
 }

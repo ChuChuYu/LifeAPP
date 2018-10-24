@@ -8,10 +8,21 @@
     android:background="@drawable/background_main"
     tools:context=".mainactivity.MainActivity">
 
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="105dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="79dp"
+        android:layout_height="75dp"
         android:layout_marginBottom="8dp"
         android:background="#783b3b3b"
         android:fitsSystemWindows="false"
@@ -26,31 +37,85 @@
         app:titleMarginStart="60dp"
         app:titleTextColor="@android:color/background_light" />
 
-    <EditText
-        android:id="@+id/search_bar"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#783B3B3B"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:tabIndicatorColor="#90FFFFFF"
+        app:tabSelectedTextColor="#FFFFFF"
+        app:tabTextColor="#50FFFFFF">
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全部" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日記" />
+
+        <android.support.design.widget.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="隨筆" />
+
+        <android.support.design.widget.TabItem
+            android:id="@+id/tabItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="記帳" />
+    </android.support.design.widget.TabLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="33dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="80dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/background_search"
-        android:hint=""
-        android:inputType="text"
-        android:textColor="@android:color/background_light"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/background_list_item"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toStartOf="@+id/button_add_notes"
-        app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="28dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:hint="搜尋筆記"
+            android:inputType="text"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="#96ffffff"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_add_notes"
+            app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="79dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="105dp"
         app:layout_constraintBottom_toTopOf="@+id/main_bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbar">
 
@@ -66,24 +131,13 @@
     <!--app:layout_constraintTop_toBottomOf="@+id/main_activity_container"-->
     <!--app:srcCompat="@drawable/edit" />-->
 
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/main_bottom_navigation"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#3B3B3B"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_item" />
 
     <ToggleButton
         android:id="@+id/button_switch_layout"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="28dp"
-        android:background="@android:color/transparent"
+        android:background="#00ffffff"
         android:button="@drawable/button_grid_layout"
         android:scaleType="centerCrop"
         android:textOff=""
@@ -92,7 +146,23 @@
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
         app:layout_constraintHorizontal_bias="0.978"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/main_bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#783B3B3B"
+        android:paddingBottom="-10dp"
+        app:itemIconTint="#BBFFFFFF"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_navigation_item">
+
+    </android.support.design.widget.BottomNavigationView>
 
     <ImageButton
         android:id="@+id/button_add_notes"
@@ -100,12 +170,11 @@
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="28dp"
         android:background="@android:color/transparent"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/toolbar"
-        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout2"
         app:layout_constraintVertical_bias="0.49"
         app:srcCompat="@drawable/button_plus" />
 

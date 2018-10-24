@@ -39,6 +39,8 @@ public interface JotContract {
 
         void goEditJot(boolean isCreating);
 
+        void goSearch(String tag);
+
 
 
 

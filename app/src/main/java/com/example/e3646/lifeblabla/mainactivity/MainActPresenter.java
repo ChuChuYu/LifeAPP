@@ -1,6 +1,7 @@
 package com.example.e3646.lifeblabla.mainactivity;
 
 import android.content.Context;
+import android.net.Uri;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,10 +14,6 @@ import com.example.e3646.lifeblabla.account.AccountEditPresenter;
 import com.example.e3646.lifeblabla.account.AccountFragment;
 import com.example.e3646.lifeblabla.account.AccountPresenter;
 
-import com.example.e3646.lifeblabla.calendar.CalendarFragment;
-import com.example.e3646.lifeblabla.calendar.CalendarPresenter;
-import com.example.e3646.lifeblabla.conference.ConferenceFragment;
-import com.example.e3646.lifeblabla.conference.ConferencePresenter;
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogJotFragment;
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryEditFragment;
@@ -27,15 +24,16 @@ import com.example.e3646.lifeblabla.jot.JotEditFragment;
 import com.example.e3646.lifeblabla.jot.JotEditPresenter;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.jot.JotPresenter;
+import com.example.e3646.lifeblabla.main.MainAccountFragment;
+import com.example.e3646.lifeblabla.main.MainDiaryFragment;
 import com.example.e3646.lifeblabla.main.MainFragment;
+import com.example.e3646.lifeblabla.main.MainJotFragment;
 import com.example.e3646.lifeblabla.main.MainPresenter;
-import com.example.e3646.lifeblabla.map.MapFragment;
-import com.example.e3646.lifeblabla.map.MapPresenter;
+
 import com.example.e3646.lifeblabla.object.Note;
 import com.example.e3646.lifeblabla.setting.SettingFragment;
 import com.example.e3646.lifeblabla.setting.SettingPresenter;
-import com.example.e3646.lifeblabla.todolist.TodolistFragment;
-import com.example.e3646.lifeblabla.todolist.TodolistPresenter;
+
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -48,13 +46,15 @@ public class MainActPresenter implements MainActContract.Presenter {
     private Context mContext;
 
     private MainFragment mMainFragment;
+    private MainDiaryFragment mMainDiaryFragment;
+    private MainJotFragment mMainJotFragment;
+    private MainAccountFragment mMainAccountFragment;
+
     private DiaryFragment mDiaryFragment;
     private DiaryEditFragment mDiaryEditFragment;
     private JotEditFragment mJotEditFragment;
     private AccountEditFragment mAccountEditFragment;
 
-    private CalendarFragment mCalendarFragment;
-    private MapFragment mMapFragment;
     private SettingFragment mSettingFragment;
 
     private MainPresenter mMainPresenter;
@@ -64,9 +64,6 @@ public class MainActPresenter implements MainActContract.Presenter {
     private JotEditPresenter mJotEditPresenter;
     private AccountEditPresenter mAccountEditPresenter;
 
-
-    private CalendarPresenter mCalendarPresenter;
-    private MapPresenter mMapPresenter;
     private SettingPresenter mSettingPresenter;
 
     private FragmentManager mFragmentManager;
@@ -74,12 +71,15 @@ public class MainActPresenter implements MainActContract.Presenter {
     private ArrayList<Note> mNoteList;
     private Note mNote;
 
-    public MainActPresenter(MainActContract.View mainActView, FragmentManager fragmentManager, MainFragment mainFragment) {
+    public MainActPresenter(MainActContract.View mainActView, FragmentManager fragmentManager, MainFragment mainFragment, MainDiaryFragment mainDiaryFragment, MainJotFragment mainJotFragment, MainAccountFragment mainAccountFragment) {
 
         mMainActView = checkNotNull(mainActView);
         mMainActView.setPresenter(this);
         mFragmentManager = fragmentManager;
         mMainFragment = mainFragment;
+        mMainDiaryFragment = mainDiaryFragment;
+        mMainJotFragment = mainJotFragment;
+        mMainAccountFragment = mainAccountFragment;
 
     }
 
@@ -92,21 +92,6 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     @Override
     public void init() {
-        if (mMapFragment == null) {
-            mMapFragment = new MapFragment();
-        }
-
-        if (mMapPresenter == null) {
-            mMapPresenter = new MapPresenter(mMapFragment);
-        }
-
-        if (mCalendarFragment == null) {
-            mCalendarFragment = new CalendarFragment();
-        }
-
-        if (mCalendarPresenter == null) {
-            mCalendarPresenter = new CalendarPresenter(mCalendarFragment);
-        }
 
         if (mSettingFragment == null) {
             mSettingFragment = new SettingFragment();
@@ -117,11 +102,8 @@ public class MainActPresenter implements MainActContract.Presenter {
         }
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.add(R.id.whole_container, mCalendarFragment, "CALENDAR")
-                .add(R.id.whole_container, mMapFragment, "MAP")
+        transaction
                 .add(R.id.whole_container, mSettingFragment, "SETTING")
-                .hide(mCalendarFragment)
-                .hide(mMapFragment)
                 .hide(mSettingFragment)
                 .commit();
     }
@@ -130,9 +112,12 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void showMainFragment() {
         mMainActView.showMainUI();
         if (mMainPresenter == null) {
-            mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
+            mMainPresenter = new MainPresenter(mMainFragment, mMainDiaryFragment, mMainAccountFragment, mMainJotFragment, mFragmentManager, this);
         }
     }
+
+
+    ////////
 
     @Override
     public void backToMain() {
@@ -148,6 +133,8 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     }
 
+    //////
+
     @Override
     public void goDiaryDetail() {
 
@@ -162,61 +149,41 @@ public class MainActPresenter implements MainActContract.Presenter {
 
 
 
+//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+//        transaction
+//                .show(mMainFragment)
+//                .hide(mSettingFragment)
+//                .addToBackStack(null)
+//                .commit();
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction
-                .show(mMainFragment)
-                .hide(mCalendarFragment)
+
                 .hide(mSettingFragment)
-                .hide(mMapFragment)
-                .addToBackStack(null)
                 .commit();
 
-        mMainActView.showToolBar();
+        mMainActView.showMainUI();
+        mMainActView.showMainPage();
+        mMainActView.refreshMainPage("");
         mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
+        mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
+
+//        mMainActView.showToolBar();
+//        mMainActView.showToggleButton();
+//        mMainActView.showAddNoteButton();
+//        mMainActView.showBottomNaviagtion();
 
     }
 
     @Override
     public void goMap() {
 
-        if (mMapFragment == null) {
-            mMapFragment = new MapFragment();
-        }
-
-        if (mMapPresenter == null) {
-            mMapPresenter = new MapPresenter(mMapFragment);
-        }
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction
-                .replace(R.id.whole_container, mMapFragment)
-                .show(mMapFragment)
-                .commit();
-
-        hideComponent();
-        mMainActView.showBottomNaviagtion();
     }
 
     @Override
     public void goCalendar() {
-        if (mCalendarFragment == null) {
-            mCalendarFragment = new CalendarFragment();
-        }
 
-        if (mCalendarPresenter == null) {
-            mCalendarPresenter = new CalendarPresenter(mCalendarFragment);
-        }
-
-        FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction
-                .replace(R.id.whole_container, mCalendarFragment)
-                .show(mCalendarFragment)
-                .commit();
-
-        hideComponent();
-        mMainActView.showBottomNaviagtion();
 
     }
 
@@ -272,22 +239,31 @@ public class MainActPresenter implements MainActContract.Presenter {
                 .commit();
     }
 
+    ////////
+
     @Override
     public void refreshMainFragment() {
 
-        mMainFragment = new MainFragment(mNoteList, true);
-        mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
+//        mMainFragment = new MainFragment(mNoteList, true);
+//        mMainPresenter = new MainPresenter(mMainFragment, mFragmentManager, this);
+//
+//        FragmentTransaction transaction =  mFragmentManager.beginTransaction();
+//        transaction.add(R.id.main_activity_container, mMainFragment)
+//                .show(mMainFragment)
+//                .commit();
 
-        FragmentTransaction transaction =  mFragmentManager.beginTransaction();
-        transaction.add(R.id.main_activity_container, mMainFragment)
-                .show(mMainFragment)
-                .commit();
 
+
+        mMainActView.showMainUI();
+        mMainActView.showMainPage();
+        mMainActView.refreshMainPage("");
         mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
     }
+
+    ////////
 
     @Override
     public void showBottomSheet() {
@@ -308,6 +284,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mMainActView.hideToolBar();
         mMainActView.hideToggleButton();
         mMainActView.hideAddNoteButton();
+        mMainActView.hideMainPage();
     }
 
     @Override
@@ -319,35 +296,37 @@ public class MainActPresenter implements MainActContract.Presenter {
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
                 .show(mDiaryEditFragment)
-                .hide(mMainFragment)
+//                .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 
     @Override
     public void goAccountEdit() {
 
-        mAccountEditFragment = new AccountEditFragment();
+        mAccountEditFragment = new AccountEditFragment(true, null);
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mAccountEditFragment, "EDIT ACCOUNT")
                 .show(mAccountEditFragment)
-                .hide(mMainFragment)
+//                .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
     }
 
-    @Override
-    public void goJotEdit() {
 
-        mJotEditFragment = new JotEditFragment(true, null);
+    @Override
+    public void goJotEdit(String imagePath, Uri uri) {
+
+        mJotEditFragment = new JotEditFragment(true, null, imagePath, uri);
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mJotEditFragment, "EDIT JOT")
                 .show(mJotEditFragment)
-                .hide(mMainFragment)
+//                .hide(mMainFragment)
                 .addToBackStack(null)
                 .commit();
 
