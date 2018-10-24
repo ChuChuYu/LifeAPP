@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -175,17 +176,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         int no = mNoteList.size()-i-1;
 
 
-            if (mNoteList.get(no).getmPicture() != null && !mNoteList.get(no).getmPicture().equals("")) {
-                Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
-                mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
-                mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
-                mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
-                mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
-
-
-
-            }
-
             if (mNoteList.get(no).getmClassification().equals("diary")) {
                 if (mNoteList.get(mNoteList.size() - i - 1).getmMind() != null) {
                     if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("1")) {
@@ -225,6 +215,27 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 } else {
                     mainGridItemViewHolder.mTitle.setText("一則日記");
                 }
+
+                if (mNoteList.get(no).getPhotoFromCamera() == null || mNoteList.get(no).getPhotoFromCamera().equals("")) {
+                    if (mNoteList.get(no).getmPicture() == null || mNoteList.get(no).getmPicture().equals("")) {
+
+                    } else {
+                        Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(no).getmPicture());
+                        mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+                        mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
+                        mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
+                        mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+                    mainGridItemViewHolder.mImage.setImageURI(Uri.parse(mNoteList.get(no).getPhotoFromCamera()));
+                    mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
+                    mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
+                    mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
+
+                }
+
+
             }
 
             if (mNoteList.get(no).getmClassification().equals("jot")) {
@@ -237,6 +248,25 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                     mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
                 } else {
                     mainGridItemViewHolder.mTitle.setText("隨手記一筆");
+                }
+
+                if (mNoteList.get(no).getPhotoFromCamera() == null || mNoteList.get(no).getPhotoFromCamera().equals("")) {
+                    if (mNoteList.get(no).getmPicture() == null || mNoteList.get(no).getmPicture().equals("")) {
+
+                    } else {
+                        Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(no).getmPicture());
+                        mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+                        mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
+                        mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
+                        mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
+
+                    }
+                } else {
+                    mainGridItemViewHolder.mImage.setImageURI(Uri.parse(mNoteList.get(no).getPhotoFromCamera()));
+                    mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
+                    mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
+                    mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
+
                 }
             }
 
@@ -263,7 +293,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 mainGridItemViewHolder.mAccountBalance.setText(mNoteList.get(no).getAccountBalance());
             }
 
-        if (mNoteList.get(mNoteList.size() - i - 1).getmTag() != null && !mNoteList.get(mNoteList.size() - i - 1).getmTag().get(0).equals("") && !mNoteList.get(mNoteList.size() - i - 1).getmTag().get(0).equals("null")) {
+        if (mNoteList.get(no).getmTag() != null && !mNoteList.get(mNoteList.size() - i - 1).getmTag().get(0).equals("") && !mNoteList.get(mNoteList.size() - i - 1).getmTag().get(0).equals("null")) {
             mainGridItemViewHolder.mTag.setText(mNoteList.get(mNoteList.size() - i - 1).getmTag().get(0));
             ViewGroup.LayoutParams backgorundParams = mainGridItemViewHolder.mTagBackground.getLayoutParams();
             backgorundParams.width = mNoteList.get(mNoteList.size() - i - 1).getmTag().get(0).length() * 30 + 20;

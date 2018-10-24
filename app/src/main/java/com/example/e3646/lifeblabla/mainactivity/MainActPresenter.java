@@ -149,17 +149,30 @@ public class MainActPresenter implements MainActContract.Presenter {
 
 
 
+//        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+//        transaction
+//                .show(mMainFragment)
+//                .hide(mSettingFragment)
+//                .addToBackStack(null)
+//                .commit();
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction
-                .show(mMainFragment)
+
                 .hide(mSettingFragment)
-                .addToBackStack(null)
                 .commit();
 
-        mMainActView.showToolBar();
+        mMainActView.showMainUI();
+        mMainActView.showMainPage();
+        mMainActView.refreshMainPage("");
         mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
+        mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
+
+//        mMainActView.showToolBar();
+//        mMainActView.showToggleButton();
+//        mMainActView.showAddNoteButton();
+//        mMainActView.showBottomNaviagtion();
 
     }
 

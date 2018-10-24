@@ -317,10 +317,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("jot");
-//
-//            Log.d("set image path", ": " + mImagePath);
-//            mNote.setmPicture(mImagePath);
-
             mNote.setmTag(mDiaryEditAdapter.TagList());
 
             mNoteList = new ArrayList<Note>();

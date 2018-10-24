@@ -115,12 +115,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         init();
 
-
-
-//        mBottomNavigation = findViewById(R.id.main_bottom_navigation);
-
-
-
         mToggleButton = (ToggleButton)findViewById(R.id.button_switch_layout);
         mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

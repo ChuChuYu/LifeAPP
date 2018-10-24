@@ -53,7 +53,6 @@ public class JotFragment extends Fragment implements JotContract.View {
 
     public JotFragment(Note note) {
         mNote = note;
-        Log.d("note title", ": " + mNote.getmTitle());
 
     }
 
@@ -62,7 +61,6 @@ public class JotFragment extends Fragment implements JotContract.View {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jot, container, false);
-
 
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
@@ -88,8 +86,6 @@ public class JotFragment extends Fragment implements JotContract.View {
 
         } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("") || mNote.getmTag().get(0).equals("null")) {
             mTagBackground.setVisibility(View.GONE);
-//            mTagRecyclerView.setVisibility(View.GONE);
-
         }
 
         mBackButton = (ImageButton)view.findViewById(R.id.button_back);
@@ -147,9 +143,6 @@ public class JotFragment extends Fragment implements JotContract.View {
         } else {
             mImage.setImageURI(Uri.parse(mNote.getPhotoFromCamera()));
         }
-
-
-
 
     }
 

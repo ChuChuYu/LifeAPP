@@ -270,6 +270,10 @@ public class MainAdapter extends RecyclerView.Adapter {
                 mainListItemViewHolder.mAccountItemNumber.setVisibility(View.INVISIBLE);
                 mainListItemViewHolder.mText.setText(mNoteList.get(no).getmText());
             }
+
+
+
+
         } else if (mNoteList.get(no).getmClassification().equals("account")) {
 
             if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).getmTitle().equals("")) {

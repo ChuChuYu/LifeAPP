@@ -260,7 +260,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             @Override
             public void onClick(View view) {
 
-                if (isRevenue == 3 || mCategory.equals("0")) {
+                if (isRevenue == 3 || mCategory.equals("0") || mMoneyAmount.equals("")) {
                     Toast.makeText(getContext(), "Please set content.", Toast.LENGTH_SHORT).show();
                 } else {
                     if (isCreatingItem) {
@@ -512,9 +512,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mAccoountList.add(mAccount);
             mAccountAdapter.setAccountList(mAccoountList);
             mAccountAdapter.notifyDataSetChanged();
-
-
-            //沒有存進去
 
             Sqldatabase sql = new Sqldatabase(getContext());
             sql.insertAccount(mAccount);

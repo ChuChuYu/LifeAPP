@@ -140,7 +140,7 @@
     <ImageView
         android:id="@+id/imageView33"
         android:layout_width="match_parent"
-        android:layout_height="485dp"
+        android:layout_height="1000dp"
         android:background="#50ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
