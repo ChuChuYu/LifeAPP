@@ -419,7 +419,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mNoteList.size();
-//        return mNoteList.size();
     }
 
     @Override
