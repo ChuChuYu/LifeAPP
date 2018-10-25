@@ -83,6 +83,16 @@ public class MainFragment extends Fragment implements MainContract.View {
             }
         });
 
+        mMainAdapterGrid.setOnItemListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("click", ".....");
+                mPresenter.showdiary(mNoteList.get((int)view.getTag()));
+            }
+        });
+
+
+
 
         return view;
     }

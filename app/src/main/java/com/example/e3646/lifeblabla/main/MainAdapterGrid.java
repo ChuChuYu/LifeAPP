@@ -70,7 +70,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         }
     }
 
-    public class MainGridItemViewHolder extends RecyclerView.ViewHolder {
+    public class MainGridItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView mImage;
         private ImageView mImageBack;
@@ -128,6 +128,11 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             mAccountExpense = itemView.findViewById(R.id.account_expense);
             mAccountBalance = itemView.findViewById(R.id.account_balance);
             mAccountNumber = itemView.findViewById(R.id.account_number);
+
+        }
+
+        @Override
+        public void onClick(View view) {
 
         }
     }
@@ -304,6 +309,15 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         }
 
 
+        mainGridItemViewHolder.itemView.setTag(no);
+
+        mainGridItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClick(view);
+                Log.d("gird item", "click");
+            }
+        });
 
 //
 
@@ -384,11 +398,21 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
     private void initLayoutAccount(MainAccountItemViewHolder viewHolder, int i) {
         MainAccountItemViewHolder mainAccountItemViewHolder = (MainAccountItemViewHolder)viewHolder;
 
+
+
         int no = mNoteList.size()-i-1;
 
         mainAccountItemViewHolder.mAccountRevenue.setText(mNoteList.get(no).getAccountRevenue());
         mainAccountItemViewHolder.mAccountExpense.setText(mNoteList.get(no).getAccountExpense());
         mainAccountItemViewHolder.mAccountBalance.setText(mNoteList.get(no).getAccountBalance());
+
+        mainAccountItemViewHolder.itemView.setTag(no);
+        mainAccountItemViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onClick(view);
+            }
+        });
 
     }
 
