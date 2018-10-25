@@ -11,7 +11,7 @@
         android:layout_width="70dp"
         android:layout_height="24dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,14 +38,17 @@
 
     <ImageButton
         android:id="@+id/button_delete_tag"
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginStart="4dp"
         android:background="@android:color/transparent"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toBottomOf="@+id/tag_backgournd"
-        app:layout_constraintEnd_toEndOf="@+id/tag_backgournd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tag_backgournd"
         app:layout_constraintTop_toTopOf="@+id/tag_backgournd"
-        app:srcCompat="@drawable/button_delete_tag" />
+        app:layout_constraintVertical_bias="0.555"
+        app:srcCompat="@drawable/button_remove" />
 </android.support.constraint.ConstraintLayout>

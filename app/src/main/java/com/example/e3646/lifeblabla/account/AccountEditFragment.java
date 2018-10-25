@@ -467,7 +467,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerview.setLayoutManager(linearLayoutManager);
-        mTagAdapter = new DiaryEditAdapter();
+        mTagAdapter = new DiaryEditAdapter(null);
         mTagRecyclerview.setAdapter(mTagAdapter);
     }
 

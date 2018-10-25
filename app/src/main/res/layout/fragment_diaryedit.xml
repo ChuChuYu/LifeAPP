@@ -252,6 +252,7 @@
     <!--app:menu="@menu/bottom_navigation_edit"/>-->
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">

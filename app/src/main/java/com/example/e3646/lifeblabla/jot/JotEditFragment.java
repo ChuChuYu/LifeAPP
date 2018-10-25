@@ -82,7 +82,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mDiaryEditAdapter = new DiaryEditAdapter();
+        mDiaryEditAdapter = new DiaryEditAdapter(null);
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
         mJotTag = (EditText)view.findViewById(R.id.sample_title);

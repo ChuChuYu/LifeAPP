@@ -25,6 +25,11 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     private int TYPE_TAG = 1;
     private int TYPE_EDIT = 2;
     private ArrayList<String> mTagList = new ArrayList<String>();
+    private DiaryEditFragment mDiaryEditFragment;
+
+    public DiaryEditAdapter(DiaryEditFragment diaryEditFragment) {
+        mDiaryEditFragment = diaryEditFragment;
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -85,6 +90,19 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     private void initLayoutEdit(EditItemViewHolder viewHolder, int i) {
 
         final EditItemViewHolder editItemViewHolder = (EditItemViewHolder)viewHolder;
+
+        editItemViewHolder.mTagEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) {
+                    mDiaryEditFragment.getTagEditFocus();
+                } else {
+
+                    mDiaryEditFragment.getTagEditUnFocus();
+                }
+            }
+        });
+
         editItemViewHolder.mTagEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {

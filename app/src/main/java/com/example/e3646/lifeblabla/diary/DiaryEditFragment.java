@@ -78,6 +78,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private ImageButton mMinusButton;
     private ImageView mPhoto;
 
+    private ConstraintLayout mBottomBar;
+
     private ImageView mTagBottom;
 
     private RecyclerView mTagRecyclerView;
@@ -113,9 +115,10 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mDiaryEditAdapter = new DiaryEditAdapter();
+        mDiaryEditAdapter = new DiaryEditAdapter(this);
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
+        mBottomBar = view.findViewById(R.id.bottom_bar);
 
         mConstraintLayout = view.findViewById(R.id.constraintlayout);
 
@@ -229,6 +232,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         final Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.tag_animation);
         mTagRecyclerView.setVisibility(View.INVISIBLE);
+        mTagRecyclerView.setFitsSystemWindows(true);
 
         mTagButton = (ImageButton)view.findViewById(R.id.button_tag);
         mTagButton.setOnClickListener(new View.OnClickListener() {
@@ -520,6 +524,19 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         } else {
 
         }
+    }
+
+    @Override
+    public void getTagEditFocus() {
+
+        mBottomBar.setFitsSystemWindows(true);
+    }
+
+    @Override
+    public void getTagEditUnFocus() {
+
+        mBottomBar.setFitsSystemWindows(false);
+
     }
 
 

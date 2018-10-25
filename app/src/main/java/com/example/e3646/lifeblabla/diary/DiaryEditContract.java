@@ -30,6 +30,10 @@ public interface DiaryEditContract {
 
         void getPhotoFromCamera();
 
+        void getTagEditFocus();
+
+        void getTagEditUnFocus();
+
 
     }
 
