@@ -50,8 +50,6 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
 
         mAccountEditView.hideUI();
         mMainActPresenter.refreshMainFragment();
-        mMainActPresenter.backToMain();
-
 
     }
 

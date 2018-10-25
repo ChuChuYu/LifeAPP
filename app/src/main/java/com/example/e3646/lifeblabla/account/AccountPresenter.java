@@ -56,7 +56,7 @@ public class AccountPresenter implements AccountContract.Presenter {
     public void backToMain() {
         mAccountView.hideUI();
         mMainActPresenter.refreshMainFragment();
-        mMainActPresenter.backToMain();
+//        mMainActPresenter.backToMain();
     }
 
     @Override

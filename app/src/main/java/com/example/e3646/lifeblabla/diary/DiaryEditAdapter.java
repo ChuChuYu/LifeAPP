@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.e3646.lifeblabla.R;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class DiaryEditAdapter extends RecyclerView.Adapter {
 
@@ -104,7 +106,10 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
         ViewGroup.LayoutParams textParams = tagItemViewHolder.mTagText.getLayoutParams();
         ViewGroup.LayoutParams backgroundParams = tagItemViewHolder.mTagBackground.getLayoutParams();
 
-        backgroundParams.width = mTagList.get(i).length()*60 + 20;
+        int numofchinese = numOfChinese(mTagList.get(i));
+        Log.d("num of ", "chinese " + numofchinese);
+        int numofenglish = mTagList.get(i).length() - numofchinese;
+        backgroundParams.width = numofenglish*25 + numofchinese*60 + 20;
         tagItemViewHolder.mTagBackground.setLayoutParams(backgroundParams);
 
 
@@ -150,8 +155,14 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
         for (int i = 0; i<tagText.length(); i++) {
             String text = String.valueOf(tagText.charAt(i));
-            if (text.matches("[\\u4E00-\\u9FA5]+")) {
-                i += 1;
+//            Pattern pattern = Pattern.compile("[a-zA-Z]");
+//            Matcher matcher = pattern.matcher(text);
+//
+//            if(matcher.matches()) {
+//                numOfCh+=1;
+//            }
+            if (text.matches("[\u4e00-\u9fa5]+")) {
+                numOfCh += 1;
             }
         }
         return numOfCh;

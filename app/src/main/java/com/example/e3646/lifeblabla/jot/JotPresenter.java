@@ -54,7 +54,7 @@ public class JotPresenter implements JotContract.Presenter {
 
         mJotView.hideUI();
         mMainActPresenter.refreshMainFragment();
-        mMainActPresenter.backToMain();
+//        mMainActPresenter.backToMain();
 
     }
 

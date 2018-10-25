@@ -137,7 +137,10 @@ public class MainAdapter extends RecyclerView.Adapter {
         if (mNoteList.get(no).getmTag() != null && !mNoteList.get(no).getmTag().get(0).equals("") && !mNoteList.get(no).getmTag().get(0).equals("null")) {
             mainListItemViewHolder.mTag.setText(mNoteList.get(no).getmTag().get(0));
             ViewGroup.LayoutParams backgorundParams = mainListItemViewHolder.mTagBackground.getLayoutParams();
-            backgorundParams.width = mNoteList.get(no).getmTag().get(0).length() * 30 + 20;
+            int numofchinese = numOfChinese(mNoteList.get(no).getmTag().get(0));
+            Log.d("num of ", "chinese " + numofchinese);
+            int numofenglish = mNoteList.get(no).getmTag().get(0).length() - numofchinese;
+            backgorundParams.width = numofenglish*25 + numofchinese*60 + 20;
             mainListItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
         } else {
             mainListItemViewHolder.mTag.setVisibility(View.INVISIBLE);
@@ -305,6 +308,20 @@ public class MainAdapter extends RecyclerView.Adapter {
     public void setOnItemListener(View.OnClickListener listener) {
         this.mListener = listener;
     }
+
+    private int numOfChinese(String tagText) {
+        int numOfCh = 0;
+
+        for (int i = 0; i<tagText.length(); i++) {
+            String text = String.valueOf(tagText.charAt(i));
+
+            if (text.matches("[\u4e00-\u9fa5]+")) {
+                numOfCh += 1;
+            }
+        }
+        return numOfCh;
+    }
+
 
 
 

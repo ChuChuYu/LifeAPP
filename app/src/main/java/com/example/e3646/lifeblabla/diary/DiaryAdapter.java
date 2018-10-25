@@ -70,7 +70,12 @@ public class DiaryAdapter extends RecyclerView.Adapter {
         });
 
         ViewGroup.LayoutParams backgorundParams = tagItemViewHolder.mTagBackground.getLayoutParams();
-        backgorundParams.width = mTagList.get(i).length() * 60 + 20;
+
+        int numofchinese = numOfChinese(mTagList.get(i));
+
+        int numofenglish = mTagList.get(i).length() - numofchinese;
+        backgorundParams.width = numofenglish*25 + numofchinese*60 + 20;
+
         tagItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
 
         tagItemViewHolder.mDeleteButton.setVisibility(View.INVISIBLE);
@@ -87,6 +92,19 @@ public class DiaryAdapter extends RecyclerView.Adapter {
 
     public void setOnItemListener(View.OnClickListener listener) {
         this.mListener = listener;
+    }
+
+    private int numOfChinese(String tagText) {
+        int numOfCh = 0;
+
+        for (int i = 0; i<tagText.length(); i++) {
+            String text = String.valueOf(tagText.charAt(i));
+
+            if (text.matches("[\u4e00-\u9fa5]+")) {
+                numOfCh += 1;
+            }
+        }
+        return numOfCh;
     }
 
 }

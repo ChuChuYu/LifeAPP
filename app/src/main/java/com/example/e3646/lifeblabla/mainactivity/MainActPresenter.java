@@ -121,15 +121,16 @@ public class MainActPresenter implements MainActContract.Presenter {
 
     @Override
     public void backToMain() {
+        
+        FragmentTransaction transaction =  mFragmentManager.beginTransaction();
+        transaction.show(mMainFragment)
+                .commit();
 
         mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
 
-        FragmentTransaction transaction =  mFragmentManager.beginTransaction();
-        transaction.show(mMainFragment)
-                .commit();
 
     }
 
