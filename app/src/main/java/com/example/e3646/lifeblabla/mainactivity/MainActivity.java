@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.media.Image;
@@ -48,6 +50,7 @@ import com.example.e3646.lifeblabla.account.AccountFragment;
 
 import com.example.e3646.lifeblabla.dialogfragment.BottomSheetDialogTemplateFragment;
 import com.example.e3646.lifeblabla.diary.DiaryFragment;
+import com.example.e3646.lifeblabla.guideactivity.GuideActivity;
 import com.example.e3646.lifeblabla.jot.JotFragment;
 import com.example.e3646.lifeblabla.main.MainAccountFragment;
 import com.example.e3646.lifeblabla.main.MainContract;
@@ -112,6 +115,18 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         int i = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         view.setSystemUiVisibility(i);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("isFirst", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        boolean isFirst = sharedPreferences.getBoolean("isFirst", true);
+
+        if (isFirst) {
+            editor.putBoolean("isFirst", false);
+            editor.commit();
+            Intent intent = new Intent(MainActivity.this, GuideActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         init();
 

@@ -61,8 +61,9 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
 
 
     @Override
-    public void cancelEditDiary(Fragment fragment) {
+    public void cancelEditing(Fragment fragment) {
         mDiaryEditView.hideUI();
+        mMainActPresenter.refreshMainFragment();
         mMainActPresenter.backToMain();
     }
 

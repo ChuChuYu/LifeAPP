@@ -35,7 +35,7 @@ public interface DiaryEditContract {
 
     interface Presenter extends BasePresenter {
 
-        void cancelEditDiary(Fragment fragment);
+        void cancelEditing(Fragment fragment);
 
         void saveDiaryData(ArrayList<Note> noteList, Note note);
 

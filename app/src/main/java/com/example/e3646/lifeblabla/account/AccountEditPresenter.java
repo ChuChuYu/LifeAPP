@@ -49,7 +49,9 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
     public void cancelEditing() {
 
         mAccountEditView.hideUI();
+        mMainActPresenter.refreshMainFragment();
         mMainActPresenter.backToMain();
+
 
     }
 

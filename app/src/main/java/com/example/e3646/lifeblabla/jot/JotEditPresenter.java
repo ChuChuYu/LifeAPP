@@ -45,6 +45,7 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
     public void cancelEditing() {
 
         mJotEditView.hideUI();
+        mMainActPresenter.refreshMainFragment();
         mMainActPresenter.backToMain();
 
     }

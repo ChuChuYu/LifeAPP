@@ -25,7 +25,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -179,7 +179,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             public void onClick(View view) {
 
                 if (isCreating) {
-                    mPresenter.cancelEditDiary(null);
+                    mPresenter.cancelEditing(null);
                 } else {
                     hideUI();
                 }
@@ -245,6 +245,33 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+
+                if (keyEvent.getAction() == keyEvent.ACTION_UP && i == keyEvent.KEYCODE_BACK) {
+
+                    if (isCreating) {
+                        mPresenter.cancelEditing(null);
+                    } else {
+                        hideUI();
+                    }
+                    return false;
+                }
+
+                return false;
+            }
+
+
+        });
+    }
+
+    @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
@@ -296,15 +323,11 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 //                    mPhoto.setImageBitmap(imageBitmap);
 
                 } else if (requestCode == RESULT_CANCELED) {
-                    Log.d("take photo", "RESULT_CANCELED");
 
                 }
 
                 break;
 
-//                Uri uri = data.getData();
-//                Log.d("camera", "on: " + uri);
-//                displayPhoto(mImagePath);
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -396,16 +419,19 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             mNote.setmTitle(mDiaryTitle.getText().toString());
             mNote.setmText(mDiaryText.getText().toString());
-            mNote.setmPicture(mImagePath);
+            if (mUri != null) {
+                mNote.setPhotoFromCamera(mUri.toString());
+            } else if ( mImagePath != null) {
+                mNote.setmPicture(mImagePath);
+            }
             mNote.setmMind(mMindNum);
 
             Sqldatabase sql = new Sqldatabase(mContext);
             sql.updateNotes(mNote.getmId(), mNote);
 
         }
-
-
     }
+
     @Override
     public void hideUI() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -430,7 +456,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         } else if (num.equals("6")) {
             mMindButton.setImageResource(R.drawable.emotion_6);
         }
-
     }
 
     @Override
@@ -510,13 +535,11 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             String docId = DocumentsContract.getDocumentId(uri);
 
             if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                Log.d("path", "selection : ");
                 String id = docId.split(":")[1];//解析出數字格式的id
                 String selection = MediaStore.Images.Media._ID + "=" + id;
                 mImagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
 
             } else if ("com.android,providers.downloads.documents".equals(uri.getAuthority())) {
-                Log.d("path", "content uri: ");
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
                 mImagePath = getImagePath(contentUri, null);
 

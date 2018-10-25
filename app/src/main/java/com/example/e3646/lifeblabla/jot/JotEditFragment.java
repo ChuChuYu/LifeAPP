@@ -54,16 +54,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private RecyclerView mTagRecyclerView;
     private DiaryEditAdapter mDiaryEditAdapter;
     private EditText mJotTag;
-    private RecyclerView mTitleRecycelrView;
-    private TitleAdapter mTitleAdapter;
-    private ImageButton mExpandButton;
     private ImageView mImage;
-
     private BottomSheetBehavior mBottomSheetBehavior;
-
-    private Button mTitleOne;
-    private Button mTitleTwo;
-    private Button mTitleThree;
 
     private String mImagePath;
     private Uri mUri;
@@ -74,7 +66,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mNote = note;
         mImagePath = imagePath;
         mUri = uri;
-        Log.d("image path", "in jot: " + imagePath);
     }
 
 
@@ -94,20 +85,11 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mDiaryEditAdapter = new DiaryEditAdapter();
         mTagRecyclerView.setAdapter(mDiaryEditAdapter);
 
-//        mTitleRecycelrView = (RecyclerView)view.findViewById(R.id.title_recyclerview);
-//        mTitleRecycelrView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mTitleAdapter = new TitleAdapter();
-//        mTitleRecycelrView.setAdapter(mTitleAdapter);
-//        mTitleRecycelrView.getItemAnimator().setChangeDuration(300);
-//        mTitleRecycelrView.getItemAnimator().setMoveDuration(300);
-
-
         mJotTag = (EditText)view.findViewById(R.id.sample_title);
         mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
-                Log.d("done button", "click 2");
                 return false;
             }
         });
@@ -118,7 +100,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mCreatedTime.setText(mNote.getmCreatedTime());
 
         } else {
-            mCreatedTime.setText(currentTime());
+            mCreatedTime.setText(getCurrentTime());
         }
 
         mCancelButton = (Button)view.findViewById(R.id.button_cancel);
@@ -152,51 +134,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
         mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//        mExpandButton = (ImageButton)view.findViewById(R.id.button_expand);
-//        mExpandButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                if (isExpanded == false) {
-//                    mExpandButton.setImageResource(R.drawable.button_expand_less);
-//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-//                    isExpanded = true;
-//                } else {
-//                    mExpandButton.setImageResource(R.drawable.button_expand);
-//                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-//                    isExpanded = false;
-//                }
-//
-//            }
-//        });
-
-        mTitleOne = (Button)view.findViewById(R.id.button_title_1);
-        mTitleOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("title", "select");
-                mTitle.setText("用行動找回旅行「最初的感動」");
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            }
-        });
-
-        mTitleTwo = (Button)view.findViewById(R.id.button_title_2);
-        mTitleTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mTitle.setText("浪漫遊四國寫下少爺與公主的物語");
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            }
-        });
-
-        mTitleThree = (Button)view.findViewById(R.id.button_title_3);
-        mTitleThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mTitle.setText("溫暖您疲憊的心 道後靈湯");
-                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-            }
-        });
-
         mImage = view.findViewById(R.id.diary_image);
 
         if (mUri == null) {
@@ -210,16 +147,39 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mImage.setImageURI(mUri);
         }
 
-
-
         return view;
     }
 
-    private String currentTime() {
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        getView().setFocusableInTouchMode(true);
+        getView().requestFocus();
+        getView().setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+
+                if (keyEvent.getAction() == keyEvent.ACTION_UP && i == keyEvent.KEYCODE_BACK) {
+
+                    if (isCreating) {
+                        mPresenter.cancelEditing();
+                    } else {
+                        hideUI();
+                    }
+                    return false;
+                }
+
+                return false;
+            }
+
+
+        });
+    }
+
+    private String getCurrentTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-
         Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
-
         String str = formatter.format(curDate);
 
         return str;
@@ -228,7 +188,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     @Override
     public void setPresenter(JotEditContrat.Presenter presenter) {
         mPresenter = checkNotNull(presenter);
-
     }
 
     @Override
@@ -243,12 +202,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     public void takeJotData() {
 
         if (isCreating) {
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-//            SimpleDateFormat formateForID = new SimpleDateFormat("yyyyMMddHHmmss");
-//            Date curDate = new Date(System.currentTimeMillis());
-//            String currentTime = formatter.format(curDate);
-//            String id = formateForID.format(curDate);
-
             mNote = new Note();
 
 //            if (mTitle.getText().toString() != null && !mTitle.getText().toString().equals("")) {
@@ -303,7 +256,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
                 mNote.setWeek("SUN");
             }
 
-
             mNote.setmId(id);
 
             if (mImagePath != null) {
@@ -326,7 +278,11 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
             mNote.setmTitle(mTitle.getText().toString());
             mNote.setmText(mText.getText().toString());
-//            mNote.setmPicture(mImagePath);
+            if (mUri != null) {
+                mNote.setPhotoFromCamera(mUri.toString());
+            } else if ( mImagePath != null) {
+                mNote.setmPicture(mImagePath);
+            }
             mPresenter.updateJotData(getContext(), mNote);
 
         }
