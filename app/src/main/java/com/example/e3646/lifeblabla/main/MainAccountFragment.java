@@ -61,6 +61,16 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
             }
         });
 
+        mMainAdapterGrid.setOnItemListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("click", ".....");
+                mPresenter.showdiary(accountList.get((int)view.getTag()));
+            }
+        });
+
+
+
         return view;
     }
 

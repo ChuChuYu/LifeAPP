@@ -103,8 +103,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         public MainGridItemViewHolder(@NonNull View itemView) {
             super(itemView);
 
-
-
             mImage = itemView.findViewById(R.id.note_image);
             mImageBack = itemView.findViewById(R.id.note_image_back);
             mDiaryEmotion = itemView.findViewById(R.id.note_diary_emotion);
@@ -120,7 +118,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
             mCardView = itemView.findViewById(R.id.cardView);
             mCard = itemView.findViewById(R.id.card);
-
 
             /////
 
@@ -315,81 +312,92 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             @Override
             public void onClick(View view) {
                 mListener.onClick(view);
-                Log.d("gird item", "click");
             }
         });
 
-//
+        if (mNoteList != null && mNoteList.get(mNoteList.size()-i-1) != null) {
+            if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("diary")) {
 
-//        if (mNoteList != null && mNoteList.get(mNoteList.size()-i-1) != null) {
-//            if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("diary")) {
-//
-//
-//                if (mNoteList.get(mNoteList.size() - i - 1).getmMind() != null) {
-//                    if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("1")) {
-//                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.button_emotion);
-//                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("2")) {
-//                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_2);
-//                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("3")) {
-//                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_3);
-//                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("4")) {
-//                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_4);
-//                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("5")) {
-//                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_5);
-//                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("6")) {
-//                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_6);
-//                    }
-//                }
-//
-//                if (mNoteList.get(mNoteList.size()-i-1).getmWeather() != null) {
-//                    if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("1")) {
-//                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_1);
-//                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("2")) {
-//                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.button_weather);
-//                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("3")) {
-//                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_3);
-//                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("4")) {
-//                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_4);
-//                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("5")) {
-//                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_5);
-//                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("6")) {
-//                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_6);
-//                    }
-//
-//                }
-//
-//            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("jot")) {
-//
-//                mainGridItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
-//                mainGridItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
-//                mainGridItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_jot);
-//                mainGridItemViewHolder.mType.setText("隨筆");
-//
-//            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("account")) {
-//
-//
-//            }
-//
-//
-//            if (!mNoteList.get(mNoteList.size()-i-1).getmText().equals("")) {
+
+                if (mNoteList.get(mNoteList.size() - i - 1).getmMind() != null) {
+                    if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("1")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.button_emotion);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("2")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_2);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("3")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_3);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("4")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_4);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("5")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_5);
+                    } else if (mNoteList.get(mNoteList.size() - i - 1).getmMind().equals("6")) {
+                        mainGridItemViewHolder.mDiaryEmotion.setImageResource(R.drawable.emotion_6);
+                    }
+                }
+
+                if (mNoteList.get(mNoteList.size()-i-1).getmWeather() != null) {
+                    if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("1")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_1);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("2")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.button_weather);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("3")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_3);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("4")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_4);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("5")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_5);
+                    } else if (mNoteList.get(mNoteList.size()-i-1).getmWeather().equals("6")) {
+                        mainGridItemViewHolder.mDiaryWeather.setImageResource(R.drawable.weather_6);
+                    }
+
+                }
+
+                if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
+                    mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+
+                } else {
+
+
+                    //會壞掉
+                    mainGridItemViewHolder.mImage.setVisibility(View.GONE);
+                    mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
+                    mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
+                }
+
+            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("jot")) {
+
+                mainGridItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
+                mainGridItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
+                mainGridItemViewHolder.mTypeBackground.setImageResource(R.drawable.background_tag_jot);
+                mainGridItemViewHolder.mType.setText("隨筆");
+
+                if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
+                    mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+
+                } else {
+                    
+                    //會壞掉
+                    mainGridItemViewHolder.mImage.setVisibility(View.GONE);
+                    mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
+                    mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
+                }
+
+            } else if (mNoteList.get(mNoteList.size()-i-1).getmClassification().equals("account")) {
+
+
+            }
+
+
+            if (!mNoteList.get(mNoteList.size()-i-1).getmText().equals("")) {
 //                mainGridItemViewHolder.mText.setText(mNoteList.get(mNoteList.size() - i - 1).getmText());
-//            } else {
+            } else {
 //                mainGridItemViewHolder.mText.setText("還沒想到要寫些什麼...");
-//            }
-//            if (mNoteList.get(mNoteList.size()-i-1).getmPicture() != null && !mNoteList.get(mNoteList.size()-i-1).getmPicture().equals("")) {
-//                Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(mNoteList.size()-i-1).getmPicture());
-//                mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
-//
-//                Log.d("bitmap", "path: " + mNoteList.get(mNoteList.size()-i-1).getmPicture());
-//
-//            } else {
-//
-//                mainGridItemViewHolder.mImage.setVisibility(View.GONE);
-//                mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
-//                mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
-//            }
-//
-//        }
+            }
+
+
+        }
 
 
 

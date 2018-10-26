@@ -31,8 +31,6 @@ public class Note {
     private String mAccountExpense;
     private String mAccountBalance;
 
-    private ArrayList mAccountItem;
-    private ArrayList mConferenceItem;
 
     public Note() {
 
@@ -170,22 +168,6 @@ public class Note {
 
     public void setmWeather(String mWeather) {
         this.mWeather = mWeather;
-    }
-
-    public ArrayList getmAccountItem() {
-        return mAccountItem;
-    }
-
-    public void setmAccountItem(ArrayList mAccountItem) {
-        this.mAccountItem = mAccountItem;
-    }
-
-    public ArrayList getmConferenceItem() {
-        return mConferenceItem;
-    }
-
-    public void setmConferenceItem(ArrayList mConferenceItem) {
-        this.mConferenceItem = mConferenceItem;
     }
 
     public String getAccountRevenue() {

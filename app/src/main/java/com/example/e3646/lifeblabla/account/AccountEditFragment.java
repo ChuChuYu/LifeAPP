@@ -638,6 +638,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 mNote.setWeek("SAT");
             } else if (week.equals("Sunday")) {
                 mNote.setWeek("SUN");
+            } else {
+                Toast.makeText(getContext(), "no week day", Toast.LENGTH_SHORT).show();
             }
 
             mNote.setmUpdatedTime("");
