@@ -85,12 +85,16 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private Account mAccount;
     private Note mNote;
 
-    private String mMoneyAmount = "";
+    private String mMoneyAmount = ""; //set到mAmount
     private String mNoteId;
     private boolean isCreating;
     private boolean isCreatingItem;
     private int isRevenue = 3;
+    private int isEditingRevenue = 3;
     private String mCategory = "0";
+    private String category1 = "1";
+    private String category2 = "2";
+
     private Integer mTotalRevenue = 0;
     private Integer mTotalExpense = 0;
     private Integer mTotalBalance = 0;
@@ -116,18 +120,30 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isRevenue = 1;
+
+                if (isCreatingItem) {
+                    isRevenue = 1;
+                } else {
+                    isEditingRevenue = 1;
+                }
                 mRevenue.setImageResource(R.drawable.button_account_is_select);
                 mExpense.setImageResource(R.drawable.button_account_not_select);
+
             }
         });
 
         mExpense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isRevenue = 0;
+                if (isCreatingItem) {
+                    isRevenue = 0;
+                } else {
+                    isEditingRevenue = 0;
+                }
+
                 mRevenue.setImageResource(R.drawable.button_account_not_select);
                 mExpense.setImageResource(R.drawable.button_account_is_select);
+
             }
         });
 
@@ -267,8 +283,10 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                     if (isCreatingItem) {
                         takeAccountData();
                     } else {
-                        takeAccountDataWhenEditing();
+
                         countTotalAmountWhenEditingItem();
+                        takeAccountDataWhenEditing();
+                        Log.d("here", "here");
                     }
                     mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
                     clearAddItemButtonsheet();
@@ -311,9 +329,26 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             public void onClick(View view) {
                 isCreatingItem = false;
 
+                ///要把收入或支出存下來
+
+
                 Sqldatabase sql = new Sqldatabase(getContext());
                 mAccoountList = sql.getAccounts(mNoteId);
                 setAccountDatainDialog(mAccoountList.get((int)view.getTag()));
+                mAccount = mAccoountList.get((int)view.getTag());
+
+                if ( mAccount.getRevenue() != null && !mAccount.getRevenue().equals("") && !mAccount.getRevenue().equals("0")) {
+                    Log.d("revenue", " = 1: " + mAccount.getRevenue());
+                    isRevenue = 1;
+                    isEditingRevenue = 1;
+                } else if (mAccount.getExpense() != null && !mAccount.getExpense().equals("") && !mAccount.getExpense().equals("0")) {
+                    Log.d("revenue", " = 1: " + mAccount.getExpense());
+                    isRevenue = 0;
+                    isEditingRevenue = 0;
+                }
+
+                Log.d("isrevenue", "1 : " + isRevenue);
+
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 
             }
@@ -377,12 +412,12 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private void takeAccountDataWhenEditing() {
 
         mAccount.setCategory(mCategory);
-        if (isRevenue == 1) {
+        if (isEditingRevenue == 1) {
             mAccount.setRevenue(mMoneyAmount);
             mAccount.setExpense("");
 
         }
-        if (isRevenue == 0) {
+        if (isEditingRevenue == 0) {
             mAccount.setRevenue("");
             mAccount.setExpense(mMoneyAmount);
         }
@@ -546,6 +581,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         } else {
 
+
+
         }
         countTotalAmount();
 
@@ -697,7 +734,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
             mTotalBalance = mTotalRevenue - mTotalExpense;
 
-        } else {
+        } else { //如果是刪除
 
             if (isRevenue == 1) {
                 mTotalRevenue = mTotalRevenue - Integer.parseInt(mMoneyAmount);
@@ -717,12 +754,55 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
     public void countTotalAmountWhenEditingItem() {
 
-        if (isRevenue == 1) {
-            mTotalRevenue = mTotalRevenue - Integer.parseInt(mAccount.getRevenue()) + Integer.parseInt(mMoneyAmount);
+        if (isRevenue == 1) { // 原本是收入
+
+            if (isEditingRevenue == 1) { //收入改收入
+
+                if (mAccount.getRevenue().equals("")) {
+
+                    mTotalRevenue = mTotalRevenue - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
+                    if (mAccount.getExpense().equals("")) {
+                        mTotalExpense = mTotalExpense - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
+                    }
+
+                } else {
+                    mTotalExpense = mTotalExpense - Integer.parseInt(mAccount.getExpense()) + Integer.parseInt(mMoneyAmount);
+
+                }
+            }
+
+            if (isEditingRevenue == 0) { //收入改支出
+
+                mTotalExpense = mTotalExpense + Integer.parseInt(mMoneyAmount);
+                mTotalRevenue = mTotalRevenue - Integer.parseInt(mAccount.getRevenue());
+
+            }
 
         }
-        if (isRevenue == 0) {
-            mTotalRevenue = mTotalExpense - Integer.parseInt(mAccount.getExpense()) + Integer.parseInt(mMoneyAmount);
+
+        String expense = mAccount.getExpense();
+
+        if (isRevenue == 0) { //原本是支出
+
+            if (isEditingRevenue == 1) { //支出改收入
+
+                mTotalRevenue = mTotalRevenue + Integer.parseInt(mMoneyAmount);
+                mTotalExpense = mTotalExpense - Integer.parseInt(expense.toString());
+
+            }
+
+            if (isEditingRevenue == 0) { // 支出改支出
+                if (mAccount.getExpense().equals("")) {
+                    mTotalExpense = mTotalExpense - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
+                    if (mAccount.getRevenue().equals("")) {
+                        mTotalExpense = mTotalExpense - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
+                    }
+                } else {
+                    mTotalExpense = mTotalExpense - Integer.parseInt(mAccount.getExpense()) + Integer.parseInt(mMoneyAmount);
+                }
+            }
+
+
         }
 
         mTotalBalance = mTotalRevenue - mTotalExpense;
@@ -731,7 +811,5 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mBalanceText.setText(String.valueOf(mTotalBalance));
     }
 
-    public void countTotalAmountWhenDeletingItem() {
 
-    }
 }

@@ -138,7 +138,6 @@ public class MainAdapter extends RecyclerView.Adapter {
             mainListItemViewHolder.mTag.setText(mNoteList.get(no).getmTag().get(0));
             ViewGroup.LayoutParams backgorundParams = mainListItemViewHolder.mTagBackground.getLayoutParams();
             int numofchinese = numOfChinese(mNoteList.get(no).getmTag().get(0));
-            Log.d("num of ", "chinese " + numofchinese);
             int numofenglish = mNoteList.get(no).getmTag().get(0).length() - numofchinese;
             backgorundParams.width = numofenglish*25 + numofchinese*60 + 20;
             mainListItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
