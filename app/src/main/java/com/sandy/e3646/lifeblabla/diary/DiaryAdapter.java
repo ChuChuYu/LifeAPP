@@ -70,7 +70,7 @@ public class DiaryAdapter extends RecyclerView.Adapter {
         int numofchinese = numOfChinese(mTagList.get(i));
 
         int numofenglish = mTagList.get(i).length() - numofchinese;
-        backgorundParams.width = numofenglish*25 + numofchinese*60 + 20;
+        backgorundParams.width = numofenglish * 25 + numofchinese * 60 + 20;
 
         tagItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
 
@@ -93,7 +93,7 @@ public class DiaryAdapter extends RecyclerView.Adapter {
     private int numOfChinese(String tagText) {
         int numOfCh = 0;
 
-        for (int i = 0; i<tagText.length(); i++) {
+        for (int i = 0; i < tagText.length(); i++) {
             String text = String.valueOf(tagText.charAt(i));
 
             if (text.matches("[\u4e00-\u9fa5]+")) {

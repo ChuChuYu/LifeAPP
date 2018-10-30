@@ -69,6 +69,10 @@
         <activity
             android:name="com.sandy.e3646.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d70fd16c4a14fe0cfcb18d2640a934f6f7a4f4d3" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>

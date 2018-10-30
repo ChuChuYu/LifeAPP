@@ -87,8 +87,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private int isRevenue = 3;
     private int isEditingRevenue = 3;
     private String mCategory = "0";
-    private String category1 = "1";
-    private String category2 = "2";
 
     private Integer mTotalRevenue = 0;
     private Integer mTotalExpense = 0;
@@ -495,7 +493,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mTagRecyclerview.setAdapter(mTagAdapter);
     }
 
-    private String currentTime() {
+    private static String currentTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
         String str = formatter.format(curDate);
@@ -736,6 +734,21 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mRevenueText.setText(String.valueOf(mTotalRevenue));
         mExpenseText.setText(String.valueOf(mTotalExpense));
         mBalanceText.setText(String.valueOf(mTotalBalance));
+
+    }
+
+    @Override
+    public String getCurrentTime() {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+        Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
+        String str = formatter.format(curDate);
+
+        return str;
+    }
+
+    @Override
+    public void replaceUI() {
 
     }
 

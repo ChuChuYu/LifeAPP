@@ -137,12 +137,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mPhoto.setVisibility(View.INVISIBLE);
             mMinusButton.setVisibility(View.INVISIBLE);
         } else if (!isCreating) {
-//            if (mNote.getmPicture() != null || !mNote.getmPicture().equals("")) {
-//                mMinusButton.setVisibility(View.VISIBLE);
-//                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
-//                mPhoto.setImageBitmap(bitmap);
-//
-//            }
         }
 
         mCreatedTime = (TextView)view.findViewById(R.id.diary_createdtime);
@@ -292,6 +286,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 return;
             }
 
+            default:
+
             // other 'case' lines to check for other
             // permissions this app might request.
         }
@@ -332,13 +328,14 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
                 break;
 
+             default:
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
     private String getCurrentTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+        Date curDate = new Date(System.currentTimeMillis());
         String str = formatter.format(curDate);
         return str;
     }
@@ -374,7 +371,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             String id = formateForID.format(curDate);
             String daytime = formateForDaytime.format(curDate);
 
-            if (Integer.parseInt(daytime) > 12 ) {
+            if (Integer.parseInt(daytime) > 12) {
                 mNote.setDayTime("下午");
             } else {
                 mNote.setDayTime("上午");
@@ -407,7 +404,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());
-            } else if ( mImagePath != null) {
+            } else if (mImagePath != null) {
                 mNote.setmPicture(mImagePath);
             }
 
@@ -425,7 +422,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setmText(mDiaryText.getText().toString());
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());
-            } else if ( mImagePath != null) {
+            } else if (mImagePath != null) {
                 mNote.setmPicture(mImagePath);
             }
             mNote.setmMind(mMindNum);
@@ -447,7 +444,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     @Override
     public void setMindSelection(String num) {
         mMindNum = num;
-        if(num.equals("1")) {
+        if (num.equals("1")) {
             mMindButton.setImageResource(R.drawable.button_emotion);
         } else if (num.equals("2")) {
             mMindButton.setImageResource(R.drawable.emotion_2);
@@ -505,14 +502,14 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         if (state.equals(Environment.MEDIA_MOUNTED)) {
 
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            File file = new File(Environment.getExternalStorageDirectory() + "/images/"+System.currentTimeMillis()+".jpg");
+            File file = new File(Environment.getExternalStorageDirectory() + "/images/" + System.currentTimeMillis() + ".jpg");
 
             try {
                 file = File.createTempFile(String.valueOf(System.currentTimeMillis()), ".jpg", getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES));
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M){
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
                 mUri = Uri.fromFile(file);
             } else {
                 mUri = FileProvider.getUriForFile(mContext, "com.example.e3646.lifeblabla", file);

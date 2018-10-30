@@ -176,7 +176,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
 
     private String getCurrentTime() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-        Date curDate = new Date(System.currentTimeMillis()) ; // 獲取當前時間
+        Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
         String str = formatter.format(curDate);
 
         return str;
@@ -224,7 +224,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             String id = formateForID.format(curDate);
             String daytime = formateForDaytime.format(curDate);
 
-            if (Integer.parseInt(daytime) > 12 ) {
+            if (Integer.parseInt(daytime) > 12) {
                 mNote.setDayTime("下午");
             } else {
                 mNote.setDayTime("上午");
@@ -277,7 +277,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mNote.setmText(mText.getText().toString());
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());
-            } else if ( mImagePath != null) {
+            } else if (mImagePath != null) {
                 mNote.setmPicture(mImagePath);
             }
             mPresenter.updateJotData(getContext(), mNote);

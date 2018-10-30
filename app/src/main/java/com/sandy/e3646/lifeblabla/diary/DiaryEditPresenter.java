@@ -1,7 +1,7 @@
 package com.sandy.e3646.lifeblabla.diary;
 
-
 import android.content.Context;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;

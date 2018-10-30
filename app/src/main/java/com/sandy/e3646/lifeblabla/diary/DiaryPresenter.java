@@ -1,6 +1,5 @@
 package com.sandy.e3646.lifeblabla.diary;
 
-
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
@@ -32,7 +31,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
 
     private CheckDeleteFragment mCheckDeleteFragment;
 
-    public DiaryPresenter (DiaryContract.View diaryView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList) {
+    public DiaryPresenter(DiaryContract.View diaryView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList) {
         mDiaryView = checkNotNull(diaryView);
         mDiaryView.setPresenter(this);
         mFragmentManager = fragmentManager;

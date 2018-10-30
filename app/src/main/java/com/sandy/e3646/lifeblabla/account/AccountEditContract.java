@@ -30,11 +30,13 @@ public interface AccountEditContract {
 
         void countTotalAmount();
 
+        String getCurrentTime();
+
+        void replaceUI();
+
     }
 
     interface Presenter extends BasePresenter {
-
-        void saveAccountData();
 
         void cancelEditing();
 

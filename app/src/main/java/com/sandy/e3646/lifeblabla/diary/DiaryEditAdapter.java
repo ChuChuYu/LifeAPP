@@ -125,7 +125,7 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
         int numofchinese = numOfChinese(mTagList.get(i));
         Log.d("num of ", "chinese " + numofchinese);
         int numofenglish = mTagList.get(i).length() - numofchinese;
-        backgroundParams.width = numofenglish*25 + numofchinese*60 + 20;
+        backgroundParams.width = numofenglish * 25 + numofchinese * 60 + 20;
         tagItemViewHolder.mTagBackground.setLayoutParams(backgroundParams);
 
 
@@ -159,7 +159,7 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         super.getItemViewType(position);
-        if (position == getItemCount()-1) {
+        if (position == getItemCount() - 1) {
             return TYPE_EDIT;
         } else {
             return TYPE_TAG;
@@ -169,7 +169,7 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
     private int numOfChinese(String tagText) {
         int numOfCh = 0;
 
-        for (int i = 0; i<tagText.length(); i++) {
+        for (int i = 0; i < tagText.length(); i++) {
             String text = String.valueOf(tagText.charAt(i));
 //            Pattern pattern = Pattern.compile("[a-zA-Z]");
 //            Matcher matcher = pattern.matcher(text);
@@ -188,5 +188,3 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
         return this.mTagList;
     }
 }
-
-//\u4e00-\u9fa5

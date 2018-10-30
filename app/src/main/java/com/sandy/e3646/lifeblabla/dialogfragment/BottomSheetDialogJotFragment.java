@@ -127,11 +127,9 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
 
 
                 }
-
-
-
                 break;
 
+            default:
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

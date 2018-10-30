@@ -32,7 +32,7 @@ public class JotPresenter implements JotContract.Presenter {
     private ArrayList<Note> mNoteList;
     private int mNotePosition;
 
-    public JotPresenter (JotContract.View jotView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList) {
+    public JotPresenter(JotContract.View jotView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList) {
 
         mJotView = checkNotNull(jotView);
         mJotView.setPresenter(this);

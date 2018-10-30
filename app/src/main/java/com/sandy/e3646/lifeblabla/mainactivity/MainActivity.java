@@ -28,6 +28,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
 
+//import com.crashlytics.android.Crashlytics;
 import com.sandy.e3646.lifeblabla.R;
 import com.sandy.e3646.lifeblabla.account.AccountFragment;
 
@@ -43,6 +44,7 @@ import com.sandy.e3646.lifeblabla.main.MainJotFragment;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 
+//import io.fabric.sdk.android.Fabric;
 import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
 
@@ -160,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         }
 
         mToolbar = findViewById(R.id.toolbar);
-        runTimePermission();
+//        runTimePermission();
 
 
     }

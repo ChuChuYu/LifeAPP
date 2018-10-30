@@ -22,7 +22,7 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
 
     private JotFragment mJotFragment;
 
-    public JotEditPresenter (JotEditContrat.View jotEditView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, JotPresenter jotPresenter, boolean isCreating) {
+    public JotEditPresenter(JotEditContrat.View jotEditView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, JotPresenter jotPresenter, boolean isCreating) {
 
         mJotEditView = checkNotNull(jotEditView);
         mJotEditView.setPresenter(this);

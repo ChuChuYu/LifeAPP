@@ -35,13 +35,6 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.bottom_sheet_dialog_template, container, false);
 
-
-
-
-//        setStyle(BottomSheetDialogFragment.STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme);
-        Log.d("background color", ": "+ Color.TRANSPARENT);
-
-
         mDiaryButton = (ImageButton)view.findViewById(R.id.button_form_text);
         mDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override

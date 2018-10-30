@@ -52,6 +52,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
                         return mGuideSecondFragment;
                     case 2:
                         return mGuideThirdFragment;
+                    default:
                 }
 
                 return null;

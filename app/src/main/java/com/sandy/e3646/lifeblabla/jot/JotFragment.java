@@ -25,6 +25,8 @@ import com.sandy.e3646.lifeblabla.R;
 import com.sandy.e3646.lifeblabla.diary.DiaryAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
 
+import java.io.IOException;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @SuppressLint("ValidFragment")
@@ -169,6 +171,35 @@ public class JotFragment extends Fragment implements JotContract.View {
         }
 
     }
+
+
+//    @Override
+//    public boolean setNoteData(Note note) {
+////        mNote = note;
+////        mCreatedTime.setText(note.getmCreatedTime());
+////        mTitle.setText(note.getmTitle());
+////        mText.setText(note.getmText());
+//        setGlobal(note);
+//
+//        try {
+//            if (mNote.getPhotoFromCamera() == null || mNote.getPhotoFromCamera().equals("")) {
+//                if (mNote.getmPicture() == null || mNote.getmPicture().equals("")) {
+//                    mImage.setVisibility(View.GONE);
+//                } else {
+//                    Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+//                    mImage.setImageBitmap(bitmap);
+//                }
+//            } else {
+//                mImage.setImageURI(Uri.parse(mNote.getPhotoFromCamera()));
+//            }
+//            return true;
+//        } catch (IOException e) {
+//
+//            Lod.d()
+//            return false;
+//        }
+//    }
+//
 
     @Override
     public void hideUI() {

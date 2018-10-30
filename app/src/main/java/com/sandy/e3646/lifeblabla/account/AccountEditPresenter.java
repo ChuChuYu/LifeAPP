@@ -25,6 +25,7 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
 
     private Note mNote;
     private Context mContext;
+
     public AccountEditPresenter(AccountEditContract.View accountEditView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, boolean iscreating) {
 
         mAccountEditView = checkNotNull(accountEditView);
@@ -38,11 +39,6 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
 
     @Override
     public void start() {
-
-    }
-
-    @Override
-    public void saveAccountData() {
 
     }
 
