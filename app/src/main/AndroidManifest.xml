@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.e3646.lifeblabla">
+    xmlns:Android="http://schemas.android.com/apk/res-auto"
+    package="com.sandy.e3646.lifeblabla">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,24 +12,27 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/life_assistence_icon"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".guideactivity.GuideActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".mainactivity.MainActivity">
+        <activity android:name="com.sandy.e3646.lifeblabla.guideactivity.GuideActivity"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.sandy.e3646.lifeblabla.mainactivity.MainActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
@@ -63,8 +67,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="com.example.e3646.MapsActivity"
+            android:name="com.sandy.e3646.MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="d70fd16c4a14fe0cfcb18d2640a934f6f7a4f4d3" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
