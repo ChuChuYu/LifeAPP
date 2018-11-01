@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.io.File;
@@ -83,7 +84,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private ImageView mTagBottom;
 
     private RecyclerView mTagRecyclerView;
-    private DiaryEditAdapter mDiaryEditAdapter;
+    private TagEditAdapter mTagEditAdapter;
 
     private Note mNote;
     private ArrayList<Note> mNoteList;
@@ -115,8 +116,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mDiaryEditAdapter = new DiaryEditAdapter(this);
-        mTagRecyclerView.setAdapter(mDiaryEditAdapter);
+        mTagEditAdapter = new TagEditAdapter(this);
+        mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
 
@@ -160,10 +161,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 } else {
 
                     takeDiaryData();
-
-
-//                    mPresenter.updateDiaryData(mNote.getmId(), mNote);
-//                    mPresenter.completeEditDiary();
                     mPresenter.completeEditing(mNote);
 
                 }
@@ -219,11 +216,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
         });
 
-
         mVideoButton = (ImageButton)view.findViewById(R.id.button_vedio);
-
         mTagBottom = (ImageView)view.findViewById(R.id.tag_bottom);
-
         final Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.tag_animation);
         mTagRecyclerView.setVisibility(View.INVISIBLE);
         mTagRecyclerView.setFitsSystemWindows(true);
@@ -235,7 +229,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
                 mTagRecyclerView.setVisibility(View.VISIBLE);
                 mTagRecyclerView.startAnimation(animation);
-
 
             }
         });
@@ -261,7 +254,6 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                     }
                     return false;
                 }
-
                 return false;
             }
 
@@ -274,22 +266,13 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 0: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
                 } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
                 }
                 return;
             }
-
             default:
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 
@@ -311,21 +294,13 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 if (resultCode == RESULT_OK) {
 
                     //用getdata的方式沒有東西
-
                     mConstraintLayout.setVisibility(View.VISIBLE);
                     mPhoto.setVisibility(View.VISIBLE);
                     mPhoto.setImageURI(mUri);
 
-
-//                    Bundle extras = data.getExtras();
-//                    Bitmap imageBitmap = (Bitmap) extras.get("data");
-//                    mPhoto.setVisibility(View.VISIBLE);
-//                    mPhoto.setImageBitmap(imageBitmap);
-
                 } else if (requestCode == RESULT_CANCELED) {
 
                 }
-
                 break;
 
              default:
@@ -345,9 +320,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         if (isCreating) {
             mPresenter.setContext(mContext);
-
             mNote = new Note();
-
             if (mDiaryTitle.getText().toString() != null && !mDiaryTitle.getText().toString().equals("")) {
                 mNote.setmTitle(mDiaryTitle.getText().toString());
             } else {
@@ -409,7 +382,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             }
 
             mNote.setmPicture(mImagePath);
-            mNote.setmTag(mDiaryEditAdapter.TagList());
+            mNote.setmTag(mTagEditAdapter.TagList());
             mNote.setmMind(mMindNum);
             mNote.setmWeather(mWeatherNum);
 

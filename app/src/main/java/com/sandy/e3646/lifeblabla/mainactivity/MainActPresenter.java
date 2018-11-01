@@ -90,14 +90,11 @@ public class MainActPresenter implements MainActContract.Presenter {
         if (mSettingFragment == null) {
             mSettingFragment = new SettingFragment();
         }
-
         if (mSettingPresenter == null) {
             mSettingPresenter = new SettingPresenter(mSettingFragment);
         }
-
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction
-                .add(R.id.whole_container, mSettingFragment, "SETTING")
+        transaction.add(R.id.whole_container, mSettingFragment, "SETTING")
                 .hide(mSettingFragment)
                 .commit();
     }
@@ -109,9 +106,6 @@ public class MainActPresenter implements MainActContract.Presenter {
             mMainPresenter = new MainPresenter(mMainFragment, mMainDiaryFragment, mMainAccountFragment, mMainJotFragment, mFragmentManager, this);
         }
     }
-
-
-    ////////
 
     @Override
     public void backToMain() {
@@ -183,7 +177,7 @@ public class MainActPresenter implements MainActContract.Presenter {
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
 
-        mMainFragment = new MainFragment(null);
+        mMainFragment = new MainFragment();
         transaction.replace(R.id.main_activity_container, mMainFragment)
                 .detach(mDiaryEditFragment)
                 .commit();
@@ -222,8 +216,6 @@ public class MainActPresenter implements MainActContract.Presenter {
         mMainActView.showBottomNaviagtion();
     }
 
-    ////////
-
     @Override
     public void showBottomSheet() {
         BottomSheetDialogTemplateFragment bottomSheetDialogFragment = new BottomSheetDialogTemplateFragment(this);
@@ -250,6 +242,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.scalex_enter, R.anim.scalex_exit);
         transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
                 .show(mDiaryEditFragment)
                 .addToBackStack(null)
@@ -264,6 +257,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.scalex_enter, R.anim.scalex_exit);
         transaction.replace(R.id.whole_container, mAccountEditFragment, "EDIT ACCOUNT")
                 .show(mAccountEditFragment)
                 .addToBackStack(null)
@@ -278,6 +272,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.scalex_enter, R.anim.scalex_exit);
         transaction.replace(R.id.whole_container, mJotEditFragment, "EDIT JOT")
                 .show(mJotEditFragment)
                 .addToBackStack(null)

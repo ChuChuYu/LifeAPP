@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.adapter.TagAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -42,7 +43,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     private Note mNote;
 
     private RecyclerView mTagRecyclerView;
-    private DiaryAdapter mDiaryAdapter;
+    private TagAdapter mTagAdapter;
 
     public DiaryFragment(Note note) {
         mNote = note;
@@ -146,10 +147,10 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
-            mDiaryAdapter = new DiaryAdapter(mNote.getmTag());
-            mTagRecyclerView.setAdapter(mDiaryAdapter);
+            mTagAdapter = new TagAdapter(mNote.getmTag());
+            mTagRecyclerView.setAdapter(mTagAdapter);
 
-            mDiaryAdapter.setOnItemListener(new View.OnClickListener() {
+            mTagAdapter.setOnItemListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 

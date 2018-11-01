@@ -1,4 +1,4 @@
-package com.sandy.e3646.lifeblabla.diary;
+package com.sandy.e3646.lifeblabla.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,17 +15,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.diary.DiaryEditFragment;
 
 import java.util.ArrayList;
 
-public class DiaryEditAdapter extends RecyclerView.Adapter {
+public class TagEditAdapter extends RecyclerView.Adapter {
 
     private int TYPE_TAG = 1;
     private int TYPE_EDIT = 2;
     private ArrayList<String> mTagList = new ArrayList<String>();
     private DiaryEditFragment mDiaryEditFragment;
 
-    public DiaryEditAdapter(DiaryEditFragment diaryEditFragment) {
+    public TagEditAdapter(DiaryEditFragment diaryEditFragment) {
         mDiaryEditFragment = diaryEditFragment;
     }
 
@@ -43,7 +44,6 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
         return null;
     }
 
-
     public class TagItemViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTagText;
@@ -52,7 +52,6 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
         public TagItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
             mTagText = (TextView)itemView.findViewById(R.id.tag_text);
             mDeleteButton = (ImageButton)itemView.findViewById(R.id.button_delete_tag);
             mTagBackground = (ImageView)itemView.findViewById(R.id.tag_backgournd);
@@ -65,24 +64,17 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
         public EditItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
             mTagEdit = (EditText)itemView.findViewById(R.id.tag_edit);
-
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-
         if (viewHolder instanceof EditItemViewHolder) {
             initLayoutEdit((EditItemViewHolder) viewHolder, i);
         } else if (viewHolder instanceof TagItemViewHolder) {
-
             initLayoutTag((TagItemViewHolder)viewHolder, i);
         }
-
-
-
     }
 
     private void initLayoutEdit(EditItemViewHolder viewHolder, int i) {
@@ -95,7 +87,6 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
                 if (b) {
                     mDiaryEditFragment.getTagEditFocus();
                 } else {
-
                     mDiaryEditFragment.getTagEditUnFocus();
                 }
             }
@@ -104,7 +95,6 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
         editItemViewHolder.mTagEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-
                 mTagList.add(editItemViewHolder.mTagEdit.getText().toString());
                 editItemViewHolder.mTagEdit.setText("");
                 InputMethodManager inputMethodManager = (InputMethodManager) textView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -115,20 +105,15 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
     }
 
-
     private void initLayoutTag(TagItemViewHolder holder, final int i) {
         final TagItemViewHolder tagItemViewHolder = (TagItemViewHolder)holder;
 
         ViewGroup.LayoutParams textParams = tagItemViewHolder.mTagText.getLayoutParams();
         ViewGroup.LayoutParams backgroundParams = tagItemViewHolder.mTagBackground.getLayoutParams();
-
         int numofchinese = numOfChinese(mTagList.get(i));
-        Log.d("num of ", "chinese " + numofchinese);
         int numofenglish = mTagList.get(i).length() - numofchinese;
         backgroundParams.width = numofenglish * 25 + numofchinese * 60 + 20;
         tagItemViewHolder.mTagBackground.setLayoutParams(backgroundParams);
-
-
         tagItemViewHolder.mTagText.setText(mTagList.get(i));
 
         tagItemViewHolder.mDeleteButton.setOnClickListener(new View.OnClickListener() {
@@ -139,13 +124,9 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
                     mTagList.remove(i);
                     notifyDataSetChanged();
                 }
-
             }
         });
-
-
     }
-
 
     @Override
     public int getItemCount() {
@@ -171,12 +152,6 @@ public class DiaryEditAdapter extends RecyclerView.Adapter {
 
         for (int i = 0; i < tagText.length(); i++) {
             String text = String.valueOf(tagText.charAt(i));
-//            Pattern pattern = Pattern.compile("[a-zA-Z]");
-//            Matcher matcher = pattern.matcher(text);
-//
-//            if(matcher.matches()) {
-//                numOfCh+=1;
-//            }
             if (text.matches("[\u4e00-\u9fa5]+")) {
                 numOfCh += 1;
             }

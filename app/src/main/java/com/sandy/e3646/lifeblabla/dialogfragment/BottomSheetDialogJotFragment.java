@@ -111,8 +111,6 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
                 mMainActPresenter.hideBottomNavigation();
                 mMainActPresenter.hideComponent();
                 dismiss();
-
-
                 break;
 
             case 1:
@@ -181,28 +179,18 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
     public void handleImage(Intent data) {
         Uri uri = data.getData();
         if (DocumentsContract.isDocumentUri(mContext, uri)) {
-            //如果是document型別的uri，則通過document id處理
             String docId = DocumentsContract.getDocumentId(uri);
-
             if ("com.android.providers.media.documents".equals(uri.getAuthority())) {
-                Log.d("path", "selection : ");
-                String id = docId.split(":")[1];//解析出數字格式的id
+                String id = docId.split(":")[1];
                 String selection = MediaStore.Images.Media._ID + "=" + id;
                 mImagePath = getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection);
-
             } else if ("com.android,providers.downloads.documents".equals(uri.getAuthority())) {
-                Log.d("path", "content uri: ");
                 Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
                 mImagePath = getImagePath(contentUri, null);
-
             }
-
         } else if ("content".equalsIgnoreCase(uri.getScheme())) {
             mImagePath = getImagePath(uri, null);
-
         }
-
-//        displayPhoto(mImagePath);
     }
 
     public String getImagePath(Uri uri, String selection) {

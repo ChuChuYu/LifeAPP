@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
-import com.sandy.e3646.lifeblabla.diary.DiaryAdapter;
+import com.sandy.e3646.lifeblabla.adapter.TagAdapter;
 import com.sandy.e3646.lifeblabla.object.Account;
 import com.sandy.e3646.lifeblabla.object.Note;
 
@@ -52,7 +52,7 @@ public class AccountFragment extends Fragment implements AccountContract.View {
     private Note mNote;
 
     private RecyclerView mTagRecycelrview;
-    private DiaryAdapter mTagAdapter;
+    private TagAdapter mTagAdapter;
 
     public AccountFragment(Note note) {
 
@@ -146,7 +146,7 @@ public class AccountFragment extends Fragment implements AccountContract.View {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecycelrview.setLayoutManager(linearLayoutManager);
-            mTagAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagAdapter = new TagAdapter(mNote.getmTag());
             mTagRecycelrview.setAdapter(mTagAdapter);
             mTagAdapter.setOnItemListener(new View.OnClickListener() {
                 @Override

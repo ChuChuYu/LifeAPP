@@ -1,15 +1,14 @@
 package com.sandy.e3646.lifeblabla.mainactivity;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -18,41 +17,27 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ToggleButton;
-
 //import com.crashlytics.android.Crashlytics;
 import com.sandy.e3646.lifeblabla.R;
-import com.sandy.e3646.lifeblabla.account.AccountFragment;
-
-import com.sandy.e3646.lifeblabla.diary.DiaryFragment;
 import com.sandy.e3646.lifeblabla.guideactivity.GuideActivity;
-import com.sandy.e3646.lifeblabla.jot.JotFragment;
 import com.sandy.e3646.lifeblabla.main.MainAccountFragment;
-import com.sandy.e3646.lifeblabla.main.MainContract;
 import com.sandy.e3646.lifeblabla.main.MainDiaryFragment;
 import com.sandy.e3646.lifeblabla.main.MainFragment;
 import com.sandy.e3646.lifeblabla.main.MainJotFragment;
-
-import com.sandy.e3646.lifeblabla.object.Note;
-
-
 //import io.fabric.sdk.android.Fabric;
-import java.util.ArrayList;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 public class MainActivity extends AppCompatActivity implements MainActContract.View, ViewPager.OnPageChangeListener, TabLayout.BaseOnTabSelectedListener {
-
-    private Context mContext;
-
     private MainActContract.Presenter mPresenter;
     private FragmentManager mFragmentManager;
 
@@ -60,12 +45,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     private MainDiaryFragment mMainDiaryFragment;
     private MainJotFragment mMainJotFragment;
     private MainAccountFragment mMainAccountFragment;
-
-    private DiaryFragment mDiaryFragment;
-    private JotFragment mJotFragment;
-    private AccountFragment mAccountFragment;
-
-    private MainContract.Presenter mMainPresenter;
 
     private ToggleButton mToggleButton;
     private ImageButton mAddNotesButton;
@@ -75,14 +54,14 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
-    private ArrayList<Note> mNoteList;
-    private NavigationView mBottomNavigation;
     private static final int MY_PERMISSIONS_REQUEST = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        Fabric.with(this, new Crashlytics());
+
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_main);
 
 
@@ -148,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                         break;
                     default:
                 }
-               return true;
+                return true;
             }
         });
 
@@ -163,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         }
 
         mToolbar = findViewById(R.id.toolbar);
-//        runTimePermission();
+        runTimePermission();
 
 
     }
@@ -182,20 +161,18 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                 }
                 return;
             }
-
+            default:
         }
     }
 
     public void init() {
-
-        mMainFragment = new MainFragment(mNoteList);
+        mMainFragment = new MainFragment();
         mMainDiaryFragment = new MainDiaryFragment(mFragmentManager);
         mMainJotFragment = new MainJotFragment();
         mMainAccountFragment = new MainAccountFragment();
         mFragmentManager = getSupportFragmentManager();
         mPresenter = new MainActPresenter(this, mFragmentManager, mMainFragment, mMainDiaryFragment, mMainJotFragment, mMainAccountFragment);
         mPresenter.start();
-
     }
 
     @Override
@@ -270,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         mTabLayout = findViewById(R.id.tab_layout);
         mTabLayout.addOnTabSelectedListener(this);
-
         mViewPager = findViewById(R.id.viewpager);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setOffscreenPageLimit(4);
@@ -287,7 +263,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                     case 3:
                         return mMainAccountFragment;
                 }
-
                 return null;
             }
 
@@ -362,8 +337,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         mViewPager.setVisibility(View.VISIBLE);
         mTabLayout.setVisibility(View.VISIBLE);
     }
-
-    /////////////
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {

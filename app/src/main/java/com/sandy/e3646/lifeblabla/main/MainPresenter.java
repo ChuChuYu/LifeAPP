@@ -52,7 +52,6 @@ public class MainPresenter implements MainContract.Presenter {
         mMainJotView.setPresenter(this);
         mMainAccountView = mainAccountView;
         mMainAccountView.setPresenter(this);
-
         mFragmentManager = fragmentManager;
         mMainActPresenter = mainActPresenter;
 
@@ -85,70 +84,13 @@ public class MainPresenter implements MainContract.Presenter {
         mMainAccountView.showListLayout();
     }
 
-    //  沒有用到的
-    @Override
-    public void showFragment(int i) {
-
-        Sqldatabase sql = new Sqldatabase(mContext);
-        mNoteList = sql.getNotes();
-        mNoteListPosition = i;
-        Note note = mNoteList.get(mNoteListPosition);
-        mMainView.hideUI();
-
-        if (mNoteList.get(mNoteListPosition).getmClassification().equals("diary")) {
-
-            mDiaryFragment = new DiaryFragment(note);
-            mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
-                    .show(mDiaryFragment)
-                    .addToBackStack(null)
-                    .commit();
-
-        } else if (mNoteList.get(mNoteListPosition).getmClassification().equals("jot")) {
-            mJotFragment = new JotFragment(note);
-            mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            transaction.replace(R.id.whole_container, mJotFragment, "JOT")
-                    .show(mJotFragment)
-                    .addToBackStack(null)
-                    .commit();
-
-        } else if (mNoteList.get(mNoteListPosition).getmClassification().equals("account")) {
-
-            mAccountFragment = new AccountFragment(note);
-            mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition);
-            FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            transaction.replace(R.id.whole_container, mAccountFragment, "ACCOUNT")
-                    .show(mAccountFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-
-        mMainActPresenter.goDiaryDetail(); //just hide component
-
-    }
-
-
     @Override
     public void refreshList() {
         mMainView.refreshList();
     }
 
     @Override
-    public void takeNoteList() {
-        Sqldatabase sql = new Sqldatabase(mContext);
-        mNoteList = sql.getNotes();
-    }
-
-    @Override
-    public void takeNoteListPosition(int i) {
-        mNoteListPosition = i;
-    }
-
-    @Override
     public void showdiary(Note note) {
-
 
         if (note.getmClassification().equals("diary")) {
 

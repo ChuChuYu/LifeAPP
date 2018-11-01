@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
-import com.sandy.e3646.lifeblabla.diary.DiaryEditAdapter;
+import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
 import com.sandy.e3646.lifeblabla.object.Account;
 import com.sandy.e3646.lifeblabla.object.Note;
 
@@ -73,7 +73,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private RecyclerView mRecyclerView;
     private AccountAdapter mAccountAdapter;
     private RecyclerView mTagRecyclerview;
-    private DiaryEditAdapter mTagAdapter;
+    private TagEditAdapter mTagAdapter;
 
     private ArrayList<Account> mAccoountList;
     private ArrayList<Note> mNoteList;
@@ -108,7 +108,12 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_edit, container, false);
+
+
+
         init(view);
+
+
 
         mRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -366,6 +371,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mCreatedTime.setText(currentTime());
         }
 
+
         return view;
     }
 
@@ -489,7 +495,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerview.setLayoutManager(linearLayoutManager);
-        mTagAdapter = new DiaryEditAdapter(null);
+        mTagAdapter = new TagEditAdapter(null);
         mTagRecyclerview.setAdapter(mTagAdapter);
     }
 

@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sandy.e3646.lifeblabla.R;
-import com.sandy.e3646.lifeblabla.diary.DiaryEditAdapter;
+import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +49,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private EditText mTitle;
     private EditText mText;
     private RecyclerView mTagRecyclerView;
-    private DiaryEditAdapter mDiaryEditAdapter;
+    private TagEditAdapter mTagEditAdapter;
     private EditText mJotTag;
     private ImageView mImage;
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -79,8 +79,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mDiaryEditAdapter = new DiaryEditAdapter(null);
-        mTagRecyclerView.setAdapter(mDiaryEditAdapter);
+        mTagEditAdapter = new TagEditAdapter(null);
+        mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mJotTag = (EditText)view.findViewById(R.id.sample_title);
         mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -266,7 +266,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("jot");
-            mNote.setmTag(mDiaryEditAdapter.TagList());
+            mNote.setmTag(mTagEditAdapter.TagList());
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);

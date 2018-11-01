@@ -36,14 +36,6 @@ public class MainFragment extends Fragment implements MainContract.View {
     private ArrayList<Note> mNoteList;
 
 
-    public MainFragment(ArrayList<Note> noteList) {
-
-        mNoteList = noteList;
-        if (mNoteList != null) {
-            mMainAdapter.notifyDataSetChanged();
-        }
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
@@ -55,14 +47,11 @@ public class MainFragment extends Fragment implements MainContract.View {
 
         Sqldatabase sql = new Sqldatabase(mContext);
         mNoteList = sql.getNotes();
-
-
         mRecyclerView = (RecyclerView)view.findViewById(R.id.main_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mMainAdapter = new MainAdapter(getContext(), mNoteList);
         mMainAdapterGrid = new MainAdapterGrid(getContext(), mNoteList);
         mRecyclerView.setAdapter(mMainAdapter);
-
         mRecyclerView.getItemAnimator().setChangeDuration(300);
         mRecyclerView.getItemAnimator().setMoveDuration(300);
 
@@ -93,10 +82,8 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showGridLayout() {
-
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mMainAdapterGrid);
-
     }
 
     @Override
@@ -109,18 +96,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showDiaryUI() {
-
         ((MainActivity) getActivity()).goDiaryDetail();
-
     }
-
 
     @Override
     public void refreshList() {
         mMainAdapterGrid.notifyDataSetChanged();
         mMainAdapter.notifyDataSetChanged();
     }
-
 
     @Override
     public void hideUI() {

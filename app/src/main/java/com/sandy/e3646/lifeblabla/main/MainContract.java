@@ -32,13 +32,7 @@ public interface MainContract {
 
         void switchToListLayout();
 
-        void showFragment(int i);
-
         void refreshList();
-
-        void takeNoteList();
-
-        void takeNoteListPosition(int i);
 
         void showdiary(Note note);
 
