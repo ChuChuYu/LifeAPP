@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -92,7 +93,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         });
 
         if (!isCreating && mNote != null) {
-            mTitle.setText(mNote.getmTitle());
+//            mTitle.setText(mNote.getmTitle());
             mText.setText(mNote.getmText());
             mCreatedTime.setText(mNote.getmCreatedTime());
 
@@ -133,15 +134,27 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mImage = view.findViewById(R.id.diary_image);
 
-        if (mUri == null) {
-            if (mImagePath == null || mImagePath.equals("")) {
-                mImage.setVisibility(View.GONE);
+        if (isCreating) {
+            if (mUri == null && mUri.equals("")) {
+                if (mImagePath == null && mImagePath.equals("")) {
+                    mImage.setVisibility(View.GONE);
+                } else {
+                    Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+                    mImage.setImageBitmap(bitmap);
+                }
             } else {
-                Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
-                mImage.setImageBitmap(bitmap);
+                mImage.setImageURI(mUri);
             }
         } else {
-            mImage.setImageURI(mUri);
+            if (mNote.getmPicture() != null && !mNote.getmPicture().equals("")) {
+                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+                mImage.setImageBitmap(bitmap);
+                Log.d("image", "not set");
+                Log.d("image", "path: " + mNote.getmPicture());
+            } else {
+                mImage.setVisibility(View.GONE);
+                Log.d("image", "set gone");
+            }
         }
 
         return view;
