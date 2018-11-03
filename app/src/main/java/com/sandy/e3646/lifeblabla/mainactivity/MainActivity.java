@@ -1,6 +1,7 @@
 package com.sandy.e3646.lifeblabla.mainactivity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -30,6 +31,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 //import com.crashlytics.android.Crashlytics;
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.draw.DrawEditFragment;
 import com.sandy.e3646.lifeblabla.guideactivity.GuideActivity;
 import com.sandy.e3646.lifeblabla.main.MainAccountFragment;
 import com.sandy.e3646.lifeblabla.main.MainDiaryFragment;
@@ -53,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     private BottomNavigationView mBottomNav;
     private android.support.v7.widget.Toolbar mToolbar;
 
+    private ImageButton mDrawButton;
+    private DrawEditFragment mDrawEditFragment;
+
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
 
@@ -60,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
     private static final int MY_PERMISSIONS_REQUEST = 100;
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +153,8 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         mToolbar = findViewById(R.id.toolbar);
         runTimePermission();
+
+
 
 
     }

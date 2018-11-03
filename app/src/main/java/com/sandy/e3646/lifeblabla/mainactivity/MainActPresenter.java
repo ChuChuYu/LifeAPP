@@ -17,6 +17,8 @@ import com.sandy.e3646.lifeblabla.diary.DiaryEditFragment;
 import com.sandy.e3646.lifeblabla.diary.DiaryEditPresenter;
 import com.sandy.e3646.lifeblabla.diary.DiaryFragment;
 import com.sandy.e3646.lifeblabla.diary.DiaryPresenter;
+import com.sandy.e3646.lifeblabla.draw.DrawEditFragment;
+import com.sandy.e3646.lifeblabla.draw.DrawEditPresenter;
 import com.sandy.e3646.lifeblabla.jot.JotEditFragment;
 import com.sandy.e3646.lifeblabla.jot.JotEditPresenter;
 import com.sandy.e3646.lifeblabla.main.MainAccountFragment;
@@ -48,6 +50,9 @@ public class MainActPresenter implements MainActContract.Presenter {
     private DiaryEditFragment mDiaryEditFragment;
     private JotEditFragment mJotEditFragment;
     private AccountEditFragment mAccountEditFragment;
+
+    private DrawEditFragment mDrawEditFragment;
+    private DrawEditPresenter mDrawEditPresenter;
 
     private SettingFragment mSettingFragment;
 
@@ -288,6 +293,19 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void showJotBottomSheet() {
         BottomSheetDialogJotFragment bottomSheetDialogJotFragment = new BottomSheetDialogJotFragment(this);
         bottomSheetDialogJotFragment.show(mFragmentManager, bottomSheetDialogJotFragment.getTag());
+    }
+
+    @Override
+    public void goDraw() {
+        mDrawEditFragment = new DrawEditFragment(true);
+        mDrawEditPresenter = new DrawEditPresenter(mDrawEditFragment, this);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.replace(R.id.whole_container, mDrawEditFragment)
+                .show(mDrawEditFragment)
+                .addToBackStack(null)
+                .commit();
+
     }
 
     @Override

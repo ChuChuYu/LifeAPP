@@ -42,6 +42,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
     private ImageButton mTextButton;
     private ImageButton mAlbumButton;
     private ImageButton mCameraButton;
+    private ImageButton mDrawButton;
     private MainActPresenter mMainActPresenter;
 
     private Context mContext;
@@ -95,6 +96,16 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
             }
         });
 
+        mDrawButton = view.findViewById(R.id.button_form_draw);
+        mDrawButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMainActPresenter.goDraw();
+                mMainActPresenter.hideBottomNavigation();
+                mMainActPresenter.hideComponent();
+                dismiss();
+            }
+        });
 
         return view;
 
