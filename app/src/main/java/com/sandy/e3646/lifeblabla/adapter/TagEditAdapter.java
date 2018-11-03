@@ -108,7 +108,6 @@ public class TagEditAdapter extends RecyclerView.Adapter {
     private void initLayoutTag(TagItemViewHolder holder, final int i) {
         final TagItemViewHolder tagItemViewHolder = (TagItemViewHolder)holder;
 
-        ViewGroup.LayoutParams textParams = tagItemViewHolder.mTagText.getLayoutParams();
         ViewGroup.LayoutParams backgroundParams = tagItemViewHolder.mTagBackground.getLayoutParams();
         int numofchinese = numOfChinese(mTagList.get(i));
         int numofenglish = mTagList.get(i).length() - numofchinese;
@@ -122,7 +121,7 @@ public class TagEditAdapter extends RecyclerView.Adapter {
 
                 if (mTagList.size() >= 1) {
                     mTagList.remove(i);
-                    notifyDataSetChanged();
+                    notifyItemRemoved(i);
                 }
             }
         });

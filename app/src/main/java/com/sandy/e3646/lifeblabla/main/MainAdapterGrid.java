@@ -313,9 +313,6 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
     private void initLayoutAccount(MainAccountItemViewHolder viewHolder, int i) {
         MainAccountItemViewHolder mainAccountItemViewHolder = (MainAccountItemViewHolder)viewHolder;
-
-
-
         int no = mNoteList.size()-i-1;
 
         mainAccountItemViewHolder.mAccountRevenue.setText(mNoteList.get(no).getAccountRevenue());

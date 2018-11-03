@@ -19,12 +19,14 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 //import com.crashlytics.android.Crashlytics;
 import com.sandy.e3646.lifeblabla.R;
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+
+    private long firstTime;
 
     private static final int MY_PERMISSIONS_REQUEST = 100;
 
@@ -145,6 +149,27 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         runTimePermission();
 
 
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+        if(keyCode == KeyEvent.KEYCODE_BACK){
+            exitApp(2000);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exitApp(long timeInterval) {
+        if(System.currentTimeMillis() - firstTime >= timeInterval){
+            Toast.makeText(this, "再次點擊退出程式", Toast.LENGTH_SHORT).show();
+            firstTime = System.currentTimeMillis();
+        }else {
+            finish();
+            System.exit(0);
+        }
     }
 
     @Override

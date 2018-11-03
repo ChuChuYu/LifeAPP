@@ -35,6 +35,9 @@ public class MainFragment extends Fragment implements MainContract.View {
     private MainAdapterGrid mMainAdapterGrid;
     private ArrayList<Note> mNoteList;
 
+    private LinearLayoutManager mLinearLayoutManager;
+    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+
 
     @Nullable
     @Override
@@ -48,6 +51,11 @@ public class MainFragment extends Fragment implements MainContract.View {
         Sqldatabase sql = new Sqldatabase(mContext);
         mNoteList = sql.getNotes();
         mRecyclerView = (RecyclerView)view.findViewById(R.id.main_recyclerview);
+
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
+        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mMainAdapter = new MainAdapter(getContext(), mNoteList);
         mMainAdapterGrid = new MainAdapterGrid(getContext(), mNoteList);
@@ -82,16 +90,14 @@ public class MainFragment extends Fragment implements MainContract.View {
 
     @Override
     public void showGridLayout() {
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
         mRecyclerView.setAdapter(mMainAdapterGrid);
     }
 
     @Override
     public void showListLayout() {
-
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setAdapter(mMainAdapter);
-
     }
 
     @Override
