@@ -1,4 +1,4 @@
-# Brandy Note - readme
+# Brandy Note
 
 ## Brandy Note
 
