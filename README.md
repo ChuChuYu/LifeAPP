@@ -4,6 +4,8 @@
 
 Brandy Note 是一款質感介面取向的快速筆記工具，使用者可依照需求創建三種模式的筆記，筆記形式包含純文字、圖片、手寫版等。
 
+[<img src="https://github.com/Wen-Liu/BookShare/raw/master/Screenshot/google-play-badge.png" width="180"  >](https://play.google.com/store/apps/details?id=com.sandy.e3646.lifeblabla)
+
 ### 主畫面 - 筆記列表
 
 * 可切換兩種不同版面：條列式 / 瀑布流
