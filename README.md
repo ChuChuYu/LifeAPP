@@ -44,10 +44,7 @@ Brandy Note 是一款質感介面取向的快速筆記工具，使用者可依�
 
 ## Screen Shot
 
-<img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_20181031-175356.png?raw=true" width="240" >
-<img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_1540977656.png?raw=true" width="240" >
-<img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_1540740222.png?raw=true" width="240" >
-<img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_1540977352.png?raw=true" width="240" >
+<img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_20181031-175356.png?raw=true" width="150" ><img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_1540977656.png?raw=true" width="150" ><img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_1540740222.png?raw=true" width="150" ><img src="https://github.com/ChuChuYu/LifeAPP/blob/master/screenshot/Screenshot_1540977352.png?raw=true" width="150" >
 
 ## 版本資訊
 1.0.0 - 2018/10/29
