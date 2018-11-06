@@ -52,7 +52,7 @@ Brandy Note 是一款質感介面取向的快速筆記工具，使用者可依�
 ## 版本需求
 * Android 6.0+
 * Android Studio 3.1.2+
-* gradle 3.1.2+
+* Gradle 3.1.2+
 
 ## 聯絡作者
 developer.chu@gmail.com
