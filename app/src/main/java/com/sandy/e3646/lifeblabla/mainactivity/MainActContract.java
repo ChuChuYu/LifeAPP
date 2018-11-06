@@ -86,6 +86,8 @@ public interface MainActContract {
 
         void showJotBottomSheet();
 
+        void goDraw();
+
 
     }
 }

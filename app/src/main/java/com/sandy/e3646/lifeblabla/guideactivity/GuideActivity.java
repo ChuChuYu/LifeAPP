@@ -24,7 +24,6 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     private GuideFirstFragment mGuideFirstFragment;
     private GuideSecondFragment mGuideSecondFragment;
     private GuideThirdFragment mGuideThirdFragment;
-    private LinearLayout mLinearLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,7 +39,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         mGuideSecondFragment = new GuideSecondFragment();
         mGuideThirdFragment = new GuideThirdFragment();
 
-        mViewPager = (ViewPager)findViewById(R.id.guide_viewpager);
+        mViewPager = findViewById(R.id.guide_viewpager);
         mViewPager.addOnPageChangeListener(this);
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -71,6 +70,9 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
                 Intent intent = new Intent(GuideActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                mGuideFirstFragment.onDestroy();
+                mGuideSecondFragment.onDestroy();
+                mGuideThirdFragment.onDestroy();
             }
         });
 

@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sandy.e3646.lifeblabla.R;
-import com.sandy.e3646.lifeblabla.diary.DiaryEditAdapter;
+import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.text.SimpleDateFormat;
@@ -49,7 +50,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private EditText mTitle;
     private EditText mText;
     private RecyclerView mTagRecyclerView;
-    private DiaryEditAdapter mDiaryEditAdapter;
+    private TagEditAdapter mTagEditAdapter;
     private EditText mJotTag;
     private ImageView mImage;
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -79,8 +80,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mDiaryEditAdapter = new DiaryEditAdapter(null);
-        mTagRecyclerView.setAdapter(mDiaryEditAdapter);
+        mTagEditAdapter = new TagEditAdapter(null);
+        mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mJotTag = (EditText)view.findViewById(R.id.sample_title);
         mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -92,7 +93,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         });
 
         if (!isCreating && mNote != null) {
-            mTitle.setText(mNote.getmTitle());
+//            mTitle.setText(mNote.getmTitle());
             mText.setText(mNote.getmText());
             mCreatedTime.setText(mNote.getmCreatedTime());
 
@@ -133,15 +134,24 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mImage = view.findViewById(R.id.diary_image);
 
-        if (mUri == null) {
-            if (mImagePath == null || mImagePath.equals("")) {
-                mImage.setVisibility(View.GONE);
+        if (isCreating) {
+            if (mUri == null && mUri.equals("")) {
+                if (mImagePath == null && mImagePath.equals("")) {
+                    mImage.setVisibility(View.GONE);
+                } else {
+                    Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+                    mImage.setImageBitmap(bitmap);
+                }
             } else {
-                Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
-                mImage.setImageBitmap(bitmap);
+                mImage.setImageURI(mUri);
             }
         } else {
-            mImage.setImageURI(mUri);
+            if (mNote.getmPicture() != null && !mNote.getmPicture().equals("")) {
+                Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
+                mImage.setImageBitmap(bitmap);
+            } else {
+                mImage.setVisibility(View.GONE);
+            }
         }
 
         return view;
@@ -266,7 +276,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("jot");
-            mNote.setmTag(mDiaryEditAdapter.TagList());
+            mNote.setmTag(mTagEditAdapter.TagList());
 
             mNoteList = new ArrayList<Note>();
             mNoteList.add(mNote);

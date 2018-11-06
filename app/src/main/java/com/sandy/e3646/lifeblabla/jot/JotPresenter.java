@@ -31,8 +31,9 @@ public class JotPresenter implements JotContract.Presenter {
     private CheckDeleteFragment mCheckDeleteFragment;
     private ArrayList<Note> mNoteList;
     private int mNotePosition;
+    private Note mNote;
 
-    public JotPresenter(JotContract.View jotView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList) {
+    public JotPresenter(JotContract.View jotView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList, Note note) {
 
         mJotView = checkNotNull(jotView);
         mJotView.setPresenter(this);
@@ -41,6 +42,8 @@ public class JotPresenter implements JotContract.Presenter {
         mMainActPresenter = mainActPresenter;
         mNotePosition = i;
         mNoteList = noteList;
+
+        mNote = note;
 
     }
 
@@ -77,13 +80,13 @@ public class JotPresenter implements JotContract.Presenter {
 
     @Override
     public void goEditJot(boolean isCreating) {
-        Note note = mNoteList.get(mNotePosition);
+//        Note note = mNoteList.get(mNotePosition);
 
-        mJotEditFragment = new JotEditFragment(isCreating, note, note.getmPicture(), Uri.parse(note.getPhotoFromCamera()));
+        mJotEditFragment = new JotEditFragment(isCreating, mNote, mNote.getmPicture(), Uri.parse(mNote.getPhotoFromCamera()));
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.replace(R.id.diary_container, mJotEditFragment, "EDIT DIARY")
+        transaction.replace(R.id.jot_container, mJotEditFragment, "EDIT DIARY")
                 .show(mJotEditFragment)
                 .addToBackStack(null)
                 .commit();

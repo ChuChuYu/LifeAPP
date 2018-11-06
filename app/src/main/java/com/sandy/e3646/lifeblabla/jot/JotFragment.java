@@ -22,10 +22,8 @@ import android.widget.TextView;
 
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
-import com.sandy.e3646.lifeblabla.diary.DiaryAdapter;
+import com.sandy.e3646.lifeblabla.adapter.TagAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
-
-import java.io.IOException;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -42,7 +40,7 @@ public class JotFragment extends Fragment implements JotContract.View {
     private RecyclerView mTagRecyclerView;
     private JotAdapter mJotAdapter;
 
-    private DiaryAdapter mTagAdapter;
+    private TagAdapter mTagAdapter;
     private ImageView mTagBackground;
 
     private TextView mCreatedTime;
@@ -77,7 +75,7 @@ public class JotFragment extends Fragment implements JotContract.View {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
-            mTagAdapter = new DiaryAdapter(mNote.getmTag());
+            mTagAdapter = new TagAdapter(mNote.getmTag());
             mTagRecyclerView.setAdapter(mTagAdapter);
             mTagAdapter.setOnItemListener(new View.OnClickListener() {
                 @Override

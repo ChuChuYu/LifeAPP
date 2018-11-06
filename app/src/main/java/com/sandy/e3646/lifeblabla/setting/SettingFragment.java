@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import com.sandy.e3646.lifeblabla.R;
 
@@ -34,7 +36,7 @@ public class SettingFragment extends Fragment implements SettingContract.View {
     private boolean isCustomTitle;
     private boolean isCustomText;
 
-
+    private int timesOfBackKey = 0;
 
     @Nullable
     @Override
@@ -111,6 +113,8 @@ public class SettingFragment extends Fragment implements SettingContract.View {
 
         return view;
     }
+
+
 
     @Override
     public void setPresenter(SettingContract.Presenter presenter) {

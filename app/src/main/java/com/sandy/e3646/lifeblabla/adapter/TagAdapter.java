@@ -1,4 +1,4 @@
-package com.sandy.e3646.lifeblabla.diary;
+package com.sandy.e3646.lifeblabla.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,23 +14,20 @@ import com.sandy.e3646.lifeblabla.R;
 
 import java.util.ArrayList;
 
-public class DiaryAdapter extends RecyclerView.Adapter {
+public class TagAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> mTagList;
-
     private View.OnClickListener mListener;
 
-    public DiaryAdapter(ArrayList<String> tagList) {
-
+    public TagAdapter(ArrayList<String> tagList) {
         mTagList = tagList;
-        Log.d("tag list", "size: " + tagList.size());
     }
 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        return new DiaryAdapter.TagItemViewHolder(LayoutInflater.from(viewGroup
+        return new TagAdapter.TagItemViewHolder(LayoutInflater.from(viewGroup
                 .getContext()).inflate(R.layout.item_diary_tag, null, false));
     }
 
