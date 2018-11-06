@@ -149,11 +149,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             if (mNote.getmPicture() != null && !mNote.getmPicture().equals("")) {
                 Bitmap bitmap = BitmapFactory.decodeFile(mNote.getmPicture());
                 mImage.setImageBitmap(bitmap);
-                Log.d("image", "not set");
-                Log.d("image", "path: " + mNote.getmPicture());
             } else {
                 mImage.setVisibility(View.GONE);
-                Log.d("image", "set gone");
             }
         }
 

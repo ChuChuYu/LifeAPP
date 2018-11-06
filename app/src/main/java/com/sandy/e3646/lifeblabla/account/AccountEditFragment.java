@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -145,6 +146,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             }
         });
 
+
         mCategoryOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,6 +177,13 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 setCategoryBack(mCategoryFive, "5");
             }
         });
+
+
+//        mCategoryOne.setOnClickListener(categoryButton);
+//        mCategoryTwo.setOnClickListener(categoryButton);
+//        mCategoryThree.setOnClickListener(categoryButton);
+//        mCategoryFour.setOnClickListener(categoryButton);
+//        mCategoryFive.setOnClickListener(categoryButton);
 
         mAddItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -374,6 +383,28 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
         return view;
     }
+
+
+//    private View.OnClickListener categoryButton = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View view) {
+//            switch (view.getId()) {
+//
+//                case R.id.button_category_1:
+//                    setCategoryBack(mCategoryOne, "1");
+//                case R.id.button_category_2:
+//                    setCategoryBack(mCategoryTwo, "2");
+//                case R.id.button_category_3:
+//                    setCategoryBack(mCategoryThree, "3");
+//                case R.id.button_category_4:
+//                    setCategoryBack(mCategoryFour, "4");
+//                case R.id.button_category_5:
+//                    setCategoryBack(mCategoryFive, "5");
+//
+//            }
+//
+//        }
+//    };
 
     @Override
     public void onResume() {
