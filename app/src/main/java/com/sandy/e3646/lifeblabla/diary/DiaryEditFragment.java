@@ -471,7 +471,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
         }
-        String state = Environment.getExternalStorageState();// 獲取記憶體卡可用狀態
+        String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
 
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

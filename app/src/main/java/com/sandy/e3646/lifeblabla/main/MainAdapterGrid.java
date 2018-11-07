@@ -242,8 +242,11 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                     mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
                     mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
                 } else {
+                    
                     Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(no).getmPicture());
-                    mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+                    Bitmap resized = Bitmap.createScaledBitmap(bitmap, 190, 180, true);
+
+                    mainGridItemViewHolder.mImage.setImageBitmap(resized);
                     mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
                     mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
                     mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);

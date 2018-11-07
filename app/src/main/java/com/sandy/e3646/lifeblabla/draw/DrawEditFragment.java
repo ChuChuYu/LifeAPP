@@ -100,7 +100,7 @@ public class DrawEditFragment extends Fragment implements DrawEditContract.View 
 
     private void showImage() {
         ViewGroup.LayoutParams imageParams = mDrawImage.getLayoutParams();
-        mBitmap = Bitmap.createBitmap(imageParams.width, imageParams.height, Bitmap.Config.ARGB_8888);
+        mBitmap = Bitmap.createBitmap(1000, imageParams.height, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(mBitmap);
         canvas.drawColor(Color.WHITE);
         paint = new Paint();

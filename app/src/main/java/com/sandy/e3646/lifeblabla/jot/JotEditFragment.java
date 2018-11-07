@@ -135,8 +135,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mImage = view.findViewById(R.id.diary_image);
 
         if (isCreating) {
-            if (mUri == null && mUri.equals("")) {
-                if (mImagePath == null && mImagePath.equals("")) {
+            if (mUri == null || mUri.equals("")) {
+                if (mImagePath == null || mImagePath.equals("")) {
                     mImage.setVisibility(View.GONE);
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
