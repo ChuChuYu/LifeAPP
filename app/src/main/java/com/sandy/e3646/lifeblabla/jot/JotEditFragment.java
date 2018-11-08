@@ -283,7 +283,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mPresenter.insertJotData(getContext(), mNote);
         } else { //isEditing
 
-            mNote.setmTitle(mTitle.getText().toString());
+//            mNote.setmTitle(mTitle.getText().toString());
             mNote.setmText(mText.getText().toString());
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());

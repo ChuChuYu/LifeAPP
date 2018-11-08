@@ -212,6 +212,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="@+id/button_form_album"
             app:layout_constraintEnd_toEndOf="@+id/button_form_album"
             app:layout_constraintStart_toStartOf="@+id/button_form_album"
@@ -226,11 +227,26 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:scaleType="centerInside"
             app:layout_constraintBottom_toBottomOf="@+id/button_form_camera"
             app:layout_constraintEnd_toEndOf="@+id/button_form_camera"
             app:layout_constraintStart_toStartOf="@+id/button_form_camera"
             app:layout_constraintTop_toTopOf="@+id/button_form_camera"
             app:srcCompat="@drawable/button_camera" />
+
+        <ImageView
+            android:id="@+id/imageView30"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/button_form_draw"
+            app:layout_constraintEnd_toEndOf="@+id/button_form_draw"
+            app:layout_constraintStart_toStartOf="@+id/button_form_draw"
+            app:layout_constraintTop_toTopOf="@+id/button_form_draw"
+            app:srcCompat="@drawable/button_writing" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>

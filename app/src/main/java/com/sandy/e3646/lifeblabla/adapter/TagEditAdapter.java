@@ -85,9 +85,9 @@ public class TagEditAdapter extends RecyclerView.Adapter {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    mDiaryEditFragment.getTagEditFocus();
+//                    mDiaryEditFragment.getTagEditFocus();
                 } else {
-                    mDiaryEditFragment.getTagEditUnFocus();
+//                    mDiaryEditFragment.getTagEditUnFocus();
                 }
             }
         });
