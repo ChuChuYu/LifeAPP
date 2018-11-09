@@ -2,6 +2,7 @@ package com.sandy.e3646.lifeblabla.mainactivity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -25,6 +26,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -75,10 +78,17 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         setContentView(R.layout.activity_main);
 
 
+
         View view = getWindow().getDecorView();
         int i = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
         view.setSystemUiVisibility(i);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
+
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+//        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 
         SharedPreferences sharedPreferences = this.getSharedPreferences("isFirst", MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();

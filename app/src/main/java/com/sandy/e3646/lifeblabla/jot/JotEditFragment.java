@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -54,6 +55,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private EditText mJotTag;
     private ImageView mImage;
     private BottomSheetBehavior mBottomSheetBehavior;
+    private ConstraintLayout mBottomBar;
 
     private String mImagePath;
     private Uri mUri;
@@ -80,7 +82,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mTagEditAdapter = new TagEditAdapter(null);
+        mTagEditAdapter = new TagEditAdapter(null, this, null, null);
         mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mJotTag = (EditText)view.findViewById(R.id.sample_title);
@@ -154,6 +156,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             }
         }
 
+        mBottomBar = view.findViewById(R.id.bottom_bar);
+
         return view;
     }
 
@@ -190,6 +194,21 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         String str = formatter.format(curDate);
 
         return str;
+    }
+
+
+
+    @Override
+    public void getTagEditFocus() {
+
+        mBottomBar.setFitsSystemWindows(true);
+    }
+
+    @Override
+    public void getTagEditUnFocus() {
+
+        mBottomBar.setFitsSystemWindows(false);
+
     }
 
     @Override

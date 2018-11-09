@@ -34,6 +34,10 @@ public interface AccountEditContract {
 
         void replaceUI();
 
+        void getTagEditFocus();
+
+        void getTagEditUnFocus();
+
     }
 
     interface Presenter extends BasePresenter {

@@ -16,6 +16,10 @@ public interface JotEditContrat {
 
         void takeJotData();
 
+        void getTagEditFocus();
+
+        void getTagEditUnFocus();
+
 
     }
 

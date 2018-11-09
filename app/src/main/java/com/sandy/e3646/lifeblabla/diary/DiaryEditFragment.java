@@ -116,7 +116,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mTagEditAdapter = new TagEditAdapter(this);
+        mTagEditAdapter = new TagEditAdapter(this, null, null, null);
         mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mBottomBar = view.findViewById(R.id.bottom_bar);

@@ -256,23 +256,21 @@
         app:layout_constraintEnd_toEndOf="@+id/button_add_item"
         app:layout_constraintTop_toTopOf="@+id/button_add_item" />
 
-    <ImageView
-        android:id="@+id/imageView4"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
-        android:background="#50FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/tag_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="43dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/tag_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="43dp"
+            android:background="#50FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
 
     <android.support.design.widget.CoordinatorLayout

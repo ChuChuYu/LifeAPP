@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -87,6 +88,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private Integer mTotalRevenue = 0;
     private Integer mTotalExpense = 0;
     private Integer mTotalBalance = 0;
+    private ConstraintLayout mBottomBar;
 
     public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
@@ -411,8 +413,10 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerview.setLayoutManager(linearLayoutManager);
-        mTagAdapter = new TagEditAdapter(null);
+        mTagAdapter = new TagEditAdapter(null, null, this, null);
         mTagRecyclerview.setAdapter(mTagAdapter);
+
+        mBottomBar = view.findViewById(R.id.bottom_bar);
     }
 
     private static String currentTime() {
@@ -421,6 +425,20 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         String str = formatter.format(curDate);
 
         return str;
+    }
+
+
+    @Override
+    public void getTagEditFocus() {
+
+        mBottomBar.setFitsSystemWindows(true);
+    }
+
+    @Override
+    public void getTagEditUnFocus() {
+
+        mBottomBar.setFitsSystemWindows(false);
+
     }
 
     private String currentTimeForId() {
