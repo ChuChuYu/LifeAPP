@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +64,7 @@ public class JotFragment extends Fragment implements JotContract.View {
 
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
-        mTitle = (TextView)view.findViewById(R.id.jot_title);
+        mTitle = (TextView)view.findViewById(R.id.jot_text);
         mText = (TextView)view.findViewById(R.id.jot_text);
         mImage = view.findViewById(R.id.diary_image);
 

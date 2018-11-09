@@ -15,7 +15,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,7 +73,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jotedit, container, false);
 
-        mTitle = (EditText)view.findViewById(R.id.jot_title);
+        mTitle = (EditText)view.findViewById(R.id.jot_text);
         mText = (EditText)view.findViewById(R.id.jot_text);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
 
@@ -85,14 +84,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mTagEditAdapter = new TagEditAdapter(null, this, null, null);
         mTagRecyclerView.setAdapter(mTagEditAdapter);
 
-        mJotTag = (EditText)view.findViewById(R.id.sample_title);
-        mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
-                return false;
-            }
-        });
 
         if (!isCreating && mNote != null) {
 //            mTitle.setText(mNote.getmTitle());
@@ -157,6 +149,16 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         }
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
+
+//        mJotTag = (EditText)view.findViewById(R.id.sample_title);
+
+//        mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//
+//                return false;
+//            }
+//        });
 
         return view;
     }

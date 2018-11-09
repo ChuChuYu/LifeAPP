@@ -59,7 +59,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
         mCreatedTime = (TextView)view.findViewById(R.id.diary_detail_created_time);
-        mTitle = (TextView) view.findViewById(R.id.jot_title);
+        mTitle = (TextView) view.findViewById(R.id.jot_text);
         mText = (TextView)view.findViewById(R.id.jot_text);
         mEmotion = (ImageView)view.findViewById(R.id.note_diary_emotion);
         mWeather = (ImageView)view.findViewById(R.id.note_diary_weather);

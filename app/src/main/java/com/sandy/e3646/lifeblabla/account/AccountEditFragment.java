@@ -181,6 +181,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 } else {
                     if (isCreatingItem) {
                         takeAccountData();
+
                     } else {
 
                         countTotalAmountWhenEditingItem();
@@ -600,6 +601,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mCategoryFour.setImageResource(R.drawable.button_account_not_select);
         mCategoryFive.setImageResource(R.drawable.button_account_not_select);
         mAmount.setText("0");
+        isRevenue = 3;
+        mCategory = "0";
 
     }
 

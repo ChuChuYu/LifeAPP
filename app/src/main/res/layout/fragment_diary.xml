@@ -156,7 +156,7 @@
 
 
             <TextView
-                android:id="@+id/jot_title"
+                android:id="@+id/jot_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -182,7 +182,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.488"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/jot_title" />
+                app:layout_constraintTop_toBottomOf="@+id/jot_text" />
 
 
         </LinearLayout>

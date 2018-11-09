@@ -247,7 +247,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             mainListItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
             mainListItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
 
-            mainListItemViewHolder.mTitle.setText("隨手一記");
+            mainListItemViewHolder.mTitle.setText(mNoteList.get(no).getmText());
 
             mainListItemViewHolder.mText.setText(note.getmText());
         }

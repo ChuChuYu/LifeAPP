@@ -1,6 +1,7 @@
 package com.sandy.e3646.lifeblabla.draw;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -22,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -117,7 +119,9 @@ public class DrawEditFragment extends Fragment implements DrawEditContract.View 
 
     private void showImage() {
         ViewGroup.LayoutParams imageParams = mDrawImage.getLayoutParams();
-        mBitmap = Bitmap.createBitmap(1000, imageParams.height, Bitmap.Config.ARGB_8888);
+        WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+
+        mBitmap = Bitmap.createBitmap(windowManager.getDefaultDisplay().getWidth(), imageParams.height, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(mBitmap);
         canvas.drawColor(Color.WHITE);
         paint = new Paint();

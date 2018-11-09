@@ -316,7 +316,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).getmTitle().equals("")) {
                 mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
             } else {
-                mainGridItemViewHolder.mTitle.setText("隨手記一筆");
+                mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmText());
             }
 
             if (mNoteList.get(no).getPhotoFromCamera() == null || mNoteList.get(no).getPhotoFromCamera().equals("")) {
