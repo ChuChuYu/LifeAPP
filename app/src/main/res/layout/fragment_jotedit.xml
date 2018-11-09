@@ -33,7 +33,7 @@
         <ImageView
             android:id="@+id/imageView17"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="30dp"
             android:background="#783b3b3b"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -43,7 +43,7 @@
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="55dp"
             android:background="#783b3b3b"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />

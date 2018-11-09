@@ -85,11 +85,9 @@ public class JotFragment extends Fragment implements JotContract.View {
                     mPresenter.goSearch(mNote.getmTag().get((int)view.getTag()));
                 }
             });
-            Log.d("not empty","");
 
         } else if (mNote.getmTag() == null || mNote.getmTag().get(0).equals("") || mNote.getmTag().get(0).equals("null")) {
             mTagBackground.setVisibility(View.GONE);
-            Log.d("empty", "");
         }
 
         mBackButton = (ImageButton)view.findViewById(R.id.button_back);
@@ -116,14 +114,10 @@ public class JotFragment extends Fragment implements JotContract.View {
             @Override
             public void onClick(View view) {
                 mPresenter.showCheckDeleteDialog();
-
             }
         });
-
-
         return view;
     }
-
 
     @Override
     public void onResume() {

@@ -3,6 +3,7 @@ package com.sandy.e3646.lifeblabla.account;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,9 @@ public class AccountAdapter extends RecyclerView.Adapter {
     public AccountAdapter(ArrayList<Account> accountList, boolean isedting) {
         mAccountList = accountList;
         isEditing = isedting;
+        if (mAccountList != null) {
+            Log.d("account size", String.valueOf(mAccountList.size()));
+        }
     }
 
     @NonNull
@@ -73,12 +77,21 @@ public class AccountAdapter extends RecyclerView.Adapter {
                 itemViewHolder.mAmount.setText(mAccountList.get(i).getRevenue());
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#166C2D"));
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#166C2D"));
+
+                Log.d("revenue", mAccountList.get(i).getRevenue());
+
+
             } else {
                 itemViewHolder.mRevenueOrExpense.setText("支出");
                 itemViewHolder.mRevenueOrExpense.setTextColor(Color.parseColor("#892222"));
                 itemViewHolder.mAmount.setText(mAccountList.get(i).getExpense());
                 itemViewHolder.mAmount.setTextColor(Color.parseColor("#892222"));
+
+                Log.d("expense", mAccountList.get(i).getExpense());
             }
+
+            Log.d("category", mAccountList.get(i).getCategory());
+
 
         }
 

@@ -526,6 +526,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
 
             mNote.setmId(mNoteId);
 
+            mNote.setmTitle(mTitle.getText().toString());
+
             mNote.setMonth(month);
             mNote.setDay(day);
             mNote.setTime(time);
