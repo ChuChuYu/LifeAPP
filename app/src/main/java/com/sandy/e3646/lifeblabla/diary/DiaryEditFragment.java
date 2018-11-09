@@ -2,8 +2,10 @@ package com.sandy.e3646.lifeblabla.diary;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,11 +20,14 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
@@ -40,6 +45,7 @@ import android.widget.TextView;
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
 import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
+import com.sandy.e3646.lifeblabla.mainactivity.MainActivity;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.io.File;
@@ -94,7 +100,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private ConstraintLayout mConstraintLayout;
 
     private boolean isCreating;
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
     public DiaryEditFragment(boolean iscreating, Note note) {
 
         this.isCreating = iscreating;
@@ -232,6 +239,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             }
         });
+
         return view;
     }
 
@@ -276,6 +284,9 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         }
     }
 
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -304,6 +315,26 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 }
                 break;
 
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+
+//                if (getContext().grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                } else {
+//
+//                }
+                return;
+            }
+
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                } else {
+//
+//                }
+                return;
+            }
              default:
         }
         super.onActivityResult(requestCode, resultCode, data);
