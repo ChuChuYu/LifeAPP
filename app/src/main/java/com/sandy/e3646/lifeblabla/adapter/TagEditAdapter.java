@@ -2,6 +2,7 @@ package com.sandy.e3646.lifeblabla.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -15,7 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.account.AccountEditFragment;
 import com.sandy.e3646.lifeblabla.diary.DiaryEditFragment;
+import com.sandy.e3646.lifeblabla.draw.DrawEditFragment;
+import com.sandy.e3646.lifeblabla.jot.JotEditFragment;
 
 import java.util.ArrayList;
 
@@ -26,8 +30,15 @@ public class TagEditAdapter extends RecyclerView.Adapter {
     private ArrayList<String> mTagList = new ArrayList<String>();
     private DiaryEditFragment mDiaryEditFragment;
 
-    public TagEditAdapter(DiaryEditFragment diaryEditFragment) {
+    private JotEditFragment mJotEditFragment;
+    private AccountEditFragment mAccountEditFragment;
+    private DrawEditFragment mDrawEditFragment;
+
+    public TagEditAdapter(DiaryEditFragment diaryEditFragment, JotEditFragment jotEditFragment, AccountEditFragment accountEditFragment, DrawEditFragment drawEditFragment) {
         mDiaryEditFragment = diaryEditFragment;
+        mJotEditFragment = jotEditFragment;
+        mAccountEditFragment = accountEditFragment;
+        mDrawEditFragment = drawEditFragment;
     }
 
     @Override
@@ -84,12 +95,33 @@ public class TagEditAdapter extends RecyclerView.Adapter {
         editItemViewHolder.mTagEdit.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    mDiaryEditFragment.getTagEditFocus();
-                } else {
-                    mDiaryEditFragment.getTagEditUnFocus();
+
+                if (mDiaryEditFragment != null) {
+                    if (b) {
+                        mDiaryEditFragment.getTagEditFocus();
+                    } else {
+                        mDiaryEditFragment.getTagEditUnFocus();
+                    }
+                } else if (mAccountEditFragment != null) {
+                    if (b) {
+                        mAccountEditFragment.getTagEditFocus();
+                    } else {
+                        mAccountEditFragment.getTagEditUnFocus();
+                    }
+                } else if (mJotEditFragment != null) {
+                    if (b) {
+                        mJotEditFragment.getTagEditFocus();
+                    } else {
+                        mJotEditFragment.getTagEditUnFocus();
+                    }
+                } else if (mDrawEditFragment != null) {
+                    if (b) {
+                        mDrawEditFragment.getTagEditFocus();
+                    } else {
+                        mDrawEditFragment.getTagEditUnFocus();
+                    }
                 }
-            }
+             }
         });
 
         editItemViewHolder.mTagEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {

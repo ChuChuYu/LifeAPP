@@ -14,15 +14,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class AccountEditPresenter implements AccountEditContract.Presenter {
 
     private AccountEditContract.View mAccountEditView;
-
     private FragmentManager mFragmentManager;
     private MainActPresenter mMainActPresenter;
-
     private AccountFragment mAccountFragment;
     private AccountPresenter mAccountPresenter;
-
     private boolean isCreating;
-
     private Note mNote;
     private Context mContext;
 
@@ -30,7 +26,6 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
 
         mAccountEditView = checkNotNull(accountEditView);
         mAccountEditView.setPresenter(this);
-
         mFragmentManager = fragmentManager;
         mMainActPresenter = mainActPresenter;
         isCreating = iscreating;
@@ -65,7 +60,7 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
         mAccountEditView.hideUi();
 
         mAccountFragment = new AccountFragment(note);
-        mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, null, 0);
+        mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, null, 0, note);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mAccountFragment)

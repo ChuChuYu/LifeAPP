@@ -2,7 +2,9 @@ package com.sandy.e3646.lifeblabla.main;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,13 +25,13 @@ public class MainAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private View.OnClickListener mListener;
     private ArrayList<Note> mNoteList;
-
     private int opened = -1;
+
+    private boolean isSearching;
 
     public MainAdapter(Context context, ArrayList<Note> noteList) {
         this.mContext = context;
         this.mNoteList = noteList;
-
     }
 
     @NonNull
@@ -57,11 +59,13 @@ public class MainAdapter extends RecyclerView.Adapter {
 
         private ImageView mDiaryEmotion;
         private ImageView mDiaryWeather;
-        private ImageView mTagBackground;
+
+//        private ImageView mTagBackground;
         private ImageView mTypeBackground;
 
         private LinearLayout mLinearLayout;
         private RelativeLayout mRelativeLayout;
+        private ConstraintLayout mTagBackground;
 
         public MainListItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,7 +85,7 @@ public class MainAdapter extends RecyclerView.Adapter {
 
             mDiaryEmotion = itemView.findViewById(R.id.note_diary_emotion);
             mDiaryWeather = itemView.findViewById(R.id.note_diary_weather);
-            mTagBackground = itemView.findViewById(R.id.note_background);
+//            mTagBackground = itemView.findViewById(R.id.note_background);
             mTypeBackground = itemView.findViewById(R.id.note_type_background);
 
             mLinearLayout = (LinearLayout) itemView.findViewById(R.id.msg_ll);
@@ -126,7 +130,11 @@ public class MainAdapter extends RecyclerView.Adapter {
         mainListItemViewHolder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mListener.onClick(view);
+                if (!isSearching) {
+                    mListener.onClick(view);
+                } else {
+
+                }
             }
         });
 
@@ -139,15 +147,11 @@ public class MainAdapter extends RecyclerView.Adapter {
         mainListItemViewHolder.mTime.setText(mNoteList.get(no).getTime());
 
         if (mNoteList.get(no).getmTag() != null && !mNoteList.get(no).getmTag().get(0).equals("") && !mNoteList.get(no).getmTag().get(0).equals("null")) {
+
             mainListItemViewHolder.mTag.setText(mNoteList.get(no).getmTag().get(0));
-            ViewGroup.LayoutParams backgorundParams = mainListItemViewHolder.mTagBackground.getLayoutParams();
-            int numofchinese = numOfChinese(mNoteList.get(no).getmTag().get(0));
-            int numofenglish = mNoteList.get(no).getmTag().get(0).length() - numofchinese;
-            backgorundParams.width = numofenglish*25 + numofchinese*60 + 20;
-            mainListItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
+            mainListItemViewHolder.mTag.setVisibility(View.VISIBLE);
         } else {
             mainListItemViewHolder.mTag.setVisibility(View.INVISIBLE);
-            mainListItemViewHolder.mTagBackground.setVisibility(View.INVISIBLE);
         }
 
         ///// ///// /////
@@ -243,7 +247,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             mainListItemViewHolder.mDiaryEmotion.setVisibility(View.INVISIBLE);
             mainListItemViewHolder.mDiaryWeather.setVisibility(View.INVISIBLE);
 
-            mainListItemViewHolder.mTitle.setText("隨手一記");
+            mainListItemViewHolder.mTitle.setText(mNoteList.get(no).getmText());
 
             mainListItemViewHolder.mText.setText(note.getmText());
         }

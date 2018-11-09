@@ -2,24 +2,29 @@ package com.sandy.e3646.lifeblabla.main;
 
 import android.content.Context;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.imageutils.BitmapUtil;
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
 import com.sandy.e3646.lifeblabla.object.Account;
 import com.sandy.e3646.lifeblabla.object.Note;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainAdapterGrid extends RecyclerView.Adapter {
@@ -181,8 +186,18 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 && !mNoteList.get(no).getmTag().get(0).equals("null")) {
             mainGridItemViewHolder.mTag.setText(mNoteList.get(no).getmTag().get(0));
             ViewGroup.LayoutParams backgorundParams = mainGridItemViewHolder.mTagBackground.getLayoutParams();
-            backgorundParams.width = mNoteList.get(no).getmTag().get(0).length() * 30 + 20;
+
+//            int numofchinese = numOfChinese(mNoteList.get(no).getmTag().get(0));
+//            int numofenglish = mNoteList.get(no).getmTag().get(0).length() - numofchinese;
+//
+//            if (numofenglish*20 + numofchinese*60 + 20 < 200) {
+//                backgorundParams.width = numofenglish*20 + numofchinese*60 + 20;
+//                backgorundParams.width = mNoteList.get(no).getmTag().get(0).length() * 30 + 20;
+//            } else {
+//                backgorundParams.width = 200;
+//            }
             mainGridItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
+            mainGridItemViewHolder.mTag.setVisibility(View.VISIBLE);
         } else {
             mainGridItemViewHolder.mTag.setVisibility(View.INVISIBLE);
             mainGridItemViewHolder.mTagBackground.setVisibility(View.INVISIBLE);
@@ -242,14 +257,47 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                     mainGridItemViewHolder.mImageBack.setVisibility(View.GONE);
                     mainGridItemViewHolder.mCardView.setVisibility(View.GONE);
                 } else {
-                    Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(no).getmPicture());
-                    mainGridItemViewHolder.mImage.setImageBitmap(bitmap);
+//
+//                    Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(no).getmPicture());
+//                    Bitmap resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+//
+//                    bitmap.recycle();
+
+
+                    try {
+                        mainGridItemViewHolder.mImage.setImageBitmap(resizeImage(mNoteList.get(no).getmPicture(), false));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+//                    mainGridItemViewHolder.mImage.setImageBitmap(resized);
+//                    mainGridItemViewHolder.mImage.setImageBitmap(decodeSampledBitmapFromResource(bitmap, R.id.));
                     mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
                     mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
                     mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
                 }
             } else {
-                mainGridItemViewHolder.mImage.setImageURI(Uri.parse(mNoteList.get(no).getPhotoFromCamera()));
+
+//                Bitmap bitmap = null;
+//                try {
+//                    bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(mNoteList.get(no).getPhotoFromCamera()));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+
+
+//                Bitmap resized = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+//
+//                bitmap.recycle();
+
+
+                try {
+                    mainGridItemViewHolder.mImage.setImageBitmap(resizeImage(mNoteList.get(no).getPhotoFromCamera(), true));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
                 mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);
                 mainGridItemViewHolder.mCardView.setVisibility(View.VISIBLE);
                 mainGridItemViewHolder.mImage.setVisibility(View.VISIBLE);
@@ -278,7 +326,7 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
             if (mNoteList.get(no).getmTitle() != null && !mNoteList.get(no).getmTitle().equals("")) {
                 mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmTitle());
             } else {
-                mainGridItemViewHolder.mTitle.setText("隨手記一筆");
+                mainGridItemViewHolder.mTitle.setText(mNoteList.get(no).getmText());
             }
 
             if (mNoteList.get(no).getPhotoFromCamera() == null || mNoteList.get(no).getPhotoFromCamera().equals("")) {
@@ -356,5 +404,76 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         this.mListener = listener;
     }
 
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) >= reqHeight
+                    && (halfWidth / inSampleSize) >= reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    private Bitmap resizeImage(String image, boolean isUri) throws IOException {
+        if (isUri) {
+
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(mContext.getContentResolver(), Uri.parse(image));
+            Bitmap resized = resizedImage(bitmap);
+            return resized;
+        } else {
+            Bitmap bitmap = BitmapFactory.decodeFile(image);
+            Bitmap resized = resizedImage(bitmap);
+            return resized;
+        }
+    }
+
+    private Bitmap resizedImage(Bitmap bitmap){
+
+        Bitmap resizeBitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
+        return resizeBitmap;
+
+    }
+
+    private int numOfChinese(String tagText) {
+        int numOfCh = 0;
+
+        for (int i = 0; i<tagText.length(); i++) {
+            String text = String.valueOf(tagText.charAt(i));
+
+            if (text.matches("[\u4e00-\u9fa5]+")) {
+                numOfCh += 1;
+            }
+        }
+        return numOfCh;
+    }
 
 }

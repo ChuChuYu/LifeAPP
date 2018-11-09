@@ -33,7 +33,7 @@ public class AccountPresenter implements AccountContract.Presenter {
     private Note mNote;
 
 
-    public AccountPresenter(AccountContract.View accountView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, ArrayList<Note> noteList, int i) {
+    public AccountPresenter(AccountContract.View accountView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, ArrayList<Note> noteList, int i, Note note) {
         mAccountView = checkNotNull(accountView);
         mAccountView.setPresenter(this);
 
@@ -43,6 +43,7 @@ public class AccountPresenter implements AccountContract.Presenter {
         mNoteList = noteList;
         mNotePosition = i;
 
+        mNote = note;
 
 
     }
@@ -61,7 +62,7 @@ public class AccountPresenter implements AccountContract.Presenter {
 
     @Override
     public void showCheckDeleteDialog() {
-        mCheckDeleteFragment = new CheckDeleteFragment(null, null, this, mNoteList.get(mNotePosition).getmId(), 3);
+        mCheckDeleteFragment = new CheckDeleteFragment(null, null, this, mNote.getmId(), 3);
         mCheckDeleteFragment.show(mFragmentManager, null);
     }
 
@@ -101,7 +102,7 @@ public class AccountPresenter implements AccountContract.Presenter {
     public void goSearch(String tag) {
 
         mSearchFragment = new SearchFragment(tag);
-        mSearchPresenter = new SearchPresenter(mSearchFragment);
+        mSearchPresenter = new SearchPresenter(mSearchFragment, mFragmentManager, mMainActPresenter);
 
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

@@ -22,17 +22,13 @@
 
         <ImageView
             android:id="@+id/draw_image"
-            android:layout_width="400dp"
-            android:layout_height="500dp"
-            android:layout_marginBottom="50dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="110dp"
+            android:layout_width="match_parent"
+            android:layout_height="266dp"
             android:background="#80FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView17" />
 
         <ImageView
             android:id="@+id/imageView19"
@@ -175,17 +171,44 @@
         <!--app:layout_constraintStart_toStartOf="parent"-->
         <!--app:menu="@menu/bottom_navigation_edit"/>-->
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/jot_tag_recyclerview"
+        <EditText
+            android:id="@+id/jot_text"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:background="#50FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:background="@android:color/transparent"
+            android:gravity="top|left"
+            android:hint="還沒想到要寫什麼..."
+            android:inputType="text|textMultiLine"
+            android:maxHeight="400dp"
+            android:minHeight="200dp"
+            android:singleLine="false"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="#96ffffff"
+            app:layout_constraintEnd_toEndOf="@+id/imageView19"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/draw_image" />
 
-        </android.support.v7.widget.RecyclerView>
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/bottom_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/jot_tag_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="#50000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.constraint.ConstraintLayout>

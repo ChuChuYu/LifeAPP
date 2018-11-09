@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/jot_title"
+            android:id="@+id/jot_text"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"

@@ -37,7 +37,6 @@ public class CheckDeleteFragment extends DialogFragment {
         this.NOTE_TYPE = noteType;
     }
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

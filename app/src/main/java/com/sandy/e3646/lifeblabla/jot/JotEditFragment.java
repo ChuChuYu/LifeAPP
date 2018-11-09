@@ -8,13 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +54,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private EditText mJotTag;
     private ImageView mImage;
     private BottomSheetBehavior mBottomSheetBehavior;
+    private ConstraintLayout mBottomBar;
 
     private String mImagePath;
     private Uri mUri;
@@ -72,7 +73,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_jotedit, container, false);
 
-        mTitle = (EditText)view.findViewById(R.id.jot_title);
+        mTitle = (EditText)view.findViewById(R.id.jot_text);
         mText = (EditText)view.findViewById(R.id.jot_text);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
 
@@ -80,17 +81,10 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mTagEditAdapter = new TagEditAdapter(null);
+        mTagEditAdapter = new TagEditAdapter(null, this, null, null);
         mTagRecyclerView.setAdapter(mTagEditAdapter);
 
-        mJotTag = (EditText)view.findViewById(R.id.sample_title);
-        mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
 
-                return false;
-            }
-        });
 
         if (!isCreating && mNote != null) {
 //            mTitle.setText(mNote.getmTitle());
@@ -135,8 +129,8 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         mImage = view.findViewById(R.id.diary_image);
 
         if (isCreating) {
-            if (mUri == null && mUri.equals("")) {
-                if (mImagePath == null && mImagePath.equals("")) {
+            if (mUri == null || mUri.equals("")) {
+                if (mImagePath == null || mImagePath.equals("")) {
                     mImage.setVisibility(View.GONE);
                 } else {
                     Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
@@ -153,6 +147,18 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
                 mImage.setVisibility(View.GONE);
             }
         }
+
+        mBottomBar = view.findViewById(R.id.bottom_bar);
+
+//        mJotTag = (EditText)view.findViewById(R.id.sample_title);
+
+//        mJotTag.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+//            @Override
+//            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+//
+//                return false;
+//            }
+//        });
 
         return view;
     }
@@ -190,6 +196,21 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
         String str = formatter.format(curDate);
 
         return str;
+    }
+
+
+
+    @Override
+    public void getTagEditFocus() {
+
+        mBottomBar.setFitsSystemWindows(true);
+    }
+
+    @Override
+    public void getTagEditUnFocus() {
+
+        mBottomBar.setFitsSystemWindows(false);
+
     }
 
     @Override
@@ -283,7 +304,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mPresenter.insertJotData(getContext(), mNote);
         } else { //isEditing
 
-            mNote.setmTitle(mTitle.getText().toString());
+//            mNote.setmTitle(mTitle.getText().toString());
             mNote.setmText(mText.getText().toString());
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());

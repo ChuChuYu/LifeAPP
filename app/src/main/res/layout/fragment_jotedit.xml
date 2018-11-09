@@ -33,7 +33,7 @@
         <ImageView
             android:id="@+id/imageView17"
             android:layout_width="match_parent"
-            android:layout_height="38dp"
+            android:layout_height="30dp"
             android:background="#783b3b3b"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -43,7 +43,7 @@
         <ImageView
             android:id="@+id/imageView6"
             android:layout_width="match_parent"
-            android:layout_height="62dp"
+            android:layout_height="55dp"
             android:background="#783b3b3b"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
@@ -112,7 +112,7 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:gravity="top|left"
-            android:hint="還沒想到要寫什麼..."
+            android:hint="請輸入內文"
             android:inputType="text|textMultiLine"
             android:maxHeight="400dp"
             android:minHeight="200dp"
@@ -155,6 +155,7 @@
             android:layout_width="match_parent"
             android:layout_height="43dp"
             android:background="#903b3b3b"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -168,6 +169,7 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/imageView20"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView20"
@@ -183,6 +185,7 @@
             android:layout_marginTop="8dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/imageView20"
             app:layout_constraintStart_toEndOf="@+id/button_photo"
             app:layout_constraintTop_toTopOf="@+id/imageView20"
@@ -196,6 +199,7 @@
             android:layout_marginStart="48dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/button_camera"
             app:layout_constraintEnd_toStartOf="@+id/button_tag"
             app:layout_constraintStart_toEndOf="@+id/button_camera"
@@ -209,6 +213,7 @@
             android:layout_marginStart="240dp"
             android:background="@android:color/transparent"
             android:scaleType="fitXY"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/button_vedio"
             app:layout_constraintEnd_toEndOf="@+id/imageView20"
             app:layout_constraintStart_toStartOf="@+id/imageView20"
@@ -248,20 +253,6 @@
         <!--app:layout_constraintStart_toStartOf="parent"-->
         <!--app:menu="@menu/bottom_navigation_edit"/>-->
 
-        <EditText
-            android:id="@+id/sample_title"
-            android:layout_width="364dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:background="@android:color/transparent"
-            android:inputType="text"
-            android:textColor="@android:color/background_light"
-            app:layout_constraintBottom_toBottomOf="@+id/tag_bottom"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tag_bottom" />
-
         <ImageButton
             android:id="@+id/button_minus"
             android:layout_width="20dp"
@@ -285,17 +276,22 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView17"
             app:srcCompat="@drawable/image_sample_3" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/jot_tag_recyclerview"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
-            android:layout_height="43dp"
-            android:layout_marginBottom="43dp"
-            android:background="#50FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="match_parent">
 
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/jot_tag_recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="#50FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.constraint.ConstraintLayout>

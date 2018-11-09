@@ -95,7 +95,7 @@ public class MainPresenter implements MainContract.Presenter {
         if (note.getmClassification().equals("diary")) {
 
             mDiaryFragment = new DiaryFragment(note);
-            mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList);
+            mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
                     .show(mDiaryFragment)
@@ -114,7 +114,7 @@ public class MainPresenter implements MainContract.Presenter {
         } else if (note.getmClassification().equals("account")) {
 
             mAccountFragment = new AccountFragment(note);
-            mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition);
+            mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mAccountFragment, "ACCOUNT")
                     .show(mAccountFragment)

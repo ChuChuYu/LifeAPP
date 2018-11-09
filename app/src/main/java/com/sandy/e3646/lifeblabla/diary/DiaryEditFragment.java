@@ -116,7 +116,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
-        mTagEditAdapter = new TagEditAdapter(this);
+        mTagEditAdapter = new TagEditAdapter(this, null, null, null);
         mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
@@ -297,6 +297,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                     mConstraintLayout.setVisibility(View.VISIBLE);
                     mPhoto.setVisibility(View.VISIBLE);
                     mPhoto.setImageURI(mUri);
+                    mMinusButton.setVisibility(View.VISIBLE);
 
                 } else if (requestCode == RESULT_CANCELED) {
 
@@ -471,7 +472,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
         }
-        String state = Environment.getExternalStorageState();// 獲取記憶體卡可用狀態
+        String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
 
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -571,6 +572,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mPhoto.setVisibility(View.INVISIBLE);
         mMinusButton.setVisibility(View.INVISIBLE);
         this.mImagePath = "";
+        mUri = null;
     }
 
 }

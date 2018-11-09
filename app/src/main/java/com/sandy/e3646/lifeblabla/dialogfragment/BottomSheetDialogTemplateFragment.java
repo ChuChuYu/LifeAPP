@@ -57,22 +57,6 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
             }
         });
 
-        mConferenceButton = (ImageButton)view.findViewById(R.id.button_form_camera);
-        mConferenceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
-        mListButton = (ImageButton)view.findViewById(R.id.button_type_list);
-        mListButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         return view;
     }
 

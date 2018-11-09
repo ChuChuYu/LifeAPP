@@ -74,7 +74,7 @@ public class JotPresenter implements JotContract.Presenter {
 
     @Override
     public void showCheckDeleteDialog() {
-        mCheckDeleteFragment = new CheckDeleteFragment(null, this, null,  mNoteList.get(mNotePosition).getmId(), 2);
+        mCheckDeleteFragment = new CheckDeleteFragment(null, this, null,  mNote.getmId(), 2);
         mCheckDeleteFragment.show(mFragmentManager, null);
     }
 
@@ -95,7 +95,7 @@ public class JotPresenter implements JotContract.Presenter {
     @Override
     public void goSearch(String tag) {
         mSearchFragment = new SearchFragment(tag);
-        mSearchPresenter = new SearchPresenter(mSearchFragment);
+        mSearchPresenter = new SearchPresenter(mSearchFragment, mFragmentManager, mMainActPresenter);
 
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

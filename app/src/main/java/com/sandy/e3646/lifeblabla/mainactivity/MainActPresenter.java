@@ -215,10 +215,10 @@ public class MainActPresenter implements MainActContract.Presenter {
         mMainActView.showMainUI();
         mMainActView.showMainPage();
         mMainActView.refreshMainPage("");
-        mMainActView.showToggleButton();
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
+        mMainActView.showToggleButton();
     }
 
     @Override

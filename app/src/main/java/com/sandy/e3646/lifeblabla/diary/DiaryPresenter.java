@@ -2,6 +2,7 @@ package com.sandy.e3646.lifeblabla.diary;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.sandy.e3646.lifeblabla.R;
 import com.sandy.e3646.lifeblabla.search.SearchFragment;
@@ -31,13 +32,15 @@ public class DiaryPresenter implements DiaryContract.Presenter {
 
     private CheckDeleteFragment mCheckDeleteFragment;
 
-    public DiaryPresenter(DiaryContract.View diaryView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, int i, ArrayList<Note> noteList) {
+    public DiaryPresenter(DiaryContract.View diaryView, FragmentManager fragmentManager, MainActPresenter mainActPresenter, Note note) {
         mDiaryView = checkNotNull(diaryView);
         mDiaryView.setPresenter(this);
         mFragmentManager = fragmentManager;
         mMainActPresenter = mainActPresenter;
-        mNotePosition = i;
-        mNoteList = noteList;
+//        mNotePosition = i;
+//        mNoteList = noteList;
+//        Log.d()
+        mNote = note;
     }
 
 
@@ -100,7 +103,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
 
     @Override
     public void showCheckDeleteDialog() {
-        mCheckDeleteFragment = new CheckDeleteFragment(this, null, null, mNoteList.get(mNotePosition).getmId(), 1);
+        mCheckDeleteFragment = new CheckDeleteFragment(this, null, null, mNote.getmId(), 1);
         mCheckDeleteFragment.show(mFragmentManager, null);
     }
 
@@ -118,7 +121,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     public void goSearch(String tag) {
 
         mSearchFragment = new SearchFragment(tag);
-        mSearchPresenter = new SearchPresenter(mSearchFragment);
+        mSearchPresenter = new SearchPresenter(mSearchFragment, mFragmentManager, mMainActPresenter);
 
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

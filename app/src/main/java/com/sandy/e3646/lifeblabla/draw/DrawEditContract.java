@@ -17,6 +17,10 @@ public interface DrawEditContract {
 
         void hideUI();
 
+        void getTagEditFocus();
+
+        void getTagEditUnFocus();
+
 
     }
 

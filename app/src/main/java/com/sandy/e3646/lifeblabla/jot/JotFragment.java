@@ -64,7 +64,7 @@ public class JotFragment extends Fragment implements JotContract.View {
 
         mTagBackground = (ImageView)view.findViewById(R.id.tag_view_background);
         mCreatedTime = (TextView)view.findViewById(R.id.jot_createdtime);
-        mTitle = (TextView)view.findViewById(R.id.jot_title);
+        mTitle = (TextView)view.findViewById(R.id.jot_text);
         mText = (TextView)view.findViewById(R.id.jot_text);
         mImage = view.findViewById(R.id.diary_image);
 
@@ -72,6 +72,7 @@ public class JotFragment extends Fragment implements JotContract.View {
 
         if (mNote.getmTag() != null && ! mNote.getmTag().get(0).equals("") && ! mNote.getmTag().get(0).equals("null")) {
             mTagRecyclerView = (RecyclerView) view.findViewById(R.id.tag_recyclerview);
+            mTagRecyclerView.setVisibility(View.VISIBLE);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
             linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
             mTagRecyclerView.setLayoutManager(linearLayoutManager);
@@ -103,6 +104,7 @@ public class JotFragment extends Fragment implements JotContract.View {
             public void onClick(View view) {
                 mPresenter.goEditJot(false);
 
+
             }
         });
 
@@ -111,14 +113,10 @@ public class JotFragment extends Fragment implements JotContract.View {
             @Override
             public void onClick(View view) {
                 mPresenter.showCheckDeleteDialog();
-
             }
         });
-
-
         return view;
     }
-
 
     @Override
     public void onResume() {

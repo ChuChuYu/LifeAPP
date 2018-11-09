@@ -1,6 +1,7 @@
 package com.sandy.e3646.lifeblabla.draw;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -10,19 +11,24 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.io.File;
@@ -51,6 +57,11 @@ public class DrawEditFragment extends Fragment implements DrawEditContract.View 
     private Note mNote;
 
     private boolean isCreating;
+
+    private RecyclerView mTagRecyclerView;
+    private TagEditAdapter mTagEditAdapter;
+    private ConstraintLayout mBottombar;
+
 
     public DrawEditFragment(boolean iscreating) {
         isCreating = iscreating;
@@ -94,13 +105,23 @@ public class DrawEditFragment extends Fragment implements DrawEditContract.View 
             }
         });
 
+        mTagRecyclerView = view.findViewById(R.id.jot_tag_recyclerview);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mTagRecyclerView.setLayoutManager(linearLayoutManager);
+        mTagEditAdapter = new TagEditAdapter(null, null, null, this);
+        mTagRecyclerView.setAdapter(mTagEditAdapter);
+
+        mBottombar = view.findViewById(R.id.bottom_bar);
 
         return view;
     }
 
     private void showImage() {
         ViewGroup.LayoutParams imageParams = mDrawImage.getLayoutParams();
-        mBitmap = Bitmap.createBitmap(imageParams.width, imageParams.height, Bitmap.Config.ARGB_8888);
+        WindowManager windowManager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+
+        mBitmap = Bitmap.createBitmap(windowManager.getDefaultDisplay().getWidth(), imageParams.height, Bitmap.Config.ARGB_8888);
         canvas = new Canvas(mBitmap);
         canvas.drawColor(Color.WHITE);
         paint = new Paint();
@@ -136,6 +157,22 @@ public class DrawEditFragment extends Fragment implements DrawEditContract.View 
                 return true;
             }
         });
+
+    }
+
+
+
+    @Override
+    public void getTagEditFocus() {
+
+        mBottombar.setFitsSystemWindows(true);
+
+    }
+
+    @Override
+    public void getTagEditUnFocus() {
+
+        mBottombar.setFitsSystemWindows(false);
 
     }
 
@@ -234,7 +271,7 @@ public class DrawEditFragment extends Fragment implements DrawEditContract.View 
             mNote.setmUpdatedTime("");
             mNote.setmPlace("市政府");
             mNote.setClassification("jot");
-//            mNote.setmTag(mTagEditAdapter.TagList());
+            mNote.setmTag(mTagEditAdapter.TagList());
 
 //            mNoteList = new ArrayList<Note>();
 //            mNoteList.add(mNote);

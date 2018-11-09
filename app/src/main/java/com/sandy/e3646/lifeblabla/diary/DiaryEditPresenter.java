@@ -107,7 +107,7 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
         mDiaryEditView.hideUI();
 
         mDiaryFragment = new DiaryFragment(note);
-        mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, 0, null);
+        mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, note);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.whole_container, mDiaryFragment)

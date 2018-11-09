@@ -61,6 +61,8 @@
         android:layout_height="20dp"
         android:layout_marginBottom="24dp"
         android:layout_marginEnd="8dp"
+        android:maxWidth="120dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/note_diary_emotion"
         app:layout_constraintEnd_toStartOf="@+id/note_type_background"
         app:srcCompat="@drawable/background_tag_normal" />
@@ -81,7 +83,7 @@
         android:layout_marginEnd="3dp"
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
-        android:visibility="gone"
+        android:visibility="visible"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="10dp"
         app:cardElevation="0dp"
@@ -93,29 +95,31 @@
             android:id="@+id/note_image"
             android:layout_width="match_parent"
             android:layout_height="160dp"
-
             android:background="@drawable/shape_main_grid_image"
             android:scaleType="centerCrop"
-            android:visibility="gone"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/card"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/image_sample_3" />
+
     </android.support.v7.widget.CardView>
 
     <TextView
         android:id="@+id/note_title"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_marginBottom="32dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
         android:ellipsize="end"
+        android:lines="2"
+        android:singleLine="false"
         android:text="食安問題頻傳，現代人重視食品安全，許多民眾擔心市面上的蔬菜有農藥殘留問題，因此開始吃有機食品，甚至有民眾乾脆在自家空地便開闢有機蔬果園。"
         android:textColor="@android:color/background_light"
-        app:layout_constraintBottom_toBottomOf="@+id/card"
         app:layout_constraintEnd_toEndOf="@+id/card"
-        app:layout_constraintStart_toStartOf="@+id/card" />
+        app:layout_constraintStart_toStartOf="@+id/card"
+        app:layout_constraintTop_toBottomOf="@+id/note_tag" />
 
     <TextView
         android:id="@+id/note_date"
@@ -153,13 +157,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:background="@drawable/background_tag_normal"
+        android:maxWidth="90dp"
+        android:paddingBottom="3dp"
+        android:paddingEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingTop="3dp"
+        android:singleLine="true"
         android:text="重要"
         android:textColor="@android:color/background_light"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/note_tag_background"
-        app:layout_constraintEnd_toEndOf="@+id/note_tag_background"
-        app:layout_constraintStart_toStartOf="@+id/note_tag_background"
+        app:layout_constraintEnd_toStartOf="@+id/note_type_background"
         app:layout_constraintTop_toTopOf="@+id/note_tag_background" />
 
     <TextView

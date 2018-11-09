@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,10 +35,9 @@ import java.util.Date;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @SuppressLint("ValidFragment")
-public class AccountEditFragment extends Fragment implements AccountEditContract.View {
+public class AccountEditFragment extends Fragment implements AccountEditContract.View, View.OnClickListener {
 
     private AccountEditContract.Presenter mPresenter;
-
     private BottomSheetBehavior mBottomSheetBehavior;
     private ImageButton mAddItemButton;
     private ImageButton mHideButton;
@@ -70,17 +70,14 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private TextView mBalanceText;
     private TextView mCreatedTime;
     private EditText mTitle;
-
     private RecyclerView mRecyclerView;
     private AccountAdapter mAccountAdapter;
     private RecyclerView mTagRecyclerview;
     private TagEditAdapter mTagAdapter;
-
     private ArrayList<Account> mAccoountList;
     private ArrayList<Note> mNoteList;
     private Account mAccount;
     private Note mNote;
-
     private String mMoneyAmount = ""; //set到mAmount
     private String mNoteId;
     private boolean isCreating;
@@ -88,16 +85,14 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private int isRevenue = 3;
     private int isEditingRevenue = 3;
     private String mCategory = "0";
-
     private Integer mTotalRevenue = 0;
     private Integer mTotalExpense = 0;
     private Integer mTotalBalance = 0;
-
+    private ConstraintLayout mBottomBar;
 
     public AccountEditFragment(boolean iscreating, Note note) {
         isCreating = iscreating;
         mNote = note;
-
         if (!isCreating) {
             mTotalRevenue = Integer.parseInt(mNote.getAccountRevenue());
             mTotalExpense = Integer.parseInt(mNote.getAccountExpense());
@@ -110,11 +105,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account_edit, container, false);
 
-
-
         init(view);
-
-
 
         mRevenue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,44 +138,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         });
 
 
-        mCategoryOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCategoryBack(mCategoryOne, "1");
-            }
-        });
-        mCategoryTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCategoryBack(mCategoryTwo, "2");
-            }
-        });
-        mCategoryThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCategoryBack(mCategoryThree, "3");
-            }
-        });
-        mCategoryFour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCategoryBack(mCategoryFour, "4");
-            }
-        });
-        mCategoryFive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setCategoryBack(mCategoryFive, "5");
-            }
-        });
-
-
-//        mCategoryOne.setOnClickListener(categoryButton);
-//        mCategoryTwo.setOnClickListener(categoryButton);
-//        mCategoryThree.setOnClickListener(categoryButton);
-//        mCategoryFour.setOnClickListener(categoryButton);
-//        mCategoryFive.setOnClickListener(categoryButton);
-
         mAddItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -201,67 +154,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             }
         });
 
-        mOneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("1");
-
-            }
-        });
-        mTwoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("2");
-            }
-        });
-        mThreeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("3");
-            }
-        });
-        mFourButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("4");
-            }
-        });
-        mFiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("5");
-            }
-        });
-        mSixButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("6");
-            }
-        });
-        mSevenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("7");
-            }
-        });
-        mEightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("8");
-            }
-        });
-        mNineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("9");
-            }
-        });
-        mZeroButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setAmount("0");
-            }
-        });
         mDeleteNumberButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -289,6 +181,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 } else {
                     if (isCreatingItem) {
                         takeAccountData();
+
                     } else {
 
                         countTotalAmountWhenEditingItem();
@@ -384,28 +277,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         return view;
     }
 
-
-//    private View.OnClickListener categoryButton = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            switch (view.getId()) {
-//
-//                case R.id.button_category_1:
-//                    setCategoryBack(mCategoryOne, "1");
-//                case R.id.button_category_2:
-//                    setCategoryBack(mCategoryTwo, "2");
-//                case R.id.button_category_3:
-//                    setCategoryBack(mCategoryThree, "3");
-//                case R.id.button_category_4:
-//                    setCategoryBack(mCategoryFour, "4");
-//                case R.id.button_category_5:
-//                    setCategoryBack(mCategoryFive, "5");
-//
-//            }
-//
-//        }
-//    };
-
     @Override
     public void onResume() {
         super.onResume();
@@ -425,11 +296,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                     }
                     return false;
                 }
-
                 return false;
             }
-
-
         });
     }
 
@@ -461,14 +329,22 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mBottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottom_sheet_layout));
         mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         mDeleteItemButton = view.findViewById(R.id.button_delete);
-        mCategoryOne = view.findViewById(R.id.button_category_1);
-        mCategoryTwo = view.findViewById(R.id.button_category_2);
+
         mRevenue = view.findViewById(R.id.button_revenue);
         mExpense = view.findViewById(R.id.button_expense);
+
+        mCategoryOne = view.findViewById(R.id.button_category_1);
         mCategoryTwo = view.findViewById(R.id.button_category_2);
         mCategoryThree = view.findViewById(R.id.button_category_3);
         mCategoryFour = view.findViewById(R.id.button_category_4);
         mCategoryFive = view.findViewById(R.id.button_category_5);
+
+        mCategoryOne.setOnClickListener(this);
+        mCategoryTwo.setOnClickListener(this);
+        mCategoryThree.setOnClickListener(this);
+        mCategoryFour.setOnClickListener(this);
+        mCategoryFive.setOnClickListener(this);
+
         mDeleteNumberButton = view.findViewById(R.id.button_delete_number);
         mClearButton = view.findViewById(R.id.button_clear);
         mDeleteItemButton = view.findViewById(R.id.button_delete_item);
@@ -487,6 +363,18 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mEightButton = view.findViewById(R.id.button_8);
         mNineButton = view.findViewById(R.id.button_9);
         mZeroButton = view.findViewById(R.id.button_0);
+
+        mOneButton.setOnClickListener(this);
+        mTwoButton.setOnClickListener(this);
+        mThreeButton.setOnClickListener(this);
+        mFourButton.setOnClickListener(this);
+        mFiveButton.setOnClickListener(this);
+        mSixButton.setOnClickListener(this);
+        mSevenButton.setOnClickListener(this);
+        mEightButton.setOnClickListener(this);
+        mNineButton.setOnClickListener(this);
+        mZeroButton.setOnClickListener(this);
+
         mTitle = view.findViewById(R.id.account_title);
         mRecyclerView = view.findViewById(R.id.account_item_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -526,8 +414,10 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerview.setLayoutManager(linearLayoutManager);
-        mTagAdapter = new TagEditAdapter(null);
+        mTagAdapter = new TagEditAdapter(null, null, this, null);
         mTagRecyclerview.setAdapter(mTagAdapter);
+
+        mBottomBar = view.findViewById(R.id.bottom_bar);
     }
 
     private static String currentTime() {
@@ -536,6 +426,20 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         String str = formatter.format(curDate);
 
         return str;
+    }
+
+
+    @Override
+    public void getTagEditFocus() {
+
+        mBottomBar.setFitsSystemWindows(true);
+    }
+
+    @Override
+    public void getTagEditUnFocus() {
+
+        mBottomBar.setFitsSystemWindows(false);
+
     }
 
     private String currentTimeForId() {
@@ -569,7 +473,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mCategoryThree.setImageResource(R.drawable.button_account_not_select);
         mCategoryFour.setImageResource(R.drawable.button_account_not_select);
         mCategoryFive.setImageResource(R.drawable.button_account_not_select);
-
         imageButton.setImageResource(R.drawable.button_account_is_select);
     }
 
@@ -589,7 +492,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             if (isRevenue == 1) {
                 mAccount.setRevenue(mMoneyAmount);
                 mAccount.setExpense("");
-
             }
 
             if (isRevenue == 0) {
@@ -632,7 +534,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             String week = formatterForWeek.format(curDate);
             String id = formateForId.format(curDate);
             String daytime = formateForDaytime.format(curDate);
-
+            
             if (Integer.parseInt(daytime) > 12) {
                 mNote.setDayTime("下午");
             } else {
@@ -642,6 +544,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mNote.setmCreatedTime(currentTime);
 
             mNote.setmId(mNoteId);
+
+            mNote.setmTitle(mTitle.getText().toString());
 
             mNote.setMonth(month);
             mNote.setDay(day);
@@ -697,6 +601,8 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
         mCategoryFour.setImageResource(R.drawable.button_account_not_select);
         mCategoryFive.setImageResource(R.drawable.button_account_not_select);
         mAmount.setText("0");
+        isRevenue = 3;
+        mCategory = "0";
 
     }
 
@@ -740,7 +646,6 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             setCategoryBack(mCategoryFour, "5");
             mCategory = "5";
         }
-
     }
 
     @Override
@@ -753,34 +658,25 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             } else if (isRevenue == 0) {
                 mTotalExpense = mTotalExpense + Integer.parseInt(mMoneyAmount);
             }
-
             mTotalBalance = mTotalRevenue - mTotalExpense;
-
         } else { //如果是刪除
-
             if (isRevenue == 1) {
                 mTotalRevenue = mTotalRevenue - Integer.parseInt(mMoneyAmount);
             } else if (isRevenue == 0) {
                 mTotalExpense = mTotalExpense - Integer.parseInt(mMoneyAmount);
             }
-
             mTotalBalance = mTotalRevenue - mTotalExpense;
-
         }
-
         mRevenueText.setText(String.valueOf(mTotalRevenue));
         mExpenseText.setText(String.valueOf(mTotalExpense));
         mBalanceText.setText(String.valueOf(mTotalBalance));
-
     }
 
     @Override
     public String getCurrentTime() {
-
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         Date curDate = new Date(System.currentTimeMillis()); // 獲取當前時間
         String str = formatter.format(curDate);
-
         return str;
     }
 
@@ -792,42 +688,28 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     public void countTotalAmountWhenEditingItem() {
 
         if (isRevenue == 1) { // 原本是收入
-
             if (isEditingRevenue == 1) { //收入改收入
-
                 if (mAccount.getRevenue().equals("")) {
-
                     mTotalRevenue = mTotalRevenue - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
                     if (mAccount.getExpense().equals("")) {
                         mTotalExpense = mTotalExpense - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
                     }
-
                 } else {
                     mTotalExpense = mTotalExpense - Integer.parseInt(mAccount.getExpense()) + Integer.parseInt(mMoneyAmount);
-
                 }
             }
-
             if (isEditingRevenue == 0) { //收入改支出
-
                 mTotalExpense = mTotalExpense + Integer.parseInt(mMoneyAmount);
                 mTotalRevenue = mTotalRevenue - Integer.parseInt(mAccount.getRevenue());
-
             }
-
         }
 
         String expense = mAccount.getExpense();
-
         if (isRevenue == 0) { //原本是支出
-
             if (isEditingRevenue == 1) { //支出改收入
-
                 mTotalRevenue = mTotalRevenue + Integer.parseInt(mMoneyAmount);
                 mTotalExpense = mTotalExpense - Integer.parseInt(expense.toString());
-
             }
-
             if (isEditingRevenue == 0) { // 支出改支出
                 if (mAccount.getExpense().equals("")) {
                     mTotalExpense = mTotalExpense - Integer.parseInt("0") + Integer.parseInt(mMoneyAmount);
@@ -838,15 +720,63 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                     mTotalExpense = mTotalExpense - Integer.parseInt(mAccount.getExpense()) + Integer.parseInt(mMoneyAmount);
                 }
             }
-
-
         }
-
         mTotalBalance = mTotalRevenue - mTotalExpense;
         mRevenueText.setText(String.valueOf(mTotalRevenue));
         mExpenseText.setText(String.valueOf(mTotalExpense));
         mBalanceText.setText(String.valueOf(mTotalBalance));
     }
 
+    @Override
+    public void onClick(View view) {
+                    switch (view.getId()) {
 
+                case R.id.button_category_1:
+                    setCategoryBack(mCategoryOne, "1");
+                    break;
+                case R.id.button_category_2:
+                    setCategoryBack(mCategoryTwo, "2");
+                    break;
+                case R.id.button_category_3:
+                    setCategoryBack(mCategoryThree, "3");
+                    break;
+                case R.id.button_category_4:
+                    setCategoryBack(mCategoryFour, "4");
+                    break;
+                case R.id.button_category_5:
+                    setCategoryBack(mCategoryFive, "5");
+                    break;
+
+                case R.id.button_0:
+                    setAmount("0");
+                    break;
+                case R.id.button_1:
+                    setAmount("1");
+                    break;
+                case R.id.button_2:
+                    setAmount("2");
+                    break;
+                case R.id.button_3:
+                    setAmount("3");
+                    break;
+                case R.id.button_4:
+                    setAmount("4");
+                    break;
+                case R.id.button_5:
+                    setAmount("5");
+                    break;
+                case R.id.button_6:
+                    setAmount("6");
+                    break;
+                case R.id.button_7:
+                    setAmount("7");
+                    break;
+                case R.id.button_8:
+                    setAmount("8");
+                    break;
+                case R.id.button_9:
+                    setAmount("9");
+                    break;
+                }
+    }
 }
