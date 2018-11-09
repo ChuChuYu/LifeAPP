@@ -114,56 +114,58 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tag_view_background">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/tag_recyclerview"
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="38dp"
-                android:background="#50ffffff"
-                tools:layout_editor_absoluteY="96dp" />
+                android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/diary_image"
-                android:layout_width="match_parent"
-                android:layout_height="266dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/image_sample_3"
-                tools:layout_editor_absoluteY="133dp" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/tag_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="38dp"
+                    android:background="#50ffffff"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/jot_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="56dp"
-                android:text="丹麥動物園同志企鵝求子心切，「綁架」鄰家寶寶"
-                android:textColor="@android:color/background_light"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/diary_image" />
+                <ImageView
+                    android:id="@+id/diary_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="266dp"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toBottomOf="@+id/tag_recyclerview"
+                    app:srcCompat="@drawable/image_sample_3" />
 
-            <TextView
-                android:id="@+id/jot_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:text="涉事的同志企鵝其實早想擁有自己的寶寶，但因為兩隻都是雄性，無法有下一代。據動物園管理員表示，牠們常常覬覦別家的小企鵝或蛋，沒想到這次真的動手......"
-                android:textColor="@android:color/background_light"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.488"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/jot_title" />
+                <TextView
+                    android:id="@+id/jot_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:text="丹麥動物園同志企鵝求子心切，「綁架」鄰家寶寶"
+                    android:textColor="@android:color/background_light"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/diary_image" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/jot_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:text="涉事的同志企鵝其實早想擁有自己的寶寶，但因為兩隻都是雄性，無法有下一代。據動物園管理員表示，牠們常常覬覦別家的小企鵝或蛋，沒想到這次真的動手......"
+                    android:textColor="@android:color/background_light"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/jot_title" />
+            </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
 
     <ImageView
@@ -171,7 +173,7 @@
         android:layout_width="match_parent"
         android:layout_height="38dp"
         android:background="#50ffffff"
-        android:visibility="invisible"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

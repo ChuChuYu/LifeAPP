@@ -23,13 +23,11 @@ public class MainAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private View.OnClickListener mListener;
     private ArrayList<Note> mNoteList;
-
     private int opened = -1;
 
     public MainAdapter(Context context, ArrayList<Note> noteList) {
         this.mContext = context;
         this.mNoteList = noteList;
-
     }
 
     @NonNull

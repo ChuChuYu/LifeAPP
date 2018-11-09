@@ -13,7 +13,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class JotEditPresenter implements JotEditContrat.Presenter {
 
-
     private JotEditContrat.View mJotEditView;
     private FragmentManager mFragmentManager;
     private MainActPresenter mMainActPresenter;
@@ -32,7 +31,6 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
         this.isCreating = isCreating;
 
     }
-
 
     @Override
     public void start() {
@@ -80,6 +78,5 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
     public void updateJotData(Context context, Note note) {
         Sqldatabase sql = new Sqldatabase(context);
         sql.updateNotes(note.getmId(), note);
-
     }
 }
