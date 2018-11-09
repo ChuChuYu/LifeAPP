@@ -186,8 +186,18 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 && !mNoteList.get(no).getmTag().get(0).equals("null")) {
             mainGridItemViewHolder.mTag.setText(mNoteList.get(no).getmTag().get(0));
             ViewGroup.LayoutParams backgorundParams = mainGridItemViewHolder.mTagBackground.getLayoutParams();
-            backgorundParams.width = mNoteList.get(no).getmTag().get(0).length() * 30 + 20;
+
+//            int numofchinese = numOfChinese(mNoteList.get(no).getmTag().get(0));
+//            int numofenglish = mNoteList.get(no).getmTag().get(0).length() - numofchinese;
+//
+//            if (numofenglish*20 + numofchinese*60 + 20 < 200) {
+//                backgorundParams.width = numofenglish*20 + numofchinese*60 + 20;
+//                backgorundParams.width = mNoteList.get(no).getmTag().get(0).length() * 30 + 20;
+//            } else {
+//                backgorundParams.width = 200;
+//            }
             mainGridItemViewHolder.mTagBackground.setLayoutParams(backgorundParams);
+            mainGridItemViewHolder.mTag.setVisibility(View.VISIBLE);
         } else {
             mainGridItemViewHolder.mTag.setVisibility(View.INVISIBLE);
             mainGridItemViewHolder.mTagBackground.setVisibility(View.INVISIBLE);
@@ -451,6 +461,19 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
         Bitmap resizeBitmap = Bitmap.createScaledBitmap(bitmap, 300, 300, true);
         return resizeBitmap;
 
+    }
+
+    private int numOfChinese(String tagText) {
+        int numOfCh = 0;
+
+        for (int i = 0; i<tagText.length(); i++) {
+            String text = String.valueOf(tagText.charAt(i));
+
+            if (text.matches("[\u4e00-\u9fa5]+")) {
+                numOfCh += 1;
+            }
+        }
+        return numOfCh;
     }
 
 }

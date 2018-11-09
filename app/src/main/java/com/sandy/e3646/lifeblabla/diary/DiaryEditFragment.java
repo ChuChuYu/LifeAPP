@@ -297,6 +297,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                     mConstraintLayout.setVisibility(View.VISIBLE);
                     mPhoto.setVisibility(View.VISIBLE);
                     mPhoto.setImageURI(mUri);
+                    mMinusButton.setVisibility(View.VISIBLE);
 
                 } else if (requestCode == RESULT_CANCELED) {
 
@@ -571,6 +572,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         mPhoto.setVisibility(View.INVISIBLE);
         mMinusButton.setVisibility(View.INVISIBLE);
         this.mImagePath = "";
+        mUri = null;
     }
 
 }

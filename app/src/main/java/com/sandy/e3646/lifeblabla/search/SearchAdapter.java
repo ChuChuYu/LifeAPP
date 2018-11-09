@@ -79,7 +79,7 @@ public class SearchAdapter extends RecyclerView.Adapter {
 
             mDiaryEmotion = itemView.findViewById(R.id.note_diary_emotion);
             mDiaryWeather = itemView.findViewById(R.id.note_diary_weather);
-            mTagBackground = itemView.findViewById(R.id.note_background);
+            mTagBackground = itemView.findViewById(R.id.note_background_1);
             mTypeBackground = itemView.findViewById(R.id.note_type_background);
 
             mLinearLayout = (LinearLayout) itemView.findViewById(R.id.msg_ll);
