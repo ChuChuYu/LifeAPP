@@ -44,6 +44,9 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
     private RecyclerView mTagRecyclerView;
     private TagAdapter mTagAdapter;
+    private boolean isSearching;
+
+
 
     public DiaryFragment(Note note) {
         mNote = note;

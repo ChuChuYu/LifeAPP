@@ -24,5 +24,7 @@ public class SearchContract {
 
         ArrayList<Note> getSearchList(Context context, String tag);
 
+        void showFragment(Note note);
+
     }
 }

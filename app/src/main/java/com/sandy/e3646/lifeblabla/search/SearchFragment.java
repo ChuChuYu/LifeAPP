@@ -35,7 +35,7 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     private TextView mSearchNumber;
     private ImageButton mBackButton;
     private RecyclerView mRecyclerView;
-    private MainAdapter mMainAdapter;
+    private SearchAdapter mSearchAdapter;
 
     public SearchFragment(String tag) {
         mTag = tag;
@@ -62,8 +62,6 @@ public class SearchFragment extends Fragment implements SearchContract.View {
     private void init(View view) {
 
         mNoteList = mPresenter.getSearchList(getContext(), mTag);
-        Log.d("search list", "size 1 : " + mNoteList.size());
-
         mSearchTag = view.findViewById(R.id.search_tag);
         mSearchTag.setText(mTag);
 
@@ -74,8 +72,15 @@ public class SearchFragment extends Fragment implements SearchContract.View {
 
         mRecyclerView = view.findViewById(R.id.search_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mMainAdapter = new MainAdapter(getContext(), mNoteList);
-        mRecyclerView.setAdapter(mMainAdapter);
+
+        mSearchAdapter = new SearchAdapter(getContext(), mNoteList);
+        mRecyclerView.setAdapter(mSearchAdapter);
+//        mMainAdapter.setOnItemListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                mPresenter.showFragment(mNoteList.get((int)view.getTag()));
+//            }
+//        });
 
     }
 

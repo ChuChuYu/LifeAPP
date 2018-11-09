@@ -1,4 +1,4 @@
-package com.sandy.e3646.lifeblabla.main;
+package com.sandy.e3646.lifeblabla.search;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,16 +18,14 @@ import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.util.ArrayList;
 
-public class MainAdapter extends RecyclerView.Adapter {
-
+public class SearchAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private View.OnClickListener mListener;
     private ArrayList<Note> mNoteList;
     private int opened = -1;
 
-    private boolean isSearching;
 
-    public MainAdapter(Context context, ArrayList<Note> noteList) {
+    public SearchAdapter(Context context, ArrayList<Note> noteList) {
         this.mContext = context;
         this.mNoteList = noteList;
     }
@@ -36,7 +34,7 @@ public class MainAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
 
-        return new MainListItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_list_new_new, null));
+        return new SearchAdapter.MainListItemViewHolder(LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_main_list_new_new, null));
 
     }
 
@@ -87,7 +85,7 @@ public class MainAdapter extends RecyclerView.Adapter {
             mLinearLayout = (LinearLayout) itemView.findViewById(R.id.msg_ll);
             mRelativeLayout = (RelativeLayout) itemView.findViewById(R.id.relative_layout);
 
-            mRelativeLayout.setOnLongClickListener(this);
+//            mRelativeLayout.setOnLongClickListener(this);
 
         }
 
@@ -126,11 +124,7 @@ public class MainAdapter extends RecyclerView.Adapter {
         mainListItemViewHolder.mRelativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!isSearching) {
-                    mListener.onClick(view);
-                } else {
-
-                }
+//                    mListener.onClick(view);
             }
         });
 
@@ -284,8 +278,6 @@ public class MainAdapter extends RecyclerView.Adapter {
         }
         return numOfCh;
     }
-
-
 
 
 }

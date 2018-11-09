@@ -102,7 +102,7 @@ public class AccountPresenter implements AccountContract.Presenter {
     public void goSearch(String tag) {
 
         mSearchFragment = new SearchFragment(tag);
-        mSearchPresenter = new SearchPresenter(mSearchFragment);
+        mSearchPresenter = new SearchPresenter(mSearchFragment, mFragmentManager, mMainActPresenter);
 
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

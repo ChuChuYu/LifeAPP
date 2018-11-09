@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,6 +160,8 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
 
     private void initLayoutDiary(MainGridItemViewHolder viewHolder, int i) {
 
+        Log.d("bindview", "");
+
         final MainGridItemViewHolder mainGridItemViewHolder = (MainGridItemViewHolder)viewHolder;
 
         int no = mNoteList.size()-i-1;
@@ -244,7 +247,9 @@ public class MainAdapterGrid extends RecyclerView.Adapter {
                 } else {
 
                     Bitmap bitmap = BitmapFactory.decodeFile(mNoteList.get(no).getmPicture());
-                    Bitmap resized = Bitmap.createScaledBitmap(bitmap, 190, 180, true);
+                    Bitmap resized = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
+
+                    bitmap.recycle();
 
                     mainGridItemViewHolder.mImage.setImageBitmap(resized);
                     mainGridItemViewHolder.mImageBack.setVisibility(View.VISIBLE);

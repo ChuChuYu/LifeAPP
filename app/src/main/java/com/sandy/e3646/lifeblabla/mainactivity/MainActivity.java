@@ -334,6 +334,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
     @Override
     public void showToggleButton() {
+        mToggleButton.setButtonDrawable(R.drawable.button_grid_layout);
         mToggleButton.setVisibility(View.VISIBLE);
     }
 
