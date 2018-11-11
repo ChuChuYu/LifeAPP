@@ -19,7 +19,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.sandy.e3646.lifeblabla"
-        minSdkVersion 23
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 7
         versionName "0.6"

@@ -1,10 +1,16 @@
 package com.sandy.e3646.lifeblabla.setting;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +22,9 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.sandy.e3646.lifeblabla.NotificationService;
 import com.sandy.e3646.lifeblabla.R;
+import com.sandy.e3646.lifeblabla.mainactivity.MainActivity;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -30,6 +38,9 @@ public class SettingFragment extends Fragment implements SettingContract.View {
     private ImageView mTextBackground;
     private EditText mTitle;
     private EditText mText;
+
+    private ImageButton mDiaryTimeButton;
+    private ImageButton mAccountTimeButton;
 
     private ImageButton mAddButton;
     private boolean isExpanded = false;
@@ -111,6 +122,31 @@ public class SettingFragment extends Fragment implements SettingContract.View {
             }
         });
 
+        mDiaryTimeButton = view.findViewById(R.id.button_diary_time);
+        mDiaryTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+//                Log.d("current time", String.valueOf(System.currentTimeMillis()));
+//                sendNotification("diaryedit");
+                Intent intent = new Intent(getContext(), com.sandy.e3646.lifeblabla.NotificationService.class);
+                getContext().startService(intent);
+
+                Intent i = new Intent(getContext(), com.sandy.e3646.lifeblabla.NickyService.class);
+                getContext().startService(i);
+
+            }
+        });
+
+        mAccountTimeButton = view.findViewById(R.id.button_account_time);
+        mAccountTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNotification("accountedit");
+            }
+        });
+
         return view;
     }
 
@@ -121,4 +157,28 @@ public class SettingFragment extends Fragment implements SettingContract.View {
         mPresenter = checkNotNull(presenter);
 
     }
+
+    @Override
+    public void printSometing() {
+        Log.d("service", "is already created.");
+    }
+
+    private void sendNotification(String string) {
+
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.putExtra("fragment", string);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationManager notificationManager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext());
+        builder.setSmallIcon(R.mipmap.ic_launcher_foreground)
+                .setContentTitle("Brandy Note")
+                .setContentText("快來編寫今天的日記吧！")
+                .setWhen(System.currentTimeMillis())
+                .setContentIntent(pendingIntent);
+        notificationManager.notify(1, builder.build());
+    }
+
+
 }

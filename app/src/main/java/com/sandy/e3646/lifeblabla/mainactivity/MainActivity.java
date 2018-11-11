@@ -4,6 +4,8 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,11 +25,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -87,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
         getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         setContentView(R.layout.activity_main);
-
-
 
         View view = getWindow().getDecorView();
         int i = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
@@ -272,6 +274,21 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
             }
         } else {
 
+        }
+
+
+        String intentString = getIntent().getStringExtra("fragment");
+        if (intentString != null) {
+            if (intentString.equals("diaryedit")) {
+                Log.d("intent outcome", "yes");
+                mPresenter.goDiaryEdit();
+                mPresenter.hideComponent();
+                hideBottomNavigationBar();
+            } else if (intentString.equals("accountedit")) {
+                mPresenter.goAccountEdit();
+                mPresenter.hideComponent();
+                hideBottomNavigationBar();
+            }
         }
 
 
@@ -570,5 +587,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     public void onTabReselected(TabLayout.Tab tab) {
 
     }
+
+
 
 }

@@ -116,7 +116,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
 
         switch (requestCode) {
             case 0: //呼叫相簿
-                Uri uri = data.getData();
+//                Uri uri = data.getData();
                 handleImage(data);
                 mMainActPresenter.goJotEdit(mImagePath, null);
                 mMainActPresenter.hideBottomNavigation();
