@@ -83,7 +83,6 @@ public class NotificationService extends Service {
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Log.d("service is running", "");
 
                 if (mSettingFragment == null) {
                     mSettingFragment = new SettingFragment();
