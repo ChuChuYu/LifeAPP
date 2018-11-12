@@ -268,19 +268,19 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mNote.setMonth(month);
             mNote.setDay(day);
             mNote.setTime(time);
-            if (week.equals("Monday")) {
+            if (week.equals("Monday") || week.equals("星期一")) {
                 mNote.setWeek("MON");
-            } else if (week.equals("Tuesday")) {
+            } else if (week.equals("Tuesday") || week.equals("星期二")) {
                 mNote.setWeek("TUE");
-            } else if (week.equals("Wednesday")) {
+            } else if (week.equals("Wednesday") || week.equals("星期三")) {
                 mNote.setWeek("WED");
-            } else if (week.equals("Thursday")) {
+            } else if (week.equals("Thursday") || week.equals("星期四")) {
                 mNote.setWeek("THUR");
-            } else if (week.equals("Friday")) {
+            } else if (week.equals("Friday") || week.equals("星期五")) {
                 mNote.setWeek("FRI");
-            } else if (week.equals("Saturday")) {
+            } else if (week.equals("Saturday") || week.equals("星期六")) {
                 mNote.setWeek("SAT");
-            } else if (week.equals("Sunday")) {
+            } else if (week.equals("Sunday") || week.equals("星期日")) {
                 mNote.setWeek("SUN");
             }
 

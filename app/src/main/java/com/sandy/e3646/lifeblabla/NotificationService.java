@@ -32,7 +32,7 @@ public class NotificationService extends Service {
 
     @Override
     public void onCreate() {
-        Log.d("service is created", "");
+        Log.d("service is created", "sandy is happy");
 
         super.onCreate();
     }
@@ -43,7 +43,7 @@ public class NotificationService extends Service {
         sendNotification("diaryedit");
         printService();
 
-        Log.d("service is running", "");
+        Log.d("service is running", "ken is happy");
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -51,11 +51,13 @@ public class NotificationService extends Service {
     public void onDestroy() {
 
         super.onDestroy();
+
+        Log.d("Service", "destroy");
     }
 
     private void sendNotification(String string) {
 
-        Log.d("service is running", "");
+        Log.d("service is running", "Justin loves j-cup");
 
         Intent intent = new Intent(getApplication(), MainActivity.class);
         intent.putExtra("fragment", string);
@@ -71,24 +73,18 @@ public class NotificationService extends Service {
                 .setContentIntent(pendingIntent);
         notificationManager.notify(1, builder.build());
 
-
     }
 
     public void printService() {
 
-
         if (mTimer == null){
             mTimer = new Timer();
         }
+
         mTimer.schedule(new TimerTask() {
             @Override
             public void run() {
-
-                if (mSettingFragment == null) {
-                    mSettingFragment = new SettingFragment();
-                }
-
-                mSettingFragment.printSometing();
+                Log.d("service", "is still running");
             }
         },1000,500 * 10);
 

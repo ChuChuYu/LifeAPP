@@ -99,7 +99,7 @@ public class SettingFragment extends Fragment implements SettingContract.View {
             }
         });
 
-        mTextSwitch = (Switch)view.findViewById(R.id.switch_text);
+        mTextSwitch = view.findViewById(R.id.switch_text);
         mTextSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -127,6 +127,7 @@ public class SettingFragment extends Fragment implements SettingContract.View {
             @Override
             public void onClick(View view) {
 
+                //job schedule
 
 //                Log.d("current time", String.valueOf(System.currentTimeMillis()));
 //                sendNotification("diaryedit");
