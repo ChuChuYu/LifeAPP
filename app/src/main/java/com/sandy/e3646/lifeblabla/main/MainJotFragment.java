@@ -31,6 +31,8 @@ public class MainJotFragment extends Fragment implements MainContract.View {
 
     private ArrayList<Note> mJotList;
 
+    private boolean isListing;
+
 
     @Nullable
     @Override
@@ -56,7 +58,7 @@ public class MainJotFragment extends Fragment implements MainContract.View {
         mMainAdapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.showdiary(jotList.get((int)view.getTag()));
+                mPresenter.showdiary(jotList.get((int)view.getTag()), isListing);
             }
         });
 
@@ -74,6 +76,7 @@ public class MainJotFragment extends Fragment implements MainContract.View {
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mMainAdapterGrid);
+        isListing = false;
 
     }
 
@@ -82,6 +85,7 @@ public class MainJotFragment extends Fragment implements MainContract.View {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mMainAdapter);
+        isListing = true;
     }
 
     @Override

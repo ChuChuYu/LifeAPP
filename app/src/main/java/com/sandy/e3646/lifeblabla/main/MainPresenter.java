@@ -90,11 +90,11 @@ public class MainPresenter implements MainContract.Presenter {
     }
 
     @Override
-    public void showdiary(Note note) {
+    public void showdiary(Note note, boolean islisting) {
 
         if (note.getmClassification().equals("diary")) {
 
-            mDiaryFragment = new DiaryFragment(note);
+            mDiaryFragment = new DiaryFragment(note, islisting);
             mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
@@ -102,7 +102,7 @@ public class MainPresenter implements MainContract.Presenter {
                     .addToBackStack(null)
                     .commit();
         } else if (note.getmClassification().equals("jot")) {
-            mJotFragment = new JotFragment(note);
+            mJotFragment = new JotFragment(note, islisting);
             mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, mNoteListPosition, mNoteList, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mJotFragment, "JOT")
@@ -113,7 +113,7 @@ public class MainPresenter implements MainContract.Presenter {
 
         } else if (note.getmClassification().equals("account")) {
 
-            mAccountFragment = new AccountFragment(note);
+            mAccountFragment = new AccountFragment(note, islisting);
             mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, mNoteList, mNoteListPosition, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mAccountFragment, "ACCOUNT")

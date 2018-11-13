@@ -50,7 +50,7 @@ public interface DiaryEditContract {
 
         void completeCreating();
 
-        void completeEditing(Note note);
+        void completeEditing(Note note, boolean isListing);
 
         void setMindSelection(String num);
 
@@ -59,6 +59,8 @@ public interface DiaryEditContract {
         void setContext(Context context);
 
         void setNoteList(Note note);
+
+        void showLayout(boolean isListing);
 
 
     }

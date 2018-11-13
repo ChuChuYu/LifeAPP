@@ -24,7 +24,7 @@ public interface JotContract {
 
     interface Presenter extends BasePresenter {
 
-        void backToMain();
+        void backToMain(boolean islisting);
 
         void deleteNoteData(String id);
 
@@ -32,7 +32,7 @@ public interface JotContract {
 
         void showCheckDeleteDialog();
 
-        void goEditJot(boolean isCreating);
+        void goEditJot(boolean isCreating, boolean islisting);
 
         void goSearch(String tag);
 

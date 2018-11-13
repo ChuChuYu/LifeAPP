@@ -41,15 +41,13 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     private ImageView mEmotion;
     private ImageView mWeather;
     private Note mNote;
-
     private RecyclerView mTagRecyclerView;
     private TagAdapter mTagAdapter;
     private boolean isSearching;
-
-
-
-    public DiaryFragment(Note note) {
+    private boolean isListing;
+    public DiaryFragment(Note note, boolean islisting) {
         mNote = note;
+        isListing = islisting;
     }
 
     @Nullable
@@ -59,7 +57,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         View view = inflater.inflate(R.layout.fragment_diary, container, false);
 
         mCreatedTime = (TextView)view.findViewById(R.id.diary_detail_created_time);
-        mTitle = (TextView) view.findViewById(R.id.jot_text);
+        mTitle = (TextView) view.findViewById(R.id.jot_title);
         mText = (TextView)view.findViewById(R.id.jot_text);
         mEmotion = (ImageView)view.findViewById(R.id.note_diary_emotion);
         mWeather = (ImageView)view.findViewById(R.id.note_diary_weather);
@@ -70,7 +68,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goEditDiary(false, mNote);
+                mPresenter.goEditDiary(false, mNote, isListing);
             }
         });
 
@@ -79,7 +77,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
             @Override
             public void onClick(View view) {
 
-                mPresenter.backToMain();
+                mPresenter.backToMain(isListing);
             }
         });
 
@@ -109,7 +107,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
                 if (keyEvent.getAction() == keyEvent.ACTION_UP && i == keyEvent.KEYCODE_BACK) {
 
-                    mPresenter.backToMain();
+                    mPresenter.backToMain(isListing);
                     return false;
                 }
 
@@ -213,8 +211,6 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
             mPicture.setImageURI(Uri.parse(mNote.getPhotoFromCamera()));
 
         }
-
-
 
     }
 

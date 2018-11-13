@@ -34,7 +34,7 @@ public interface MainContract {
 
         void refreshList();
 
-        void showdiary(Note note);
+        void showdiary(Note note, boolean isListing);
 
 
     }

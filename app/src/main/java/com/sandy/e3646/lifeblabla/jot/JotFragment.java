@@ -50,9 +50,11 @@ public class JotFragment extends Fragment implements JotContract.View {
 
 
     private Note mNote;
+    private boolean isListing;
 
-    public JotFragment(Note note) {
+    public JotFragment(Note note, boolean islisting) {
         mNote = note;
+        isListing = islisting;
 
     }
 
@@ -93,7 +95,7 @@ public class JotFragment extends Fragment implements JotContract.View {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.backToMain();
+                mPresenter.backToMain(isListing);
             }
         });
 
@@ -102,7 +104,7 @@ public class JotFragment extends Fragment implements JotContract.View {
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goEditJot(false);
+                mPresenter.goEditJot(false, isListing);
 
 
             }
@@ -130,7 +132,7 @@ public class JotFragment extends Fragment implements JotContract.View {
 
                 if (keyEvent.getAction() == keyEvent.ACTION_UP && i == keyEvent.KEYCODE_BACK) {
 
-                    mPresenter.backToMain();
+                    mPresenter.backToMain(isListing);
                     return false;
                 }
 

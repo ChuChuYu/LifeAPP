@@ -70,21 +70,21 @@ public interface MainActContract {
 
         void refreshMainFragment();
 
-        void showBottomSheet();
+        void showBottomSheet(boolean islisting);
 
         void hideBottomNavigation();
 
         void hideComponent();
 
-        void goDiaryEdit();
+        void goDiaryEdit(boolean isListing);
 
-        void goAccountEdit();
+        void goAccountEdit(boolean isListing);
 
-        void goJotEdit(String imagePath, Uri uri);
+        void goJotEdit(String imagePath, Uri uri, boolean isListing);
 
         void refreshList();
 
-        void showJotBottomSheet();
+        void showJotBottomSheet(boolean islisting);
 
         void goDraw();
 

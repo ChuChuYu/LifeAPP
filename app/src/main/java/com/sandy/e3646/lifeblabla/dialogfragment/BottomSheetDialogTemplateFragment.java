@@ -23,9 +23,11 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
     private ImageButton mConferenceButton;
     private ImageButton mListButton;
     private MainActPresenter mMainActPresenter;
+    private boolean isListing;
 
-    public BottomSheetDialogTemplateFragment(MainActPresenter mainActPresenter) {
+    public BottomSheetDialogTemplateFragment(MainActPresenter mainActPresenter, boolean islisting) {
         mMainActPresenter = mainActPresenter;
+        isListing = islisting;
 
     }
 
@@ -39,7 +41,7 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
         mDiaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainActPresenter.goDiaryEdit();
+                mMainActPresenter.goDiaryEdit(isListing);
                 mMainActPresenter.hideComponent();
                 mMainActPresenter.hideBottomNavigation();
                 dismiss();
@@ -50,7 +52,7 @@ public class BottomSheetDialogTemplateFragment extends BottomSheetDialogFragment
         mAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMainActPresenter.goAccountEdit();
+                mMainActPresenter.goAccountEdit(isListing);
                 mMainActPresenter.hideComponent();
                 mMainActPresenter.hideBottomNavigation();
                 dismiss();

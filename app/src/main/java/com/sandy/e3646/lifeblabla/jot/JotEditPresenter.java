@@ -46,20 +46,26 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
     }
 
     @Override
-    public void completeCreating() {
+    public void completeCreating(boolean islisting) {
 
         mJotEditView.takeJotData();
         mJotEditView.hideUI();
         mMainActPresenter.refreshMainFragment();
 
+        if (islisting == true) {
+            mMainActPresenter.switchToListLayout();
+        } else {
+            mMainActPresenter.switchToGridLayout();
+        }
+
     }
 
     @Override
-    public void completeEditing(Note note) {
+    public void completeEditing(Note note, boolean islisting) {
         mJotEditView.takeJotData();
         mJotEditView.hideUI();
 
-        mJotFragment = new JotFragment(note);
+        mJotFragment = new JotFragment(note, islisting);
         mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, 0, null, note);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

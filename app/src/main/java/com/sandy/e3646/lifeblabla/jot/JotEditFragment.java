@@ -59,12 +59,14 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private String mImagePath;
     private Uri mUri;
 
+    private boolean isListing;
 
-    public JotEditFragment(boolean isCreating, Note note, String imagePath, Uri uri) {
+    public JotEditFragment(boolean isCreating, Note note, String imagePath, Uri uri, boolean islisting) {
         this.isCreating = isCreating;
         mNote = note;
         mImagePath = imagePath;
         mUri = uri;
+        isListing = islisting;
     }
 
 
@@ -114,10 +116,10 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             public void onClick(View view) {
                 if (isCreating) {
 
-                    mPresenter.completeCreating();
+                    mPresenter.completeCreating(isListing);
                 } else {
 
-                    mPresenter.completeEditing(mNote);
+                    mPresenter.completeEditing(mNote, isListing);
 
 
                 }
@@ -268,19 +270,19 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mNote.setMonth(month);
             mNote.setDay(day);
             mNote.setTime(time);
-            if (week.equals("Monday")) {
+            if (week.equals("Monday") || week.equals("星期一")) {
                 mNote.setWeek("MON");
-            } else if (week.equals("Tuesday")) {
+            } else if (week.equals("Tuesday") || week.equals("星期二")) {
                 mNote.setWeek("TUE");
-            } else if (week.equals("Wednesday")) {
+            } else if (week.equals("Wednesday") || week.equals("星期三")) {
                 mNote.setWeek("WED");
-            } else if (week.equals("Thursday")) {
+            } else if (week.equals("Thursday") || week.equals("星期四")) {
                 mNote.setWeek("THUR");
-            } else if (week.equals("Friday")) {
+            } else if (week.equals("Friday") || week.equals("星期五")) {
                 mNote.setWeek("FRI");
-            } else if (week.equals("Saturday")) {
+            } else if (week.equals("Saturday") || week.equals("星期六")) {
                 mNote.setWeek("SAT");
-            } else if (week.equals("Sunday")) {
+            } else if (week.equals("Sunday") || week.equals("星期日")) {
                 mNote.setWeek("SUN");
             }
 
@@ -304,7 +306,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mPresenter.insertJotData(getContext(), mNote);
         } else { //isEditing
 
-//            mNote.setmTitle(mTitle.getText().toString());
             mNote.setmText(mText.getText().toString());
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());

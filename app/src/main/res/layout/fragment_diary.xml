@@ -156,13 +156,13 @@
 
 
             <TextView
-                android:id="@+id/jot_text"
+                android:id="@+id/jot_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="丹麥動物園同志企鵝求子心切，「綁架」鄰家寶寶"
+                android:text="涉事的同志企鵝其實早想擁有"
                 android:textColor="@android:color/background_light"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"

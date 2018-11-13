@@ -2,8 +2,10 @@ package com.sandy.e3646.lifeblabla.diary;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -18,13 +20,17 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +46,7 @@ import android.widget.TextView;
 import com.sandy.e3646.Sqldatabase;
 import com.sandy.e3646.lifeblabla.R;
 import com.sandy.e3646.lifeblabla.adapter.TagEditAdapter;
+import com.sandy.e3646.lifeblabla.mainactivity.MainActivity;
 import com.sandy.e3646.lifeblabla.object.Note;
 
 import java.io.File;
@@ -92,13 +99,16 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private Uri mUri;
 
     private ConstraintLayout mConstraintLayout;
+    private boolean isListing;
 
     private boolean isCreating;
-    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
-    public DiaryEditFragment(boolean iscreating, Note note) {
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
+    public DiaryEditFragment(boolean iscreating, Note note, boolean islisting) {
 
         this.isCreating = iscreating;
         mNote = note;
+        isListing = islisting;
 
     }
 
@@ -117,6 +127,8 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mTagRecyclerView.setLayoutManager(linearLayoutManager);
         mTagEditAdapter = new TagEditAdapter(this, null, null, null);
+        //傳 Fragment 在adapter裡用instance判斷
+
         mTagRecyclerView.setAdapter(mTagEditAdapter);
 
         mBottomBar = view.findViewById(R.id.bottom_bar);
@@ -158,10 +170,11 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
                 if (isCreating) {
                     mPresenter.completeCreating();
+                    mPresenter.showLayout(isListing);
                 } else {
 
                     takeDiaryData();
-                    mPresenter.completeEditing(mNote);
+                    mPresenter.completeEditing(mNote, isListing);
 
                 }
             }
@@ -232,6 +245,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
             }
         });
+
         return view;
     }
 
@@ -304,6 +318,26 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 }
                 break;
 
+            case MY_PERMISSIONS_REQUEST_CAMERA: {
+
+//                if (getContext().grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                } else {
+//
+//                }
+                return;
+            }
+
+            case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
+//                if (grantResults.length > 0
+//                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//                } else {
+//
+//                }
+                return;
+            }
              default:
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -355,19 +389,20 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
             mNote.setMonth(month);
             mNote.setDay(day);
             mNote.setTime(time);
-            if (week.equals("Monday")) {
+
+            if (week.equals("Monday") || week.equals("星期一")) {
                 mNote.setWeek("MON");
-            } else if (week.equals("Tuesday")) {
+            } else if (week.equals("Tuesday") || week.equals("星期二")) {
                 mNote.setWeek("TUE");
-            } else if (week.equals("Wednesday")) {
+            } else if (week.equals("Wednesday") || week.equals("星期三")) {
                 mNote.setWeek("WED");
-            } else if (week.equals("Thursday")) {
+            } else if (week.equals("Thursday") || week.equals("星期四")) {
                 mNote.setWeek("THUR");
-            } else if (week.equals("Friday")) {
+            } else if (week.equals("Friday") || week.equals("星期五")) {
                 mNote.setWeek("FRI");
-            } else if (week.equals("Saturday")) {
+            } else if (week.equals("Saturday") || week.equals("星期六")) {
                 mNote.setWeek("SAT");
-            } else if (week.equals("Sunday")) {
+            } else if (week.equals("Sunday") || week.equals("星期日")) {
                 mNote.setWeek("SUN");
             }
 

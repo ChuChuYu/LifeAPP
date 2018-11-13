@@ -54,10 +54,15 @@ public class AccountPresenter implements AccountContract.Presenter {
     }
 
     @Override
-    public void backToMain() {
+    public void backToMain(boolean isListing) {
         mAccountView.hideUI();
         mMainActPresenter.refreshMainFragment();
 //        mMainActPresenter.backToMain();
+        if (isListing) {
+            mMainActPresenter.switchToListLayout();
+        } else {
+            mMainActPresenter.switchToGridLayout();
+        }
     }
 
     @Override
@@ -79,7 +84,7 @@ public class AccountPresenter implements AccountContract.Presenter {
     }
 
     @Override
-    public void goEditAccount(boolean isCreating, Note note) {
+    public void goEditAccount(boolean isCreating, Note note, boolean islisting) {
 
         if (mNoteList != null) {
             mNote = mNoteList.get(mNotePosition);
@@ -87,7 +92,7 @@ public class AccountPresenter implements AccountContract.Presenter {
             mNote = note;
         }
 
-        mAccountEditFragment = new AccountEditFragment(false, note);
+        mAccountEditFragment = new AccountEditFragment(false, note, islisting);
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, mMainActPresenter, false);
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.account_container, mAccountEditFragment, "EDIT ACCOUNT")

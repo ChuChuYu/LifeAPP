@@ -9,6 +9,8 @@ public interface SettingContract {
 
         void setPresenter(Presenter presenter);
 
+        void printSometing();
+
 
     }
 
