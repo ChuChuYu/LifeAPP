@@ -88,7 +88,7 @@ public class AccountFragment extends Fragment implements AccountContract.View {
             @Override
             public void onClick(View view) {
 
-                mPresenter.goEditAccount(false, mNote);
+                mPresenter.goEditAccount(false, mNote, isListing);
             }
         });
 

@@ -28,7 +28,7 @@ public interface AccountContract {
 
         void completeDeleting();
 
-        void goEditAccount(boolean isCreating, Note note);
+        void goEditAccount(boolean isCreating, Note note, boolean islisting);
 
         void goSearch(String tag);
 

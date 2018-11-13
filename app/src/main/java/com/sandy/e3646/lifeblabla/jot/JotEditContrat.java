@@ -29,7 +29,7 @@ public interface JotEditContrat {
 
         void completeCreating(boolean islisting);
 
-        void completeEditing(Note note);
+        void completeEditing(Note note, boolean islisting);
 
         void insertJotData(Context context, Note note);
 

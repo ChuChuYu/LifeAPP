@@ -104,7 +104,7 @@ public class JotFragment extends Fragment implements JotContract.View {
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goEditJot(false);
+                mPresenter.goEditJot(false, isListing);
 
 
             }

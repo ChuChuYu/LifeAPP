@@ -119,7 +119,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
                     mPresenter.completeCreating(isListing);
                 } else {
 
-                    mPresenter.completeEditing(mNote);
+                    mPresenter.completeEditing(mNote, isListing);
 
 
                 }

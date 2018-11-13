@@ -61,11 +61,11 @@ public class JotEditPresenter implements JotEditContrat.Presenter {
     }
 
     @Override
-    public void completeEditing(Note note) {
+    public void completeEditing(Note note, boolean islisting) {
         mJotEditView.takeJotData();
         mJotEditView.hideUI();
 
-        mJotFragment = new JotFragment(note, true);
+        mJotFragment = new JotFragment(note, islisting);
         mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter, 0, null, note);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

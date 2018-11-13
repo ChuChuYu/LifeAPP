@@ -84,10 +84,10 @@ public class JotPresenter implements JotContract.Presenter {
     }
 
     @Override
-    public void goEditJot(boolean isCreating) {
+    public void goEditJot(boolean isCreating, boolean islisting) {
 //        Note note = mNoteList.get(mNotePosition);
 
-        mJotEditFragment = new JotEditFragment(isCreating, mNote, mNote.getmPicture(), Uri.parse(mNote.getPhotoFromCamera()), true);
+        mJotEditFragment = new JotEditFragment(isCreating, mNote, mNote.getmPicture(), Uri.parse(mNote.getPhotoFromCamera()), islisting);
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

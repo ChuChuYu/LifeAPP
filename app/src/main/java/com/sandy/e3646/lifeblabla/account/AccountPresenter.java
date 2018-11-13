@@ -84,7 +84,7 @@ public class AccountPresenter implements AccountContract.Presenter {
     }
 
     @Override
-    public void goEditAccount(boolean isCreating, Note note) {
+    public void goEditAccount(boolean isCreating, Note note, boolean islisting) {
 
         if (mNoteList != null) {
             mNote = mNoteList.get(mNotePosition);
@@ -92,7 +92,7 @@ public class AccountPresenter implements AccountContract.Presenter {
             mNote = note;
         }
 
-        mAccountEditFragment = new AccountEditFragment(false, note, true);
+        mAccountEditFragment = new AccountEditFragment(false, note, islisting);
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, mMainActPresenter, false);
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         transaction.replace(R.id.account_container, mAccountEditFragment, "EDIT ACCOUNT")

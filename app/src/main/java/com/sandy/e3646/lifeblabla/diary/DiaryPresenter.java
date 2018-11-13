@@ -50,7 +50,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     }
 
     @Override
-    public void goEditDiary(boolean isCreating, Note note) {
+    public void goEditDiary(boolean isCreating, Note note, boolean islisting) {
 
         if (mNoteList != null) {
             mNote = mNoteList.get(mNotePosition);
@@ -58,7 +58,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
             mNote = note;
         }
 
-        mDiaryEditFragment = new DiaryEditFragment(isCreating, note, true);
+        mDiaryEditFragment = new DiaryEditFragment(isCreating, note, islisting);
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

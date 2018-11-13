@@ -174,7 +174,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
                 } else {
 
                     takeDiaryData();
-                    mPresenter.completeEditing(mNote);
+                    mPresenter.completeEditing(mNote, isListing);
 
                 }
             }

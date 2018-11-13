@@ -68,7 +68,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
         mEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.goEditDiary(false, mNote);
+                mPresenter.goEditDiary(false, mNote, isListing);
             }
         });
 

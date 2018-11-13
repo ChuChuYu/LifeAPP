@@ -32,7 +32,7 @@ public interface JotContract {
 
         void showCheckDeleteDialog();
 
-        void goEditJot(boolean isCreating);
+        void goEditJot(boolean isCreating, boolean islisting);
 
         void goSearch(String tag);
 

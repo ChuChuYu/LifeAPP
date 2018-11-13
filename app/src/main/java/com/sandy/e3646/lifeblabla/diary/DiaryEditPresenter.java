@@ -102,11 +102,11 @@ public class DiaryEditPresenter implements DiaryEditContract.Presenter {
     }
 
     @Override
-    public void completeEditing(Note note) {
+    public void completeEditing(Note note, boolean isListing) {
 
         mDiaryEditView.hideUI();
 
-        mDiaryFragment = new DiaryFragment(note, true);
+        mDiaryFragment = new DiaryFragment(note, isListing);
         mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, note);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

@@ -219,7 +219,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
                 } else {
 
                     takeNoteData();
-                    mPresenter.completeEditing(mNote);
+                    mPresenter.completeEditing(mNote, isListing);
 
                 }
             }

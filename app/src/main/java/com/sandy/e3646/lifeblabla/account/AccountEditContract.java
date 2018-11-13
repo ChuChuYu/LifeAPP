@@ -46,7 +46,7 @@ public interface AccountEditContract {
 
         void completeCreating(boolean islisting);
 
-        void completeEditing(Note note);
+        void completeEditing(Note note, boolean islisting);
 
         void saveNoteData(Context context, Note note);
 
