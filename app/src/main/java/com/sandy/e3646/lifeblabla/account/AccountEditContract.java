@@ -44,7 +44,7 @@ public interface AccountEditContract {
 
         void cancelEditing();
 
-        void completeCreating();
+        void completeCreating(boolean islisting);
 
         void completeEditing(Note note);
 

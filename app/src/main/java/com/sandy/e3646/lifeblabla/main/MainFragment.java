@@ -38,6 +38,8 @@ public class MainFragment extends Fragment implements MainContract.View {
     private LinearLayoutManager mLinearLayoutManager;
     private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
 
+    private boolean isListing = true;
+
 
     @Nullable
     @Override
@@ -66,18 +68,22 @@ public class MainFragment extends Fragment implements MainContract.View {
         mMainAdapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                mPresenter.showdiary(mNoteList.get((int)view.getTag()));
-
+                mPresenter.showdiary(mNoteList.get((int)view.getTag()), isListing);
             }
         });
 
         mMainAdapterGrid.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.showdiary(mNoteList.get((int)view.getTag()));
+                mPresenter.showdiary(mNoteList.get((int)view.getTag()), isListing);
             }
         });
+
+        if (isListing == true) {
+            showListLayout();
+        } else {
+            showGridLayout();
+        }
 
         return view;
     }
@@ -92,12 +98,18 @@ public class MainFragment extends Fragment implements MainContract.View {
     public void showGridLayout() {
         mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
         mRecyclerView.setAdapter(mMainAdapterGrid);
+        isListing = false;
     }
 
     @Override
     public void showListLayout() {
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
         mRecyclerView.setAdapter(mMainAdapter);
+        isListing = true;
+    }
+
+    public void initLayout() {
+
     }
 
     @Override

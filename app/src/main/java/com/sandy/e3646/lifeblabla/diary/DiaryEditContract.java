@@ -60,6 +60,8 @@ public interface DiaryEditContract {
 
         void setNoteList(Note note);
 
+        void showLayout(boolean isListing);
+
 
     }
 }

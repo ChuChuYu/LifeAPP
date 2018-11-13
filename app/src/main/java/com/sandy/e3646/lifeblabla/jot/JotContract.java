@@ -24,7 +24,7 @@ public interface JotContract {
 
     interface Presenter extends BasePresenter {
 
-        void backToMain();
+        void backToMain(boolean islisting);
 
         void deleteNoteData(String id);
 

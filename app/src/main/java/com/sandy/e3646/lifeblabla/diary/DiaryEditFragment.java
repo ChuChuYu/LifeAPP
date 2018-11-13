@@ -99,14 +99,16 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
     private Uri mUri;
 
     private ConstraintLayout mConstraintLayout;
+    private boolean isListing;
 
     private boolean isCreating;
     private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
-    public DiaryEditFragment(boolean iscreating, Note note) {
+    public DiaryEditFragment(boolean iscreating, Note note, boolean islisting) {
 
         this.isCreating = iscreating;
         mNote = note;
+        isListing = islisting;
 
     }
 
@@ -168,6 +170,7 @@ public class DiaryEditFragment extends Fragment implements DiaryEditContract.Vie
 
                 if (isCreating) {
                     mPresenter.completeCreating();
+                    mPresenter.showLayout(isListing);
                 } else {
 
                     takeDiaryData();

@@ -44,8 +44,10 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
     private RecyclerView mTagRecyclerView;
     private TagAdapter mTagAdapter;
     private boolean isSearching;
-    public DiaryFragment(Note note) {
+    private boolean isListing;
+    public DiaryFragment(Note note, boolean islisting) {
         mNote = note;
+        isListing = islisting;
     }
 
     @Nullable
@@ -75,7 +77,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
             @Override
             public void onClick(View view) {
 
-                mPresenter.backToMain();
+                mPresenter.backToMain(isListing);
             }
         });
 
@@ -105,7 +107,7 @@ public class DiaryFragment extends Fragment implements DiaryContract.View {
 
                 if (keyEvent.getAction() == keyEvent.ACTION_UP && i == keyEvent.KEYCODE_BACK) {
 
-                    mPresenter.backToMain();
+                    mPresenter.backToMain(isListing);
                     return false;
                 }
 

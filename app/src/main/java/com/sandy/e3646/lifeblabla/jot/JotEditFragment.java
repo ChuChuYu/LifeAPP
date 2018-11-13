@@ -59,12 +59,14 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
     private String mImagePath;
     private Uri mUri;
 
+    private boolean isListing;
 
-    public JotEditFragment(boolean isCreating, Note note, String imagePath, Uri uri) {
+    public JotEditFragment(boolean isCreating, Note note, String imagePath, Uri uri, boolean islisting) {
         this.isCreating = isCreating;
         mNote = note;
         mImagePath = imagePath;
         mUri = uri;
+        isListing = islisting;
     }
 
 
@@ -114,7 +116,7 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             public void onClick(View view) {
                 if (isCreating) {
 
-                    mPresenter.completeCreating();
+                    mPresenter.completeCreating(isListing);
                 } else {
 
                     mPresenter.completeEditing(mNote);
@@ -304,7 +306,6 @@ public class JotEditFragment extends Fragment implements JotEditContrat.View, Vi
             mPresenter.insertJotData(getContext(), mNote);
         } else { //isEditing
 
-//            mNote.setmTitle(mTitle.getText().toString());
             mNote.setmText(mText.getText().toString());
             if (mUri != null) {
                 mNote.setPhotoFromCamera(mUri.toString());

@@ -20,7 +20,7 @@ public interface AccountContract {
 
     interface Presenter extends BasePresenter {
 
-        void backToMain();
+        void backToMain(boolean isListing);
 
         void showCheckDeleteDialog();
 

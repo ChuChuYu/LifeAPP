@@ -58,7 +58,7 @@ public class DiaryPresenter implements DiaryContract.Presenter {
             mNote = note;
         }
 
-        mDiaryEditFragment = new DiaryEditFragment(isCreating, note);
+        mDiaryEditFragment = new DiaryEditFragment(isCreating, note, true);
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -75,10 +75,16 @@ public class DiaryPresenter implements DiaryContract.Presenter {
     }
 
     @Override
-    public void backToMain() {
+    public void backToMain(boolean islisting) {
         mDiaryView.hideUI();
         mMainActPresenter.refreshMainFragment();
         mMainActPresenter.backToMain();
+
+        if (islisting == true) {
+            mMainActPresenter.switchToListLayout();
+        } else {
+            mMainActPresenter.switchToGridLayout();
+        }
 
 
     }

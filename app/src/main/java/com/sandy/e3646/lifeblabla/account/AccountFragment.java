@@ -53,10 +53,12 @@ public class AccountFragment extends Fragment implements AccountContract.View {
 
     private RecyclerView mTagRecycelrview;
     private TagAdapter mTagAdapter;
+    private boolean isListing;
 
-    public AccountFragment(Note note) {
+    public AccountFragment(Note note, boolean islisting) {
 
         mNote = note;
+        isListing = islisting;
     }
 
 
@@ -71,7 +73,7 @@ public class AccountFragment extends Fragment implements AccountContract.View {
         mBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.backToMain();
+                mPresenter.backToMain(isListing);
             }
         });
 
@@ -105,7 +107,7 @@ public class AccountFragment extends Fragment implements AccountContract.View {
 
                 if (keyEvent.getAction() == keyEvent.ACTION_UP && i == keyEvent.KEYCODE_BACK) {
 
-                    mPresenter.backToMain();
+                    mPresenter.backToMain(isListing);
                     return false;
                 }
 

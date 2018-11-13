@@ -37,6 +37,8 @@ public class MainDiaryFragment extends Fragment implements MainContract.View{
     private FragmentManager mFragmentManager;
     private MainActPresenter mMainActPresenter;
 
+    private boolean isListing;
+
     public MainDiaryFragment(FragmentManager fragmentManager) {
         mFragmentManager = fragmentManager;
     }
@@ -68,7 +70,7 @@ public class MainDiaryFragment extends Fragment implements MainContract.View{
             public void onClick(View view) {
 
                 if (diaryList.get((int)view.getTag()).getmClassification().equals("diary")) {
-                    mPresenter.showdiary(diaryList.get((int)view.getTag()));
+                    mPresenter.showdiary(diaryList.get((int)view.getTag()), isListing);
                 }
             }
         });
@@ -89,12 +91,16 @@ public class MainDiaryFragment extends Fragment implements MainContract.View{
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mMainAdapterGrid);
 
+        isListing = false;
+
     }
 
     @Override
     public void showListLayout() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setAdapter(mMainAdapter);
+
+        isListing = true;
 
     }
 

@@ -53,11 +53,16 @@ public class JotPresenter implements JotContract.Presenter {
     }
 
     @Override
-    public void backToMain() {
+    public void backToMain(boolean islisting) {
 
         mJotView.hideUI();
         mMainActPresenter.refreshMainFragment();
 //        mMainActPresenter.backToMain();
+        if (islisting) {
+            mMainActPresenter.switchToListLayout();
+        } else {
+            mMainActPresenter.switchToGridLayout();
+        }
 
     }
 
@@ -68,7 +73,7 @@ public class JotPresenter implements JotContract.Presenter {
 
     @Override
     public void completeDeleting() {
-        backToMain();
+        backToMain(true);
 
     }
 
@@ -82,7 +87,7 @@ public class JotPresenter implements JotContract.Presenter {
     public void goEditJot(boolean isCreating) {
 //        Note note = mNoteList.get(mNotePosition);
 
-        mJotEditFragment = new JotEditFragment(isCreating, mNote, mNote.getmPicture(), Uri.parse(mNote.getPhotoFromCamera()));
+        mJotEditFragment = new JotEditFragment(isCreating, mNote, mNote.getmPicture(), Uri.parse(mNote.getPhotoFromCamera()), true);
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, mMainActPresenter, this, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

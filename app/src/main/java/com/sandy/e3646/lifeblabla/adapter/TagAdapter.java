@@ -100,4 +100,7 @@ public class TagAdapter extends RecyclerView.Adapter {
         return numOfCh;
     }
 
+
+
+
 }

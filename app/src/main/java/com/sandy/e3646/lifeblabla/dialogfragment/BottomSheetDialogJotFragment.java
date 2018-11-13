@@ -48,9 +48,11 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
     private Context mContext;
     private String mImagePath;
     private Uri mUri;
+    private boolean isListing;
 
-    public BottomSheetDialogJotFragment(MainActPresenter mainActPresenter) {
+    public BottomSheetDialogJotFragment(MainActPresenter mainActPresenter, boolean islisting) {
         mMainActPresenter = mainActPresenter;
+        isListing = islisting;
     }
 
 
@@ -67,7 +69,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
             @Override
             public void onClick(View view) {
 
-                mMainActPresenter.goJotEdit(null, null);
+                mMainActPresenter.goJotEdit(null, null, isListing);
                 mMainActPresenter.hideBottomNavigation();
                 mMainActPresenter.hideComponent();
                 dismiss();
@@ -118,7 +120,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
             case 0: //呼叫相簿
 //                Uri uri = data.getData();
                 handleImage(data);
-                mMainActPresenter.goJotEdit(mImagePath, null);
+                mMainActPresenter.goJotEdit(mImagePath, null, isListing);
                 mMainActPresenter.hideBottomNavigation();
                 mMainActPresenter.hideComponent();
                 dismiss();
@@ -127,7 +129,7 @@ public class BottomSheetDialogJotFragment extends BottomSheetDialogFragment {
             case 1:
                 if (resultCode == RESULT_OK) {
 
-                    mMainActPresenter.goJotEdit(null, mUri);
+                    mMainActPresenter.goJotEdit(null, mUri, isListing);
                     mMainActPresenter.hideBottomNavigation();
                     mMainActPresenter.hideComponent();
                     dismiss();

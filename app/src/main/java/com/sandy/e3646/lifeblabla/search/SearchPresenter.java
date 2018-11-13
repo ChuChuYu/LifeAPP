@@ -72,7 +72,7 @@ public class SearchPresenter implements SearchContract.Presenter {
     public void showFragment(Note note) {
         if (note.getmClassification().equals("diary")) {
 
-            mDiaryFragment = new DiaryFragment(note);
+            mDiaryFragment = new DiaryFragment(note, true);
             mDiaryPresenter = new DiaryPresenter(mDiaryFragment, mFragmentManager, mMainActPresenter, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mDiaryFragment, "DIARY")
@@ -80,7 +80,7 @@ public class SearchPresenter implements SearchContract.Presenter {
                     .addToBackStack(null)
                     .commit();
         } else if (note.getmClassification().equals("jot")) {
-            mJotFragment = new JotFragment(note);
+            mJotFragment = new JotFragment(note, true);
             mJotPresenter = new JotPresenter(mJotFragment, mFragmentManager, mMainActPresenter,0, null, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mJotFragment, "JOT")
@@ -90,7 +90,7 @@ public class SearchPresenter implements SearchContract.Presenter {
 
         } else if (note.getmClassification().equals("account")) {
 
-            mAccountFragment = new AccountFragment(note);
+            mAccountFragment = new AccountFragment(note, true);
             mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, null, 0, note);
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
             transaction.replace(R.id.whole_container, mAccountFragment, "ACCOUNT")

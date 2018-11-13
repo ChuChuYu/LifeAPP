@@ -34,6 +34,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 200;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 300;
 
+    private boolean isListing = true;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -125,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
                     mToggleButton.setButtonDrawable(R.drawable.button_layout_list);
                     mPresenter.switchToGridLayout();
+                    isListing = false;
                 } else {
 
                     if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
@@ -132,6 +135,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                     } else {
                         mToggleButton.setButtonDrawable(R.drawable.button_grid_layout);
                         mPresenter.switchToListLayout();
+                        isListing = true;
                     }
 
 
@@ -143,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         mAddNotesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.showJotBottomSheet();
+                mPresenter.showJotBottomSheet(isListing);
 
             }
         });
@@ -159,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
                         mPresenter.goMain();
                         break;
                     case R.id.main_post:
-                        mPresenter.showBottomSheet();
+                        mPresenter.showBottomSheet(isListing);
                         break;
                     case R.id.main_setting:
                         mPresenter.gosetting();
@@ -281,11 +285,11 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
         if (intentString != null) {
             if (intentString.equals("diaryedit")) {
                 Log.d("intent outcome", "yes");
-                mPresenter.goDiaryEdit();
+                mPresenter.goDiaryEdit(true);
                 mPresenter.hideComponent();
                 hideBottomNavigationBar();
             } else if (intentString.equals("accountedit")) {
-                mPresenter.goAccountEdit();
+                mPresenter.goAccountEdit(true);
                 mPresenter.hideComponent();
                 hideBottomNavigationBar();
             }
@@ -471,7 +475,16 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
             public Fragment getItem(int i) {
                 switch (i) {
                     case 0:
+//                        if (mMainFragment != null) {
+//                            if (isListing) {
+//
+//                                mMainFragment.showListLayout();
+//                            } else {
+//                                mMainFragment.showGridLayout();
+//                            }
+//                        }
                         return mMainFragment;
+
                     case 1:
                         return mMainDiaryFragment;
                     case 2:
@@ -517,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements MainActContract.V
 
     @Override
     public void showToggleButton() {
-        mToggleButton.setButtonDrawable(R.drawable.button_grid_layout);
+//        mToggleButton.setButtonDrawable(R.drawable.button_grid_layout);
         mToggleButton.setVisibility(View.VISIBLE);
     }
 

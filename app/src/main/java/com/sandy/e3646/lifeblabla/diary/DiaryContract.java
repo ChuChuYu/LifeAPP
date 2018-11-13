@@ -24,7 +24,7 @@ public interface DiaryContract {
 
         void goEditDiary(boolean isCreating, Note note);
 
-        void backToMain();
+        void backToMain(boolean islisting);
 
         void setDiaryData();
 

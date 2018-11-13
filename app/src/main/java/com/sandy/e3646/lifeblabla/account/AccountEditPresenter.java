@@ -46,11 +46,16 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
     }
 
     @Override
-    public void completeCreating() {
+    public void completeCreating(boolean islisting) {
 
         mAccountEditView.takeNoteData();
         mAccountEditView.hideUi();
         mMainActPresenter.refreshMainFragment();
+        if (islisting == true) {
+            mMainActPresenter.switchToListLayout();
+        } else {
+            mMainActPresenter.switchToGridLayout();
+        }
 
     }
 
@@ -59,7 +64,7 @@ public class AccountEditPresenter implements AccountEditContract.Presenter {
 
         mAccountEditView.hideUi();
 
-        mAccountFragment = new AccountFragment(note);
+        mAccountFragment = new AccountFragment(note, true);
         mAccountPresenter = new AccountPresenter(mAccountFragment, mFragmentManager, mMainActPresenter, null, 0, note);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();

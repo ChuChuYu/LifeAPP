@@ -89,8 +89,9 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
     private Integer mTotalExpense = 0;
     private Integer mTotalBalance = 0;
     private ConstraintLayout mBottomBar;
+    private boolean isListing;
 
-    public AccountEditFragment(boolean iscreating, Note note) {
+    public AccountEditFragment(boolean iscreating, Note note, boolean islisting) {
         isCreating = iscreating;
         mNote = note;
         if (!isCreating) {
@@ -98,6 +99,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             mTotalExpense = Integer.parseInt(mNote.getAccountExpense());
             mTotalBalance = Integer.parseInt(mNote.getAccountBalance());
         }
+        isListing = islisting;
     }
 
     @Nullable
@@ -212,7 +214,7 @@ public class AccountEditFragment extends Fragment implements AccountEditContract
             public void onClick(View view) {
 
                 if (isCreating) {
-                    mPresenter.completeCreating();
+                    mPresenter.completeCreating(isListing);
 
                 } else {
 

@@ -212,18 +212,21 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void refreshMainFragment() {
 
-        mMainActView.showMainUI();
-        mMainActView.showMainPage();
-        mMainActView.refreshMainPage("");
+
+
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
         mMainActView.showToggleButton();
+
+        mMainActView.showMainUI();
+        mMainActView.showMainPage();
+        mMainActView.refreshMainPage("");
     }
 
     @Override
-    public void showBottomSheet() {
-        BottomSheetDialogTemplateFragment bottomSheetDialogFragment = new BottomSheetDialogTemplateFragment(this);
+    public void showBottomSheet(boolean isListing) {
+        BottomSheetDialogTemplateFragment bottomSheetDialogFragment = new BottomSheetDialogTemplateFragment(this, isListing);
         bottomSheetDialogFragment.show(mFragmentManager, bottomSheetDialogFragment.getTag());
     }
 
@@ -241,9 +244,9 @@ public class MainActPresenter implements MainActContract.Presenter {
     }
 
     @Override
-    public void goDiaryEdit() {
+    public void goDiaryEdit(boolean islisting) {
 
-        mDiaryEditFragment = new DiaryEditFragment(true, null);
+        mDiaryEditFragment = new DiaryEditFragment(true, null, islisting);
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -256,9 +259,9 @@ public class MainActPresenter implements MainActContract.Presenter {
     }
 
     @Override
-    public void goAccountEdit() {
+    public void goAccountEdit(boolean islisting) {
 
-        mAccountEditFragment = new AccountEditFragment(true, null);
+        mAccountEditFragment = new AccountEditFragment(true, null, islisting);
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -271,9 +274,9 @@ public class MainActPresenter implements MainActContract.Presenter {
 
 
     @Override
-    public void goJotEdit(String imagePath, Uri uri) {
+    public void goJotEdit(String imagePath, Uri uri, boolean islisting) {
 
-        mJotEditFragment = new JotEditFragment(true, null, imagePath, uri);
+        mJotEditFragment = new JotEditFragment(true, null, imagePath, uri, islisting);
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
@@ -290,8 +293,8 @@ public class MainActPresenter implements MainActContract.Presenter {
     }
 
     @Override
-    public void showJotBottomSheet() {
-        BottomSheetDialogJotFragment bottomSheetDialogJotFragment = new BottomSheetDialogJotFragment(this);
+    public void showJotBottomSheet(boolean islisting) {
+        BottomSheetDialogJotFragment bottomSheetDialogJotFragment = new BottomSheetDialogJotFragment(this, islisting);
         bottomSheetDialogJotFragment.show(mFragmentManager, bottomSheetDialogJotFragment.getTag());
     }
 

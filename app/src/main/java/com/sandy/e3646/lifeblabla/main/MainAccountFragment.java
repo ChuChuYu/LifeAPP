@@ -27,6 +27,7 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
     private MainAdapter mMainAdapter;
     private MainAdapterGrid mMainAdapterGrid;
     private MainContract.Presenter mPresenter;
+    private boolean isListing;
 
     @Nullable
     @Override
@@ -52,7 +53,7 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
         mMainAdapter.setOnItemListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.showdiary(accountList.get((int)view.getTag()));
+                mPresenter.showdiary(accountList.get((int)view.getTag()), isListing);
             }
         });
 
@@ -60,7 +61,7 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
             @Override
             public void onClick(View view) {
                 Log.d("click", ".....");
-                mPresenter.showdiary(accountList.get((int)view.getTag()));
+                mPresenter.showdiary(accountList.get((int)view.getTag()), isListing);
             }
         });
 
@@ -82,6 +83,7 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
 
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerView.setAdapter(mMainAdapterGrid);
+        isListing = false;
 
     }
 
@@ -90,6 +92,7 @@ public class MainAccountFragment extends Fragment implements MainContract.View {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        mRecyclerView.addItemDecoration(new SpacesItemDecoration(20));
         mRecyclerView.setAdapter(mMainAdapter);
+        isListing = true;
 
     }
 
