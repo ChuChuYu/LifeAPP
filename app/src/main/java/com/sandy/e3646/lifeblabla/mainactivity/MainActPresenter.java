@@ -142,6 +142,7 @@ public class MainActPresenter implements MainActContract.Presenter {
     public void goMain() {
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.hide(mSettingFragment)
                 .commit();
 
@@ -166,6 +167,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         }
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction
                 .replace(R.id.whole_container, mSettingFragment)
                 .show(mSettingFragment)
@@ -212,8 +214,6 @@ public class MainActPresenter implements MainActContract.Presenter {
     @Override
     public void refreshMainFragment() {
 
-
-
         mMainActView.showAddNoteButton();
         mMainActView.showToolBar();
         mMainActView.showBottomNaviagtion();
@@ -250,7 +250,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mDiaryEditPresenter = new DiaryEditPresenter(mDiaryEditFragment, mFragmentManager, this, null, false);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.scalex_enter, R.anim.scalex_exit);
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.whole_container, mDiaryEditFragment, "EDIT DIARY")
                 .show(mDiaryEditFragment)
                 .addToBackStack(null)
@@ -265,7 +265,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mAccountEditPresenter = new AccountEditPresenter(mAccountEditFragment, mFragmentManager, this, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.scalex_enter, R.anim.scalex_exit);
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.whole_container, mAccountEditFragment, "EDIT ACCOUNT")
                 .show(mAccountEditFragment)
                 .addToBackStack(null)
@@ -280,7 +280,7 @@ public class MainActPresenter implements MainActContract.Presenter {
         mJotEditPresenter = new JotEditPresenter(mJotEditFragment, mFragmentManager, this, null, true);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(R.anim.scalex_enter, R.anim.scalex_exit);
+        transaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
         transaction.replace(R.id.whole_container, mJotEditFragment, "EDIT JOT")
                 .show(mJotEditFragment)
                 .addToBackStack(null)
